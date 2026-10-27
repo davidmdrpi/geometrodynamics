@@ -1,0 +1,43 @@
+{
+  "interpretation": "Vector Maxwell reference and antipodal eligibility audited separately; no BAM recoil trajectory",
+  "angular_radius": 0.3,
+  "birth_speed": 0.3333333333333333,
+  "footprint": 0.12,
+  "charge": 0.75,
+  "mass": 1.0,
+  "frequency_law": "sqrt(l(l+1)); no extra imposed caustic phase",
+  "directional_cases": 108,
+  "window_cases": 144,
+  "first_flight_cases": 40,
+  "eligible_source_events": 24,
+  "standard_first_flight_captures": 0,
+  "first_antipode_reference": {
+    "angle": 0.3,
+    "return_number": 1,
+    "offset_ratio": 0.0,
+    "source": "coherent_pair",
+    "center_electric": [
+      0.1778438094836032,
+      6.811259118478409e-18
+    ],
+    "radial_m0": -1.6588293239028218e-17,
+    "azimuthal_m0": 2.425902360936316e-18,
+    "radial_m1": [
+      0.137591428845671,
+      1.07742590890747e-17
+    ],
+    "azimuthal_m1": [
+      5.1228552649940085e-18,
+      -0.07481545455649534
+    ],
+    "transported_mean": [
+      0.10620344170108317,
+      7.948557177034354e-18
+    ]
+  },
+  "maximum_power_residual": 8.326672684688674e-17,
+  "cutoff_48_64_center_difference": 2.7755575615628914e-17,
+  "cutoff_48_64_rim_difference": 0.0,
+  "rim_128_256_difference": 4.205668140204281e-17,
+  "preserved_negative_result": "No demonstrated sustained approach, collapse or bound trajectory; scalar candidate remains negative."
+}

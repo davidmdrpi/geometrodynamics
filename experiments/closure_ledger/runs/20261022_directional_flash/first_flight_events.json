@@ -1,0 +1,4854 @@
+[
+  {
+    "angle": 0.05,
+    "speed": 0.01,
+    "contact_time": 304.15926535897927,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 20,
+        "time": 62.83185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 21,
+        "time": 65.97344572538566,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 22,
+        "time": 69.11503837897544,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 23,
+        "time": 72.25663103256524,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 24,
+        "time": 75.39822368615503,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 25,
+        "time": 78.53981633974483,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 26,
+        "time": 81.68140899333463,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 27,
+        "time": 84.82300164692441,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 28,
+        "time": 87.96459430051421,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 29,
+        "time": 91.106186954104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 30,
+        "time": 94.24777960769379,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 31,
+        "time": 97.38937226128358,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 32,
+        "time": 100.53096491487338,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 33,
+        "time": 103.67255756846318,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 34,
+        "time": 106.81415022205297,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 35,
+        "time": 109.95574287564276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 36,
+        "time": 113.09733552923255,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 37,
+        "time": 116.23892818282235,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 38,
+        "time": 119.38052083641213,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 39,
+        "time": 122.52211349000193,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 40,
+        "time": 125.66370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 41,
+        "time": 128.8052987971815,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 42,
+        "time": 131.94689145077132,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 43,
+        "time": 135.0884841043611,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 44,
+        "time": 138.23007675795088,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 45,
+        "time": 141.3716694115407,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 46,
+        "time": 144.51326206513048,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 47,
+        "time": 147.6548547187203,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 48,
+        "time": 150.79644737231007,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 49,
+        "time": 153.93804002589985,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 50,
+        "time": 157.07963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 51,
+        "time": 160.22122533307945,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 52,
+        "time": 163.36281798666926,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 53,
+        "time": 166.50441064025904,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 54,
+        "time": 169.64600329384882,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 55,
+        "time": 172.78759594743863,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 56,
+        "time": 175.92918860102841,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 57,
+        "time": 179.0707812546182,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 58,
+        "time": 182.212373908208,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 59,
+        "time": 185.3539665617978,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 60,
+        "time": 188.49555921538757,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 61,
+        "time": 191.63715186897738,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 62,
+        "time": 194.77874452256717,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 63,
+        "time": 197.92033717615698,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 64,
+        "time": 201.06192982974676,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 65,
+        "time": 204.20352248333654,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 66,
+        "time": 207.34511513692635,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 67,
+        "time": 210.48670779051614,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 68,
+        "time": 213.62830044410595,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 69,
+        "time": 216.76989309769573,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 70,
+        "time": 219.9114857512855,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 71,
+        "time": 223.05307840487532,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 72,
+        "time": 226.1946710584651,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 73,
+        "time": 229.3362637120549,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 74,
+        "time": 232.4778563656447,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 75,
+        "time": 235.61944901923448,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 76,
+        "time": 238.76104167282426,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 77,
+        "time": 241.90263432641407,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 78,
+        "time": 245.04422698000386,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 79,
+        "time": 248.18581963359367,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 80,
+        "time": 251.32741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 81,
+        "time": 254.46900494077323,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 82,
+        "time": 257.610597594363,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 83,
+        "time": 260.75219024795285,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 84,
+        "time": 263.89378290154264,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 85,
+        "time": 267.0353755551324,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 86,
+        "time": 270.1769682087222,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 87,
+        "time": 273.318560862312,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 88,
+        "time": 276.46015351590177,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 89,
+        "time": 279.6017461694916,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 90,
+        "time": 282.7433388230814,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 91,
+        "time": 285.88493147667117,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 92,
+        "time": 289.02652413026095,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 93,
+        "time": 292.16811678385073,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 94,
+        "time": 295.3097094374406,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 95,
+        "time": 298.45130209103036,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 96,
+        "time": 301.59289474462014,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 20,
+        "time": 62.83185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 21,
+        "time": 65.97344572538566,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 22,
+        "time": 69.11503837897544,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 23,
+        "time": 72.25663103256524,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 24,
+        "time": 75.39822368615503,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 25,
+        "time": 78.53981633974483,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 26,
+        "time": 81.68140899333463,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 27,
+        "time": 84.82300164692441,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 28,
+        "time": 87.96459430051421,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 29,
+        "time": 91.106186954104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 30,
+        "time": 94.24777960769379,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 31,
+        "time": 97.38937226128358,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 32,
+        "time": 100.53096491487338,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 33,
+        "time": 103.67255756846318,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 34,
+        "time": 106.81415022205297,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 35,
+        "time": 109.95574287564276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 36,
+        "time": 113.09733552923255,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 37,
+        "time": 116.23892818282235,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 38,
+        "time": 119.38052083641213,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 39,
+        "time": 122.52211349000193,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 40,
+        "time": 125.66370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 41,
+        "time": 128.8052987971815,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 42,
+        "time": 131.94689145077132,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 43,
+        "time": 135.0884841043611,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 44,
+        "time": 138.23007675795088,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 45,
+        "time": 141.3716694115407,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 46,
+        "time": 144.51326206513048,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 47,
+        "time": 147.6548547187203,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 48,
+        "time": 150.79644737231007,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 49,
+        "time": 153.93804002589985,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 50,
+        "time": 157.07963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 51,
+        "time": 160.22122533307945,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 52,
+        "time": 163.36281798666926,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 53,
+        "time": 166.50441064025904,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 54,
+        "time": 169.64600329384882,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 55,
+        "time": 172.78759594743863,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 56,
+        "time": 175.92918860102841,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 57,
+        "time": 179.0707812546182,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 58,
+        "time": 182.212373908208,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 59,
+        "time": 185.3539665617978,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 60,
+        "time": 188.49555921538757,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 61,
+        "time": 191.63715186897738,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 62,
+        "time": 194.77874452256717,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 63,
+        "time": 197.92033717615698,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 64,
+        "time": 201.06192982974676,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 65,
+        "time": 204.20352248333654,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 66,
+        "time": 207.34511513692635,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 67,
+        "time": 210.48670779051614,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 68,
+        "time": 213.62830044410595,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 69,
+        "time": 216.76989309769573,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 70,
+        "time": 219.9114857512855,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 71,
+        "time": 223.05307840487532,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 72,
+        "time": 226.1946710584651,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 73,
+        "time": 229.3362637120549,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 74,
+        "time": 232.4778563656447,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 75,
+        "time": 235.61944901923448,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 76,
+        "time": 238.76104167282426,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 77,
+        "time": 241.90263432641407,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 78,
+        "time": 245.04422698000386,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 79,
+        "time": 248.18581963359367,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 80,
+        "time": 251.32741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 81,
+        "time": 254.46900494077323,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 82,
+        "time": 257.610597594363,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 83,
+        "time": 260.75219024795285,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 84,
+        "time": 263.89378290154264,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 85,
+        "time": 267.0353755551324,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 86,
+        "time": 270.1769682087222,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 87,
+        "time": 273.318560862312,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 88,
+        "time": 276.46015351590177,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 89,
+        "time": 279.6017461694916,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 90,
+        "time": 282.7433388230814,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 91,
+        "time": 285.88493147667117,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 92,
+        "time": 289.02652413026095,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 93,
+        "time": 292.16811678385073,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 94,
+        "time": 295.3097094374406,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 95,
+        "time": 298.45130209103036,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 96,
+        "time": 301.59289474462014,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.03,
+    "contact_time": 101.38642178632644,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 20,
+        "time": 62.83185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 21,
+        "time": 65.97344572538566,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 22,
+        "time": 69.11503837897544,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 23,
+        "time": 72.25663103256524,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 24,
+        "time": 75.39822368615503,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 25,
+        "time": 78.53981633974483,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 26,
+        "time": 81.68140899333463,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 27,
+        "time": 84.82300164692441,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 28,
+        "time": 87.96459430051421,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 29,
+        "time": 91.106186954104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 30,
+        "time": 94.24777960769379,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 31,
+        "time": 97.38937226128358,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 32,
+        "time": 100.53096491487338,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 20,
+        "time": 62.83185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 21,
+        "time": 65.97344572538566,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 22,
+        "time": 69.11503837897544,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 23,
+        "time": 72.25663103256524,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 24,
+        "time": 75.39822368615503,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 25,
+        "time": 78.53981633974483,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 26,
+        "time": 81.68140899333463,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 27,
+        "time": 84.82300164692441,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 28,
+        "time": 87.96459430051421,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 29,
+        "time": 91.106186954104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 30,
+        "time": 94.24777960769379,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 31,
+        "time": 97.38937226128358,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 32,
+        "time": 100.53096491487338,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.05,
+    "contact_time": 60.831853071795855,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.1,
+    "contact_time": 30.415926535897928,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.2,
+    "contact_time": 15.207963267948964,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.3333333333333333,
+    "contact_time": 9.12477796076938,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.5,
+    "contact_time": 6.083185307179586,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.65,
+    "contact_time": 4.679373313215066,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.8,
+    "contact_time": 3.801990816987241,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.05,
+    "speed": 0.95,
+    "contact_time": 3.2016764774629403,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.01,
+    "contact_time": 282.1592653589793,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.06283185307179585
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.06283185307179585
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.03,
+    "contact_time": 94.05308845299311,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 20,
+        "time": 62.83185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 21,
+        "time": 65.97344572538566,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 22,
+        "time": 69.11503837897544,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 23,
+        "time": 72.25663103256524,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 24,
+        "time": 75.39822368615503,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 25,
+        "time": 78.53981633974483,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 26,
+        "time": 81.68140899333463,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 27,
+        "time": 84.82300164692441,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 28,
+        "time": 87.96459430051421,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 29,
+        "time": 91.106186954104,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.08840704496667343
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 18,
+        "time": 56.548667764616276,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 19,
+        "time": 59.690260418206066,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 20,
+        "time": 62.83185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 21,
+        "time": 65.97344572538566,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 22,
+        "time": 69.11503837897544,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 23,
+        "time": 72.25663103256524,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 24,
+        "time": 75.39822368615503,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 25,
+        "time": 78.53981633974483,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 26,
+        "time": 81.68140899333463,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 27,
+        "time": 84.82300164692441,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 28,
+        "time": 87.96459430051421,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 29,
+        "time": 91.106186954104,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.08840704496667343
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.05,
+    "contact_time": 56.431853071795864,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.15123889803846843
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 16,
+        "time": 50.26548245743669,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 17,
+        "time": 53.40707511102649,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.15123889803846843
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.1,
+    "contact_time": 28.215926535897932,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.2,
+    "contact_time": 14.107963267948966,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.3333333333333333,
+    "contact_time": 8.46477796076938,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.5,
+    "contact_time": 5.6431853071795866,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.65,
+    "contact_time": 4.340911774753528,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.8,
+    "contact_time": 3.5269908169872415,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.16,
+    "speed": 0.95,
+    "contact_time": 2.9700975300945194,
+    "events": []
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.01,
+    "contact_time": 254.1592653589793,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.06283185307179584
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.06283185307179584
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.03,
+    "contact_time": 84.71975511965977,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.18849555921538755
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.18849555921538755
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.05,
+    "contact_time": 50.831853071795855,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.18539816339744852
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 9,
+        "time": 28.274333882308138,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 10,
+        "time": 31.41592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 11,
+        "time": 34.55751918948772,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 12,
+        "time": 37.69911184307752,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 13,
+        "time": 40.840704496667314,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 14,
+        "time": 43.982297150257104,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 15,
+        "time": 47.12388980384689,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.18539816339744852
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.1,
+    "contact_time": 25.415926535897928,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 8,
+        "time": 25.132741228718345,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.2,
+    "contact_time": 12.707963267948964,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.3333333333333333,
+    "contact_time": 7.6247779607693795,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.5,
+    "contact_time": 5.083185307179586,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.65,
+    "contact_time": 3.9101425439842967,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.8,
+    "contact_time": 3.176990816987241,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.028318530717958944
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.028318530717958944
+      }
+    ]
+  },
+  {
+    "angle": 0.3,
+    "speed": 0.95,
+    "contact_time": 2.6753606879892557,
+    "events": []
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.01,
+    "contact_time": 214.1592653589793,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.06283185307179584
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.06283185307179584
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.03,
+    "contact_time": 71.38642178632644,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.18849555921538755
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.18849555921538755
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.05,
+    "contact_time": 42.83185307179586,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.3141592653589794
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.3141592653589794
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.1,
+    "contact_time": 21.41592653589793,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.2,
+    "contact_time": 10.707963267948966,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.25663706143591736
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.25663706143591736
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.3333333333333333,
+    "contact_time": 6.424777960769379,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.5,
+    "contact_time": 4.283185307179586,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.65,
+    "contact_time": 3.2947579285996818,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.09955742875642767
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.09955742875642767
+      }
+    ]
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.8,
+    "contact_time": 2.6769908169872414,
+    "events": []
+  },
+  {
+    "angle": 0.5,
+    "speed": 0.95,
+    "contact_time": 2.254308056410309,
+    "events": []
+  }
+]

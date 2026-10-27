@@ -1,0 +1,84 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/bands.json",
+      "bytes": 954,
+      "sha256": "32920f7a305bc3593e47352d0663a85c22f3bda67b95854d3310088147597f18"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/current_parity.json",
+      "bytes": 2818,
+      "sha256": "0fea93b3f30cc56615c7771d1a63fddd7500cabd075e003eee5fb392461ffa52"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/driven_reference.json",
+      "bytes": 7702,
+      "sha256": "bd721dc88dab3d2c5ae4e0d3cc9e8a85684dc462bc247738d326f7a11dc8d773"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/maxwell_closure.json",
+      "bytes": 21216,
+      "sha256": "b7a36ca1dfd0f016f7f03d4ca186d168748822a98d5190b0569e975d669965c5"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/pinned_endpoint_order.json",
+      "bytes": 8404,
+      "sha256": "50eb0a133700c18ea4519e12797ff5dd1549315690385c8de5011f49a226e362"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/rim_loops.json",
+      "bytes": 929,
+      "sha256": "06cb079de814b3d3d6bdc72b8bd8b5965309976b0b141221feabac8ae40179d8"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/summary.json",
+      "bytes": 9292,
+      "sha256": "dc81277a433dc030bf6fb8ca981f1c53a51550bf89bd790c8eb666fe91516ab0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_quotient_flash/whole_passage_windows.json",
+      "bytes": 491,
+      "sha256": "79fe9961d9148ac0eebb106fda34cc0a348634728128b681b6d7c0dad9edcb77"
+    },
+    {
+      "path": "experiments/closure_ledger/quotient_flash_probe.py",
+      "bytes": 7268,
+      "sha256": "ba049acb17a53bb88e1ab15d0b755f5825bce03de4595a3d123aa29ac5dd6166"
+    },
+    {
+      "path": "geometrodynamics/waves/quotient_flash.py",
+      "bytes": 4310,
+      "sha256": "7ad27ed7c0fb2ab7d92cef72e65c171c596e4b171792694c84ea9e773b4416ef"
+    },
+    {
+      "path": "experiments/closure_ledger/quotient_endpoint_review.py",
+      "bytes": 3082,
+      "sha256": "d4f45ff25065e03d2b51ce0ee48847817c1081dab9dec2e41361c329da6334cd"
+    },
+    {
+      "path": "geometrodynamics/waves/pair_birth.py",
+      "bytes": 30502,
+      "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2"
+    },
+    {
+      "path": "geometrodynamics/waves/directional_flash_response.py",
+      "bytes": 4994,
+      "sha256": "fc44515cf735aedd8ac768daf39b610f9f44d29fe2807faca8ea9d6ca64619f5"
+    },
+    {
+      "path": "geometrodynamics/waves/antipodal_throat_transport.py",
+      "bytes": 16484,
+      "sha256": "248ffa9a2520955b4274200242ca7a73fa51f594b4f74c6c025a59f627691188"
+    },
+    {
+      "path": "tests/test_quotient_flash.py",
+      "bytes": 3719,
+      "sha256": "4ac9c5cb8948035b1b673624981710d1136d04401fb89d434a0ad299ad31f6fe"
+    },
+    {
+      "path": "docs/quotient_flash_review.md",
+      "bytes": 10337,
+      "sha256": "40fa1c6a5ffcd45c506456ba288bf7f7b249beeaf801c245835935b5f9f0cdc7"
+    }
+  ]
+}

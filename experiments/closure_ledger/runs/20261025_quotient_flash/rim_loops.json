@@ -1,0 +1,80 @@
+[
+  {
+    "handle": "klein",
+    "antipodal": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "handle_map": [
+      [
+        -1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "loop": [
+      [
+        -1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "determinant": -1.0,
+    "eigenvalues": [
+      -1.0,
+      1.0
+    ],
+    "involution_residual": 0.0
+  },
+  {
+    "handle": "torus",
+    "antipodal": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "handle_map": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0
+      ]
+    ],
+    "loop": [
+      [
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0
+      ]
+    ],
+    "determinant": 1.0,
+    "eigenvalues": [
+      1.0,
+      1.0
+    ],
+    "involution_residual": 0.0
+  }
+]

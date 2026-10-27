@@ -1,0 +1,825 @@
+[
+  {
+    "k": 0,
+    "speed": 0.8090140682897256,
+    "center_resonance": 0.8090140682897256,
+    "capture_band_lower": 0.7135211024345884,
+    "contact_time": 3.141592653589793,
+    "worldline_quotient_mismatch": 1.191874962812805e-15,
+    "events": []
+  },
+  {
+    "k": 0,
+    "speed": 0.7851408268259412,
+    "center_resonance": 0.8090140682897256,
+    "capture_band_lower": 0.7135211024345884,
+    "contact_time": 3.2371169180751846,
+    "worldline_quotient_mismatch": 1.0235750533041806e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.07500000000000058
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.07500000000000058
+      }
+    ]
+  },
+  {
+    "k": 0,
+    "speed": 0.7373943438983728,
+    "center_resonance": 0.8090140682897256,
+    "capture_band_lower": 0.7135211024345884,
+    "contact_time": 3.4467211128216544,
+    "worldline_quotient_mismatch": 9.694605782913356e-16,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.22500000000000012
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.22500000000000012
+      }
+    ]
+  },
+  {
+    "k": 1,
+    "speed": 0.26967135609657517,
+    "center_resonance": 0.26967135609657517,
+    "capture_band_lower": 0.23784036747819615,
+    "contact_time": 9.42477796076938,
+    "worldline_quotient_mismatch": 1.355199909595506e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "k": 1,
+    "speed": 0.2617136089419804,
+    "center_resonance": 0.26967135609657517,
+    "capture_band_lower": 0.23784036747819615,
+    "contact_time": 9.711350754225553,
+    "worldline_quotient_mismatch": 1.2412670766236366e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.07500000000000015
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.07500000000000015
+      }
+    ]
+  },
+  {
+    "k": 1,
+    "speed": 0.2457981146327909,
+    "center_resonance": 0.26967135609657517,
+    "capture_band_lower": 0.23784036747819615,
+    "contact_time": 10.340163338464965,
+    "worldline_quotient_mismatch": 9.694605782913356e-16,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.22500000000000048
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.22500000000000048
+      }
+    ]
+  },
+  {
+    "k": 2,
+    "speed": 0.1618028136579451,
+    "center_resonance": 0.1618028136579451,
+    "capture_band_lower": 0.1427042204869177,
+    "contact_time": 15.707963267948966,
+    "worldline_quotient_mismatch": 1.3911054626160788e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "k": 2,
+    "speed": 0.15702816536518827,
+    "center_resonance": 0.1618028136579451,
+    "capture_band_lower": 0.1427042204869177,
+    "contact_time": 16.18558459037592,
+    "worldline_quotient_mismatch": 1.1102230246251565e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.07500000000000015
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.07500000000000015
+      }
+    ]
+  },
+  {
+    "k": 2,
+    "speed": 0.14747886877967453,
+    "center_resonance": 0.1618028136579451,
+    "capture_band_lower": 0.1427042204869177,
+    "contact_time": 17.233605564108274,
+    "worldline_quotient_mismatch": 1.1801832636420706e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.22500000000000048
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.22500000000000048
+      }
+    ]
+  },
+  {
+    "k": 3,
+    "speed": 0.11557343832710365,
+    "center_resonance": 0.11557343832710365,
+    "capture_band_lower": 0.10193158606208406,
+    "contact_time": 21.991148575128552,
+    "worldline_quotient_mismatch": 1.2412670766236366e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      }
+    ]
+  },
+  {
+    "k": 3,
+    "speed": 0.11216297526084876,
+    "center_resonance": 0.11557343832710365,
+    "capture_band_lower": 0.10193158606208406,
+    "contact_time": 22.65981842652629,
+    "worldline_quotient_mismatch": 1.1801832636420706e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.07500000000000015
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.07500000000000015
+      }
+    ]
+  },
+  {
+    "k": 3,
+    "speed": 0.10534204912833896,
+    "center_resonance": 0.11557343832710365,
+    "capture_band_lower": 0.10193158606208406,
+    "contact_time": 24.127047789751582,
+    "worldline_quotient_mismatch": 1.1801832636420706e-15,
+    "events": [
+      {
+        "source": 0,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 0,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": 1,
+        "event": "open_capture",
+        "offset": 0.22500000000000012
+      },
+      {
+        "source": 1,
+        "return_number": 1,
+        "time": 3.141592653589793,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 2,
+        "time": 6.283185307179586,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 3,
+        "time": 9.42477796076938,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 4,
+        "time": 12.566370614359172,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 5,
+        "time": 15.707963267948966,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 6,
+        "time": 18.84955592153876,
+        "target": null,
+        "event": "empty_focus",
+        "offset": null
+      },
+      {
+        "source": 1,
+        "return_number": 7,
+        "time": 21.991148575128552,
+        "target": 0,
+        "event": "open_capture",
+        "offset": 0.22500000000000012
+      }
+    ]
+  }
+]

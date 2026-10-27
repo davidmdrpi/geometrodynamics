@@ -1,0 +1,12 @@
+{
+  "cases": 14,
+  "scattering_cases": 15,
+  "boundary_cases": 24,
+  "gap_cases": 90,
+  "max_metric_error": 4.440892098500626e-16,
+  "max_stress_error": 4.440892098500626e-16,
+  "max_scattering_flux_error": 1.416966766143446e-09,
+  "max_nonlinear_time_closure_error": 0.0,
+  "benchmark": "Reciprocal deformable-defect analogue; continuous coupling, not BAM",
+  "bam_status": "Boundary-matched antipodal moving-mouth GR solution remains unresolved"
+}

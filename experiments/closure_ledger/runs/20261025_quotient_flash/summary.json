@@ -1,0 +1,256 @@
+{
+  "bands": [
+    {
+      "k": 0,
+      "capture_lower": 0.7135211024345884,
+      "upper": 0.8090140682897256,
+      "lower": 0.7135211024345884,
+      "lower_closed": true,
+      "length": 0.5646424733950354,
+      "exact_image_endpoint": 0.8090140682897256
+    },
+    {
+      "k": 1,
+      "capture_lower": 0.23784036747819615,
+      "upper": 0.26967135609657517,
+      "lower": 0.2539419664788071,
+      "lower_closed": false,
+      "length": 0.5646424733950354,
+      "exact_image_endpoint": 0.26967135609657517
+    },
+    {
+      "k": 2,
+      "capture_lower": 0.1427042204869177,
+      "upper": 0.1618028136579451,
+      "lower": 0.15612117316942448,
+      "lower_closed": false,
+      "length": 0.5646424733950354,
+      "exact_image_endpoint": 0.1618028136579451
+    },
+    {
+      "k": 3,
+      "capture_lower": 0.10193158606208406,
+      "upper": 0.11557343832710365,
+      "lower": 0.11266220039348446,
+      "lower_closed": false,
+      "length": 0.5646424733950354,
+      "exact_image_endpoint": 0.11557343832710365
+    }
+  ],
+  "max_current_parity_error": 2.996778618213968e-15,
+  "max_projected_endpoint_error": 1.114399148372648e-16,
+  "cutoff_48": [
+    {
+      "cutoff": 48,
+      "k": 0,
+      "case": "endpoint",
+      "speed": 0.8090140682897256,
+      "contact_time": 3.141592653589793,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.9962555385818633,
+        "phase": -1.4029690217515807,
+        "orthogonal_energy_fraction": 0.007474901844961468
+      },
+      "conformal_template_control": {
+        "overlap_abs": 1.0,
+        "phase": -1.5707963267948961,
+        "orthogonal_energy_fraction": 0.0
+      },
+      "initial_flash_energy": 0.09278130763901724,
+      "projection_correction_fraction": 0.5923187409401232,
+      "raw_endpoint_defect_norm": 1.5392449329981543,
+      "projected_endpoint_defect_norm": 3.634839262321937e-17,
+      "projected_energy_fraction": 0.407681259059877,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    },
+    {
+      "cutoff": 48,
+      "k": 0,
+      "case": "interior",
+      "speed": 0.761267585362157,
+      "contact_time": 3.3386324368200753,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.857961605782868,
+        "phase": -2.028994556858815,
+        "orthogonal_energy_fraction": 0.26390188300248263
+      },
+      "conformal_template_control": {
+        "overlap_abs": 0.9999999999999999,
+        "phase": -1.5707963267948961,
+        "orthogonal_energy_fraction": 2.220446049250313e-16
+      },
+      "initial_flash_energy": 0.0821529224758496,
+      "projection_correction_fraction": 0.34938644485544057,
+      "raw_endpoint_defect_norm": 1.1821784042274508,
+      "projected_endpoint_defect_norm": 1.1143985443822658e-16,
+      "projected_energy_fraction": 0.6506135551445594,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    },
+    {
+      "cutoff": 48,
+      "k": 1,
+      "case": "endpoint",
+      "speed": 0.26967135609657517,
+      "contact_time": 9.42477796076938,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.9665401481638078,
+        "phase": 2.0741325191885798,
+        "orthogonal_energy_fraction": 0.0658001419874844
+      },
+      "conformal_template_control": {
+        "overlap_abs": 0.9999999999999999,
+        "phase": 1.5707963267948981,
+        "orthogonal_energy_fraction": 2.220446049250313e-16
+      },
+      "initial_flash_energy": 0.010309034182113016,
+      "projection_correction_fraction": 0.24265858248537567,
+      "raw_endpoint_defect_norm": 0.9852077597854692,
+      "projected_endpoint_defect_norm": 8.333671931358019e-17,
+      "projected_energy_fraction": 0.7573414175146242,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    },
+    {
+      "cutoff": 48,
+      "k": 1,
+      "case": "interior",
+      "speed": 0.26180666128769114,
+      "contact_time": 9.70789910802505,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.6722194997454497,
+        "phase": 1.2719004579228304,
+        "orthogonal_energy_fraction": 0.5481209441619774
+      },
+      "conformal_template_control": {
+        "overlap_abs": 0.9999999999999999,
+        "phase": 1.5707963267948981,
+        "orthogonal_energy_fraction": 2.220446049250313e-16
+      },
+      "initial_flash_energy": 0.00971649711693474,
+      "projection_correction_fraction": 0.547463692520587,
+      "raw_endpoint_defect_norm": 1.4798157892394406,
+      "projected_endpoint_defect_norm": 3.0466357787148144e-17,
+      "projected_energy_fraction": 0.4525363074794131,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    },
+    {
+      "cutoff": 48,
+      "k": 2,
+      "case": "endpoint",
+      "speed": 0.1618028136579451,
+      "contact_time": 15.707963267948966,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.9083786608266486,
+        "phase": -0.732441056696017,
+        "orthogonal_energy_fraction": 0.17484820855478445
+      },
+      "conformal_template_control": {
+        "overlap_abs": 1.0,
+        "phase": -1.5707963267948943,
+        "orthogonal_energy_fraction": 0.0
+      },
+      "initial_flash_energy": 0.003711252305560687,
+      "projection_correction_fraction": 0.8686414852418325,
+      "raw_endpoint_defect_norm": 1.8640187608946779,
+      "projected_endpoint_defect_norm": 8.556792737041979e-17,
+      "projected_energy_fraction": 0.13135851475816754,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    },
+    {
+      "cutoff": 48,
+      "k": 2,
+      "case": "interior",
+      "speed": 0.15896199341368478,
+      "contact_time": 15.988681313120672,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.5702813004518176,
+        "phase": -1.4699309120659168,
+        "orthogonal_energy_fraction": 0.6747792383549838
+      },
+      "conformal_template_control": {
+        "overlap_abs": 1.0000000000000004,
+        "phase": -1.5707963267948943,
+        "orthogonal_energy_fraction": 0.0
+      },
+      "initial_flash_energy": 0.0035820772048112044,
+      "projection_correction_fraction": 0.5997648689380857,
+      "raw_endpoint_defect_norm": 1.5488897558420167,
+      "projected_endpoint_defect_norm": 7.09689973191624e-17,
+      "projected_energy_fraction": 0.40023513106191416,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    },
+    {
+      "cutoff": 48,
+      "k": 3,
+      "case": "endpoint",
+      "speed": 0.11557343832710365,
+      "contact_time": 21.991148575128552,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.824251464358859,
+        "phase": 2.7431504481331848,
+        "orthogonal_energy_fraction": 0.32060952350227656
+      },
+      "conformal_template_control": {
+        "overlap_abs": 0.9999999999999998,
+        "phase": 1.5707963267948992,
+        "orthogonal_energy_fraction": 4.440892098500626e-16
+      },
+      "initial_flash_energy": 0.0018934960742656574,
+      "projection_correction_fraction": 0.09393876094514042,
+      "raw_endpoint_defect_norm": 0.6129886163547915,
+      "projected_endpoint_defect_norm": 4.1633146063544176e-17,
+      "projected_energy_fraction": 0.9060612390548591,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    },
+    {
+      "cutoff": 48,
+      "k": 3,
+      "case": "interior",
+      "speed": 0.11411781936029405,
+      "contact_time": 22.27165457451871,
+      "source_A_antipodal_template": {
+        "overlap_abs": 0.45880037595278034,
+        "phase": 2.08976647146066,
+        "orthogonal_energy_fraction": 0.7895022150255875
+      },
+      "conformal_template_control": {
+        "overlap_abs": 1.0,
+        "phase": 1.5707963267948992,
+        "orthogonal_energy_fraction": 0.0
+      },
+      "initial_flash_energy": 0.0018461002027970077,
+      "projection_correction_fraction": 0.30596037445834745,
+      "raw_endpoint_defect_norm": 1.106273699331856,
+      "projected_endpoint_defect_norm": 6.056014224335895e-17,
+      "projected_energy_fraction": 0.6940396255416524,
+      "interpretation": "Prescribed free-field jump matching; projection changes the emitted Q/P data, not a physical absorption calculation"
+    }
+  ],
+  "windows": [
+    {
+      "n": 1,
+      "start": 1.5707963267948966,
+      "stop": 4.71238898038469,
+      "integral": 0.010552017021028696
+    },
+    {
+      "n": 2,
+      "start": 4.71238898038469,
+      "stop": 7.853981633974483,
+      "integral": -0.008086060843437753
+    },
+    {
+      "n": 3,
+      "start": 7.853981633974483,
+      "stop": 10.995574287564276,
+      "integral": -0.005417681734884648
+    },
+    {
+      "n": 4,
+      "start": 10.995574287564276,
+      "stop": 14.137166941154069,
+      "integral": 0.013174874932814828
+    }
+  ],
+  "bam_solution_established": false,
+  "exact_original_maxwell_flash_closure": false
+}
