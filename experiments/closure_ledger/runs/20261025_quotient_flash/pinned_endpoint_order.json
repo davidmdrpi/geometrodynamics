@@ -1,0 +1,338 @@
+{
+  "commit": "25ce28cc8e33ce7541b7d4dfac034a5574f6dcff",
+  "source_hashes": {
+    "moving_mouth_pairs.py": "91d1b6d7d6c7709c904943bb9e0f82cd3f053f674ad69384e2b278ac70eca5d2",
+    "antipodal_kick.py": "151005d44a8c63eca17616c9f0ec7186b42326af9a0ba58399763d5a64f93ed5",
+    "pair_birth.py": "fe5fb3a8bee79c2eb9c577da753150a37d2c64be723c86e3b9bfa09407d933fd",
+    "antipodal_pair_birth.py": "2599b995ec6f69b8afc75998e160a2b7e38c1cf042e85ef6111d76b173b541d9"
+  },
+  "rows": [
+    {
+      "k": 1,
+      "target_speed": 0.26967135509657514,
+      "delta": -1e-09,
+      "actual_speed": 0.26967135509657536,
+      "dt": 0.02,
+      "contact_time": 9.424777995718388,
+      "contact_minus_focus": 3.494900902012432e-08,
+      "capture_times": [
+        9.42477796076938,
+        9.42477796076938
+      ],
+      "event_order": [
+        "capture",
+        "capture",
+        "contact"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 0
+    },
+    {
+      "k": 1,
+      "target_speed": 0.26967135509657514,
+      "delta": -1e-09,
+      "actual_speed": 0.26967135509657536,
+      "dt": 0.01,
+      "contact_time": 9.424777995718342,
+      "contact_minus_focus": 3.49489628348465e-08,
+      "capture_times": [
+        9.42477796076938,
+        9.42477796076938
+      ],
+      "event_order": [
+        "capture",
+        "capture",
+        "contact"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 0
+    },
+    {
+      "k": 1,
+      "target_speed": 0.26967135509657514,
+      "delta": -1e-09,
+      "actual_speed": 0.26967135509657536,
+      "dt": 0.005,
+      "contact_time": 9.424777995718571,
+      "contact_minus_focus": 3.494919198487878e-08,
+      "capture_times": [
+        9.42477796076938,
+        9.42477796076938
+      ],
+      "event_order": [
+        "capture",
+        "capture",
+        "contact"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 0
+    },
+    {
+      "k": 1,
+      "target_speed": 0.26967135609657517,
+      "delta": 0.0,
+      "actual_speed": 0.26967135609657544,
+      "dt": 0.02,
+      "contact_time": 9.42477796076938,
+      "contact_minus_focus": 0.0,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 1,
+      "target_speed": 0.26967135609657517,
+      "delta": 0.0,
+      "actual_speed": 0.26967135609657544,
+      "dt": 0.01,
+      "contact_time": 9.42477796076938,
+      "contact_minus_focus": 0.0,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 1,
+      "target_speed": 0.26967135609657517,
+      "delta": 0.0,
+      "actual_speed": 0.26967135609657544,
+      "dt": 0.005,
+      "contact_time": 9.42477796077438,
+      "contact_minus_focus": 5.000444502911705e-12,
+      "capture_times": [
+        9.42477796076938,
+        9.42477796076938
+      ],
+      "event_order": [
+        "capture",
+        "capture",
+        "contact"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 0
+    },
+    {
+      "k": 1,
+      "target_speed": 0.2696713570965752,
+      "delta": 1e-09,
+      "actual_speed": 0.2696713570965757,
+      "dt": 0.02,
+      "contact_time": 9.42477792582013,
+      "contact_minus_focus": -3.494924882829764e-08,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 1,
+      "target_speed": 0.2696713570965752,
+      "delta": 1e-09,
+      "actual_speed": 0.2696713570965757,
+      "dt": 0.01,
+      "contact_time": 9.424777925820083,
+      "contact_minus_focus": -3.4949296789932305e-08,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 1,
+      "target_speed": 0.2696713570965752,
+      "delta": 1e-09,
+      "actual_speed": 0.2696713570965757,
+      "dt": 0.005,
+      "contact_time": 9.424777925820308,
+      "contact_minus_focus": -3.49490711926137e-08,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028126579451,
+      "delta": -1e-09,
+      "actual_speed": 0.1618028126579346,
+      "dt": 0.02,
+      "contact_time": 15.707963365030638,
+      "contact_minus_focus": 9.708167247879373e-08,
+      "capture_times": [
+        15.707963267948966,
+        15.707963267948966
+      ],
+      "event_order": [
+        "capture",
+        "capture",
+        "contact"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 0
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028126579451,
+      "delta": -1e-09,
+      "actual_speed": 0.1618028126579346,
+      "dt": 0.01,
+      "contact_time": 15.7079633650306,
+      "contact_minus_focus": 9.708163517530011e-08,
+      "capture_times": [
+        15.707963267948966,
+        15.707963267948966
+      ],
+      "event_order": [
+        "capture",
+        "capture",
+        "contact"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 0
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028126579451,
+      "delta": -1e-09,
+      "actual_speed": 0.1618028126579346,
+      "dt": 0.005,
+      "contact_time": 15.70796336503192,
+      "contact_minus_focus": 9.708295500843178e-08,
+      "capture_times": [
+        15.707963267948966,
+        15.707963267948966
+      ],
+      "event_order": [
+        "capture",
+        "capture",
+        "contact"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 0
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028136579451,
+      "delta": 0.0,
+      "actual_speed": 0.1618028136579751,
+      "dt": 0.02,
+      "contact_time": 15.707963267945809,
+      "contact_minus_focus": -3.156586103614245e-12,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028136579451,
+      "delta": 0.0,
+      "actual_speed": 0.1618028136579751,
+      "dt": 0.01,
+      "contact_time": 15.707963267945768,
+      "contact_minus_focus": -3.197442310920451e-12,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028136579451,
+      "delta": 0.0,
+      "actual_speed": 0.1618028136579751,
+      "dt": 0.005,
+      "contact_time": 15.707963267947104,
+      "contact_minus_focus": -1.8616219676914625e-12,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028146579451,
+      "delta": 1e-09,
+      "actual_speed": 0.16180281465795077,
+      "dt": 0.02,
+      "contact_time": 15.707963170867272,
+      "contact_minus_focus": -9.708169379507581e-08,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028146579451,
+      "delta": 1e-09,
+      "actual_speed": 0.16180281465795077,
+      "dt": 0.01,
+      "contact_time": 15.707963170867233,
+      "contact_minus_focus": -9.708173287492627e-08,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    },
+    {
+      "k": 2,
+      "target_speed": 0.1618028146579451,
+      "delta": 1e-09,
+      "actual_speed": 0.16180281465795077,
+      "dt": 0.005,
+      "contact_time": 15.707963170868574,
+      "contact_minus_focus": -9.708039172551253e-08,
+      "capture_times": [],
+      "event_order": [
+        "contact",
+        "reflection",
+        "reflection"
+      ],
+      "energy_drift": 0.0,
+      "remaining_fronts": 2
+    }
+  ]
+}

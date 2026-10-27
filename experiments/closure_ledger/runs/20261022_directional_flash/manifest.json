@@ -1,0 +1,68 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/directional_projections.json",
+      "sha256": "6471947c03d1c96a4b9425c0c38b0629f8e21723b7c37be4dc787c7e22f8358e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/fixed_probe_windows.json",
+      "sha256": "51668a3fc3e873b0ee8e6da693ef7e280fc8564b373f69a6dd0026c987d9d19d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/reciprocal_power.json",
+      "sha256": "d929e2210d279ad90520a5f8eaf41ff90e14fc45e690ca4b2c4e6746a977ecc3"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/cutoff_convergence.json",
+      "sha256": "7aea95b3b7fec8dc85d2517ae24ee45065508468dce7ebe0939bdbf65e2de8e8"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/rim_convergence.json",
+      "sha256": "4719e4e3d2d9ef662588d2a58f5b1134fc586d593414cf740c0ef078a9106ddc"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/first_flight_events.json",
+      "sha256": "7d4b748426bb8ff378d324c74be5eb55c4c61f562028fd3a4ed54b1cf664ba63"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/fixed_antipode_waveform.json",
+      "sha256": "ace9048f3a9006f8de88127a8b081cd0478d3346cfc68bb8562092e05dbc96e8"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/eligible_reference_fields.json",
+      "sha256": "cebfcfbac957540059779fc5dacffaf5ba61335a077eb84151ba54ae434caaf4"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261022_directional_flash/summary.json",
+      "sha256": "753a80b22a339115c828570bbca8ee91a47f9ff7c56752e2928dd7b1d5b83306"
+    },
+    {
+      "path": "docs/images/history_throat/directional_flash.png",
+      "sha256": "449e771d2d6a2b8f6a07a3ca75d09ba0923cb7b64d990695252133beb54acb80"
+    },
+    {
+      "path": "experiments/closure_ledger/directional_flash_probe.py",
+      "sha256": "111342ef42d9aa86e94e889b978b0cb92699fe8f56dd3daef3a762d235b5056c"
+    },
+    {
+      "path": "geometrodynamics/waves/directional_flash_response.py",
+      "sha256": "fc44515cf735aedd8ac768daf39b610f9f44d29fe2807faca8ea9d6ca64619f5"
+    },
+    {
+      "path": "geometrodynamics/waves/pair_birth.py",
+      "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2"
+    },
+    {
+      "path": "geometrodynamics/waves/antipodal_throat_transport.py",
+      "sha256": "248ffa9a2520955b4274200242ca7a73fa51f594b4f74c6c025a59f627691188"
+    },
+    {
+      "path": "tests/test_directional_flash_response.py",
+      "sha256": "0341df0cf420a4410c09ce72d985e83312a9cee5d251b1106523a5d403ef405c"
+    },
+    {
+      "path": "docs/directional_flash_response.md",
+      "sha256": "5761162b57703c2ada2d4d992cefce43cfe50e864babd0ed36b762e9c0dbcbaa"
+    }
+  ]
+}

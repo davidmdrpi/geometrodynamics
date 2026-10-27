@@ -1,0 +1,83 @@
+{
+  "cases": [
+    {
+      "name": "pair_return_80",
+      "length": 80.0,
+      "end": 140.0,
+      "dx": 0.1,
+      "dt": 0.02,
+      "initial_speed": 0.02,
+      "amplitude": 0.2,
+      "seed_energy": 1.1299237136047888,
+      "seed_over_continuum_rest": 0.4237213926017958,
+      "final_fitted_right_velocity": -0.04532257779349185,
+      "first_separation_below_2": 119.5,
+      "first_lost_pair_zeros": 120.5,
+      "maximum_relative_recorded_energy_error": 0.00031057652965155023
+    },
+    {
+      "name": "pair_return_60",
+      "length": 60.0,
+      "end": 120.0,
+      "dx": 0.1,
+      "dt": 0.02,
+      "initial_speed": 0.02,
+      "amplitude": 0.2,
+      "seed_energy": 1.129923713604788,
+      "seed_over_continuum_rest": 0.4237213926017955,
+      "final_fitted_right_velocity": -0.03964438686390428,
+      "first_separation_below_2": 100.0,
+      "first_lost_pair_zeros": 101.0,
+      "maximum_relative_recorded_energy_error": 0.0003592945412162699
+    },
+    {
+      "name": "pair_no_wave_80",
+      "length": 80.0,
+      "end": 140.0,
+      "dx": 0.1,
+      "dt": 0.02,
+      "initial_speed": 0.02,
+      "amplitude": 0.0,
+      "seed_energy": 0.0,
+      "seed_over_continuum_rest": 0.0,
+      "final_fitted_right_velocity": 0.01997949456800008,
+      "first_separation_below_2": null,
+      "first_lost_pair_zeros": null,
+      "maximum_relative_recorded_energy_error": 3.6160826547392324e-10
+    },
+    {
+      "name": "pair_bam_scale",
+      "length": 400.0,
+      "end": 100.0,
+      "dx": 0.1,
+      "dt": 0.02,
+      "initial_speed": 0.3,
+      "amplitude": 0.023807445151624786,
+      "seed_energy": 0.01600000000000046,
+      "seed_over_continuum_rest": 0.006000000000000172,
+      "final_fitted_right_velocity": 0.29820407643875846,
+      "first_separation_below_2": null,
+      "first_lost_pair_zeros": null,
+      "maximum_relative_recorded_energy_error": 3.134729394697107e-07
+    },
+    {
+      "name": "pair_bam_no_wave",
+      "length": 400.0,
+      "end": 100.0,
+      "dx": 0.1,
+      "dt": 0.02,
+      "initial_speed": 0.3,
+      "amplitude": 0.0,
+      "seed_energy": 0.0,
+      "seed_over_continuum_rest": 0.0,
+      "final_fitted_right_velocity": 0.29967076801464343,
+      "first_separation_below_2": null,
+      "first_lost_pair_zeros": null,
+      "maximum_relative_recorded_energy_error": 1.8760443951884503e-09
+    }
+  ],
+  "bam_scale_velocity_change": -0.0014666915758849708,
+  "bam_scale_inferred_momentum_change": -0.0022504025113969095,
+  "momentum_estimator": "Continuum kink M gamma v, fitted late position; not direct field momentum",
+  "bam_solution_established": false
+}

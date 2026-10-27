@@ -1,0 +1,86 @@
+[
+  {
+    "angle": 0.16,
+    "return_number": 1,
+    "mechanical_power": 0.10725249816259338,
+    "field_power": -0.10725249816259337,
+    "residual": 1.3877787807814457e-17
+  },
+  {
+    "angle": 0.16,
+    "return_number": 2,
+    "mechanical_power": -0.00700664030608941,
+    "field_power": 0.0070066403060894044,
+    "residual": -5.204170427930421e-18
+  },
+  {
+    "angle": 0.16,
+    "return_number": 3,
+    "mechanical_power": -0.09814288158565186,
+    "field_power": 0.09814288158565182,
+    "residual": -4.163336342344337e-17
+  },
+  {
+    "angle": 0.16,
+    "return_number": 4,
+    "mechanical_power": 0.01146485428124612,
+    "field_power": -0.011464854281246127,
+    "residual": -6.938893903907228e-18
+  },
+  {
+    "angle": 0.3,
+    "return_number": 1,
+    "mechanical_power": 0.08892190474180141,
+    "field_power": -0.0889219047418014,
+    "residual": 1.3877787807814457e-17
+  },
+  {
+    "angle": 0.3,
+    "return_number": 2,
+    "mechanical_power": -0.0071279318299296,
+    "field_power": 0.007127931829929598,
+    "residual": -2.6020852139652106e-18
+  },
+  {
+    "angle": 0.3,
+    "return_number": 3,
+    "mechanical_power": -0.08030422198019806,
+    "field_power": 0.08030422198019802,
+    "residual": -4.163336342344337e-17
+  },
+  {
+    "angle": 0.3,
+    "return_number": 4,
+    "mechanical_power": 0.011687378325238163,
+    "field_power": -0.011687378325238144,
+    "residual": 1.9081958235744878e-17
+  },
+  {
+    "angle": 0.5,
+    "return_number": 1,
+    "mechanical_power": 0.07808935181139137,
+    "field_power": -0.07808935181139129,
+    "residual": 8.326672684688674e-17
+  },
+  {
+    "angle": 0.5,
+    "return_number": 2,
+    "mechanical_power": -0.007453529172241952,
+    "field_power": 0.007453529172241967,
+    "residual": 1.474514954580286e-17
+  },
+  {
+    "angle": 0.5,
+    "return_number": 3,
+    "mechanical_power": -0.07008139909183468,
+    "field_power": 0.07008139909183467,
+    "residual": -1.3877787807814457e-17
+  },
+  {
+    "angle": 0.5,
+    "return_number": 4,
+    "mechanical_power": 0.012287766350073401,
+    "field_power": -0.012287766350073377,
+    "residual": 2.42861286636753e-17
+  }
+]

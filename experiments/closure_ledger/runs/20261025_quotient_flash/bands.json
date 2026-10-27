@@ -1,0 +1,38 @@
+[
+  {
+    "k": 0,
+    "capture_lower": 0.7135211024345884,
+    "upper": 0.8090140682897256,
+    "lower": 0.7135211024345884,
+    "lower_closed": true,
+    "length": 0.5646424733950354,
+    "exact_image_endpoint": 0.8090140682897256
+  },
+  {
+    "k": 1,
+    "capture_lower": 0.23784036747819615,
+    "upper": 0.26967135609657517,
+    "lower": 0.2539419664788071,
+    "lower_closed": false,
+    "length": 0.5646424733950354,
+    "exact_image_endpoint": 0.26967135609657517
+  },
+  {
+    "k": 2,
+    "capture_lower": 0.1427042204869177,
+    "upper": 0.1618028136579451,
+    "lower": 0.15612117316942448,
+    "lower_closed": false,
+    "length": 0.5646424733950354,
+    "exact_image_endpoint": 0.1618028136579451
+  },
+  {
+    "k": 3,
+    "capture_lower": 0.10193158606208406,
+    "upper": 0.11557343832710365,
+    "lower": 0.11266220039348446,
+    "lower_closed": false,
+    "length": 0.5646424733950354,
+    "exact_image_endpoint": 0.11557343832710365
+  }
+]

@@ -1,0 +1,308 @@
+[
+  {
+    "epsilon": -1,
+    "offset": -0.7,
+    "point": [
+      0.3,
+      1.2
+    ],
+    "mapped": [
+      0.5337497405181573,
+      -1.2786276962052716
+    ],
+    "metric_error": 1.1254299398185007e-16,
+    "square_error": 1.904301501451534,
+    "future_tangent_time_component": -0.9517355248951296,
+    "killing_time_source": 0.5108256237659907,
+    "killing_time_destination": -0.8891743762340092
+  },
+  {
+    "epsilon": -1,
+    "offset": -0.7,
+    "point": [
+      -0.5,
+      -1.4
+    ],
+    "mapped": [
+      -0.4344326797598753,
+      1.3779447569635535
+    ],
+    "metric_error": 3.3306690738754696e-16,
+    "square_error": 1.904301501451534,
+    "future_tangent_time_component": -0.9517355248951296,
+    "killing_time_source": 0.7472144018302211,
+    "killing_time_destination": -0.6527855981697789
+  },
+  {
+    "epsilon": -1,
+    "offset": -0.7,
+    "point": [
+      0.6,
+      0.1
+    ],
+    "mapped": [
+      -0.6772430331946124,
+      0.3296333205406258
+    ],
+    "metric_error": 1.533144421235659e-16,
+    "square_error": 1.904301501451534,
+    "future_tangent_time_component": -0.9517355248951296,
+    "killing_time_source": null,
+    "killing_time_destination": null
+  },
+  {
+    "epsilon": -1,
+    "offset": 0.0,
+    "point": [
+      0.3,
+      1.2
+    ],
+    "mapped": [
+      -0.3,
+      -1.2
+    ],
+    "metric_error": 0.0,
+    "square_error": 0.0,
+    "future_tangent_time_component": -1.0,
+    "killing_time_source": 0.5108256237659907,
+    "killing_time_destination": 0.5108256237659907
+  },
+  {
+    "epsilon": -1,
+    "offset": 0.0,
+    "point": [
+      -0.5,
+      -1.4
+    ],
+    "mapped": [
+      0.5,
+      1.4
+    ],
+    "metric_error": 0.0,
+    "square_error": 0.0,
+    "future_tangent_time_component": -1.0,
+    "killing_time_source": 0.7472144018302211,
+    "killing_time_destination": 0.7472144018302211
+  },
+  {
+    "epsilon": -1,
+    "offset": 0.0,
+    "point": [
+      0.6,
+      0.1
+    ],
+    "mapped": [
+      -0.6,
+      -0.1
+    ],
+    "metric_error": 0.0,
+    "square_error": 0.0,
+    "future_tangent_time_component": -1.0,
+    "killing_time_source": null,
+    "killing_time_destination": null
+  },
+  {
+    "epsilon": -1,
+    "offset": 0.7,
+    "point": [
+      0.3,
+      1.2
+    ],
+    "mapped": [
+      -1.286851143896723,
+      -1.7337779173089916
+    ],
+    "metric_error": 1.1254299398185007e-16,
+    "square_error": 1.904301501451534,
+    "future_tangent_time_component": -1.5586024863667565,
+    "killing_time_source": 0.5108256237659907,
+    "killing_time_destination": 1.9108256237659904
+  },
+  {
+    "epsilon": -1,
+    "offset": 0.7,
+    "point": [
+      -0.5,
+      -1.4
+    ],
+    "mapped": [
+      1.6896016853908185,
+      2.136528458803087
+    ],
+    "metric_error": 1.1102230246251565e-16,
+    "square_error": 1.904301501451534,
+    "future_tangent_time_component": -1.5586024863667565,
+    "killing_time_source": 0.7472144018302211,
+    "killing_time_destination": 2.1472144018302215
+  },
+  {
+    "epsilon": -1,
+    "offset": 0.7,
+    "point": [
+      0.6,
+      0.1
+    ],
+    "mapped": [
+      -0.8289597735625192,
+      -0.5806671216668143
+    ],
+    "metric_error": 1.533144421235659e-16,
+    "square_error": 1.904301501451534,
+    "future_tangent_time_component": -1.5586024863667565,
+    "killing_time_source": null,
+    "killing_time_destination": null
+  },
+  {
+    "epsilon": 1,
+    "offset": -0.7,
+    "point": [
+      0.3,
+      1.2
+    ],
+    "mapped": [
+      1.286851143896723,
+      -1.7337779173089916
+    ],
+    "metric_error": 1.1254299398185007e-16,
+    "square_error": 2.306490189947476e-17,
+    "future_tangent_time_component": 1.5586024863667565,
+    "killing_time_source": 0.5108256237659907,
+    "killing_time_destination": -1.9108256237659904
+  },
+  {
+    "epsilon": 1,
+    "offset": -0.7,
+    "point": [
+      -0.5,
+      -1.4
+    ],
+    "mapped": [
+      -1.6896016853908185,
+      2.136528458803087
+    ],
+    "metric_error": 1.1102230246251565e-16,
+    "square_error": 2.306490189947476e-17,
+    "future_tangent_time_component": 1.5586024863667565,
+    "killing_time_source": 0.7472144018302211,
+    "killing_time_destination": -2.1472144018302215
+  },
+  {
+    "epsilon": 1,
+    "offset": -0.7,
+    "point": [
+      0.6,
+      0.1
+    ],
+    "mapped": [
+      0.8289597735625192,
+      -0.5806671216668143
+    ],
+    "metric_error": 1.533144421235659e-16,
+    "square_error": 2.306490189947476e-17,
+    "future_tangent_time_component": 1.5586024863667565,
+    "killing_time_source": null,
+    "killing_time_destination": null
+  },
+  {
+    "epsilon": 1,
+    "offset": 0.0,
+    "point": [
+      0.3,
+      1.2
+    ],
+    "mapped": [
+      0.3,
+      -1.2
+    ],
+    "metric_error": 0.0,
+    "square_error": 0.0,
+    "future_tangent_time_component": 1.0,
+    "killing_time_source": 0.5108256237659907,
+    "killing_time_destination": -0.5108256237659907
+  },
+  {
+    "epsilon": 1,
+    "offset": 0.0,
+    "point": [
+      -0.5,
+      -1.4
+    ],
+    "mapped": [
+      -0.5,
+      1.4
+    ],
+    "metric_error": 0.0,
+    "square_error": 0.0,
+    "future_tangent_time_component": 1.0,
+    "killing_time_source": 0.7472144018302211,
+    "killing_time_destination": -0.7472144018302211
+  },
+  {
+    "epsilon": 1,
+    "offset": 0.0,
+    "point": [
+      0.6,
+      0.1
+    ],
+    "mapped": [
+      0.6,
+      -0.1
+    ],
+    "metric_error": 0.0,
+    "square_error": 0.0,
+    "future_tangent_time_component": 1.0,
+    "killing_time_source": null,
+    "killing_time_destination": null
+  },
+  {
+    "epsilon": 1,
+    "offset": 0.7,
+    "point": [
+      0.3,
+      1.2
+    ],
+    "mapped": [
+      -0.5337497405181573,
+      -1.2786276962052716
+    ],
+    "metric_error": 1.1254299398185007e-16,
+    "square_error": 2.306490189947476e-17,
+    "future_tangent_time_component": 0.9517355248951296,
+    "killing_time_source": 0.5108256237659907,
+    "killing_time_destination": 0.8891743762340092
+  },
+  {
+    "epsilon": 1,
+    "offset": 0.7,
+    "point": [
+      -0.5,
+      -1.4
+    ],
+    "mapped": [
+      0.4344326797598753,
+      1.3779447569635535
+    ],
+    "metric_error": 3.3306690738754696e-16,
+    "square_error": 2.306490189947476e-17,
+    "future_tangent_time_component": 0.9517355248951296,
+    "killing_time_source": 0.7472144018302211,
+    "killing_time_destination": 0.6527855981697789
+  },
+  {
+    "epsilon": 1,
+    "offset": 0.7,
+    "point": [
+      0.6,
+      0.1
+    ],
+    "mapped": [
+      0.6772430331946124,
+      0.3296333205406258
+    ],
+    "metric_error": 1.533144421235659e-16,
+    "square_error": 2.306490189947476e-17,
+    "future_tangent_time_component": 0.9517355248951296,
+    "killing_time_source": null,
+    "killing_time_destination": null
+  }
+]

@@ -1,0 +1,1942 @@
+{
+  "identification": "(t,x,u) ~ (-t,x+200,D u), D(phi,a,b)=(-phi,b,a)",
+  "spacetime": "Flat 1+1 Lorentzian quotient; matter backreaction on metric not solved",
+  "initial_cover_energy": 2.777229488598724,
+  "state_sha256": "13444fc3b9c551bd0006c1fae07cf77cdb1d61bcc485bec470f96309916de7ca",
+  "max_field_closure_error": 0.0,
+  "max_velocity_closure_error": 0.0,
+  "rows": [
+    {
+      "time": 0.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 0.0,
+      "future_cell_centers": [
+        0.0
+      ],
+      "past_cell_centers": [
+        0.0
+      ]
+    },
+    {
+      "time": 0.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.8289182552043712e-08,
+      "future_cell_centers": [
+        1.1269921352403358e-15
+      ],
+      "past_cell_centers": [
+        2.602603015948516e-16
+      ]
+    },
+    {
+      "time": 1.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.6645357031895855e-09,
+      "future_cell_centers": [
+        9.560716459048117e-15
+      ],
+      "past_cell_centers": [
+        3.1690830977013347e-15
+      ]
+    },
+    {
+      "time": 1.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.303765223032883e-08,
+      "future_cell_centers": [
+        2.0890272618398042e-14
+      ],
+      "past_cell_centers": [
+        1.1684299111040292e-14
+      ]
+    },
+    {
+      "time": 2.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.0753657075923684e-08,
+      "future_cell_centers": [
+        7.61854003163507e-14
+      ],
+      "past_cell_centers": [
+        2.5816853244889564e-14
+      ]
+    },
+    {
+      "time": 2.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.3747732729996187e-08,
+      "future_cell_centers": [
+        2.5404893856631367e-13
+      ],
+      "past_cell_centers": [
+        5.102339032539229e-14
+      ]
+    },
+    {
+      "time": 3.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.902312707358078e-08,
+      "future_cell_centers": [
+        4.774884549029783e-13
+      ],
+      "past_cell_centers": [
+        1.1275327481295793e-13
+      ]
+    },
+    {
+      "time": 3.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 6.39477093500318e-09,
+      "future_cell_centers": [
+        9.700836302449836e-13
+      ],
+      "past_cell_centers": [
+        1.7635305746040808e-13
+      ]
+    },
+    {
+      "time": 4.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.491986528241341e-08,
+      "future_cell_centers": [
+        2.3612841829670367e-12
+      ],
+      "past_cell_centers": [
+        1.7849062313681726e-13
+      ]
+    },
+    {
+      "time": 4.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.520097546783063e-09,
+      "future_cell_centers": [
+        4.107069000055738e-12
+      ],
+      "past_cell_centers": [
+        3.303963767151757e-13
+      ]
+    },
+    {
+      "time": 5.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.526359477172946e-08,
+      "future_cell_centers": [
+        5.550402818921595e-12
+      ],
+      "past_cell_centers": [
+        5.230226854362194e-13
+      ]
+    },
+    {
+      "time": 5.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 5.449866335993647e-09,
+      "future_cell_centers": [
+        1.3393495004931264e-11
+      ],
+      "past_cell_centers": [
+        -7.81458231458032e-14
+      ]
+    },
+    {
+      "time": 6.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.1034945341114053e-08,
+      "future_cell_centers": [
+        2.412892967998887e-11
+      ],
+      "past_cell_centers": [
+        6.729792300981212e-14
+      ]
+    },
+    {
+      "time": 6.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.0305585718128896e-08,
+      "future_cell_centers": [
+        2.3855146634968788e-11
+      ],
+      "past_cell_centers": [
+        2.0787584798161495e-12
+      ]
+    },
+    {
+      "time": 7.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.5766739913658512e-08,
+      "future_cell_centers": [
+        5.823423607510479e-11
+      ],
+      "past_cell_centers": [
+        -1.4469536679939665e-12
+      ]
+    },
+    {
+      "time": 7.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.6003360414629242e-08,
+      "future_cell_centers": [
+        1.2932095850746734e-10
+      ],
+      "past_cell_centers": [
+        -4.2766901131585655e-12
+      ]
+    },
+    {
+      "time": 8.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.1573159319766546e-08,
+      "future_cell_centers": [
+        1.0784977181321924e-10
+      ],
+      "past_cell_centers": [
+        1.2069911141766253e-11
+      ]
+    },
+    {
+      "time": 8.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.8612821062191642e-08,
+      "future_cell_centers": [
+        1.958495418007773e-10
+      ],
+      "past_cell_centers": [
+        9.78841955349671e-13
+      ]
+    },
+    {
+      "time": 9.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 9.959844948781438e-09,
+      "future_cell_centers": [
+        6.533382633528428e-10
+      ],
+      "past_cell_centers": [
+        -3.788773461632644e-11
+      ]
+    },
+    {
+      "time": 9.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.86928224010785e-08,
+      "future_cell_centers": [
+        5.320371553836773e-10
+      ],
+      "past_cell_centers": [
+        4.9084266311425365e-11
+      ]
+    },
+    {
+      "time": 10.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.0652588144921538e-08,
+      "future_cell_centers": [
+        4.916861783903106e-10
+      ],
+      "past_cell_centers": [
+        6.056497254554766e-11
+      ]
+    },
+    {
+      "time": 10.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.7243852123982606e-08,
+      "future_cell_centers": [
+        2.8129929025845704e-09
+      ],
+      "past_cell_centers": [
+        -2.1922576254329584e-10
+      ]
+    },
+    {
+      "time": 11.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.3268905973973233e-08,
+      "future_cell_centers": [
+        2.8667217916531818e-09
+      ],
+      "past_cell_centers": [
+        9.466852505425342e-11
+      ]
+    },
+    {
+      "time": 11.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.5105641182344698e-08,
+      "future_cell_centers": [
+        7.208475122507979e-10
+      ],
+      "past_cell_centers": [
+        5.060491304777458e-10
+      ]
+    },
+    {
+      "time": 12.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4581522655987555e-08,
+      "future_cell_centers": [
+        9.980324564481154e-09
+      ],
+      "past_cell_centers": [
+        -8.699382880728024e-10
+      ]
+    },
+    {
+      "time": 12.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.380497405278902e-08,
+      "future_cell_centers": [
+        1.4888975252063397e-08
+      ],
+      "past_cell_centers": [
+        -3.129823067382631e-10
+      ]
+    },
+    {
+      "time": 13.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.552431605489346e-08,
+      "future_cell_centers": [
+        -1.4676164450388995e-10
+      ],
+      "past_cell_centers": [
+        2.62975821168821e-09
+      ]
+    },
+    {
+      "time": 13.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.317221309804495e-08,
+      "future_cell_centers": [
+        2.940341251293898e-08
+      ],
+      "past_cell_centers": [
+        -2.2698586898961537e-09
+      ]
+    },
+    {
+      "time": 14.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.552594497411519e-08,
+      "future_cell_centers": [
+        6.503933483313728e-08
+      ],
+      "past_cell_centers": [
+        -3.806167145348205e-09
+      ]
+    },
+    {
+      "time": 14.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4023022298914611e-08,
+      "future_cell_centers": [
+        2.94254456679265e-09
+      ],
+      "past_cell_centers": [
+        9.746890194454142e-09
+      ]
+    },
+    {
+      "time": 15.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.5087396665336428e-08,
+      "future_cell_centers": [
+        6.680491664986097e-08
+      ],
+      "past_cell_centers": [
+        -2.201350809971636e-09
+      ]
+    },
+    {
+      "time": 15.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4167631512407297e-08,
+      "future_cell_centers": [
+        2.401246414374995e-07
+      ],
+      "past_cell_centers": [
+        -1.9403202669576736e-08
+      ]
+    },
+    {
+      "time": 16.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4397080860817368e-08,
+      "future_cell_centers": [
+        5.8264542607503126e-08
+      ],
+      "past_cell_centers": [
+        2.6121101449508426e-08
+      ]
+    },
+    {
+      "time": 16.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4648545931805756e-08,
+      "future_cell_centers": [
+        1.1087086126214148e-07
+      ],
+      "past_cell_centers": [
+        1.2631592900577995e-08
+      ]
+    },
+    {
+      "time": 17.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4425382222071903e-08,
+      "future_cell_centers": [
+        7.520187815780862e-07
+      ],
+      "past_cell_centers": [
+        -6.728832287195008e-08
+      ]
+    },
+    {
+      "time": 17.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4590260111191355e-08,
+      "future_cell_centers": [
+        3.710375444297337e-07
+      ],
+      "past_cell_centers": [
+        4.628192030384201e-08
+      ]
+    },
+    {
+      "time": 18.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4344579302161264e-08,
+      "future_cell_centers": [
+        1.640713610641759e-07
+      ],
+      "past_cell_centers": [
+        8.235656040193424e-08
+      ]
+    },
+    {
+      "time": 18.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4756571076190994e-08,
+      "future_cell_centers": [
+        1.9652904769472147e-06
+      ],
+      "past_cell_centers": [
+        -1.726950732278132e-07
+      ]
+    },
+    {
+      "time": 19.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4502036460584122e-08,
+      "future_cell_centers": [
+        1.6478279630791807e-06
+      ],
+      "past_cell_centers": [
+        2.504731441918989e-08
+      ]
+    },
+    {
+      "time": 19.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4381365875948404e-08,
+      "future_cell_centers": [
+        3.684914198032103e-07
+      ],
+      "past_cell_centers": [
+        2.825664641413532e-07
+      ]
+    },
+    {
+      "time": 20.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4631648337370962e-08,
+      "future_cell_centers": [
+        4.481325078775521e-06
+      ],
+      "past_cell_centers": [
+        -3.2436620490960966e-07
+      ]
+    },
+    {
+      "time": 20.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4340761023134974e-08,
+      "future_cell_centers": [
+        5.520366151109663e-06
+      ],
+      "past_cell_centers": [
+        -1.579218257274917e-07
+      ]
+    },
+    {
+      "time": 21.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4602461906321196e-08,
+      "future_cell_centers": [
+        1.6719207689034961e-06
+      ],
+      "past_cell_centers": [
+        6.855949043150378e-07
+      ]
+    },
+    {
+      "time": 21.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.438798280517517e-08,
+      "future_cell_centers": [
+        9.376623997003453e-06
+      ],
+      "past_cell_centers": [
+        -4.0278734542154027e-07
+      ]
+    },
+    {
+      "time": 22.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.479609545995686e-08,
+      "future_cell_centers": [
+        1.4930040812345053e-05
+      ],
+      "past_cell_centers": [
+        -6.8503736105896e-07
+      ]
+    },
+    {
+      "time": 22.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.4375421297785351e-08,
+      "future_cell_centers": [
+        7.569057555443409e-06
+      ],
+      "past_cell_centers": [
+        1.2416568617553518e-06
+      ]
+    },
+    {
+      "time": 23.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.427152263033804e-08,
+      "future_cell_centers": [
+        1.8529847657302658e-05
+      ],
+      "past_cell_centers": [
+        -1.300380743085583e-07
+      ]
+    },
+    {
+      "time": 23.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.514336789298909e-08,
+      "future_cell_centers": [
+        3.531861835499477e-05
+      ],
+      "past_cell_centers": [
+        -1.6513265795048415e-06
+      ]
+    },
+    {
+      "time": 24.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.3608177251711595e-08,
+      "future_cell_centers": [
+        2.512551670078407e-05
+      ],
+      "past_cell_centers": [
+        1.6456758266460224e-06
+      ]
+    },
+    {
+      "time": 24.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.56464934342182e-08,
+      "future_cell_centers": [
+        3.8491913596591135e-05
+      ],
+      "past_cell_centers": [
+        7.901665186093655e-07
+      ]
+    },
+    {
+      "time": 25.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.28665802456851e-08,
+      "future_cell_centers": [
+        7.427516833177482e-05
+      ],
+      "past_cell_centers": [
+        -2.840944197154971e-06
+      ]
+    },
+    {
+      "time": 25.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.6606654718032132e-08,
+      "future_cell_centers": [
+        6.849088707607177e-05
+      ],
+      "past_cell_centers": [
+        1.394525535435246e-06
+      ]
+    },
+    {
+      "time": 26.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.2472082477898994e-08,
+      "future_cell_centers": [
+        8.382434942584338e-05
+      ],
+      "past_cell_centers": [
+        2.3638207652774346e-06
+      ]
+    },
+    {
+      "time": 26.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.6055059948172357e-08,
+      "future_cell_centers": [
+        0.0001446551980545828
+      ],
+      "past_cell_centers": [
+        -3.6136503172579104e-06
+      ]
+    },
+    {
+      "time": 27.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.3946860555336116e-08,
+      "future_cell_centers": [
+        0.00016159295610779307
+      ],
+      "past_cell_centers": [
+        1.3824556117416303e-07
+      ]
+    },
+    {
+      "time": 27.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.3643097762638945e-08,
+      "future_cell_centers": [
+        0.0001795957500422637
+      ],
+      "past_cell_centers": [
+        4.0133142062651165e-06
+      ]
+    },
+    {
+      "time": 28.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.734955068499744e-08,
+      "future_cell_centers": [
+        0.000276254551114468
+      ],
+      "past_cell_centers": [
+        -3.278269571901915e-06
+      ]
+    },
+    {
+      "time": 28.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 9.000136635961553e-09,
+      "future_cell_centers": [
+        0.0003327279426345683
+      ],
+      "past_cell_centers": [
+        -1.829116581406054e-06
+      ]
+    },
+    {
+      "time": 29.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.2782415065591977e-08,
+      "future_cell_centers": [
+        0.0003768137976783827
+      ],
+      "past_cell_centers": [
+        4.816643936781159e-06
+      ]
+    },
+    {
+      "time": 29.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.111776252813115e-09,
+      "future_cell_centers": [
+        0.0005100450903530702
+      ],
+      "past_cell_centers": [
+        -1.6805528119806512e-06
+      ]
+    },
+    {
+      "time": 30.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.6414514575634485e-08,
+      "future_cell_centers": [
+        0.000636644249993
+      ],
+      "past_cell_centers": [
+        -3.5598189242480593e-06
+      ]
+    },
+    {
+      "time": 30.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.5060749031524665e-09,
+      "future_cell_centers": [
+        0.000736571645746389
+      ],
+      "past_cell_centers": [
+        4.148861429452015e-06
+      ]
+    },
+    {
+      "time": 31.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.4687640376441777e-08,
+      "future_cell_centers": [
+        0.0009207098833933102
+      ],
+      "past_cell_centers": [
+        4.5155811114271693e-07
+      ]
+    },
+    {
+      "time": 31.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 8.63272964224393e-09,
+      "future_cell_centers": [
+        0.0011499091513048286
+      ],
+      "past_cell_centers": [
+        -4.097522909904394e-06
+      ]
+    },
+    {
+      "time": 32.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.372468227955892e-08,
+      "future_cell_centers": [
+        0.0013376216968313634
+      ],
+      "past_cell_centers": [
+        2.339395194696954e-06
+      ]
+    },
+    {
+      "time": 32.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.4052693170517614e-08,
+      "future_cell_centers": [
+        0.0016247497534353282
+      ],
+      "past_cell_centers": [
+        2.003110921836396e-06
+      ]
+    },
+    {
+      "time": 33.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -4.125004782196129e-09,
+      "future_cell_centers": [
+        0.001959453651532425
+      ],
+      "past_cell_centers": [
+        -3.2416674400348455e-06
+      ]
+    },
+    {
+      "time": 33.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.288000354790711e-08,
+      "future_cell_centers": [
+        0.0023142959919807498
+      ],
+      "past_cell_centers": [
+        4.1214100273558016e-07
+      ]
+    },
+    {
+      "time": 34.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -2.1376995285038447e-08,
+      "future_cell_centers": [
+        0.002720058418523408
+      ],
+      "past_cell_centers": [
+        2.3164345951436456e-06
+      ]
+    },
+    {
+      "time": 34.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 5.526699675684199e-08,
+      "future_cell_centers": [
+        0.0032288325116592814
+      ],
+      "past_cell_centers": [
+        -1.7149299978702626e-06
+      ]
+    },
+    {
+      "time": 35.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -2.49962837095552e-08,
+      "future_cell_centers": [
+        0.003771428837987389
+      ],
+      "past_cell_centers": [
+        -7.355599024316817e-07
+      ]
+    },
+    {
+      "time": 35.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.82390483114159e-08,
+      "future_cell_centers": [
+        0.004374363098391456
+      ],
+      "past_cell_centers": [
+        1.6672929254117535e-06
+      ]
+    },
+    {
+      "time": 36.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -5.7054272417644825e-09,
+      "future_cell_centers": [
+        0.00509938660323601
+      ],
+      "past_cell_centers": [
+        -4.0382384901282986e-07
+      ]
+    },
+    {
+      "time": 36.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.8714696015109666e-08,
+      "future_cell_centers": [
+        0.005864944612617387
+      ],
+      "past_cell_centers": [
+        -9.051872336129918e-07
+      ]
+    },
+    {
+      "time": 37.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.2983798359254024e-08,
+      "future_cell_centers": [
+        0.006751027253908942
+      ],
+      "past_cell_centers": [
+        7.603324330473137e-07
+      ]
+    },
+    {
+      "time": 37.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -2.3862073650349203e-08,
+      "future_cell_centers": [
+        0.007696146569160795
+      ],
+      "past_cell_centers": [
+        1.781323550690562e-07
+      ]
+    },
+    {
+      "time": 38.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 7.469956697647717e-08,
+      "future_cell_centers": [
+        0.008789972090974475
+      ],
+      "past_cell_centers": [
+        -5.911013937626164e-07
+      ]
+    },
+    {
+      "time": 38.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -5.6356852073946584e-08,
+      "future_cell_centers": [
+        0.009933353457576842
+      ],
+      "past_cell_centers": [
+        1.739539109607396e-07
+      ]
+    },
+    {
+      "time": 39.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 9.401545808529477e-08,
+      "future_cell_centers": [
+        0.011227816676634222
+      ],
+      "past_cell_centers": [
+        2.880163657092139e-07
+      ]
+    },
+    {
+      "time": 39.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -5.6118067970345464e-08,
+      "future_cell_centers": [
+        0.012611666754247774
+      ],
+      "past_cell_centers": [
+        -1.9845176464639014e-07
+      ]
+    },
+    {
+      "time": 40.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 7.504194998730895e-08,
+      "future_cell_centers": [
+        0.014112498647962437
+      ],
+      "past_cell_centers": [
+        -5.5234578508200904e-08
+      ]
+    },
+    {
+      "time": 40.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -1.636165780638521e-08,
+      "future_cell_centers": [
+        0.015742355035231942
+      ],
+      "past_cell_centers": [
+        1.0655818734919159e-07
+      ]
+    },
+    {
+      "time": 41.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.1886678691629413e-08,
+      "future_cell_centers": [
+        0.01746031669909837
+      ],
+      "past_cell_centers": [
+        -6.156265169865449e-08
+      ]
+    },
+    {
+      "time": 41.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.60686742087546e-08,
+      "future_cell_centers": [
+        0.01934293170117544
+      ],
+      "past_cell_centers": [
+        -4.5898750869466376e-08
+      ]
+    },
+    {
+      "time": 42.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -3.741299492432404e-08,
+      "future_cell_centers": [
+        0.021286774553984023
+      ],
+      "past_cell_centers": [
+        8.710065162465969e-08
+      ]
+    },
+    {
+      "time": 42.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 9.731826189351978e-08,
+      "future_cell_centers": [
+        0.023412208453207906
+      ],
+      "past_cell_centers": [
+        5.289431629107021e-08
+      ]
+    },
+    {
+      "time": 43.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -6.910087702038936e-08,
+      "future_cell_centers": [
+        0.025594801274921874
+      ],
+      "past_cell_centers": [
+        -3.4405769719358936e-08
+      ]
+    },
+    {
+      "time": 43.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.0831665298027815e-07,
+      "future_cell_centers": [
+        0.027942004076769434
+      ],
+      "past_cell_centers": [
+        -5.907787072045867e-08
+      ]
+    },
+    {
+      "time": 44.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -5.310144990389176e-08,
+      "future_cell_centers": [
+        0.030365217380636324
+      ],
+      "past_cell_centers": [
+        -4.4627466916358216e-08
+      ]
+    },
+    {
+      "time": 44.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 7.23536244251477e-08,
+      "future_cell_centers": [
+        0.032914793695057176
+      ],
+      "past_cell_centers": [
+        1.2834199840374568e-08
+      ]
+    },
+    {
+      "time": 45.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 9.41782207775077e-10,
+      "future_cell_centers": [
+        0.035571094566539146
+      ],
+      "past_cell_centers": [
+        8.291191431941282e-08
+      ]
+    },
+    {
+      "time": 45.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.3347587923817628e-08,
+      "future_cell_centers": [
+        0.03830966814451416
+      ],
+      "past_cell_centers": [
+        7.777980210650339e-08
+      ]
+    },
+    {
+      "time": 46.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 6.045776546059756e-08,
+      "future_cell_centers": [
+        0.041178251301189746
+      ],
+      "past_cell_centers": [
+        -1.7342146232945943e-08
+      ]
+    },
+    {
+      "time": 46.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -3.356924915820514e-08,
+      "future_cell_centers": [
+        0.044096286349192174
+      ],
+      "past_cell_centers": [
+        -1.0878834059979692e-07
+      ]
+    },
+    {
+      "time": 47.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 9.20055289732602e-08,
+      "future_cell_centers": [
+        0.04714545258612021
+      ],
+      "past_cell_centers": [
+        -9.525651478714536e-08
+      ]
+    },
+    {
+      "time": 47.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -4.172820622372342e-08,
+      "future_cell_centers": [
+        0.050233388317562765
+      ],
+      "past_cell_centers": [
+        2.6335421829475376e-08
+      ]
+    },
+    {
+      "time": 48.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 8.128979800403613e-08,
+      "future_cell_centers": [
+        0.05343118772450791
+      ],
+      "past_cell_centers": [
+        1.439484773954823e-07
+      ]
+    },
+    {
+      "time": 48.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -1.2307037611236638e-08,
+      "future_cell_centers": [
+        0.056676387330769976
+      ],
+      "past_cell_centers": [
+        1.2906516530809218e-07
+      ]
+    },
+    {
+      "time": 49.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.318929391899928e-08,
+      "future_cell_centers": [
+        0.059997470241076614
+      ],
+      "past_cell_centers": [
+        -2.5972796094397843e-08
+      ]
+    },
+    {
+      "time": 49.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.101732470867091e-08,
+      "future_cell_centers": [
+        0.06338024897664446
+      ],
+      "past_cell_centers": [
+        -1.7667796142761816e-07
+      ]
+    },
+    {
+      "time": 50.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 5.166582717208712e-09,
+      "future_cell_centers": [
+        0.06680658373048257
+      ],
+      "past_cell_centers": [
+        -1.578370061039447e-07
+      ]
+    },
+    {
+      "time": 50.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 6.047349510041045e-08,
+      "future_cell_centers": [
+        0.07030123252338796
+      ],
+      "past_cell_centers": [
+        3.893792212763557e-08
+      ]
+    },
+    {
+      "time": 51.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": -9.482695961793297e-09,
+      "future_cell_centers": [
+        0.07381981065120463
+      ],
+      "past_cell_centers": [
+        2.294829432998744e-07
+      ]
+    },
+    {
+      "time": 51.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 6.238647687339949e-08,
+      "future_cell_centers": [
+        0.07740013284534625
+      ],
+      "past_cell_centers": [
+        2.065426317585223e-07
+      ]
+    },
+    {
+      "time": 52.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.501526902814021e-09,
+      "future_cell_centers": [
+        0.08099990508530137
+      ],
+      "past_cell_centers": [
+        -3.825819978875433e-08
+      ]
+    },
+    {
+      "time": 52.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.422692301275788e-08,
+      "future_cell_centers": [
+        0.08464548726087272
+      ],
+      "past_cell_centers": [
+        -2.746181033824735e-07
+      ]
+    },
+    {
+      "time": 53.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.443919067118827e-08,
+      "future_cell_centers": [
+        0.08831500294197919
+      ],
+      "past_cell_centers": [
+        -2.466023322905686e-07
+      ]
+    },
+    {
+      "time": 53.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.2995164439265636e-08,
+      "future_cell_centers": [
+        0.09201229728777559
+      ],
+      "past_cell_centers": [
+        5.473621169331655e-08
+      ]
+    },
+    {
+      "time": 54.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.135198583554711e-08,
+      "future_cell_centers": [
+        0.09573713011491922
+      ],
+      "past_cell_centers": [
+        3.4510747354731753e-07
+      ]
+    },
+    {
+      "time": 54.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.3615102378849997e-08,
+      "future_cell_centers": [
+        0.09947628227686599
+      ],
+      "past_cell_centers": [
+        3.112680598297724e-07
+      ]
+    },
+    {
+      "time": 55.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 4.4186625025588455e-08,
+      "future_cell_centers": [
+        0.10323975755755566
+      ],
+      "past_cell_centers": [
+        -5.518686889416369e-08
+      ]
+    },
+    {
+      "time": 55.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 1.7198511503835334e-08,
+      "future_cell_centers": [
+        0.10700753881293688
+      ],
+      "past_cell_centers": [
+        -4.072370483887422e-07
+      ]
+    },
+    {
+      "time": 56.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.671156578732848e-08,
+      "future_cell_centers": [
+        0.11079118474108338
+      ],
+      "past_cell_centers": [
+        -3.6777043087299344e-07
+      ]
+    },
+    {
+      "time": 56.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.71606750423814e-08,
+      "future_cell_centers": [
+        0.11457973360247894
+      ],
+      "past_cell_centers": [
+        7.118262018856132e-08
+      ]
+    },
+    {
+      "time": 57.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.757428774202708e-08,
+      "future_cell_centers": [
+        0.11837635383675704
+      ],
+      "past_cell_centers": [
+        4.930164698745774e-07
+      ]
+    },
+    {
+      "time": 57.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.393712733057441e-08,
+      "future_cell_centers": [
+        0.12217823286740502
+      ],
+      "past_cell_centers": [
+        4.4713226716191514e-07
+      ]
+    },
+    {
+      "time": 58.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.413181965366107e-08,
+      "future_cell_centers": [
+        0.1259825644293026
+      ],
+      "past_cell_centers": [
+        -7.483345620951098e-08
+      ]
+    },
+    {
+      "time": 58.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.4783289137862994e-08,
+      "future_cell_centers": [
+        0.1297929789394641
+      ],
+      "past_cell_centers": [
+        -5.764394607199463e-07
+      ]
+    },
+    {
+      "time": 59.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.562472634082269e-08,
+      "future_cell_centers": [
+        0.13360521382752807
+      ],
+      "past_cell_centers": [
+        -5.25455132988073e-07
+      ]
+    },
+    {
+      "time": 59.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.178569762951611e-08,
+      "future_cell_centers": [
+        0.13742258605275845
+      ],
+      "past_cell_centers": [
+        8.586459004894895e-08
+      ]
+    },
+    {
+      "time": 60.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9441821869369278e-08,
+      "future_cell_centers": [
+        0.14124099953259772
+      ],
+      "past_cell_centers": [
+        6.751759098540483e-07
+      ]
+    },
+    {
+      "time": 60.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.8645670280269542e-08,
+      "future_cell_centers": [
+        0.1450609212250512
+      ],
+      "past_cell_centers": [
+        6.202208931806071e-07
+      ]
+    },
+    {
+      "time": 61.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.126404779507652e-08,
+      "future_cell_centers": [
+        0.14888179826951747
+      ],
+      "past_cell_centers": [
+        -8.995438455228211e-08
+      ]
+    },
+    {
+      "time": 61.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.8051497569236972e-08,
+      "future_cell_centers": [
+        0.15270399598177892
+      ],
+      "past_cell_centers": [
+        -7.782071085177256e-07
+      ]
+    },
+    {
+      "time": 62.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.117092495230622e-08,
+      "future_cell_centers": [
+        0.15652937887947993
+      ],
+      "past_cell_centers": [
+        -7.208079220583086e-07
+      ]
+    },
+    {
+      "time": 62.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.875683691172526e-08,
+      "future_cell_centers": [
+        0.16035674111167164
+      ],
+      "past_cell_centers": [
+        9.593244020278085e-08
+      ]
+    },
+    {
+      "time": 63.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.999007131521125e-08,
+      "future_cell_centers": [
+        0.16418587933033657
+      ],
+      "past_cell_centers": [
+        8.927856010352838e-07
+      ]
+    },
+    {
+      "time": 63.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.004366488923438e-08,
+      "future_cell_centers": [
+        0.16801508314977476
+      ],
+      "past_cell_centers": [
+        8.382064884927362e-07
+      ]
+    },
+    {
+      "time": 64.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.92582371663741e-08,
+      "future_cell_centers": [
+        0.17184481492442724
+      ],
+      "past_cell_centers": [
+        -8.934475194399827e-08
+      ]
+    },
+    {
+      "time": 64.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.0152375263270415e-08,
+      "future_cell_centers": [
+        0.1756765310961086
+      ],
+      "past_cell_centers": [
+        -1.0045667748204146e-06
+      ]
+    },
+    {
+      "time": 65.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9344288332566748e-08,
+      "future_cell_centers": [
+        0.17951149238385883
+      ],
+      "past_cell_centers": [
+        -9.545739713262558e-07
+      ]
+    },
+    {
+      "time": 65.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 3.0100694825563323e-08,
+      "future_cell_centers": [
+        0.18335001564224582
+      ],
+      "past_cell_centers": [
+        9.429569633165794e-08
+      ]
+    },
+    {
+      "time": 66.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9595910167046213e-08,
+      "future_cell_centers": [
+        0.18719047478776624
+      ],
+      "past_cell_centers": [
+        1.141569315662368e-06
+      ]
+    },
+    {
+      "time": 66.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9590252470512723e-08,
+      "future_cell_centers": [
+        0.1910317135408639
+      ],
+      "past_cell_centers": [
+        1.1057491641000654e-06
+      ]
+    },
+    {
+      "time": 67.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.999968007344478e-08,
+      "future_cell_centers": [
+        0.19487393002506864
+      ],
+      "past_cell_centers": [
+        -6.257147230903648e-08
+      ]
+    },
+    {
+      "time": 67.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9650547350712486e-08,
+      "future_cell_centers": [
+        0.1987190756853669
+      ],
+      "past_cell_centers": [
+        -1.2486575151487989e-06
+      ]
+    },
+    {
+      "time": 68.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9710974569496784e-08,
+      "future_cell_centers": [
+        0.20256779506374303
+      ],
+      "past_cell_centers": [
+        -1.2315167913501401e-06
+      ]
+    },
+    {
+      "time": 68.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9678786539477642e-08,
+      "future_cell_centers": [
+        0.20641586989083674
+      ],
+      "past_cell_centers": [
+        6.56776998226864e-08
+      ]
+    },
+    {
+      "time": 69.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.989639025230417e-08,
+      "future_cell_centers": [
+        0.21026130285960098
+      ],
+      "past_cell_centers": [
+        1.4073451597503345e-06
+      ]
+    },
+    {
+      "time": 69.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.972099721887389e-08,
+      "future_cell_centers": [
+        0.2141023260803479
+      ],
+      "past_cell_centers": [
+        1.420454394347913e-06
+      ]
+    },
+    {
+      "time": 70.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.957551581417306e-08,
+      "future_cell_centers": [
+        0.21793923337864035
+      ],
+      "past_cell_centers": [
+        -2.5178002877046524e-09
+      ]
+    },
+    {
+      "time": 70.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9886729979722304e-08,
+      "future_cell_centers": [
+        0.22177438584149817
+      ],
+      "past_cell_centers": [
+        -1.506163056469445e-06
+      ]
+    },
+    {
+      "time": 71.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.979919155876587e-08,
+      "future_cell_centers": [
+        0.2256101649283114
+      ],
+      "past_cell_centers": [
+        -1.5603725564555804e-06
+      ]
+    },
+    {
+      "time": 71.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9612353014130122e-08,
+      "future_cell_centers": [
+        0.22944678850685393
+      ],
+      "past_cell_centers": [
+        -1.1251701764747324e-08
+      ]
+    },
+    {
+      "time": 72.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.971098611581624e-08,
+      "future_cell_centers": [
+        0.23328212568006312
+      ],
+      "past_cell_centers": [
+        1.6686835572220651e-06
+      ]
+    },
+    {
+      "time": 72.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.985901703667082e-08,
+      "future_cell_centers": [
+        0.2371139836183278
+      ],
+      "past_cell_centers": [
+        1.7753314676747448e-06
+      ]
+    },
+    {
+      "time": 73.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9741208606992586e-08,
+      "future_cell_centers": [
+        0.24094255630137468
+      ],
+      "past_cell_centers": [
+        9.885142060377558e-08
+      ]
+    },
+    {
+      "time": 73.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9621402664048446e-08,
+      "future_cell_centers": [
+        0.24477061703774958
+      ],
+      "past_cell_centers": [
+        -1.7687331632654235e-06
+      ]
+    },
+    {
+      "time": 74.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9788402411412562e-08,
+      "future_cell_centers": [
+        0.2486010798397618
+      ],
+      "past_cell_centers": [
+        -1.9461810387699785e-06
+      ]
+    },
+    {
+      "time": 74.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.983103586373659e-08,
+      "future_cell_centers": [
+        0.2524342662623615
+      ],
+      "past_cell_centers": [
+        -1.550199165561983e-07
+      ]
+    },
+    {
+      "time": 75.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.966528223069531e-08,
+      "future_cell_centers": [
+        0.2562676669290302
+      ],
+      "past_cell_centers": [
+        1.9063199145957777e-06
+      ]
+    },
+    {
+      "time": 75.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9657101219271453e-08,
+      "future_cell_centers": [
+        0.26009854091689305
+      ],
+      "past_cell_centers": [
+        2.1665935223223805e-06
+      ]
+    },
+    {
+      "time": 76.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.981119218148365e-08,
+      "future_cell_centers": [
+        0.2639269136464962
+      ],
+      "past_cell_centers": [
+        2.576007718266609e-07
+      ]
+    },
+    {
+      "time": 76.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.98064830595024e-08,
+      "future_cell_centers": [
+        0.26775593982167506
+      ],
+      "past_cell_centers": [
+        -2.015168178007287e-06
+      ]
+    },
+    {
+      "time": 77.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9645043753134814e-08,
+      "future_cell_centers": [
+        0.2715891056215167
+      ],
+      "past_cell_centers": [
+        -2.38114073167206e-06
+      ]
+    },
+    {
+      "time": 77.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9693645764439225e-08,
+      "future_cell_centers": [
+        0.2754269525965135
+      ],
+      "past_cell_centers": [
+        -3.7386424471541613e-07
+      ]
+    },
+    {
+      "time": 78.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.985499847341089e-08,
+      "future_cell_centers": [
+        0.27926661233398486
+      ],
+      "past_cell_centers": [
+        2.109362874982144e-06
+      ]
+    },
+    {
+      "time": 78.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9732499573498217e-08,
+      "future_cell_centers": [
+        0.28310475388903283
+      ],
+      "past_cell_centers": [
+        2.5974522163876074e-06
+      ]
+    },
+    {
+      "time": 79.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.9585536243104116e-08,
+      "future_cell_centers": [
+        0.28694113850006564
+      ],
+      "past_cell_centers": [
+        4.98104840461275e-07
+      ]
+    },
+    {
+      "time": 79.5,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.977182056440597e-08,
+      "future_cell_centers": [
+        0.2907792468144912
+      ],
+      "past_cell_centers": [
+        -2.2117676893446125e-06
+      ]
+    },
+    {
+      "time": 80.0,
+      "field_closure_error": 0.0,
+      "velocity_closure_error": 0.0,
+      "cover_energy_error": 2.986784419789501e-08,
+      "future_cell_centers": [
+        0.2946231946050174
+      ],
+      "past_cell_centers": [
+        -2.844386443531799e-06
+      ]
+    }
+  ]
+}

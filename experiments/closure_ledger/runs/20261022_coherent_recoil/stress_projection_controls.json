@@ -1,0 +1,1 @@
+{"axisymmetric_tangential_resultant":[-1.3769367590565906e-17,6.61181213132498e-17],"charged_cross_force":[0.30000000000000615,-0.15000000000000305],"expected_qE":[0.30000000000000004,-0.15000000000000002],"residual":6.8146014697150694e-15,"scope":"Local Maxwell-stress identity; no global background field, aperture-mode scattering, or advanced recoil history derived."}

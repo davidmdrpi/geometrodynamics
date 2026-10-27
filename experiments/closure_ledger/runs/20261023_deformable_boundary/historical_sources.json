@@ -1,0 +1,83 @@
+{
+  "sources": [
+    {
+      "pr": 1,
+      "title": "Convert v0.43.0 tarball into a proper Python package repo",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/1",
+      "head_sha": "eef581dbb38a0c2f5d46d44146a57406fd94671f"
+    },
+    {
+      "pr": 2,
+      "title": "Port S³ antipodal worldline-crossing viz (v10) from JSX to Python",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/2",
+      "head_sha": "790b6f121750c2d5ccab034ab1b180bb74cd193b"
+    },
+    {
+      "pr": 3,
+      "title": "Port JSX 4-panel geometrodynamics dashboard to viz/geometry_panels.py",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/3",
+      "head_sha": "1989da8811ae48e274d3abbc7e08b100e71734d1"
+    },
+    {
+      "pr": 25,
+      "title": "Compton antipodal kinematics: closure-compatible, skew is recoil-induced",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/25",
+      "head_sha": null
+    },
+    {
+      "pr": 58,
+      "title": "Pair-production threshold: 2 m_e c² as the lowest stable throat pair",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/58",
+      "head_sha": "ecd65aefe53e3b6088a27183b61ec61707eb5de9"
+    },
+    {
+      "pr": 64,
+      "title": "Geometric CPT assembly: C·P·T on BAM throat histories",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/64",
+      "head_sha": "9ab4fd8f03f2d39177041f593dd76109a0325e7a"
+    },
+    {
+      "pr": 175,
+      "title": "PR #176: Real GR back-reaction — a semi-dynamical axisymmetric self-gravitating wave packet",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/175",
+      "head_sha": "fd7ffa6cebf0da38392bac84ee17551df55e0cca"
+    },
+    {
+      "pr": 179,
+      "title": "PR #179: Two-way ψ–Φ–q evolution — the self-consistent matter–metric–order system",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/179",
+      "head_sha": "f838cee6fddd516e22b9f8f33d629986db40b608"
+    },
+    {
+      "pr": 251,
+      "title": "Both shells are the same wave — an S³ wormhole loop and its ledger",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/251",
+      "head_sha": "5074748731ab338cd4d2a6e0a2f794aea134ed9a"
+    },
+    {
+      "pr": 256,
+      "title": "A flux-conserving two-mouth throat operator, and the spectrum it produces",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/256",
+      "head_sha": "48a34700ce195feab357a4f468d3c44f8d359644"
+    },
+    {
+      "pr": 322,
+      "title": "Test finite-packet MTY self-scattering with dynamical response and flux accounting",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/322",
+      "head_sha": "b4aed67693a26e66882143a9507e9070b79ec59f"
+    },
+    {
+      "pr": 329,
+      "title": "Test a focus action and audit the historical event claims",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/329",
+      "head_sha": "d6f798c6bbd39dd8d344f4cc0f75786a785ca2d5"
+    },
+    {
+      "pr": 330,
+      "title": "Test moving EGB mouths: radial stability with sourced energy exchange",
+      "url": "https://github.com/davidmdrpi/geometrodynamics/pull/330",
+      "head_sha": "f00826b3f8f0356edb7b3ee64d3308e674a88d5e"
+    }
+  ],
+  "note": "PR metadata read through GitHub; code audit also uses existing implementations. Old experiments were not rerun."
+}

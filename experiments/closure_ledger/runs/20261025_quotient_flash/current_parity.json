@@ -1,0 +1,146 @@
+[
+  {
+    "cutoff": 24,
+    "k": 0,
+    "case": "endpoint",
+    "max_current_parity_error": 2.2202416515108904e-15
+  },
+  {
+    "cutoff": 24,
+    "k": 0,
+    "case": "interior",
+    "max_current_parity_error": 2.242279778975092e-15
+  },
+  {
+    "cutoff": 24,
+    "k": 1,
+    "case": "endpoint",
+    "max_current_parity_error": 2.995012153486356e-15
+  },
+  {
+    "cutoff": 24,
+    "k": 1,
+    "case": "interior",
+    "max_current_parity_error": 1.8323435356444905e-15
+  },
+  {
+    "cutoff": 24,
+    "k": 2,
+    "case": "endpoint",
+    "max_current_parity_error": 2.315020105378413e-15
+  },
+  {
+    "cutoff": 24,
+    "k": 2,
+    "case": "interior",
+    "max_current_parity_error": 1.746110933103841e-15
+  },
+  {
+    "cutoff": 24,
+    "k": 3,
+    "case": "endpoint",
+    "max_current_parity_error": 2.30702098440259e-15
+  },
+  {
+    "cutoff": 24,
+    "k": 3,
+    "case": "interior",
+    "max_current_parity_error": 2.267290066453464e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 0,
+    "case": "endpoint",
+    "max_current_parity_error": 2.221691574767666e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 0,
+    "case": "interior",
+    "max_current_parity_error": 2.2437228038882512e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 1,
+    "case": "endpoint",
+    "max_current_parity_error": 2.9967786182139183e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 1,
+    "case": "interior",
+    "max_current_parity_error": 1.833371911327635e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 2,
+    "case": "endpoint",
+    "max_current_parity_error": 2.316338933937993e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 2,
+    "case": "interior",
+    "max_current_parity_error": 1.747232311685353e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 3,
+    "case": "endpoint",
+    "max_current_parity_error": 2.3083293568261435e-15
+  },
+  {
+    "cutoff": 48,
+    "k": 3,
+    "case": "interior",
+    "max_current_parity_error": 2.26861249512877e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 0,
+    "case": "endpoint",
+    "max_current_parity_error": 2.221691574767706e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 0,
+    "case": "interior",
+    "max_current_parity_error": 2.2437228038882907e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 1,
+    "case": "endpoint",
+    "max_current_parity_error": 2.996778618213968e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 1,
+    "case": "interior",
+    "max_current_parity_error": 1.8333719113276637e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 2,
+    "case": "endpoint",
+    "max_current_parity_error": 2.316338933938031e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 2,
+    "case": "interior",
+    "max_current_parity_error": 1.7472323116853753e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 3,
+    "case": "endpoint",
+    "max_current_parity_error": 2.3083293568261817e-15
+  },
+  {
+    "cutoff": 64,
+    "k": 3,
+    "case": "interior",
+    "max_current_parity_error": 2.268612495128809e-15
+  }
+]
