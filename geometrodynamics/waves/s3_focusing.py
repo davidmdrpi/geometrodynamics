@@ -11,9 +11,15 @@ model and #349 rely on, and checks them independently:
   On S2 the conformal operator, -Delta + 1/4, has frequencies l + 1/2, so U(pi) maps displacement
   wholly into velocity (the 2-D Gouy phase -i). Zonal (axisymmetric) data make both checkable: on
   S3, v = u sin(psi) obeys the 1-D wave equation on [0, pi] with fixed ends.
-- **Time-reversal closure of a flash.** With K(Q, P) = (S Q, -S P), S the charge-conjugated
-  antipodal parity, a history closes when U(T) z = K z. `closure_correction` measures how far
-  given data are from that, as the energy-orthogonal projection #349 uses.
+- **Time-reversal closure of a flash.** With K(Q, P) = (S Q, -S P), S a sign times the antipodal
+  parity, a history closes when U(T) z = K z. `closure_correction` measures how far given data
+  are from that, as the energy-orthogonal projection #349 uses. On S3, U(T) = +-(parity) at odd
+  multiples of pi, so the sign decides everything: with S equal to the sign U(T) carries, data
+  released at rest (P = 0) close exactly and data with Q = 0 are wholly off; with the opposite
+  sign it is the reverse (#349's eta = +1 and -1). For the conformal scalar U(pi) = -(parity);
+  for Maxwell U(pi) = +(1-form pullback) (#349, 83db758). Which sign the throat imposes is not
+  derived. Either way closing data have P = 0 or Q = 0 at every focal instant, so their momentum
+  density p grad(u) vanishes there (`zonal_momentum`).
 - **What a finite absorbing mouth receives.** A flash emitted isotropically in its emitter's rest
   frame travels on great circles through the emitter x0 and its antipode, energy per direction
   D^d with D = 1/(gamma (1 - w.n)) (d = 3 on S3, 2 on S2). An absorbing mouth (a geodesic ball)
@@ -37,9 +43,9 @@ def midpoint_grid(n):
     return (np.arange(n) + .5)*np.pi/n
 
 
-def s3_zonal_evolve(u0, p0, t):
-    """Exact free evolution of zonal data for the conformal operator on S3, from the sine series
-    of v = u sin(psi) (frequencies m = n + 1, m >= 1). Data on `midpoint_grid(len(u0))`."""
+def _s3_rotate(u0, p0, angle):
+    """Rotate each sine mode of zonal S3 data, (q, p) -> (q cos A + p sin A/m, p cos A - m q sin A),
+    with A = angle(m)."""
     u0, p0 = np.asarray(u0, float), np.asarray(p0, float)
     n = len(u0)
     psi = midpoint_grid(n)
@@ -50,9 +56,21 @@ def s3_zonal_evolve(u0, p0, t):
     weights[-1] = 1./n
     a = weights*(basis.T @ (u0*s))
     b = weights*(basis.T @ (p0*s))
-    v = basis @ (a*np.cos(m*t) + b*np.sin(m*t)/m)
-    w = basis @ (-a*m*np.sin(m*t) + b*np.cos(m*t))
+    A = angle(m)
+    v = basis @ (a*np.cos(A) + b*np.sin(A)/m)
+    w = basis @ (-a*m*np.sin(A) + b*np.cos(A))
     return v/s, w/s
+
+
+def s3_zonal_evolve(u0, p0, t):
+    """Exact free evolution of zonal data for the conformal operator on S3, from the sine series
+    of v = u sin(psi) (frequencies m = n + 1, m >= 1). Data on `midpoint_grid(len(u0))`."""
+    return _s3_rotate(u0, p0, lambda m: m*t)
+
+
+def s3_birth_phase(u0, p0, theta):
+    """The same data with every mode's canonical phase turned by theta (a uniform birth phase)."""
+    return _s3_rotate(u0, p0, lambda m: np.full(m.shape, float(theta)))
 
 
 def zonal_fd(u0, p0, t, sphere=3, courant=.2):
@@ -100,6 +118,15 @@ def zonal_energy(u, p, sphere=3):
     faces = np.arange(1, n)*h
     grad = (u[1:] - u[:-1])/h
     return .5*h*(np.sum((p**2 + mu*u**2)*np.sin(psi)**k) + np.sum(grad**2*np.sin(faces)**k))
+
+
+def zonal_momentum(u, p, sphere=3):
+    """Total magnitude of the radial momentum density p du/dpsi of zonal data,
+    h sum |p u'| sin^k over the cell faces (the solid-angle factor is dropped, as in `zonal_energy`)."""
+    n = len(u)
+    h = np.pi/n
+    faces = np.arange(1, n)*h
+    return float(h*np.sum(np.abs((p[1:] + p[:-1])/2*(u[1:] - u[:-1])/h)*np.sin(faces)**(sphere - 1)))
 
 
 # ---- time-reversal closure in modes ---------------------------------------------------------

@@ -398,13 +398,15 @@ def elliptic_part():
 
 
 def s3_part():
-    """S3 against S2: exact refocusing, closure of a flash released at rest, what a finite absorbing
-    mouth takes from a flash, and the strict router with the 3-D focus phase and neck."""
+    """S3 against S2: exact refocusing, closure of a flash under either sign of the identification,
+    the momentum a closing flash carries at its foci, what a finite absorbing mouth takes from a
+    flash, and the strict router with the 3-D neck and either sign per focus."""
     from scipy.optimize import brentq
     from geometrodynamics.waves.antipodal_pair_birth import closure_band
     from geometrodynamics.waves.s3_focusing import (absorbed_by_mouth, closure_correction, midpoint_grid,
-                                                    neck_length_s3, s3_zonal_evolve, zonal_energy, zonal_fd,
-                                                    zonal_modes_s2, zonal_modes_s3)
+                                                    neck_length_s3, s3_birth_phase, s3_zonal_evolve,
+                                                    zonal_energy, zonal_fd, zonal_modes_s2, zonal_modes_s3,
+                                                    zonal_momentum)
     a = Parameters().mouth_angle
     refocus, profiles = [], None
     for n in (200, 400, 800):
@@ -433,6 +435,20 @@ def s3_part():
                     s2_conformal=closure_correction(l2 + .5, (-1.)**(l2 + 1), q2, v2, (2*k + 1)*np.pi))
                for k in range(4)]
     print('closure', closure, flush=True)
+    # The sign of the identification: S = (-1)^m is the sign U(pi) carries for this scalar, and the
+    # opposite sign is equally consistent (#349's eta). Each picks which half of the data closes.
+    signs = []
+    for name, theta in (('at rest (P = 0)', 0.), ('Q = 0', np.pi/2), ('birth phase 45 degrees', np.pi/4)):
+        ud, pd = s3_birth_phase(u0, p0, theta)
+        md, qd, vd = zonal_modes_s3(ud, pd)
+        energy = zonal_energy(ud, pd)
+        for k in range(4):
+            T = (2*k + 1)*np.pi
+            signs.append(dict(data=name, theta=theta, k=k, same=closure_correction(md, (-1.)**md, qd, vd, T),
+                              opposite=closure_correction(md, -(-1.)**md, qd, vd, T),
+                              focal_momentum=zonal_momentum(*s3_zonal_evolve(ud, pd, T))/energy,
+                              birth_momentum=zonal_momentum(ud, pd)/energy))
+    print('signs', signs, flush=True)
     deltas = np.round(np.linspace(0, 1, 41), 4)
     absorption = [dict(sphere=sphere, speed=speed, offset='across' if across else 'along', delta=float(d),
                        **absorbed_by_mouth(a, float(d), speed, across=across, sphere=sphere, nodes=160))
@@ -455,7 +471,8 @@ def s3_part():
                                fronts_left=len(info['final_state'].fronts), energy_drift=info['energy_drift']))
             print('router', router[-1], flush=True)
     couplings = {}
-    for label, phase, length in (('S3: -1 per focus, 3-D neck', -1., L3), ('S2: -i per focus', -1j, None)):
+    for label, phase, length in (('S3: -1 per focus, 3-D neck', -1., L3), ('S3: +1 per focus, 3-D neck', 1., L3),
+                                 ('S2: -i per focus', -1j, None)):
         ms = AntipodalPairBirth(Parameters(), reflection_phase=phase, neck_length=length, exchange='signed')
         h, info = ms.run(ms.initial(.30), HISTORY_END, cycles=5, dt=DT, output_dt=OUTPUT_DT)
         caps = [e['coupling'] for e in info['events'] if e['kind'] == 'capture']
@@ -464,7 +481,7 @@ def s3_part():
                                 angular_drift=info['angular_drift'])
     print('couplings', couplings, flush=True)
     tally = []
-    for label, phase, length in (('S3', -1., L3), ('S2', -1j, None)):
+    for label, phase, length in (('S3', -1., L3), ('S3', 1., L3), ('S2', -1j, None)):
         for handle in ('klein', 'torus'):
             for v in (.30, 1/3):
                 ms = AntipodalPairBirth(Parameters(), reflection_phase=phase, neck_length=length, exchange='signed',
@@ -472,19 +489,21 @@ def s3_part():
                 s = ms.initial(v)
                 h, info = ms.run(s, HISTORY_END, cycles=5, dt=DT, output_dt=OUTPUT_DT)
                 ev = info['events']
-                tally.append(dict(space=label, handle=handle, kick=v,
+                tally.append(dict(space=label, per_focus={-1.: '-1', 1.: '+1'}.get(phase, '-i'), handle=handle,
+                                  kick=v,
                                   birth_speed=float(np.linalg.norm(ms.velocity(s), axis=1)[0]),
                                   capture_drate=float(sum(e['drate'] for e in ev if e['kind'] == 'capture')),
                                   exit_drate=float(sum(e['drate'] for e in ev if e['kind'] == 'throat_exit')),
                                   exits=sum(e['kind'] == 'throat_exit' for e in ev),
                                   contacts=[e['time'] for e in ev if e['kind'] == 'contact'],
                                   energy_drift=info['energy_drift'], angular_drift=info['angular_drift']))
-                print('tally', {k: tally[-1][k] for k in ('space', 'handle', 'kick', 'capture_drate', 'exit_drate')},
+                print('tally', {k: tally[-1][k] for k in ('space', 'per_focus', 'handle', 'kick', 'capture_drate',
+                                                          'exit_drate')},
                       flush=True)
     meta = dict(part='s3', mouth_angle=a, neck_s2=L2, neck_s3=L3, numpy=np.__version__,
                 flash='the S2 Maxwell flash energies of PairBirth; only the routing and neck are S3')
     (OUT/'s3.json').write_text(json.dumps(dict(meta=meta, refocus=refocus, profiles=profiles, closure=closure,
-                                               absorption=absorption, bands=bands, router=router,
+                                               signs=signs, absorption=absorption, bands=bands, router=router,
                                                couplings=couplings, tally=tally), separators=(',', ':'))+'\n')
 
 

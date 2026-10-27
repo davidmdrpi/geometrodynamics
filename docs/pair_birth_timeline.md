@@ -114,15 +114,20 @@ A classical experiment on #345, answering the acceptance test set in its review 
     - **No return needed.** In the quotient the pair is one mouth, so its coasting to −P is a
       closure, not a failure to bind. Turning the mouths around with fronts would need about as
       much exchanged energy as the mouths have. The static field does it with 14 times less.
-13. **On S³, BAM's space, the focus is exact and the flash closes; the impulse does not grow** (§12).
-    - **Exact closure.** Free evolution for π is exactly minus the antipodal map, so a flash
-      released at rest refocuses as its own sign-flipped image. It closes under the time
-      reversal with no birth phase, unlike S²'s quarter phase.
+13. **On S³, BAM's space, the focus is exact, but closure and the router's handle result rest on
+    a sign not yet derived; the impulse does not grow** (§12).
+    - **Exact refocusing.** Free evolution for π is exactly ± the antipodal map, with no quarter
+      phase: minus for the conformal scalar, plus the pullback for Maxwell (#349).
+    - **Closure is a choice between two halves.** The time-reversing identification carries a
+      sign. With one sign a flash released at rest closes exactly; with the other it is wholly
+      off and only data with Q = 0 close. Which sign the throat imposes is not derived.
+    - **A flash that closes carries no momentum at its foci.** Its P or its Q vanishes there. A
+      kick at a focus has to come from the exchange between field and mouths.
     - **The impulse is bounded.** An absorbing mouth takes no momentum from an emitter at rest, at
       any offset. From a moving one it takes at most the emitter's flash momentum, and capture
       falls off continuously outside the rim.
     - **The router.** With −1 per focus and the 3-D neck, the closure bands widen slightly, and
-      the Klein/torus difference of §10 disappears.
+      the Klein/torus difference of §10 disappears. With +1 per focus it returns.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -1025,7 +1030,9 @@ phase −i per focus and, for the field, the 2+1 Maxwell spectrum √(l(l + 1)).
   - So free evolution for time π is exactly minus the antipodal map, on every mode, zonal or not.
   - A flash released at rest arrives at the antipode as its own mirror image, sign flipped and
     still at rest, at every odd multiple of π.
-  - Maxwell on ℝ × S³ is conformally invariant and also has whole-number frequencies.
+  - Maxwell on ℝ × S³ is conformally invariant and also has whole-number frequencies. #349
+    (83db758) checks its half-period map exactly in a dipole sector: plus the pullback of the
+    field, which in embedded components is again minus the mirror image.
 - **Checked on zonal data**, where v = u sin ψ obeys the 1-D wave equation:
   - the exact solution reproduces the sign-flipped mirror image to 10⁻¹⁴;
   - an independent finite-volume solver converges to it: 7.3 × 10⁻⁴, 4.6 × 10⁻⁵ and 2.9 × 10⁻⁶
@@ -1033,13 +1040,45 @@ phase −i per focus and, for the field, the 2+1 Maxwell spectrum √(l(l + 1)).
 - **On S²** (conformal, frequencies l + ½) the same flash has no displacement left at π: 0.0009 of
   it at 800 cells. The focus has turned it all into velocity. That is the quarter phase behind −i.
 
-**The flash closes exactly** (panel b). Under the time-reversing identification of §11 a history
-closes if U(T) z = K z, with K(Q, P) = (SQ, −SP).
-- **On S³** a flash released at rest satisfies it at T = π, 3π, 5π and 7π to 10⁻²⁹.
-- **On S²** the same data are exactly half their energy off (conformal). The 2+1 Maxwell flash is
-  off by 59%, 24%, 87% and 9%, or 0.2–8% with the best birth phase (#349).
-- So the birth-phase and dispersion obstructions of #349 belong to the 2-D operator. On S³
-  neither exists.
+**Closure depends on the sign of the identification** (panel b). Under the time-reversing
+identification of §11 a history closes if U(T) z = K z, with K(Q, P) = (SQ, −SP) and S a sign
+times the antipodal parity.
+- **On S³, U(T) is itself a sign times the parity** at T = π, 3π, 5π and 7π. So the sign decides
+  which data close:
+  - with S = (−1)^m, the sign U(π) carries for this scalar, a flash released at rest closes to
+    10⁻²⁹;
+  - with the opposite sign it is wholly off, and data with Q = 0 close instead;
+  - a uniform 45° birth phase is half off with either sign.
+
+| data | energy off U(T) z = K z, S = (−1)^m | with S = −(−1)^m | momentum density at the foci / energy |
+|---|---|---|---|
+| at rest (P = 0) | 3e-29 | 1 | 9.6e-15 |
+| Q = 0 | 1 | 3.1e-29 | 1.3e-14 |
+| birth phase 45 degrees | 0.5 | 0.5 | 0.77 |
+
+(Worst case over T = π, 3π, 5π and 7π; the momentum column includes t = 0.)
+
+- **Which sign holds is not derived.**
+  - #349 (83db758) solves Maxwell exactly on S³ in a dipole sector. There U(π) is plus the
+    pullback of the field, so the scalar's sign does not carry over.
+  - Whether the throat applies the pullback or its charge conjugate needs the field matched
+    through the throat, which has not been done. #349 calls this sign η.
+- **On S²** the same data are exactly half their energy off (conformal), with either sign. The
+  2+1 Maxwell flash is off by 59%, 24%, 87% and 9%, or 0.2–8% with the best birth phase (#349).
+- **So on S³ the dispersion obstruction is gone, but the birth phase is not.** It becomes a
+  choice between two exact closures, data at rest or data with Q = 0, and the throat must supply
+  the sign that makes it.
+
+**A flash that closes carries no momentum at its foci.**
+- Closing data have P = 0 or Q = 0 at birth and at every focal instant. So the momentum density
+  p ∂u vanishes there: at most 1.3 × 10⁻¹⁴ of the energy, against 0.77 for the 45° data, which
+  do not close.
+- For Maxwell, E or B vanishes at every focal instant, so E × B does, and every momentum of the
+  field is zero for all time. #349's dipole field agrees: at most 3 × 10⁻¹⁶ in three receivers,
+  checked with its code.
+- So a moving emitter's flash, which carries its momentum, cannot close by itself. A kick at a
+  focus has to come from the exchange between field and mouths, and closure has to hold for the
+  field and the mouths together.
 
 **What a finite absorbing mouth takes** (panels c and d).
 - **The setting.** A flash emitted isotropically in its emitter's rest frame travels on great
@@ -1062,12 +1101,15 @@ closes if U(T) z = K z, with K(Q, P) = (SQ, −SP).
   - It is exact for the momentum inside the aperture, and it drops what a real absorber takes
     outside.
 - **So a focal encounter moves a mouth by at most the emitter's flash momentum**, as §11's null
-  bound says. The sharp S³ focus does not add to it.
+  bound says. The sharp S³ focus does not add to it. An emitter that gives a kick emits a flash
+  that does not close by itself.
 
-**The router on S³.** The reflection phase is −1, and the neck is the three-dimensional vacuum
-bridge (`VacuumThroat`), L = 0.662 against sin 2a = 0.565.
-- **The closure bands** keep their tops u_k and widen slightly with the longer neck. The router
-  confirms each: just inside the band the cycle closes, just below it drifts, and u_k closes.
+**The router on S³.** The neck is the three-dimensional vacuum bridge (`VacuumThroat`),
+L = 0.662 against sin 2a = 0.565. The sign per focus is −1 in the field's embedded components
+and +1 as Maxwell's pullback, so both are run.
+- **The closure bands** depend only on timing. They keep their tops u_k and widen slightly with
+  the longer neck. The router confirms each: just inside the band the cycle closes, just below it
+  drifts, and u_k closes.
 
 | k | u_k | S2 closure band (neck sin 2a) | S3 closure band (3-D neck) |
 |---|---|---|---|
@@ -1076,29 +1118,43 @@ bridge (`VacuumThroat`), L = 0.662 against sin 2a = 0.565.
 | 2 | 0.16180 | (0.15612, 0.16180] | (0.15518, 0.16180] |
 | 3 | 0.11557 | (0.11266, 0.11557] | (0.11217, 0.11557] |
 
-- **No capture is in quadrature:** with −1 per focus, the couplings are ±1 only.
-- **The Klein/torus difference of §10 does not survive.** The two handles give identical
-  histories.
+- **No capture is in quadrature:** with ±1 per focus, the couplings are ±1 only.
+- **With −1 per focus, the Klein/torus difference of §10 does not survive.** The two handles
+  give identical histories.
   - Pushes leave no angular momentum in the throat.
   - Pulls come just before contact, so their contents leave with the release.
   - So the tube map never acts.
+- **With +1 per focus it returns.** Throat exits carry momentum again, far more through the
+  torus, and the contacts drift. So the S³ handle result rests on the same unresolved sign as
+  closure.
 
-| space | handle | kick | birth speed | Σ Δḋ at captures | Σ Δḋ at exits (exits) | net | contacts |
-|---|---|---|---|---|---|---|---|
-| S3 | klein | 0.300 | 0.283 | -0.0068 | +0.0000 (10) | -0.0068 | 8.98, 21.61, 34.23, 46.86, 59.49 |
-| S3 | klein | 0.333 | 0.315 | +0.0013 | +0.0000 (12) | +0.0013 | 8.07, 19.76, 31.92, 44.57, 57.23 |
-| S3 | torus | 0.300 | 0.283 | -0.0068 | +0.0000 (10) | -0.0068 | 8.98, 21.61, 34.23, 46.86, 59.49 |
-| S3 | torus | 0.333 | 0.315 | +0.0013 | +0.0000 (12) | +0.0013 | 8.07, 19.76, 31.92, 44.57, 57.23 |
-| S2 | klein | 0.300 | 0.283 | +0.0100 | -0.0289 (10) | -0.0190 | 8.98, 21.75, 34.75, 47.95 |
-| S2 | klein | 0.333 | 0.315 | +0.0002 | -0.0510 (14) | -0.0509 | 8.07, 19.76, 32.06, 45.29, 59.90 |
-| S2 | torus | 0.300 | 0.283 | +0.0124 | -0.0058 (8) | +0.0066 | 8.98, 21.75, 34.47, 47.19, 59.91 |
-| S2 | torus | 0.333 | 0.315 | +0.0107 | -0.0122 (12) | -0.0015 | 8.07, 19.76, 32.06, 44.98, 57.85 |
+| space | per focus | handle | kick | birth speed | Σ Δḋ at captures | Σ Δḋ at exits (exits) | net | contacts |
+|---|---|---|---|---|---|---|---|---|
+| S3 | −1 | klein | 0.300 | 0.283 | -0.0068 | +0.0000 (10) | -0.0068 | 8.98, 21.61, 34.23, 46.86, 59.49 |
+| S3 | −1 | klein | 0.333 | 0.315 | +0.0013 | +0.0000 (12) | +0.0013 | 8.07, 19.76, 31.92, 44.57, 57.23 |
+| S3 | −1 | torus | 0.300 | 0.283 | -0.0068 | +0.0000 (10) | -0.0068 | 8.98, 21.61, 34.23, 46.86, 59.49 |
+| S3 | −1 | torus | 0.333 | 0.315 | +0.0013 | +0.0000 (12) | +0.0013 | 8.07, 19.76, 31.92, 44.57, 57.23 |
+| S3 | +1 | klein | 0.300 | 0.283 | -0.0041 | -0.0115 (8) | -0.0156 | 8.98, 21.89, 34.70, 47.51 |
+| S3 | +1 | klein | 0.333 | 0.315 | +0.0021 | -0.0246 (10) | -0.0225 | 8.07, 19.76, 32.20, 45.40, 58.48 |
+| S3 | +1 | torus | 0.300 | 0.283 | -0.0346 | -0.1457 (10) | -0.1804 | 8.98, 21.89, 35.29, 50.44 |
+| S3 | +1 | torus | 0.333 | 0.315 | -0.0282 | -0.1069 (10) | -0.1351 | 8.07, 19.76, 32.20, 46.09 |
+| S2 | −i | klein | 0.300 | 0.283 | +0.0100 | -0.0289 (10) | -0.0190 | 8.98, 21.75, 34.75, 47.95 |
+| S2 | −i | klein | 0.333 | 0.315 | +0.0002 | -0.0510 (14) | -0.0509 | 8.07, 19.76, 32.06, 45.29, 59.90 |
+| S2 | −i | torus | 0.300 | 0.283 | +0.0124 | -0.0058 (8) | +0.0066 | 8.98, 21.75, 34.47, 47.19, 59.91 |
+| S2 | −i | torus | 0.333 | 0.315 | +0.0107 | -0.0122 (12) | -0.0015 | 8.07, 19.76, 32.06, 44.98, 57.85 |
 
 - **Caveat.** These runs use the S² flash energies of `PairBirth`; only the routing and the neck
   are S³.
 
 **What remains.**
-- Partial reflection at the mouth. A mirror-like mouth can take up to twice the momentum.
+- Reflection at the mouth.
+  - #349's fixed conductor centred on the focus (83db758) is the first reflection control. It
+    is squeezed, not moved.
+  - Its squeeze tends to −2E as the pulse narrows: −1.92, −1.98 and −1.99 at width 0.05 for
+    radii 0.15, 0.3 and 0.45 (computed with its code). That is §11's two-way bound, reached in
+    the breathing channel.
+  - An offset or moving reflector, and partial reflection, remain.
+- The sign of the identification, from the field matched through the throat.
 - The two-mouth flash on S³ itself: non-zonal, from the pair's currents.
 - Throat deformation and backreaction.
 - The full-cycle return operator built from these pieces.
@@ -1137,10 +1193,11 @@ bridge (`VacuumThroat`), L = 0.662 against sin 2a = 0.565.
 | antipodal time reversal | every symmetric strict flight maps onto itself under (n, t, q) → (−n, t_c − t, −q) to 3 × 10⁻¹³ at 79 speeds; the flash closes on its image only at u_k; cycles repeat speed and flash to 10⁻¹⁶ with no front left exactly within (2k + 1)π ≤ t_c < (2k + 1)π + L/√(1 − u²) (band edges at k = 1, 2 match to the bisection's precision; k = 0 spot-checked); each re-birth sits at its flash's advanced focus; a focus within 10⁻⁹ of contact is processed first (18 cases: u_k and 10⁻⁹ either side, three steps) |
 | null bound | every capture moves its mouth by at most the front's energy, in the rest and signed exchanges |
 | S³ refocusing | free evolution for π is minus the antipodal map: the exact zonal solution matches the sign-flipped mirror image to 10⁻¹⁴, and an independent finite-volume solver converges to it (2.9 × 10⁻⁶ at 800 cells); on S² the displacement at π goes to 0 instead |
-| S³ closure | a flash released at rest satisfies U(T) z = K z at T = π, 3π, 5π, 7π to 10⁻²⁹; on S² it is exactly half off |
+| S³ closure | with S = (−1)^m a flash released at rest satisfies U(T) z = K z at T = π, 3π, 5π, 7π to 10⁻²⁹, and with the opposite sign it is wholly off (data with Q = 0 close instead; a 45° birth phase is half off either way); on S² it is exactly half off |
+| closing flash momentum | closing data carry momentum density at most 1.3 × 10⁻¹⁴ of their energy at birth and at T = π, 3π, 5π, 7π; the 45° data carry 0.77 |
 | finite absorbing mouth | an emitter at rest gives zero momentum at every offset (10⁻¹⁶, S³ and S², both offset directions); holding the focus, the mouth takes the whole flash and its momentum (cos δ orbital across); beyond the rim the energy taken is 1 − cos α on S³ and 2α/π on S² |
-| S³ router | phase −1 and the 3-D neck: closure bands confirmed inside, below and at u_k for k = 1, 2; no quadrature capture; Klein and torus identical |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 49 checks; `tests/test_s3_focusing.py`: 13 checks |
+| S³ router | the 3-D neck: closure bands confirmed inside, below and at u_k for k = 1, 2; no quadrature capture; with −1 per focus Klein and torus identical, with +1 they differ |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 49 checks; `tests/test_s3_focusing.py`: 20 checks |
 
 ## Against the acceptance test
 
@@ -1198,7 +1255,7 @@ python experiments/closure_ledger/pair_birth_neck_animation.py   # neck_channel.
 python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history under the antipodal-only rule, ~15 s
 python experiments/closure_ledger/pair_birth_probe.py klein      # signed exchange, Klein against torus, ~20 s
 python experiments/closure_ledger/pair_birth_probe.py elliptic   # antipodal time reversal and resonant speeds, ~70 s
-python experiments/closure_ledger/pair_birth_probe.py s3         # the S3 benchmark, ~80 s
+python experiments/closure_ledger/pair_birth_probe.py s3         # the S3 benchmark, ~2.5 min
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
 python -m pytest -q tests/test_pair_birth.py tests/test_antipodal_pair_birth.py
 ```

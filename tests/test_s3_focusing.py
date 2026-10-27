@@ -7,8 +7,8 @@ from geometrodynamics.waves.antipodal_pair_birth import AntipodalPairBirth, clos
 from geometrodynamics.waves.pair_birth import Parameters
 from geometrodynamics.waves.physical_throat import VacuumThroat
 from geometrodynamics.waves.s3_focusing import (absorbed_by_mouth, closure_correction, midpoint_grid,
-                                                neck_length_s3, s3_zonal_evolve, zonal_energy, zonal_fd,
-                                                zonal_modes_s2, zonal_modes_s3)
+                                                neck_length_s3, s3_birth_phase, s3_zonal_evolve, zonal_energy,
+                                                zonal_fd, zonal_modes_s2, zonal_modes_s3, zonal_momentum)
 
 COARSE = Parameters(cutoff=12, footprint=.2)
 
@@ -50,6 +50,28 @@ def test_a_flash_released_at_rest_closes_exactly_on_s3_and_is_half_off_on_s2(k):
     assert closure_correction(m, (-1.)**m, q, p, (2*k + 1)*np.pi) < 1e-25
     l, q2, p2 = zonal_modes_s2(u0, p0, lmax=150)
     assert closure_correction(l + .5, (-1.)**(l + 1), q2, p2, (2*k + 1)*np.pi) == pytest.approx(.5, abs=1e-12)
+
+
+@pytest.mark.parametrize('k', [0, 1, 2, 3])
+def test_on_s3_the_sign_of_the_identification_picks_which_half_of_the_data_closes(k):
+    # S = (-1)^m is the sign U(pi) carries for the conformal scalar; for Maxwell U(pi) is the plain
+    # pullback (#349). Data at rest close with the first and are wholly off with the opposite sign;
+    # data with Q = 0 do the reverse; a uniform 45-degree birth phase is half off either way.
+    T = (2*k + 1)*np.pi
+    for theta, same, opposite in ((0., 0., 1.), (np.pi/2, 1., 0.), (np.pi/4, .5, .5)):
+        m, q, p = zonal_modes_s3(*s3_birth_phase(*flash(400), theta))
+        assert closure_correction(m, (-1.)**m, q, p, T) == pytest.approx(same, abs=1e-12)
+        assert closure_correction(m, -(-1.)**m, q, p, T) == pytest.approx(opposite, abs=1e-12)
+
+
+def test_a_flash_that_closes_carries_no_momentum_at_its_foci():
+    # Closing data have P = 0 or Q = 0 at every odd multiple of pi, so p du/dpsi vanishes there;
+    # mixed data carry momentum density at the focus, and do not close.
+    for theta, expected in ((0., 0.), (np.pi/2, 0.), (np.pi/4, .77)):
+        u0, p0 = s3_birth_phase(*flash(400), theta)
+        energy = zonal_energy(u0, p0)
+        for t in (0., np.pi, 3*np.pi):
+            assert zonal_momentum(*s3_zonal_evolve(u0, p0, t))/energy == pytest.approx(expected, abs=1e-2 if expected else 1e-13)
 
 
 @pytest.mark.parametrize('sphere', [3, 2])
@@ -96,3 +118,22 @@ def test_s3_neck_router_closes_in_its_band_and_never_captures_in_quadrature():
     couplings = {e['coupling'] for e in info['events'] if e['kind'] == 'capture'}
     assert couplings and couplings <= {-1., 1.}
     assert info['energy_drift'] < 1e-14 and info['angular_drift'] < 1e-13
+
+
+@pytest.mark.parametrize('phase', [-1., 1.])
+def test_klein_and_torus_agree_on_s3_only_with_minus_one_per_focus(phase):
+    # -1 per focus is the field's sign in embedded components; +1 is Maxwell's plain pullback.
+    L = neck_length_s3(.3)
+    runs = {}
+    for handle in ('klein', 'torus'):
+        m = AntipodalPairBirth(COARSE, reflection_phase=phase, neck_length=L, exchange='signed', handle=handle)
+        h, info = m.run(m.initial(.3), 40., cycles=4, dt=.01)
+        exits = sum(abs(e['drate']) for e in info['events'] if e['kind'] == 'throat_exit')
+        runs[handle] = h['x'], exits
+        assert info['energy_drift'] < 1e-14
+    (xk, ek), (xt, et) = runs['klein'], runs['torus']
+    if phase < 0:
+        assert np.array_equal(xk, xt) and ek == et == 0
+    else:
+        assert xk.shape != xt.shape or not np.array_equal(xk, xt)
+        assert ek > 1e-3 and et > 1e-3

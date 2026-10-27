@@ -1147,13 +1147,20 @@ def s3_tables(data):
     for b in data['bands']:
         bands.append(f"| {b['k']} | {b['s2'][1]:.5f} | ({b['s2'][0]:.5f}, {b['s2'][1]:.5f}] | "
                      f"({b['s3'][0]:.5f}, {b['s3'][1]:.5f}] |")
-    tally = ['| space | handle | kick | birth speed | Σ Δḋ at captures | Σ Δḋ at exits (exits) | net | contacts |',
-             '|---|---|---|---|---|---|---|---|']
+    tally = ['| space | per focus | handle | kick | birth speed | Σ Δḋ at captures | Σ Δḋ at exits (exits) | net | '
+             'contacts |', '|---|---|---|---|---|---|---|---|---|']
     for r in data['tally']:
-        tally.append(f"| {r['space']} | {r['handle']} | {r['kick']:.3f} | {r['birth_speed']:.3f} | "
+        sign = r.get('per_focus', '-1' if r['space'] == 'S3' else '-i').replace('-', '−')
+        tally.append(f"| {r['space']} | {sign} | {r['handle']} | {r['kick']:.3f} | {r['birth_speed']:.3f} | "
                      f"{r['capture_drate']:+.4f} | {r['exit_drate']:+.4f} ({r['exits']}) | "
                      f"{r['capture_drate'] + r['exit_drate']:+.4f} | {', '.join(f'{t:.2f}' for t in r['contacts'])} |")
-    return '\n'.join(bands), '\n'.join(tally)
+    signs = ['| data | energy off U(T) z = K z, S = (−1)^m | with S = −(−1)^m | momentum density at the foci / energy |',
+             '|---|---|---|---|']
+    for name in dict.fromkeys(r['data'] for r in data.get('signs', [])):
+        rows = [r for r in data['signs'] if r['data'] == name]
+        signs.append(f"| {name} | {max(r['same'] for r in rows):.2g} | {max(r['opposite'] for r in rows):.2g} | "
+                     f"{max(r['focal_momentum'] for r in rows):.2g} |")
+    return '\n'.join(bands), '\n'.join(tally), '\n'.join(signs)
 
 
 def figure_s3(data, path):
@@ -1180,7 +1187,13 @@ def figure_s3(data, path):
     k = np.array([c['k'] for c in data['closure']])
     s3 = np.maximum([c['s3'] for c in data['closure']], 1e-32)
     s2 = [c['s2_conformal'] for c in data['closure']]
-    ax.semilogy(k, s3, 'o-', color='#1f5fa8', label='S³ conformal, released at rest')
+    ax.semilogy(k, s3, 'o-', color='#1f5fa8', label='S³ conformal, released at rest, S = (−1)^m')
+    if data.get('signs'):
+        for name, marker, ls, label in (('at rest (P = 0)', 'o', ':', 'S³, released at rest, opposite sign'),
+                                        ('birth phase 45 degrees', 'D', '-.', 'S³, 45° birth phase, either sign')):
+            rows = sorted((r for r in data['signs'] if r['data'] == name), key=lambda r: r['k'])
+            ax.semilogy([r['k'] for r in rows], [r['opposite'] for r in rows], marker + ls, color='#1f5fa8',
+                        mfc='white', label=label)
     ax.semilogy(k, s2, 's-', color='#c0392b', label='S² conformal, released at rest')
     ax.semilogy(k, [.5923, .2427, .8686, .0939], 'v--', color='#c0392b', mfc='white',
                 label='S² Maxwell flash, released at rest (#349)')
@@ -1189,8 +1202,8 @@ def figure_s3(data, path):
     ax.set_xticks(k, [f'k = {i}\n(T = {2*i + 1}π)' for i in k])
     ax.set_ylim(1e-32, 3)
     ax.set_ylabel('energy fraction to change for U(T) z = K z')
-    ax.set_title('(b) Time-reversal closure of the flash: exact on S³ with the flash released at rest;\n'
-                 'on S² half off (conformal) or dispersed (Maxwell)', fontsize=10)
+    ax.set_title('(b) Time-reversal closure of the flash: on S³ exact or wholly off, by the sign of the\n'
+                 'identification (not yet derived); on S² half off (conformal) or dispersed (Maxwell)', fontsize=10)
     ax.legend(fontsize=7, loc='center right')
 
     ab = data['absorption']
@@ -1298,8 +1311,8 @@ def main():
                       resonant_speeds=elliptic['meta']['resonant_speeds'],
                       max_trajectory_mismatch=max(r['trajectory_mismatch'] for r in elliptic['scan']))
         if elliptic else None,
-        s3=dict(refocus=s3['refocus'], closure=s3['closure'], bands=s3['bands'], router=s3['router'],
-                couplings=s3['couplings'], tally=s3['tally']) if s3 else None,
+        s3=dict(refocus=s3['refocus'], closure=s3['closure'], signs=s3.get('signs'), bands=s3['bands'],
+                router=s3['router'], couplings=s3['couplings'], tally=s3['tally']) if s3 else None,
         tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
                     history=history_table(history_rows(history)) if history else None,
                     neck=neck_table(neck_rows(neck)) if neck else None,
@@ -1308,7 +1321,8 @@ def main():
                     klein=klein_table(klein) if klein else None,
                     klein_sweep=klein_sweep_table(klein) if klein else None,
                     elliptic=elliptic_table(elliptic) if elliptic else None,
-                    s3_bands=s3_tables(s3)[0] if s3 else None, s3_tally=s3_tables(s3)[1] if s3 else None))
+                    s3_bands=s3_tables(s3)[0] if s3 else None, s3_tally=s3_tables(s3)[1] if s3 else None,
+                    s3_signs=s3_tables(s3)[2] if s3 else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(p for ext in ('png', 'gif', 'mp4') for p in IMAGES.glob(f'*.{ext}'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
