@@ -1137,6 +1137,98 @@ def figure_elliptic(data, path):
     plt.close(fig)
 
 
+def load_s3():
+    path = RUNS/'s3.json'
+    return json.loads(path.read_text()) if path.exists() else None
+
+
+def s3_tables(data):
+    bands = ['| k | u_k | S2 closure band (neck sin 2a) | S3 closure band (3-D neck) |', '|---|---|---|---|']
+    for b in data['bands']:
+        bands.append(f"| {b['k']} | {b['s2'][1]:.5f} | ({b['s2'][0]:.5f}, {b['s2'][1]:.5f}] | "
+                     f"({b['s3'][0]:.5f}, {b['s3'][1]:.5f}] |")
+    tally = ['| space | handle | kick | birth speed | Σ Δḋ at captures | Σ Δḋ at exits (exits) | net | contacts |',
+             '|---|---|---|---|---|---|---|---|']
+    for r in data['tally']:
+        tally.append(f"| {r['space']} | {r['handle']} | {r['kick']:.3f} | {r['birth_speed']:.3f} | "
+                     f"{r['capture_drate']:+.4f} | {r['exit_drate']:+.4f} ({r['exits']}) | "
+                     f"{r['capture_drate'] + r['exit_drate']:+.4f} | {', '.join(f'{t:.2f}' for t in r['contacts'])} |")
+    return '\n'.join(bands), '\n'.join(tally)
+
+
+def figure_s3(data, path):
+    fig, axes = plt.subplots(2, 2, figsize=(15, 10), gridspec_kw=dict(hspace=.38, wspace=.22))
+    pr = data['profiles']
+    psi = np.array(pr['psi'])
+    ax = axes[0, 0]
+    u0 = np.array(pr['u0'])
+    ax.plot(psi, u0, color='#7f8c8d', lw=1.5, label='flash at t = 0 (released at rest, centred on the emitter)')
+    ax.plot(psi, -u0[::-1], color='k', lw=4, alpha=.25, label='its antipodal image, sign flipped')
+    ax.plot(psi, pr['s3_exact'], color='#1f5fa8', lw=1.5, label='S³ at t = π, exact')
+    ax.plot(psi[::8], np.array(pr['s3_fd'])[::8], 'o', color='#1f5fa8', ms=3, label='S³ at t = π, finite volumes')
+    ax.plot(psi, pr['s2_u'], color='#c0392b', lw=1.5, label='S² (conformal) at t = π: displacement')
+    p2 = np.array(pr['s2_p'])
+    ax.plot(psi, p2/np.abs(p2).max(), color='#c0392b', lw=1, ls='--', label='S² at t = π: velocity (scaled)')
+    ax.set_xticks([0, np.pi/2, np.pi], ['emitter', 'equator', 'antipode'])
+    ax.set_xlabel('distance from the emitter ψ (zonal flash)')
+    ax.set_ylabel('field')
+    ax.set_title('(a) After π the S³ flash is its own mirror image, sign flipped and still at rest;\n'
+                 'on S² the focus turns all displacement into velocity (the quarter phase)', fontsize=10)
+    ax.legend(fontsize=7, loc='lower left')
+
+    ax = axes[0, 1]
+    k = np.array([c['k'] for c in data['closure']])
+    s3 = np.maximum([c['s3'] for c in data['closure']], 1e-32)
+    s2 = [c['s2_conformal'] for c in data['closure']]
+    ax.semilogy(k, s3, 'o-', color='#1f5fa8', label='S³ conformal, released at rest')
+    ax.semilogy(k, s2, 's-', color='#c0392b', label='S² conformal, released at rest')
+    ax.semilogy(k, [.5923, .2427, .8686, .0939], 'v--', color='#c0392b', mfc='white',
+                label='S² Maxwell flash, released at rest (#349)')
+    ax.semilogy(k, [.0017, .0152, .0417, .0800], '^--', color='#b9770e', mfc='white',
+                label='S² Maxwell flash, best birth phase (#349 review)')
+    ax.set_xticks(k, [f'k = {i}\n(T = {2*i + 1}π)' for i in k])
+    ax.set_ylim(1e-32, 3)
+    ax.set_ylabel('energy fraction to change for U(T) z = K z')
+    ax.set_title('(b) Time-reversal closure of the flash: exact on S³ with the flash released at rest;\n'
+                 'on S² half off (conformal) or dispersed (Maxwell)', fontsize=10)
+    ax.legend(fontsize=7, loc='center right')
+
+    ab = data['absorption']
+    a = data['meta']['mouth_angle']
+
+    def series(**kw):
+        rows = sorted((r for r in ab if all(r[k] == v for k, v in kw.items())), key=lambda r: r['delta'])
+        return np.array([r['delta'] for r in rows])/a, rows
+
+    ax = axes[1, 0]
+    for sphere, col in ((3, '#1f5fa8'), (2, '#c0392b')):
+        x, rows = series(sphere=sphere, speed=0., offset='along')
+        ax.plot(x, [r['energy_fraction'] for r in rows], color=col, lw=1.6, label=f'S{"³" if sphere == 3 else "²"}: absorbing mouth')
+    ax.plot([0, 1, 1, x.max()], [1, 1, 0, 0], color='k', lw=1, ls=':', label='strict rule: capture iff the focus is inside')
+    ax.set_xlabel('offset of the focus from the mouth centre, δ/a (a = 0.3)')
+    ax.set_ylabel('fraction of the flash the mouth takes')
+    ax.set_title('(c) A mouth near the focus takes rays on both sides of it: no jump at the rim;\n'
+                 'beyond it S³ takes 1 − cos α, sin α = sin a / sin δ', fontsize=10)
+    ax.legend(fontsize=8)
+
+    ax = axes[1, 1]
+    for sphere, offset, col, ls in ((3, 'along', '#1f5fa8', '-'), (3, 'across', '#1f5fa8', '--'),
+                                    (2, 'along', '#c0392b', '-'), (2, 'across', '#c0392b', '--')):
+        x, rows = series(sphere=sphere, speed=.27, offset=offset)
+        ax.plot(x, [r['along'] for r in rows], color=col, ls=ls, lw=1.5,
+                label=f'S{"³" if sphere == 3 else "²"}, offset {offset} the line of motion')
+    x, rows = series(sphere=3, speed=0., offset='along')
+    ax.plot(x, [r['along'] for r in rows], color='k', lw=2.5, label='emitter at rest (S³ and S², either offset): exactly 0')
+    ax.axvline(1, color='k', lw=.6, ls=':')
+    ax.set_xlabel('offset of the focus from the mouth centre, δ/a')
+    ax.set_ylabel('momentum taken / γE₀u')
+    ax.set_title('(d) The mouth takes the emitter’s momentum, never more: all of it while it holds the focus\n'
+                 '(across: cos δ as orbital motion, the rest as spin); none from an emitter at rest', fontsize=10)
+    ax.legend(fontsize=7, loc='upper right')
+    fig.savefig(path, dpi=110, bbox_inches='tight')
+    plt.close(fig)
+
+
 HISTORY_END = 60.
 
 
@@ -1155,6 +1247,9 @@ def main():
     elliptic = load_elliptic()
     if elliptic:
         figure_elliptic(elliptic, IMAGES/'elliptic.png')
+    s3 = load_s3()
+    if s3:
+        figure_s3(s3, IMAGES/'s3.png')
     IMAGES.mkdir(parents=True, exist_ok=True)
     if history:
         figure_history(history, IMAGES/'history.png')
@@ -1203,6 +1298,8 @@ def main():
                       resonant_speeds=elliptic['meta']['resonant_speeds'],
                       max_trajectory_mismatch=max(r['trajectory_mismatch'] for r in elliptic['scan']))
         if elliptic else None,
+        s3=dict(refocus=s3['refocus'], closure=s3['closure'], bands=s3['bands'], router=s3['router'],
+                couplings=s3['couplings'], tally=s3['tally']) if s3 else None,
         tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
                     history=history_table(history_rows(history)) if history else None,
                     neck=neck_table(neck_rows(neck)) if neck else None,
@@ -1210,13 +1307,14 @@ def main():
                     antipodal=antipodal_table(antipodal, history) if antipodal else None,
                     klein=klein_table(klein) if klein else None,
                     klein_sweep=klein_sweep_table(klein) if klein else None,
-                    elliptic=elliptic_table(elliptic) if elliptic else None))
+                    elliptic=elliptic_table(elliptic) if elliptic else None,
+                    s3_bands=s3_tables(s3)[0] if s3 else None, s3_tally=s3_tables(s3)[1] if s3 else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(p for ext in ('png', 'gif', 'mp4') for p in IMAGES.glob(f'*.{ext}'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()
                                                 for p in files if p.name != 'sha256.json'}, indent=2)+'\n')
     for k in ('outcomes', 'ledger', 'retimed', 'history', 'neck', 'calibration', 'antipodal', 'klein',
-              'klein_sweep', 'elliptic'):
+              'klein_sweep', 'elliptic', 's3_bands', 's3_tally'):
         print(report['tables'][k], '\n')
     if report['neck']:
         print(json.dumps(dict(feedback=report['neck']['feedback'], torus=report['neck']['torus']), indent=1))

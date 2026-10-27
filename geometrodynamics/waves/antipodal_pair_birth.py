@@ -153,7 +153,7 @@ def from_local(centre, frame, local):
 
 class AntipodalPairBirth:
     def __init__(self, parameters=Parameters(), static='none', handle='klein', reflection_phase=-1j,
-                 exchange='rest', flash_scale=1.):
+                 exchange='rest', flash_scale=1., neck_length=None):
         if static not in ('none', 'coulomb') or handle not in ('klein', 'torus') or exchange not in ('rest', 'signed') \
                 or flash_scale <= 0:
             raise ValueError("static 'none' or 'coulomb', handle 'klein' or 'torus', exchange 'rest' or 'signed', "
@@ -167,7 +167,7 @@ class AntipodalPairBirth:
         self.map = np.array([-1., -1.]) if handle == 'klein' else np.array([-1., 1.])
         self.reflection_phase = complex(reflection_phase)
         a = parameters.mouth_angle
-        self.length = np.sin(2*a)
+        self.length = np.sin(2*a) if neck_length is None else float(neck_length)   # S3: s3_focusing
         self.inertia = parameters.mass*np.sin(a)**2
 
     # ---- births and fronts ----------------------------------------------------------------------
