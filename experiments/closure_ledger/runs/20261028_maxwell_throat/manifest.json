@@ -1,0 +1,69 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/scattering.json",
+      "bytes": 288096,
+      "sha256": "9e4dd8ce553856c343ce94b7a3425fc9d854f1e5863081e90e649ee537cb7b48"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/summary.json",
+      "bytes": 1011,
+      "sha256": "665621eb7aff85871d9676fef1781a63f93ff6bd7f5d29ca5993cdf41e403be7"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/support.json",
+      "bytes": 196290,
+      "sha256": "39f89761ebe50398e36899ce824c5400f21ce2921a738a113ff33ef12378889d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/verification.json",
+      "bytes": 4512,
+      "sha256": "e54efb266a561a5fe471cb646d109dd3e9f14e13bd0a1c6b4299e75a21c496d5"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/weighted_drive.json",
+      "bytes": 29981,
+      "sha256": "d6b4a234477be68f24d046b35ebef6d96291b3a639538ebf61520c4e6001ef96"
+    },
+    {
+      "path": "experiments/closure_ledger/maxwell_throat_probe.py",
+      "bytes": 9702,
+      "sha256": "a2956a6af6c251def382a9464f27c2121d75c497bbce771425a8e0e3abea4b04"
+    },
+    {
+      "path": "geometrodynamics/waves/maxwell_throat_response.py",
+      "bytes": 10853,
+      "sha256": "ac2d945175c0a1fdc468614b73901cb380d9e18d677c05b964e405b18c309c12"
+    },
+    {
+      "path": "geometrodynamics/waves/physical_throat.py",
+      "bytes": 52495,
+      "sha256": "b60ba592626a764004e3d278a27d827c2acb970b1b78d1d28bacbb03fa5a940b"
+    },
+    {
+      "path": "geometrodynamics/waves/gr_handle_checks.py",
+      "bytes": 4942,
+      "sha256": "3f9de605153a7a68f5769570c5a8e711327af57362a2fb58f9e01db99147045d"
+    },
+    {
+      "path": "geometrodynamics/waves/s3_maxwell_encounter.py",
+      "bytes": 13694,
+      "sha256": "999981c4e5997bcf8db0f17173f74d207b0d3c5f30d36f78d01d65a3ce3f5e7f"
+    },
+    {
+      "path": "tests/test_maxwell_throat_response.py",
+      "bytes": 5640,
+      "sha256": "19847efdd3c0f694a63a9f26f81130be4df5cb48b8831848b674278d63d6ec85"
+    },
+    {
+      "path": "docs/maxwell_throat_response.md",
+      "bytes": 14153,
+      "sha256": "ea9553450e751321a8ab10cf083c8bee8d83ff38ed0095c2147cae5a28b8d766"
+    },
+    {
+      "path": "docs/images/history_throat/maxwell_throat_response.png",
+      "bytes": 196040,
+      "sha256": "95c17934172a23429d71e8b1a673d0d4abbea59c706188f4ae9a321d4518f734"
+    }
+  ]
+}
