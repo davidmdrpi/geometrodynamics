@@ -22,6 +22,31 @@ def test_two_port_reproduces_the_published_transmission_table(depth, expected):
         assert abs(tp.scattering(omega)[0])**2 == pytest.approx(T, rel=2e-3)
 
 
+def test_two_port_reproduces_the_published_delay_table():
+    # #349 (dc9c689): its width-0.2 TE-dipole S3 pulse, modes n = 2..48 at omega = n, weighted by
+    # energy; transmitted and reflected delays weighted by output. The pulse weights are rebuilt
+    # here from f_n = sin^2 chi C_(n-2)^(2)(cos chi)/sqrt(pi (n^2 - 1)/8).
+    from numpy.polynomial.legendre import leggauss
+    from scipy.special import eval_gegenbauer
+    x, wq = leggauss(256)
+    chi, wq = np.pi*(x + 1)/2, wq*np.pi/2
+    n = np.arange(2, 49)
+    f = np.array([np.sin(chi)**2*eval_gegenbauer(k - 2, 2, np.cos(chi)) for k in n])/np.sqrt(np.pi*(n*n - 1)/8)[:, None]
+    q = f @ (wq*np.sin(chi)**2*np.exp((np.cos(chi) - 1)/.2**2))
+    w = (n*q)**2/np.sum((n*q)**2)
+    table = {0.: (6.3588e-7, .66218, .60848, .47126), .4: (2.1436e-5, .83802, .86973, .64425),
+             .8: (.27958, 1.40704, 2.00190, 1.76187), .9: (.78995, 1.96375, 2.53000, 2.45260),
+             .95: (.92556, 2.75065, 3.77024, 4.32810), .99: (.75704, 6.07056, 5.93775, 4.34448)}
+    for depth, (T, optical, tau_t, tau_r) in table.items():
+        tp = ThroatTwoPort(.3, depth)
+        r = tp.response(n.astype(float))
+        wt, wr = w*r['T'], w*r['R']
+        assert wt.sum() == pytest.approx(T, rel=1e-4)
+        assert tp.optical_length == pytest.approx(optical, abs=1e-5)
+        assert wt @ r['raw_tau_t']/wt.sum() == pytest.approx(tau_t, abs=2e-5)
+        assert wr @ r['raw_tau_r']/wr.sum() == pytest.approx(tau_r, abs=2e-5)
+
+
 def test_two_port_is_lossless_symmetric_and_converged():
     coarse, fine = ThroatTwoPort(.3, .6, cells=2**12), ThroatTwoPort(.3, .6, cells=2**16)
     for omega in (1.4, 7., 25., 70.):

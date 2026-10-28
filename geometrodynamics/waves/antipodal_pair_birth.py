@@ -42,7 +42,8 @@ on its way feel nothing.
     delay; a reflected part, filtered by R(omega), leaves the capturing mouth from the point it
     entered after its own delay, with its momentum reversed (each ray retraces its path). Delays
     are in the rims' proper time, as L is. The two-port's scattering phases are not used; the
-    front keeps its phase, as a whole crossing does.
+    front keeps its phase, as a whole crossing does. Each part leaves after one energy-weighted
+    delay: a packet reduction, which keeps energy, momentum and the mean delay, not the waveform.
 - **Static interaction.** The Coulomb attraction acts at every separation, so the strict rule
   removes it (static='none'). The flux energy is then part of the fixed rest energy, and the
   mouths coast on geodesics between captures. static='coulomb' keeps it, as a labelled

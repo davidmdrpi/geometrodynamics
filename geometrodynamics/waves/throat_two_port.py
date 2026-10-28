@@ -18,7 +18,8 @@ multiplies the cells pairwise. It adds what a router needs:
 
 The port convention, a free line outside each rim, is #349's. It is least reliable at low
 frequency, where the centrifugal barrier l(l + 1)/sin^2 chi already stands outside the rim.
-Nothing here models the S3 exterior, a sourced emission or backreaction.
+Nothing here models the S3 exterior, a sourced emission or backreaction. The bridge is static
+only if it is held open: unsupported, it contracts under Einstein's equation (#349, dc9c689).
 """
 import numpy as np
 

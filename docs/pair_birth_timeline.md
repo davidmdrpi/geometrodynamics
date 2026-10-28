@@ -138,6 +138,8 @@ A classical experiment on #345, answering the acceptance test set in its review 
       focus the reflected recoil pushes the pair apart.
     - **A deep lapse lets more through,** 2.5–16% of the flash, but slowly and through narrow
       resonances.
+    - **The throat must be held open.** Unsupported, it pinches off within 0.04 (#349), and the
+      mouth then absorbs what it catches.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -1190,6 +1192,9 @@ two-port independently, and `AntipodalPairBirth(throat=...)` routes fronts throu
   pairwise product, and shares no code with #349. It reproduces #349's transmission table to
   every printed digit: 2.585 × 10⁻⁷, 5.679 × 10⁻⁵ and 0.8519 at ω = 10, 20 and 60 with N = 1,
   and the rows for N = 0.6 and 0.2 at the neck.
+- **It also reproduces #349's group-delay table** (dc9c689) for its width-0.2 S³ pulse, all six
+  lapses, to every printed digit. At N = 1, 6.3588 × 10⁻⁷ is transmitted, with delay 0.60848,
+  and the reflected delay is 0.47126.
 - **A high-pass filter.** The neck radius sin³a = 0.0258 gives a barrier of height about
   2/b² ≈ 3000, which opens near ω ≈ 55.
 - **Delays.** Each part leaves after its group (Wigner) delay.
@@ -1215,7 +1220,10 @@ frequencies √(l(l + 1)):
     N = 0.1) sits on one, and sends 91% of its energy through after a delay of 21.7.
   - So the weighted transmission and delay there depend on where the flash's discrete
     frequencies fall: 0.16 at N = 0.1, but 0.10 at 0.05.
-  - At N = 0 at the neck, the vacuum lapse, there is a horizon and nothing crosses.
+  - As N at the neck goes to 0, the crossing time diverges, and nothing crosses in finite static
+    time.
+  - That limit is not the vacuum lapse, as an earlier version here said. This lapse family
+    vanishes like s² at the neck, and the vacuum lapse like |s| (#349, dc9c689).
 
 **The router.** At each capture the front splits by the spectrum-weighted two-port.
 - **The transmitted part** leaves the other mouth after its delay, through the handle as before.
@@ -1228,6 +1236,9 @@ frequencies √(l(l + 1)):
   - Delays are in the rims' proper time, as the neck length was.
   - The two-port's scattering phases are not used; a front keeps its phase, as a whole crossing
     does.
+  - **It is a packet approximation.** Each part leaves as one front, after one energy-weighted
+    delay. A broadband front would come out spread in time, and its waveform needs the complex
+    S(ω) (#349, dc9c689). The router keeps energy, momentum and the mean delay, not the shape.
   - Energy and angular momentum are conserved to 5 × 10⁻¹⁵ in every run.
 
 **The closure bands narrow to the reflection delay** (panel c).
@@ -1292,6 +1303,13 @@ frequencies √(l(l + 1)):
   - **The throat-l content of a focusing front.** At N = 1, l = 1 is the most transmissive, so
     these transmissions are upper bounds.
   - **The lapse itself.**
+  - **The support.** A static throat, whatever its lapse, has to be held open.
+    - Unsupported, it contracts under Einstein's equation. At a = 0.3 the neutral bridge pinches
+      off within πM = 0.041 of proper time at its centre (#349, dc9c689). That is before light
+      could cross it (0.662), and long before a flight ends (about 9).
+    - The mouth is then a horizon that absorbs what it catches. That is a third outcome, neither
+      transmission nor reflection, which this router does not model.
+    - How the support responds is the missing equation.
   - **Backreaction.** #349 finds radiation opens the waist.
 
 ## 14. Checks
@@ -1332,9 +1350,9 @@ frequencies √(l(l + 1)):
 | closing flash momentum | closing data carry momentum density at most 1.3 × 10⁻¹⁴ of their energy at birth and at T = π, 3π, 5π, 7π; the 45° data carry 0.77 |
 | finite absorbing mouth | an emitter at rest gives zero momentum at every offset (10⁻¹⁶, S³ and S², both offset directions); holding the focus, the mouth takes the whole flash and its momentum (cos δ orbital across); beyond the rim the energy taken is 1 − cos α on S³ and 2α/π on S² |
 | S³ router | the 3-D neck: closure bands confirmed inside, below and at u_k for k = 1, 2; no quadrature capture; with −1 per focus Klein and torus identical, with +1 they differ |
-| two-port throat | reproduces #349's transmission table to every printed digit; lossless (10⁻¹²), r and t in quadrature, equal Wigner delays, converged between 2¹² and 2¹⁶ cells (10⁻⁵); the split conserves energy, and the transmitted spectrum is bluer than the reflected one |
+| two-port throat | reproduces #349's transmission table to every printed digit; lossless (10⁻¹²), r and t in quadrature, equal Wigner delays, converged between 2¹² and 2¹⁶ cells (10⁻⁵); reproduces #349's group-delay table (dc9c689) for all six lapses; the split conserves energy, and the transmitted spectrum is bluer than the reflected one |
 | two-port router | energy and angular momentum to 5 × 10⁻¹⁵; reflected parts leave the catching mouth and transmitted ones the other; a reflected front leaves with its held momentum reversed; at N = 1 Klein and torus agree to 10⁻⁷ where the whole crossing differs by 10⁻²; closure bands at the reflection delay confirmed inside, below and at u_k (k = 1, 2; N = 1 and 0.2 at the neck) |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 49 checks; `tests/test_s3_focusing.py`: 20 checks; `tests/test_throat_two_port.py`: 12 checks |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 49 checks; `tests/test_s3_focusing.py`: 20 checks; `tests/test_throat_two_port.py`: 13 checks |
 
 ## Against the acceptance test
 
