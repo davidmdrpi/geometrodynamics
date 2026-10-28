@@ -507,6 +507,91 @@ def s3_part():
                                                couplings=couplings, tally=tally), separators=(',', ':'))+'\n')
 
 
+def two_port_part():
+    """The throat as #349's Maxwell two-port (`throat_two_port`, computed independently): its
+    transmission and delays over the lapse family, what it does to the router's birth flash, the
+    closure bands it sets, and Klein against torus when captured fronts split instead of crossing
+    whole."""
+    from scipy.optimize import brentq
+    from geometrodynamics.waves.antipodal_pair_birth import closure_band, two_port_closure_band
+    from geometrodynamics.waves.throat_two_port import ThroatTwoPort, split
+    par = Parameters()
+    a = par.mouth_angle
+    depths = (0., .4, .8, .9, .95)
+    grid = np.geomspace(1., 80., 160)
+    published = {0.: (2.585e-7, 5.679e-5, .851877), .4: (3.854e-6, .005030, .999993), .8: (.204059, .999668, .999991)}
+    ports, checks = [], []
+    for depth in depths:
+        tp = ThroatTwoPort(a, depth)
+        r = tp.response(grid)
+        ports.append(dict(depth=depth, neck_lapse=1 - depth, optical_length=tp.optical_length, length=tp.length,
+                          omega=grid.tolist(), T=r['T'].tolist(), tau_t=r['tau_t'].tolist(), tau_r=r['tau_r'].tolist(),
+                          raw_tau_t=r['raw_tau_t'].tolist()))
+        if depth in published:
+            checks.append(dict(depth=depth, omega=[10., 20., 60.], published=list(published[depth]),
+                               here=[float(abs(tp.scattering(w)[0])**2) for w in (10., 20., 60.)]))
+        print('two-port', depth, tp.optical_length, flush=True)
+    flash = []
+    for depth in depths:
+        m = AntipodalPairBirth(par, reflection_phase=-1, throat=ThroatTwoPort(a, depth))
+        w = m.initial(.30).fronts[0].spectrum
+        parts = split(w, m.response)
+        flash.append(dict(depth=depth, neck_lapse=1 - depth, omega=m.spectral_omega.tolist(), weights=w.tolist(),
+                          T=parts['T'], tau_t=parts['tau_t'], tau_r=parts['tau_r'],
+                          mean_omega=float(m.spectral_omega @ w),
+                          transmitted_mean_omega=float(m.spectral_omega @ parts['transmitted']),
+                          reflected_mean_omega=float(m.spectral_omega @ parts['reflected'])))
+        print('flash', flash[-1]['depth'], flash[-1]['T'], flash[-1]['tau_t'], flash[-1]['tau_r'], flush=True)
+    bands, router = [], []
+    for depth in (0., .8):
+        m = AntipodalPairBirth(par, reflection_phase=-1, throat=ThroatTwoPort(a, depth))
+
+        def kick_for(u, m=m):
+            return brentq(lambda v: np.linalg.norm(m.velocity(m.initial(v)), axis=1)[0] - u, .02, .95, xtol=1e-14)
+
+        for k in range(1, 4):
+            low, uk = two_port_closure_band(m, k)
+            bands.append(dict(depth=depth, k=k, u_k=uk, two_port=low, neck_length=closure_band(a, k, length=m.length)[0],
+                              tau_r=split(m.initial(kick_for(low)).fronts[0].spectrum, m.response)['tau_r']))
+            if k > 2:
+                continue
+            for label, u in (('inside', low*(1 + 3e-3)), ('below', low*(1 - 3e-3)), ('at_u_k', uk)):
+                h, info = m.run(m.initial(kick_for(u)), 3*((np.pi - 2*a)/u + np.pi) - .5, cycles=3, dt=DT,
+                                output_dt=OUTPUT_DT)
+                births = [e['speed'][0] for e in info['events'] if e['kind'] == 'birth']
+                router.append(dict(depth=depth, k=k, case=label, speed=u, speed_drift=float(max(abs(b - u) for b in births)),
+                                   fronts_left=len(info['final_state'].fronts), energy_drift=info['energy_drift']))
+                print('band', router[-1], flush=True)
+    tally = []
+    for depth in (None, 0., .8, .95):
+        throat = None if depth is None else ThroatTwoPort(a, depth)
+        for phase in (-1., 1.):
+            for handle in ('klein', 'torus'):
+                for v in (.30, 1/3):
+                    m = AntipodalPairBirth(par, reflection_phase=phase, exchange='signed', handle=handle, throat=throat,
+                                           neck_length=ThroatTwoPort(a).length if throat is None else None)
+                    h, info = m.run(m.initial(v), HISTORY_END, cycles=5, dt=DT, output_dt=OUTPUT_DT)
+                    ev = info['events']
+
+                    def total(kind, route=None):
+                        return float(sum(e['drate'] for e in ev if e['kind'] == kind
+                                         and (route is None or e.get('route', 'transit') == route)))
+                    tally.append(dict(throat='whole crossing' if depth is None else f'two-port, N_neck = {1 - depth:.2f}',
+                                      depth=depth, per_focus='+1' if phase > 0 else '-1', handle=handle, kick=v,
+                                      capture_drate=total('capture'), transit_drate=total('throat_exit', 'transit'),
+                                      reflect_drate=total('throat_exit', 'reflect'),
+                                      contacts=[e['time'] for e in ev if e['kind'] == 'contact'],
+                                      energy_drift=info['energy_drift'], angular_drift=info['angular_drift']))
+                    print('tally', {k: tally[-1][k] for k in ('throat', 'per_focus', 'handle', 'kick', 'capture_drate',
+                                                              'transit_drate', 'reflect_drate')}, flush=True)
+    meta = dict(part='two_port', mouth_angle=a, numpy=np.__version__, ell=1, cells=2**14,
+                operator="#349 (3f72d9a): psi_tt = N d_s(N psi_s) - N^2 l(l+1)/r^2 psi on the matched bridge; "
+                         "ports with impedance omega at each rim",
+                flash='the S2 Maxwell flash of PairBirth, weighted over its frequencies sqrt(l(l+1))')
+    (OUT/'two_port.json').write_text(json.dumps(dict(meta=meta, ports=ports, checks=checks, flash=flash, bands=bands,
+                                                     router=router, tally=tally), separators=(',', ':'))+'\n')
+
+
 if __name__ == '__main__':
     part = sys.argv[1] if len(sys.argv) > 1 else 'scan'
-    {'elliptic': elliptic_part, 's3': s3_part}.get(part, lambda: main(part))()
+    {'elliptic': elliptic_part, 's3': s3_part, 'two_port': two_port_part}.get(part, lambda: main(part))()

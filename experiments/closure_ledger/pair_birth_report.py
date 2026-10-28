@@ -1242,6 +1242,117 @@ def figure_s3(data, path):
     plt.close(fig)
 
 
+def load_two_port():
+    path = RUNS/'two_port.json'
+    return json.loads(path.read_text()) if path.exists() else None
+
+
+def two_port_tables(data):
+    port = ['| N at the neck | flash transmitted | its delay | flash reflected | its delay | characteristic time |',
+            '|---|---|---|---|---|---|']
+    optical = {r['depth']: r['optical_length'] for r in data['ports']}
+    for f in data['flash']:
+        port.append(f"| {f['neck_lapse']:.2f} | {f['T']:.2g} | {f['tau_t']:.3f} | {1 - f['T']:.6f} | {f['tau_r']:.3f} | "
+                    f"{optical[f['depth']]:.3f} |")
+    bands = ['| k | u_k | band, whole crossing (neck length) | band, two-port N = 1 | band, two-port N_neck = 0.2 |',
+             '|---|---|---|---|---|']
+    for k in sorted({b['k'] for b in data['bands']}):
+        by = {b['depth']: b for b in data['bands'] if b['k'] == k}
+        uk = by[0.]['u_k']
+        bands.append(f"| {k} | {uk:.5f} | ({by[0.]['neck_length']:.5f}, {uk:.5f}] | ({by[0.]['two_port']:.5f}, {uk:.5f}] "
+                     f"(τ_r = {by[0.]['tau_r']:.3f}) | ({by[.8]['two_port']:.5f}, {uk:.5f}] (τ_r = {by[.8]['tau_r']:.3f}) |")
+    tally = ['| throat | per focus | handle | kick | Σ Δḋ captures | Σ Δḋ transmitted exits | Σ Δḋ reflected exits | net |',
+             '|---|---|---|---|---|---|---|---|']
+    for r in data['tally']:
+        if r['per_focus'] != '+1':      # with -1 per focus no throat ever acts; see the text
+            continue
+        net = r['capture_drate'] + r['transit_drate'] + r['reflect_drate']
+        tally.append(f"| {r['throat']} | {r['per_focus'].replace('-', '−')} | {r['handle']} | {r['kick']:.3f} | "
+                     f"{r['capture_drate']:+.4f} | {r['transit_drate']:+.4f} | {r['reflect_drate']:+.4f} | {net:+.4f} |")
+    return '\n'.join(port), '\n'.join(bands), '\n'.join(tally)
+
+
+def figure_two_port(data, path):
+    fig, axes = plt.subplots(2, 2, figsize=(15, 10), gridspec_kw=dict(hspace=.38, wspace=.25))
+    colours = dict(zip([0., .4, .8, .9, .95], ['#1f5fa8', '#2e86c1', '#b9770e', '#c0392b', '#7d3c98']))
+    fl = data['flash'][0]
+    ax = axes[0, 0]
+    for r in data['ports']:
+        ax.loglog(r['omega'], np.maximum(r['T'], 1e-14), color=colours[r['depth']], lw=1.6,
+                  label=f"N at the neck = {r['neck_lapse']:.2f}")
+    for c in data['checks']:
+        ax.loglog(c['omega'], c['published'], 'kx', ms=7)
+    ax.plot([], [], 'kx', label='#349 (3f72d9a), its own integrator')
+    twin = ax.twinx()
+    twin.bar(fl['omega'], fl['weights'], width=np.array(fl['omega'])*.08, color='#7f8c8d', alpha=.35)
+    twin.set_ylabel('birth flash: energy weight (bars)')
+    ax.set_ylim(1e-12, 3)
+    ax.set_xlabel('frequency ω (unit sphere)')
+    ax.set_ylabel('transmission T(ω), l = 1')
+    ax.set_title('(a) The matched bridge is a high-pass filter: at N = 1 the router’s flash (bars)\n'
+                 'gets 10⁻⁷ of its energy through; a deep lapse opens resonances', fontsize=10)
+    ax.legend(fontsize=7, loc='lower right')
+
+    ax = axes[0, 1]
+    for r in data['ports']:
+        ax.semilogx(r['omega'], r['tau_t'], color=colours[r['depth']], lw=1.6)
+        ax.semilogx(r['omega'], r['raw_tau_t'], color=colours[r['depth']], lw=.8, ls=':')
+        ax.axhline(r['optical_length'], color=colours[r['depth']], lw=.6, ls='--')
+    ax.plot([], [], 'k-', label='group delay, held to the light cone (transmitted)')
+    ax.plot([], [], 'k:', label='Wigner delay (= reflected delay for this symmetric bridge)')
+    ax.plot([], [], 'k--', lw=.6, label='characteristic time ∫ds/N')
+    ax.set_ylim(0, 6)
+    ax.set_xlabel('frequency ω (resonance peaks run off the scale, up to ~20)')
+    ax.set_ylabel('delay in the rims’ proper time')
+    ax.set_title('(b) Reflection comes back after ~0.3 at low frequency; transmission takes at least\n'
+                 'the characteristic time, which grows as the neck lapse deepens', fontsize=10)
+    ax.legend(fontsize=7, loc='upper right')
+
+    ax = axes[1, 0]
+    for i, b in enumerate(sorted(data['bands'], key=lambda b: (b['k'], b['depth']))):
+        k, y = b['k'], b['k'] + (.12 if b['depth'] else 0.)
+        uk = b['u_k']
+        if b['depth'] == 0.:
+            ax.plot([b['neck_length']/uk, 1], [k - .14]*2, color='#7f8c8d', lw=6, solid_capstyle='butt',
+                    label='whole crossing in the neck length' if k == 1 else None)
+        ax.plot([b['two_port']/uk, 1], [y]*2, color=colours[b['depth']], lw=6, solid_capstyle='butt',
+                label=f"two-port, N at the neck = {1 - b['depth']:.1f}" if k == 1 else None)
+    for r in data['router']:
+        if r['k'] in (1, 2):
+            low = next(b for b in data['bands'] if b['k'] == r['k'] and b['depth'] == r['depth'])
+            y = r['k'] + (.12 if r['depth'] else 0.) + .07
+            ax.plot(r['speed']/low['u_k'], y, 'o' if r['speed_drift'] < 1e-12 else 'x', color='k', ms=5)
+    ax.plot([], [], 'ko', ms=5, label='router: cycle repeats exactly')
+    ax.plot([], [], 'kx', ms=5, label='router: drifts')
+    ax.set_yticks([1, 2, 3], ['k = 1', 'k = 2', 'k = 3'])
+    ax.set_xlabel('birth speed / u_k')
+    ax.set_title('(c) Closure bands: the caught flash is reflected, so it waits in the throat only\n'
+                 'for the reflection delay, and the bands narrow', fontsize=10)
+    ax.legend(fontsize=7, loc='upper left')
+
+    ax = axes[1, 1]
+    labels, groups = [], {}
+    for r in data['tally']:
+        if abs(r['kick'] - .30) > 1e-9:
+            continue
+        key = (r['throat'], r['per_focus'])
+        groups.setdefault(key, {})[r['handle']] = r['capture_drate'] + r['transit_drate'] + r['reflect_drate']
+    for i, ((throat, sign), v) in enumerate(groups.items()):
+        ax.bar(i - .18, v['klein'], .36, color='#1f5fa8', label='Klein' if i == 0 else None)
+        ax.bar(i + .18, v['torus'], .36, color='#b9770e', label='torus' if i == 0 else None)
+        name = 'whole' if throat == 'whole crossing' else 'N ' + throat.split('= ')[1]
+        labels.append(f"{name}\n{sign.replace('-', '−')}")
+    ax.axhline(0, color='k', lw=.6)
+    ax.set_xticks(range(len(labels)), labels, fontsize=8)
+    ax.set_xlabel('throat: whole crossing in the neck length, or two-port with N at the neck; sign per focus')
+    ax.set_ylabel('net change in separation rate, kick 0.30')
+    ax.set_title('(d) Klein against torus: they differ only through what crosses; at N = 1 nothing does,\n'
+                 'and with +1 per focus the reflected recoil pushes the pair apart', fontsize=10)
+    ax.legend(fontsize=8)
+    fig.savefig(path, dpi=110, bbox_inches='tight')
+    plt.close(fig)
+
+
 HISTORY_END = 60.
 
 
@@ -1263,6 +1374,9 @@ def main():
     s3 = load_s3()
     if s3:
         figure_s3(s3, IMAGES/'s3.png')
+    two_port = load_two_port()
+    if two_port:
+        figure_two_port(two_port, IMAGES/'two_port.png')
     IMAGES.mkdir(parents=True, exist_ok=True)
     if history:
         figure_history(history, IMAGES/'history.png')
@@ -1313,6 +1427,10 @@ def main():
         if elliptic else None,
         s3=dict(refocus=s3['refocus'], closure=s3['closure'], signs=s3.get('signs'), bands=s3['bands'],
                 router=s3['router'], couplings=s3['couplings'], tally=s3['tally']) if s3 else None,
+        two_port=dict(checks=two_port['checks'], flash=[{k: v for k, v in f.items() if k not in ('omega', 'weights')}
+                                                        for f in two_port['flash']],
+                      bands=two_port['bands'], router=two_port['router'], tally=two_port['tally'])
+        if two_port else None,
         tables=dict(outcomes=outcome_table(scan), ledger=ledger_table(scan), retimed=retimed_table(retimed, featured),
                     history=history_table(history_rows(history)) if history else None,
                     neck=neck_table(neck_rows(neck)) if neck else None,
@@ -1322,7 +1440,10 @@ def main():
                     klein_sweep=klein_sweep_table(klein) if klein else None,
                     elliptic=elliptic_table(elliptic) if elliptic else None,
                     s3_bands=s3_tables(s3)[0] if s3 else None, s3_tally=s3_tables(s3)[1] if s3 else None,
-                    s3_signs=s3_tables(s3)[2] if s3 else None))
+                    s3_signs=s3_tables(s3)[2] if s3 else None,
+                    two_port=two_port_tables(two_port)[0] if two_port else None,
+                    two_port_bands=two_port_tables(two_port)[1] if two_port else None,
+                    two_port_tally=two_port_tables(two_port)[2] if two_port else None))
     (RUNS/'summary.json').write_text(json.dumps(report, indent=2, sort_keys=True)+'\n')
     files = sorted(RUNS.glob('*.json')) + sorted(p for ext in ('png', 'gif', 'mp4') for p in IMAGES.glob(f'*.{ext}'))
     (RUNS/'sha256.json').write_text(json.dumps({p.name: hashlib.sha256(p.read_bytes()).hexdigest()

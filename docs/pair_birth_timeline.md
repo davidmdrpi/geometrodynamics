@@ -128,6 +128,16 @@ A classical experiment on #345, answering the acceptance test set in its review 
       falls off continuously outside the rim.
     - **The router.** With −1 per focus and the 3-D neck, the closure bands widen slightly, and
       the Klein/torus difference of §10 disappears. With +1 per focus it returns.
+14. **The derived throat is a mirror for the flash** (§13).
+    - **Almost nothing crosses.** #349's Maxwell two-port for the matched bridge, recomputed here,
+      passes 10⁻⁷ of the router's flash at N = 1. The rest comes back out of the catching mouth
+      after 0.33.
+    - **The closure bands narrow.** The caught flash now waits in the throat only for the
+      reflection delay, not for the neck's length.
+    - **The handle stops mattering.** Klein and torus agree, since nothing crosses. Under +1 per
+      focus the reflected recoil pushes the pair apart.
+    - **A deep lapse lets more through,** 2.5–16% of the flash, but slowly and through narrow
+      resonances.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -760,7 +770,7 @@ flash).
     flight (at a = 0.3 the first return needs 0.714 ≤ u < 0.809);
   - the source's own mouth catches even return n only if nuπ ≤ a, the first a/u.
   - So a first flight meets its own flash only next to birth or contact, where the surgery
-    governs. At v = 0.30 and 1/3 it meets none (§13; #349 derives the same rule).
+    governs. At v = 0.30 and 1/3 it meets none (§14; #349 derives the same rule).
   - Later cycles do capture. Re-birth is back at the old birth point, where even returns
     refocus: at v = 0.30 the re-born pair catches both first flashes at 4π, 0.44 after re-birth.
     Exit fronts start wherever the mouths are, so symmetric captures fall within 3.5 a/u of a
@@ -1126,7 +1136,8 @@ and +1 as Maxwell's pullback, so both are run.
   - So the tube map never acts.
 - **With +1 per focus it returns.** Throat exits carry momentum again, far more through the
   torus, and the contacts drift. So the S³ handle result rests on the same unresolved sign as
-  closure.
+  closure. Through the derived two-port (§13) almost nothing crosses, and the difference goes
+  away again.
 
 | space | per focus | handle | kick | birth speed | Σ Δḋ at captures | Σ Δḋ at exits (exits) | net | contacts |
 |---|---|---|---|---|---|---|---|---|
@@ -1148,18 +1159,142 @@ and +1 as Maxwell's pullback, so both are run.
 
 **What remains.**
 - Reflection at the mouth.
-  - #349's fixed conductor centred on the focus (83db758) is the first reflection control. It
-    is squeezed, not moved.
-  - Its squeeze tends to −2E as the pulse narrows: −1.92, −1.98 and −1.99 at width 0.05 for
-    radii 0.15, 0.3 and 0.45 (computed with its code). That is §11's two-way bound, reached in
+  - The throat's own Maxwell response now supplies it (§13): at N = 1 it reflects almost all of
+    the flash.
+  - #349's fixed conductor centred on the focus (83db758) is a different boundary. It is
+    squeezed, and its squeeze tends to −2E as the pulse narrows (−1.92, −1.98 and −1.99 at width
+    0.05 for radii 0.15, 0.3 and 0.45, computed with its code), §11's two-way bound reached in
     the breathing channel.
-  - An offset or moving reflector, and partial reflection, remain.
+  - That squeeze does not carry over to the throat. #349 (3f72d9a) shows the throat's own field
+    opens its waist.
+  - The S³ exterior attached to the ports remains.
 - The sign of the identification, from the field matched through the throat.
 - The two-mouth flash on S³ itself: non-zonal, from the pair's currents.
 - Throat deformation and backreaction.
 - The full-cycle return operator built from these pieces.
 
-## 13. Checks
+## 13. The throat as a Maxwell two-port
+![The throat as a two-port](images/pair_birth/two_port.png)
+
+Every router so far, here and in #347 and #349, sends a captured front through the throat whole,
+in the neck's length. #349 (3f72d9a) derived the throat's Maxwell response for the repository's
+bridge: the 3-D vacuum bridge matched to S³ at the rim, with a stated static lapse
+N = 1 − βh, h = (1 − (s/S)²)³. `geometrodynamics/waves/throat_two_port.py` computes the same
+two-port independently, and `AntipodalPairBirth(throat=...)` routes fronts through it (data:
+`two_port.json`).
+
+**The two-port.**
+- **The operator.** ψ_tt = N∂_s(Nψ_s) − N²l(l + 1)ψ/r² with l = 1, and ports of impedance ω at
+  each rim (#349's convention).
+- **Computed independently.** It uses closed-form cell exponentials on r = b cosh²x and a
+  pairwise product, and shares no code with #349. It reproduces #349's transmission table to
+  every printed digit: 2.585 × 10⁻⁷, 5.679 × 10⁻⁵ and 0.8519 at ω = 10, 20 and 60 with N = 1,
+  and the rows for N = 0.6 and 0.2 at the neck.
+- **A high-pass filter.** The neck radius sin³a = 0.0258 gives a barrier of height about
+  2/b² ≈ 3000, which opens near ω ≈ 55.
+- **Delays.** Each part leaves after its group (Wigner) delay.
+  - A transmitted part is held to the light cone, since tunnelling delays are shorter than the
+    characteristic time ∫ds/N. A reflected part is held to zero.
+  - For this symmetric bridge, reflection and transmission have the same Wigner delay.
+
+**What the router's flash gets through.** The birth flash at v = 0.30, weighted over its
+frequencies √(l(l + 1)):
+
+| N at the neck | flash transmitted | its delay | flash reflected | its delay | characteristic time |
+|---|---|---|---|---|---|
+| 1.00 | 9.4e-08 | 0.663 | 1.000000 | 0.333 | 0.662 |
+| 0.60 | 4.8e-06 | 0.898 | 0.999995 | 0.375 | 0.838 |
+| 0.20 | 0.025 | 2.016 | 0.975291 | 0.541 | 1.407 |
+| 0.10 | 0.16 | 9.206 | 0.836028 | 0.621 | 1.964 |
+| 0.05 | 0.1 | 2.866 | 0.898142 | 0.621 | 2.751 |
+
+- **At N = 1 the throat is a mirror.** 10⁻⁷ of the flash crosses. The rest comes back out of
+  the catching mouth after 0.33.
+- **A deeper lapse lowers the barrier, by N², but lengthens the crossing.**
+  - At N = 0.1 and 0.05 at the neck it also opens narrow resonances. One flash mode (l = 5 at
+    N = 0.1) sits on one, and sends 91% of its energy through after a delay of 21.7.
+  - So the weighted transmission and delay there depend on where the flash's discrete
+    frequencies fall: 0.16 at N = 0.1, but 0.10 at 0.05.
+  - At N = 0 at the neck, the vacuum lapse, there is a horizon and nothing crosses.
+
+**The router.** At each capture the front splits by the spectrum-weighted two-port.
+- **The transmitted part** leaves the other mouth after its delay, through the handle as before.
+  Its spectrum is filtered by T(ω), so it is bluer than the flash.
+- **The reflected part** leaves the catching mouth, from the point where it entered, after its
+  delay. Its spectrum is filtered by R(ω).
+  - With the signed exchange, its momentum is reversed, because each ray retraces its path.
+  - So the mouth takes about twice what the throat held, like a mirror.
+- **Bookkeeping.**
+  - Delays are in the rims' proper time, as the neck length was.
+  - The two-port's scattering phases are not used; a front keeps its phase, as a whole crossing
+    does.
+  - Energy and angular momentum are conserved to 5 × 10⁻¹⁵ in every run.
+
+**The closure bands narrow to the reflection delay** (panel c).
+- The caught flash is nearly all reflected, so it stays in the throat for τ_r, not for the
+  neck's length. The band's lower edge solves t_c = (2k + 1)π + τ_r/√(1 − u²).
+
+| k | u_k | band, whole crossing (neck length) | band, two-port N = 1 | band, two-port N_neck = 0.2 |
+|---|---|---|---|---|
+| 1 | 0.26967 | (0.25142, 0.26967] | (0.26014, 0.26967] (τ_r = 0.333) | (0.25457, 0.26967] (τ_r = 0.541) |
+| 2 | 0.16180 | (0.15518, 0.16180] | (0.15840, 0.16180] (τ_r = 0.333) | (0.15636, 0.16180] (τ_r = 0.541) |
+| 3 | 0.11557 | (0.11217, 0.11557] | (0.11384, 0.11557] (τ_r = 0.333) | (0.11278, 0.11557] (τ_r = 0.541) |
+
+- **The router confirms the k = 1 and 2 bands,** at N = 1 and at N = 0.2 at the neck.
+  - Just inside a band, the cycle repeats to 10⁻¹⁵ with nothing left over.
+  - Just below, it drifts by 0.02–0.03, with 6–14 fronts left over.
+  - At u_k it closes.
+- **The transmitted part** is delayed at least the characteristic time, so it is in the throat
+  at contact too.
+
+**Klein against torus** (panel d; signed exchange, 60 time units).
+- **With −1 per focus, nothing changes.** Every throat, whole or two-port, gives the same net
+  change: −0.0068 and +0.0013, or −0.0069 and +0.0013 with a deep lapse. Pushes leave nothing
+  in the throat, and pulls are released at contact.
+- **With +1 per focus:**
+
+| throat | per focus | handle | kick | Σ Δḋ captures | Σ Δḋ transmitted exits | Σ Δḋ reflected exits | net |
+|---|---|---|---|---|---|---|---|
+| whole crossing | +1 | klein | 0.300 | -0.0041 | -0.0115 | +0.0000 | -0.0156 |
+| whole crossing | +1 | klein | 0.333 | +0.0021 | -0.0246 | +0.0000 | -0.0225 |
+| whole crossing | +1 | torus | 0.300 | -0.0346 | -0.1457 | +0.0000 | -0.1804 |
+| whole crossing | +1 | torus | 0.333 | -0.0282 | -0.1069 | +0.0000 | -0.1351 |
+| two-port, N_neck = 1.00 | +1 | klein | 0.300 | -0.0201 | -0.0000 | +0.0379 | +0.0177 |
+| two-port, N_neck = 1.00 | +1 | klein | 0.333 | -0.0164 | -0.0000 | +0.0430 | +0.0266 |
+| two-port, N_neck = 1.00 | +1 | torus | 0.300 | -0.0201 | -0.0000 | +0.0379 | +0.0177 |
+| two-port, N_neck = 1.00 | +1 | torus | 0.333 | -0.0164 | -0.0000 | +0.0430 | +0.0266 |
+| two-port, N_neck = 0.20 | +1 | klein | 0.300 | -0.0197 | -0.0005 | +0.0290 | +0.0088 |
+| two-port, N_neck = 0.20 | +1 | klein | 0.333 | -0.0159 | -0.0008 | +0.0334 | +0.0166 |
+| two-port, N_neck = 0.20 | +1 | torus | 0.300 | -0.0204 | -0.0017 | +0.0294 | +0.0073 |
+| two-port, N_neck = 0.20 | +1 | torus | 0.333 | -0.0165 | -0.0017 | +0.0337 | +0.0155 |
+| two-port, N_neck = 0.05 | +1 | klein | 0.300 | -0.0173 | -0.0012 | +0.0103 | -0.0082 |
+| two-port, N_neck = 0.05 | +1 | klein | 0.333 | -0.0140 | -0.0035 | +0.0307 | +0.0132 |
+| two-port, N_neck = 0.05 | +1 | torus | 0.300 | -0.0188 | -0.0012 | +0.0110 | -0.0090 |
+| two-port, N_neck = 0.05 | +1 | torus | 0.333 | -0.0165 | -0.0027 | +0.0312 | +0.0119 |
+
+  - The whole crossing made the handles differ: −0.016 against −0.180 at kick 0.30.
+  - Through the two-port at N = 1, almost nothing crosses, and Klein and torus agree to 10⁻⁹.
+    The reflected recoil now dominates and pushes the pair apart: +0.018 and +0.027.
+  - With a deep lapse the handles differ by 10⁻³, through the 2.5–10% that crosses. The pair
+    still separates, or only barely slows.
+- **So with the derived throat the handle hardly matters for the flash.** Under the sign that
+  made the handles differ, the throat's mirror pushes the pair apart.
+
+**What this changes, and what remains.**
+- **The whole crossing overstates transmission.** The strict rule's crossing in the neck's
+  length is not what the derived throat does to this flash. At N = 1 it overstates
+  transmission by about 10⁷.
+- **The handle question is mostly moot for the flash.** The Klein/torus question of §§10 and 12
+  disappears at N = 1, and is small with a deep lapse.
+- **Open:**
+  - **The S³ exterior attached to the ports.** The flash sits at low frequency, where the
+    free-line ports are least reliable.
+  - **The throat-l content of a focusing front.** At N = 1, l = 1 is the most transmissive, so
+    these transmissions are upper bounds.
+  - **The lapse itself.**
+  - **Backreaction.** #349 finds radiation opens the waist.
+
+## 14. Checks
 
 | check | result |
 |---|---|
@@ -1197,7 +1332,9 @@ and +1 as Maxwell's pullback, so both are run.
 | closing flash momentum | closing data carry momentum density at most 1.3 × 10⁻¹⁴ of their energy at birth and at T = π, 3π, 5π, 7π; the 45° data carry 0.77 |
 | finite absorbing mouth | an emitter at rest gives zero momentum at every offset (10⁻¹⁶, S³ and S², both offset directions); holding the focus, the mouth takes the whole flash and its momentum (cos δ orbital across); beyond the rim the energy taken is 1 − cos α on S³ and 2α/π on S² |
 | S³ router | the 3-D neck: closure bands confirmed inside, below and at u_k for k = 1, 2; no quadrature capture; with −1 per focus Klein and torus identical, with +1 they differ |
-| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 49 checks; `tests/test_s3_focusing.py`: 20 checks |
+| two-port throat | reproduces #349's transmission table to every printed digit; lossless (10⁻¹²), r and t in quadrature, equal Wigner delays, converged between 2¹² and 2¹⁶ cells (10⁻⁵); the split conserves energy, and the transmitted spectrum is bluer than the reflected one |
+| two-port router | energy and angular momentum to 5 × 10⁻¹⁵; reflected parts leave the catching mouth and transmitted ones the other; a reflected front leaves with its held momentum reversed; at N = 1 Klein and torus agree to 10⁻⁷ where the whole crossing differs by 10⁻²; closure bands at the reflection delay confirmed inside, below and at u_k (k = 1, 2; N = 1 and 0.2 at the neck) |
+| tests | `tests/test_pair_birth.py`: 21 checks; `tests/test_antipodal_pair_birth.py`: 49 checks; `tests/test_s3_focusing.py`: 20 checks; `tests/test_throat_two_port.py`: 12 checks |
 
 ## Against the acceptance test
 
@@ -1256,7 +1393,9 @@ python experiments/closure_ledger/pair_birth_probe.py antipodal  # the history u
 python experiments/closure_ledger/pair_birth_probe.py klein      # signed exchange, Klein against torus, ~20 s
 python experiments/closure_ledger/pair_birth_probe.py elliptic   # antipodal time reversal and resonant speeds, ~70 s
 python experiments/closure_ledger/pair_birth_probe.py s3         # the S3 benchmark, ~2.5 min
+python experiments/closure_ledger/pair_birth_probe.py two_port   # the throat as a Maxwell two-port, ~2.5 min
 python experiments/closure_ledger/pair_birth_report.py           # tables, figures, summary.json, sha256.json
-python -m pytest -q tests/test_pair_birth.py tests/test_antipodal_pair_birth.py
+python -m pytest -q tests/test_pair_birth.py tests/test_antipodal_pair_birth.py tests/test_s3_focusing.py \
+    tests/test_throat_two_port.py
 ```
 Results are in `experiments/closure_ledger/runs/20261019_pair_birth/`.

@@ -35,6 +35,14 @@ on its way feel nothing.
     it is consistent while its first focus is still ahead. Otherwise it is recorded as a
     causality boundary, with its energy booked as unresolved and never as absorbed.
   - Fronts still inside the throat at annihilation are released with the pair.
+  - **Two-port throat** (throat=ThroatTwoPort(...)). Instead of crossing whole in time L, a
+    captured front splits by the throat's Maxwell two-port (#349's operator for the matched
+    bridge, `throat_two_port`), weighted by the front's spectrum over the field's frequencies:
+    a transmitted part, its spectrum filtered by T(omega), leaves the other mouth after its group
+    delay; a reflected part, filtered by R(omega), leaves the capturing mouth from the point it
+    entered after its own delay, with its momentum reversed (each ray retraces its path). Delays
+    are in the rims' proper time, as L is. The two-port's scattering phases are not used; the
+    front keeps its phase, as a whole crossing does.
 - **Static interaction.** The Coulomb attraction acts at every separation, so the strict rule
   removes it (static='none'). The flux energy is then part of the fixed rest energy, and the
   mouths coast on geodesics between captures. static='coulomb' keeps it, as a labelled
@@ -69,6 +77,7 @@ import numpy as np
 from scipy import optimize
 
 from .pair_birth import PairBirth, Parameters, birth_frames, birth_positions, rotate
+from .throat_two_port import split
 
 
 @dataclass(eq=False)
@@ -81,6 +90,7 @@ class Front:
     kind: str = ''
     foci: int = 0            # caustics passed
     sign: float = 1.         # orientation-sensitive amplitude: compression +1, rarefaction -1
+    spectrum: np.ndarray = None   # energy weights over the field's frequencies (two-port throat only)
 
 
 @dataclass(eq=False)
@@ -96,6 +106,8 @@ class ThroatFront:
     J: np.ndarray = None     # angular momentum the throat holds for it
     momentum: np.ndarray = None   # (a, b, s): momentum in the capturing mouth's frame and spin about its normal
     sign: float = 1.
+    route: str = 'transit'   # 'transit' to the other mouth, or 'reflect' back out of the capturing one
+    spectrum: np.ndarray = None
 
 
 @dataclass
@@ -118,11 +130,12 @@ class AntipodalState:
     def copy(self):
         return AntipodalState(self.t, self.x.copy(), self.L.copy(), self.tau.copy(), self.frames.copy(),
                               self.spin.copy(), self.alive, self.birth, self.cycle,
-                              [Front(f.origin.copy(), f.t, f.energy, f.J.copy(), f.phase, f.kind, f.foci, f.sign)
-                               for f in self.fronts],
+                              [Front(f.origin.copy(), f.t, f.energy, f.J.copy(), f.phase, f.kind, f.foci, f.sign,
+                                     f.spectrum) for f in self.fronts],
                               [ThroatFront(f.source, f.dest, f.sigma_out, f.local.copy(), f.energy, f.phase, f.kind,
                                            f.t_in, None if f.J is None else f.J.copy(),
-                                           None if f.momentum is None else f.momentum.copy(), f.sign)
+                                           None if f.momentum is None else f.momentum.copy(), f.sign, f.route,
+                                           f.spectrum)
                                for f in self.throat],
                               None if self.pulse is None else dict(self.pulse), self.unresolved,
                               self.unresolved_J.copy())
@@ -153,7 +166,7 @@ def from_local(centre, frame, local):
 
 class AntipodalPairBirth:
     def __init__(self, parameters=Parameters(), static='none', handle='klein', reflection_phase=-1j,
-                 exchange='rest', flash_scale=1., neck_length=None):
+                 exchange='rest', flash_scale=1., neck_length=None, throat=None):
         if static not in ('none', 'coulomb') or handle not in ('klein', 'torus') or exchange not in ('rest', 'signed') \
                 or flash_scale <= 0:
             raise ValueError("static 'none' or 'coulomb', handle 'klein' or 'torus', exchange 'rest' or 'signed', "
@@ -169,6 +182,15 @@ class AntipodalPairBirth:
         a = parameters.mouth_angle
         self.length = np.sin(2*a) if neck_length is None else float(neck_length)   # S3: s3_focusing
         self.inertia = parameters.mass*np.sin(a)**2
+        self.throat = throat
+        if throat is not None:
+            if abs(throat.angle - a) > 1e-12:
+                raise ValueError("The two-port's mouth angle must be the model's")
+            if neck_length is None:
+                self.length = throat.length
+            # The field's distinct frequencies, sqrt(l(l + 1)), and each mode's place among them.
+            self.spectral_omega, self._mode_frequency = np.unique(self.field.omega, return_inverse=True)
+            self.response = throat.response(self.spectral_omega)
 
     # ---- births and fronts ----------------------------------------------------------------------
     def flash_fronts(self, x, vel, t):
@@ -190,7 +212,13 @@ class AntipodalPairBirth:
             zero = np.zeros(f.n, complex)
             J = [self.flash_scale*f.field_angular(Q[k], zero) for k in range(2)]      # zero: it starts at rest
             signs = np.ones(2)
-        return [Front(x[k].copy(), t, e[k], J[k], 1., f'flash {"AB"[k]}', 0, float(signs[k])) for k in range(2)]
+        spectra = [None, None]
+        if self.throat is not None:
+            for k in range(2):
+                w = np.bincount(self._mode_frequency, .5*np.abs(f.omega*Q[k])**2, len(self.spectral_omega))
+                spectra[k] = w/w.sum()
+        return [Front(x[k].copy(), t, e[k], J[k], 1., f'flash {"AB"[k]}', 0, float(signs[k]), spectra[k])
+                for k in range(2)]
 
     def initial(self, v=1/3, plane=((0., 0., 1.), (1., 0., 0.)), velocities=None):
         """Mouths in rim contact at P, kicked apart with speed v each (or `velocities`). As in
@@ -498,7 +526,10 @@ class AntipodalPairBirth:
         energy, J_out, sign, recoil, saturated = tf.energy, np.zeros(3), tf.sign, np.zeros(3), False
         rate = self.separation_rate(s)
         if self.exchange == 'signed' and tf.momentum is not None:
-            (a, b, sp), sign = self.tube_map(tf.momentum, tf.sign)
+            if tf.route == 'reflect':
+                (a, b, sp), sign = -tf.momentum, tf.sign     # each ray retraces its path; no handle crossed
+            else:
+                (a, b, sp), sign = self.tube_map(tf.momentum, tf.sign)
             pi = a*frame_exit[0] + b*frame_exit[1]
             J_map = np.cross(x_exit, pi) + sp*x_exit
 
@@ -513,13 +544,15 @@ class AntipodalPairBirth:
             J_out = (optimize.brentq(room, 0., 1., xtol=1e-15) if saturated else 1.)*J_map
             recoil = tf.J - J_out
             energy = self._transfer(s, j, recoil, tf.energy)
+        label = 'reflected' if tf.route == 'reflect' else 'exit'
         f = Front(from_local(x_exit, frame_exit, tf.local), t_exit, energy, J_out, tf.phase,
-                  f'exit {"AB"[j]} ({tf.kind})', 0, sign)
+                  f'{label} {"AB"[j]} ({tf.kind})', 0, sign, tf.spectrum)
         s.fronts.append(f)
         events.append(dict(kind='throat_exit', time=t_exit, t_in=tf.t_in, mouth=j, cycle=s.cycle,
                            energy=energy, phase=[tf.phase.real, tf.phase.imag], advanced=advanced,
                            origin=f.origin.tolist(), front=tf.kind, sign=sign, recoil=recoil.tolist(),
-                           saturated=saturated, drate=self.separation_rate(s) - rate))
+                           saturated=saturated, drate=self.separation_rate(s) - rate, route=tf.route,
+                           source=tf.source, J_out=J_out.tolist()))
 
     def _focus(self, s, f, track, events):
         """A front at its antipodal focus: captured by an open mouth there, else reflected."""
@@ -541,18 +574,42 @@ class AntipodalPairBirth:
         energy, local, J_in, c, saturated = self.capture(s, f, k, focus)
         x, frame = s.x[k], s.frames[k]
         pi = np.cross(J_in - np.dot(J_in, x)*x, x)
-        tf = ThroatFront(k, j, s.tau[k] + self.length, local*self.map, energy, f.phase, f.kind, s.t, J_in,
-                         np.array([pi @ frame[0], pi @ frame[1], np.dot(J_in, x)]), f.sign)
+        momentum = np.array([pi @ frame[0], pi @ frame[1], np.dot(J_in, x)])
         event = dict(kind='capture', time=s.t, mouth=k, cycle=s.cycle, front=f.kind, energy=f.energy,
                      into_throat=energy, offset=float(s.tau[0] - s.tau[1]), J=f.J.tolist(),
                      phase=[f.phase.real, f.phase.imag], local=local.tolist(), sign=f.sign, coupling=c,
                      saturated=saturated,
                      kick=np.cross(s.L[k] - L_before, x).tolist(), drate=self.separation_rate(s) - rate)
         events.append(event)
+        if self.throat is None:
+            tf = ThroatFront(k, j, s.tau[k] + self.length, local*self.map, energy, f.phase, f.kind, s.t, J_in,
+                             momentum, f.sign)
+            event['exit'] = self._enter(s, tf, track, events)
+            return
+        if f.spectrum is None:
+            raise ValueError('A front routed through the two-port needs a spectrum')
+        parts = split(f.spectrum, self.response)
+        event['transmitted'] = dict(fraction=parts['T'], delay=parts['tau_t'])
+        event['reflected'] = dict(fraction=parts['R'], delay=parts['tau_r'])
+        for share, dest, delay, where, route, spectrum in (
+                (parts['T'], j, parts['tau_t'], local*self.map, 'transit', parts['transmitted']),
+                (parts['R'], k, parts['tau_r'], local, 'reflect', parts['reflected'])):
+            if share > 0:
+                tf = ThroatFront(k, dest, s.tau[k] + delay, where, share*energy, f.phase, f.kind, s.t, share*J_in,
+                                 share*momentum, f.sign, route, spectrum)
+                event['transmitted' if route == 'transit' else 'reflected']['exit'] = self._enter(s, tf, track,
+                                                                                                    events)
+        event['exit'] = event['transmitted'].get('exit')
+
+    def _enter(self, s, tf, track, events):
+        """Schedule a throat front's exit; returns how it leaves."""
+        j = tf.dest
         if s.tau[j] < tf.sigma_out:
             s.throat.append(tf)
-            event['exit'] = 'scheduled'
-            return
+            return 'scheduled'
+        if tf.route == 'reflect':
+            self._exit(s, tf, events)          # no delay: straight back out
+            return 'immediate'
         # Advanced edge: the destination's clock passed sigma_out already. Nothing on the way
         # interacts, so the exit front is consistent while its first focus is still ahead.
         times = np.asarray(track['t'])
@@ -565,12 +622,11 @@ class AntipodalPairBirth:
         e1 = fr[0] - (fr[0] @ x)*x
         e1 /= np.linalg.norm(e1)
         if t_exit + np.pi > s.t:
-            event['exit'] = 'advanced'
             self._exit(s, tf, events, t_exit, x, np.array([e1, np.cross(x, e1)]), advanced=True)
-        else:
-            event['exit'] = 'causality_boundary'
-            s.unresolved += energy
-            s.unresolved_J = s.unresolved_J + J_in
+            return 'advanced'
+        s.unresolved += tf.energy
+        s.unresolved_J = s.unresolved_J + tf.J
+        return 'causality_boundary'
 
     def _rebirth(self, s, events):
         pulse = s.pulse
@@ -625,6 +681,32 @@ def closure_band(mouth_angle, k, length=None):
     throat = brentq(lambda u: (np.pi - 2*a)/u - (2*k + 1)*np.pi - L/np.sqrt(1 - u*u), 1e-6, uk*(1 - 1e-12),
                     xtol=1e-15)
     return max(throat, (np.pi - 3*a)/((2*k + 1)*np.pi)), uk     # and the flash must be caught at all
+
+
+def two_port_closure_band(model, k):
+    """The closure band of `closure_band` for a model with a two-port throat. Nearly all of a
+    caught flash is reflected, so it stays in the throat only for the reflection delay tau_r of
+    its spectrum, not for the neck's length; the band's lower edge solves
+    t_c = (2k + 1) pi + tau_r(u)/sqrt(1 - u^2), with tau_r taken from the birth flash at speed u.
+    The transmitted part, delayed at least the characteristic time, is then in the throat too."""
+    from scipy.optimize import brentq
+    a = model.par.mouth_angle
+    uk = (np.pi - 2*a)/((2*k + 1)*np.pi)
+
+    def kick_for(u):
+        return brentq(lambda v: np.linalg.norm(model.velocity(model.initial(v)), axis=1)[0] - u, .02, .95,
+                      xtol=1e-14)
+
+    def tau_r(u):
+        return split(model.initial(kick_for(u)).fronts[0].spectrum, model.response)['tau_r']
+
+    def late(u):
+        return (np.pi - 2*a)/u - (2*k + 1)*np.pi - tau_r(u)/np.sqrt(1 - u*u)
+
+    edge = (np.pi - 3*a)/((2*k + 1)*np.pi)        # and the flash must be caught at all
+    if late(edge) <= 0:
+        return edge, uk
+    return brentq(late, edge, uk*(1 - 1e-12), xtol=1e-12), uk
 
 
 def _slerp_history(t, x, when):
