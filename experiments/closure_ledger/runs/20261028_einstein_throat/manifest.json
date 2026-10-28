@@ -1,0 +1,74 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/delay_checks.json",
+      "bytes": 3686,
+      "sha256": "eabdfeab3b3ac7a82e61a1d7ec9e4f0b3c63bbc96b0aeeb95ee2fb90f1e38147"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/delays.json",
+      "bytes": 129542,
+      "sha256": "a767c4ef97eac819716de672cda29d711a3be90725b8ac2a821a5108389a1066"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/evolution_checks.json",
+      "bytes": 3686,
+      "sha256": "8467c86947670036b885600bf82ae18b7cea97adbe9ef0299ef75bb8ceff927a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/histories.json",
+      "bytes": 251278,
+      "sha256": "655196d8e7baa4e4a3218b0ba5bef4e78726087918dd639013185e3a92e3006a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/pressure_sensitivity.json",
+      "bytes": 6150,
+      "sha256": "feec767ed5b0b3802f71338d9320969f5a2ee047015bff84f9744fa9393d4095"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/summary.json",
+      "bytes": 562,
+      "sha256": "00df3ee2822f81135346115fe752467eee0c0d766cc564ac633ae74699a3edc4"
+    },
+    {
+      "path": "experiments/closure_ledger/einstein_throat_probe.py",
+      "bytes": 8106,
+      "sha256": "f0c795f804845dbcec97ea49a44906069aaf52c5c2818ccf6f5f48433bd823ec"
+    },
+    {
+      "path": "geometrodynamics/waves/einstein_throat_evolution.py",
+      "bytes": 5633,
+      "sha256": "5d6759b8eb354bfec1ab5530219d6bb1d6273b495668c97a19e6f670674e069b"
+    },
+    {
+      "path": "geometrodynamics/waves/maxwell_throat_response.py",
+      "bytes": 10853,
+      "sha256": "ac2d945175c0a1fdc468614b73901cb380d9e18d677c05b964e405b18c309c12"
+    },
+    {
+      "path": "geometrodynamics/waves/gr_handle_checks.py",
+      "bytes": 4942,
+      "sha256": "3f9de605153a7a68f5769570c5a8e711327af57362a2fb58f9e01db99147045d"
+    },
+    {
+      "path": "geometrodynamics/waves/s3_maxwell_encounter.py",
+      "bytes": 13694,
+      "sha256": "999981c4e5997bcf8db0f17173f74d207b0d3c5f30d36f78d01d65a3ce3f5e7f"
+    },
+    {
+      "path": "tests/test_einstein_throat_evolution.py",
+      "bytes": 4600,
+      "sha256": "3a09d3d89d4e8b2f0a446d191e175ad87eb78db81a1fa4292abe4a31861a9bf4"
+    },
+    {
+      "path": "docs/einstein_throat_evolution.md",
+      "bytes": 14108,
+      "sha256": "5f7c273592f5de89f92be9c68bfe8d2c1a39e3e834c267eb16f9fbc9d4e900f1"
+    },
+    {
+      "path": "docs/images/history_throat/einstein_throat_evolution.png",
+      "bytes": 180182,
+      "sha256": "6069ae895e06cb840ad3a6afd4edde063e2de53d0fc398ed28d1774c9be3f30c"
+    }
+  ]
+}

@@ -1,0 +1,4040 @@
+[
+  {
+    "lapse_depth": 0.0,
+    "neck_lapse": 1.0,
+    "optical_length": 0.6621766691354816,
+    "transmitted_energy_weight": 6.358831182398081e-07,
+    "reflected_energy_weight": 0.9999993641168818,
+    "transmitted_weighted_group_delay": 0.6084786708472314,
+    "reflected_weighted_group_delay": 0.4712582815009666,
+    "incident_weighted_smith_delay": 0.47125836875709565,
+    "modes": [
+      {
+        "omega": 2.0,
+        "reflection": 0.999999999491364,
+        "transmission": 5.086355844795594e-10,
+        "reflection_delay": 0.30810637922001044,
+        "transmission_delay": 0.3081063793923423,
+        "mean_delay": 0.30810637922001033,
+        "hermiticity_error": 2.034540144572524e-11,
+        "smith_eigenvalues": [
+          0.30809363420910063,
+          0.30811912423092
+        ]
+      },
+      {
+        "omega": 3.0,
+        "reflection": 0.9999999986532007,
+        "transmission": 1.346799271816528e-09,
+        "reflection_delay": 0.3158482431548176,
+        "transmission_delay": 0.3158482433419592,
+        "mean_delay": 0.31584824315481763,
+        "hermiticity_error": 2.8896633288707996e-11,
+        "smith_eigenvalues": [
+          0.31583242444809667,
+          0.3158640618615386
+        ]
+      },
+      {
+        "omega": 4.0,
+        "reflection": 0.9999999969926374,
+        "transmission": 3.0073624345541046e-09,
+        "reflection_delay": 0.32717964936068195,
+        "transmission_delay": 0.32717964957438256,
+        "mean_delay": 0.32717964936068183,
+        "hermiticity_error": 4.379549088794963e-11,
+        "smith_eigenvalues": [
+          0.32715879751902044,
+          0.32720050120234323
+        ]
+      },
+      {
+        "omega": 5.0,
+        "reflection": 0.9999999937026942,
+        "transmission": 6.297306071771836e-09,
+        "reflection_delay": 0.3426103807781482,
+        "transmission_delay": 0.34261038102402913,
+        "mean_delay": 0.34261038077814826,
+        "hermiticity_error": 6.127493641676e-11,
+        "smith_eigenvalues": [
+          0.34258161795948505,
+          0.34263914359681147
+        ]
+      },
+      {
+        "omega": 6.0,
+        "reflection": 0.9999999870474356,
+        "transmission": 1.2952564902095381e-08,
+        "reflection_delay": 0.362800077450352,
+        "transmission_delay": 0.36280007772894535,
+        "mean_delay": 0.3628000774503522,
+        "hermiticity_error": 8.363818206675936e-11,
+        "smith_eigenvalues": [
+          0.36275904354693056,
+          0.3628411113537739
+        ]
+      },
+      {
+        "omega": 7.0,
+        "reflection": 0.9999999732243792,
+        "transmission": 2.677562163690061e-08,
+        "reflection_delay": 0.3885115407449493,
+        "transmission_delay": 0.3885115410779946,
+        "mean_delay": 0.3885115407449496,
+        "hermiticity_error": 1.0821755501010079e-10,
+        "smith_eigenvalues": [
+          0.3884515712237963,
+          0.38857151026610287
+        ]
+      },
+      {
+        "omega": 8.0,
+        "reflection": 0.9999999437901973,
+        "transmission": 5.620980261915374e-08,
+        "reflection_delay": 0.4204649782102208,
+        "transmission_delay": 0.4204649785917256,
+        "mean_delay": 0.4204649782102207,
+        "hermiticity_error": 1.478095267781537e-10,
+        "smith_eigenvalues": [
+          0.4203760206035657,
+          0.4205539358168758
+        ]
+      },
+      {
+        "omega": 9.0,
+        "reflection": 0.9999998800181156,
+        "transmission": 1.1998188444071301e-07,
+        "reflection_delay": 0.45899414301513664,
+        "transmission_delay": 0.4589941434362084,
+        "mean_delay": 0.4589941430151367,
+        "hermiticity_error": 1.91064767080485e-10,
+        "smith_eigenvalues": [
+          0.45886167567015834,
+          0.45912661036011504
+        ]
+      },
+      {
+        "omega": 10.0,
+        "reflection": 0.9999997415014605,
+        "transmission": 2.5849853908403635e-07,
+        "reflection_delay": 0.503385428620569,
+        "transmission_delay": 0.5033854290930176,
+        "mean_delay": 0.5033854286205691,
+        "hermiticity_error": 2.3046985802173245e-10,
+        "smith_eigenvalues": [
+          0.5031903115182139,
+          0.5035805457229243
+        ]
+      },
+      {
+        "omega": 11.0,
+        "reflection": 0.9999994468837089,
+        "transmission": 5.531162915583032e-07,
+        "reflection_delay": 0.5509093348906374,
+        "transmission_delay": 0.550909335319978,
+        "mean_delay": 0.550909334890638,
+        "hermiticity_error": 2.756333743119069e-10,
+        "smith_eigenvalues": [
+          0.5506305218332032,
+          0.5511881479480727
+        ]
+      },
+      {
+        "omega": 12.0,
+        "reflection": 0.9999988521859792,
+        "transmission": 1.1478140212000308e-06,
+        "reflection_delay": 0.5960585163906381,
+        "transmission_delay": 0.5960585167427312,
+        "mean_delay": 0.5960585163906387,
+        "hermiticity_error": 2.4741138197402944e-10,
+        "smith_eigenvalues": [
+          0.5956804454719612,
+          0.5964365873093161
+        ]
+      },
+      {
+        "omega": 13.0,
+        "reflection": 0.9999977496189887,
+        "transmission": 2.250381011297618e-06,
+        "reflection_delay": 0.6313050928049593,
+        "transmission_delay": 0.6313050930722444,
+        "mean_delay": 0.6313050928049597,
+        "hermiticity_error": 1.909480319018454e-10,
+        "smith_eigenvalues": [
+          0.6308270294626803,
+          0.631783156147239
+        ]
+      },
+      {
+        "omega": 14.0,
+        "reflection": 0.9999959099543211,
+        "transmission": 4.090045678924455e-06,
+        "reflection_delay": 0.6504468066339657,
+        "transmission_delay": 0.6504468067648745,
+        "mean_delay": 0.6504468066339664,
+        "hermiticity_error": 6.567668547714937e-11,
+        "smith_eigenvalues": [
+          0.6498834629046836,
+          0.651010150363249
+        ]
+      },
+      {
+        "omega": 15.0,
+        "reflection": 0.9999931260046659,
+        "transmission": 6.87399533495164e-06,
+        "reflection_delay": 0.6527667971321872,
+        "transmission_delay": 0.6527667972135542,
+        "mean_delay": 0.6527667971321883,
+        "hermiticity_error": 3.1333946631033574e-11,
+        "smith_eigenvalues": [
+          0.6521323088127959,
+          0.6534012854515807
+        ]
+      },
+      {
+        "omega": 16.0,
+        "reflection": 0.9999891503515017,
+        "transmission": 1.0849648498813921e-05,
+        "reflection_delay": 0.6438131028930142,
+        "transmission_delay": 0.6438131029770752,
+        "mean_delay": 0.6438131028930153,
+        "hermiticity_error": 6.583925606061656e-11,
+        "smith_eigenvalues": [
+          0.6430996224468986,
+          0.6445265833391322
+        ]
+      },
+      {
+        "omega": 17.0,
+        "reflection": 0.999983503061243,
+        "transmission": 1.649693876168019e-05,
+        "reflection_delay": 0.6318327039360012,
+        "transmission_delay": 0.6318327040195872,
+        "mean_delay": 0.6318327039360055,
+        "hermiticity_error": 6.205949502493252e-11,
+        "smith_eigenvalues": [
+          0.6310019024503163,
+          0.6326635054216949
+        ]
+      },
+      {
+        "omega": 18.0,
+        "reflection": 0.9999752340318346,
+        "transmission": 2.4765968165882928e-05,
+        "reflection_delay": 0.6236196015931652,
+        "transmission_delay": 0.6236196017242164,
+        "mean_delay": 0.6236196015931688,
+        "hermiticity_error": 2.8427259667112433e-11,
+        "smith_eigenvalues": [
+          0.6226086543324038,
+          0.6246305488539338
+        ]
+      },
+      {
+        "omega": 19.0,
+        "reflection": 0.9999626808525766,
+        "transmission": 3.731914742401893e-05,
+        "reflection_delay": 0.6226986459419712,
+        "transmission_delay": 0.6226986460949359,
+        "mean_delay": 0.6226986459419773,
+        "hermiticity_error": 2.206727892622015e-11,
+        "smith_eigenvalues": [
+          0.6214316971640992,
+          0.6239655947198555
+        ]
+      },
+      {
+        "omega": 20.0,
+        "reflection": 0.9999432127847031,
+        "transmission": 5.6787215297823674e-05,
+        "reflection_delay": 0.6294483017748085,
+        "transmission_delay": 0.6294483019476402,
+        "mean_delay": 0.6294483017748189,
+        "hermiticity_error": 7.213660307320159e-11,
+        "smith_eigenvalues": [
+          0.6278499085594725,
+          0.6310466949901654
+        ]
+      },
+      {
+        "omega": 21.0,
+        "reflection": 0.9999130420965939,
+        "transmission": 8.695790340727564e-05,
+        "reflection_delay": 0.6418188979492491,
+        "transmission_delay": 0.6418188981237993,
+        "mean_delay": 0.6418188979492652,
+        "hermiticity_error": 8.214208903437114e-11,
+        "smith_eigenvalues": [
+          0.6398312525729224,
+          0.6438065433256078
+        ]
+      },
+      {
+        "omega": 22.0,
+        "reflection": 0.9998673312969042,
+        "transmission": 0.00013266870309866846,
+        "reflection_delay": 0.6561455524616974,
+        "transmission_delay": 0.6561455525870089,
+        "mean_delay": 0.6561455524617159,
+        "hermiticity_error": 7.993935748436548e-11,
+        "smith_eigenvalues": [
+          0.6537468769158542,
+          0.6585442280075775
+        ]
+      },
+      {
+        "omega": 23.0,
+        "reflection": 0.9998007623973436,
+        "transmission": 0.0001992376026608612,
+        "reflection_delay": 0.66827463486441,
+        "transmission_delay": 0.6682746349644839,
+        "mean_delay": 0.6682746348644328,
+        "hermiticity_error": 6.874208598637523e-11,
+        "smith_eigenvalues": [
+          0.6654850979805795,
+          0.6710641717482863
+        ]
+      },
+      {
+        "omega": 24.0,
+        "reflection": 0.9997081636636053,
+        "transmission": 0.00029183633640121175,
+        "reflection_delay": 0.6751073156140335,
+        "transmission_delay": 0.6751073156581989,
+        "mean_delay": 0.6751073156140508,
+        "hermiticity_error": 2.3361427439147793e-11,
+        "smith_eigenvalues": [
+          0.6719655024111901,
+          0.6782491288169115
+        ]
+      },
+      {
+        "omega": 25.0,
+        "reflection": 0.9995840419916368,
+        "transmission": 0.00041595800837218594,
+        "reflection_delay": 0.6759381311089057,
+        "transmission_delay": 0.6759381311869179,
+        "mean_delay": 0.6759381311089441,
+        "hermiticity_error": 1.7194513411151424e-11,
+        "smith_eigenvalues": [
+          0.6724507218110222,
+          0.679425540406866
+        ]
+      },
+      {
+        "omega": 26.0,
+        "reflection": 0.9994201448549691,
+        "transmission": 0.0005798551450404859,
+        "reflection_delay": 0.6726293253091785,
+        "transmission_delay": 0.6726293253850024,
+        "mean_delay": 0.6726293253092289,
+        "hermiticity_error": 3.793699599145315e-11,
+        "smith_eigenvalues": [
+          0.6687250378605378,
+          0.6765336127579199
+        ]
+      },
+      {
+        "omega": 27.0,
+        "reflection": 0.9992016595924765,
+        "transmission": 0.0007983404075330884,
+        "reflection_delay": 0.6684517132497633,
+        "transmission_delay": 0.6684517133214544,
+        "mean_delay": 0.6684517132498269,
+        "hermiticity_error": 3.62609638995928e-11,
+        "smith_eigenvalues": [
+          0.66397062451894,
+          0.6729328019807139
+        ]
+      },
+      {
+        "omega": 28.0,
+        "reflection": 0.9989035390165508,
+        "transmission": 0.0010964609834658368,
+        "reflection_delay": 0.6664713054703598,
+        "transmission_delay": 0.6664713055621618,
+        "mean_delay": 0.6664713054704716,
+        "hermiticity_error": 6.04216142499198e-12,
+        "smith_eigenvalues": [
+          0.6611924769813449,
+          0.6717501339595984
+        ]
+      },
+      {
+        "omega": 29.0,
+        "reflection": 0.9984879939918597,
+        "transmission": 0.0015120060081579823,
+        "reflection_delay": 0.668416502392472,
+        "transmission_delay": 0.6684165025037232,
+        "mean_delay": 0.668416502392652,
+        "hermiticity_error": 2.8396187676818428e-11,
+        "smith_eigenvalues": [
+          0.6621079292787834,
+          0.6747250755065208
+        ]
+      },
+      {
+        "omega": 30.0,
+        "reflection": 0.9979039662242446,
+        "transmission": 0.0020960337757755876,
+        "reflection_delay": 0.6742949227465397,
+        "transmission_delay": 0.6742949228268675,
+        "mean_delay": 0.6742949227467216,
+        "hermiticity_error": 4.8772098710317304e-11,
+        "smith_eigenvalues": [
+          0.6667711435753011,
+          0.6818187019181422
+        ]
+      },
+      {
+        "omega": 31.0,
+        "reflection": 0.9970898903404404,
+        "transmission": 0.0029101096595782875,
+        "reflection_delay": 0.6826031525073506,
+        "transmission_delay": 0.6826031525836543,
+        "mean_delay": 0.6826031525075854,
+        "hermiticity_error": 8.432696956306097e-11,
+        "smith_eigenvalues": [
+          0.673775601746715,
+          0.6914307032684558
+        ]
+      },
+      {
+        "omega": 32.0,
+        "reflection": 0.995980120010148,
+        "transmission": 0.004019879989879758,
+        "reflection_delay": 0.6909816823860975,
+        "transmission_delay": 0.6909816824381342,
+        "mean_delay": 0.6909816823863258,
+        "hermiticity_error": 4.48731000019284e-11,
+        "smith_eigenvalues": [
+          0.6808741308796291,
+          0.7010892338930226
+        ]
+      },
+      {
+        "omega": 33.0,
+        "reflection": 0.9945107782740874,
+        "transmission": 0.00548922172594263,
+        "reflection_delay": 0.6971997469686214,
+        "transmission_delay": 0.6971997470069438,
+        "mean_delay": 0.6971997469688527,
+        "hermiticity_error": 2.730548491240477e-11,
+        "smith_eigenvalues": [
+          0.68589650768582,
+          0.7085029862518853
+        ]
+      },
+      {
+        "omega": 34.0,
+        "reflection": 0.9926151926630543,
+        "transmission": 0.007384807336977441,
+        "reflection_delay": 0.7001500767284309,
+        "transmission_delay": 0.7001500767913149,
+        "mean_delay": 0.7001500767289174,
+        "hermiticity_error": 1.0705018722749174e-11,
+        "smith_eigenvalues": [
+          0.687678271830482,
+          0.712621881627353
+        ]
+      },
+      {
+        "omega": 35.0,
+        "reflection": 0.9902011878739299,
+        "transmission": 0.0097988121261067,
+        "reflection_delay": 0.7003273979696836,
+        "transmission_delay": 0.7003273980345011,
+        "mean_delay": 0.7003273979703445,
+        "hermiticity_error": 1.6363750607993973e-11,
+        "smith_eigenvalues": [
+          0.6865338446250091,
+          0.7141209513156798
+        ]
+      },
+      {
+        "omega": 36.0,
+        "reflection": 0.9871153309582533,
+        "transmission": 0.012884669041796696,
+        "reflection_delay": 0.6994805405587927,
+        "transmission_delay": 0.6994805406213339,
+        "mean_delay": 0.6994805405596335,
+        "hermiticity_error": 1.4026609974447712e-11,
+        "smith_eigenvalues": [
+          0.6839843292742137,
+          0.7149767518450534
+        ]
+      },
+      {
+        "omega": 37.0,
+        "reflection": 0.983110676633834,
+        "transmission": 0.01688932336623148,
+        "reflection_delay": 0.6996838430969392,
+        "transmission_delay": 0.6996838432015748,
+        "mean_delay": 0.6996838430987523,
+        "hermiticity_error": 2.688632794912413e-11,
+        "smith_eigenvalues": [
+          0.6819386121627177,
+          0.7174290740347868
+        ]
+      },
+      {
+        "omega": 38.0,
+        "reflection": 0.9778342469620661,
+        "transmission": 0.022165753038020826,
+        "reflection_delay": 0.7023924333344195,
+        "transmission_delay": 0.7023924334127073,
+        "mean_delay": 0.7023924333362158,
+        "hermiticity_error": 3.0040484977000136e-11,
+        "smith_eigenvalues": [
+          0.6818313857988967,
+          0.7229534808735348
+        ]
+      },
+      {
+        "omega": 39.0,
+        "reflection": 0.9708450220988237,
+        "transmission": 0.02915497790129605,
+        "reflection_delay": 0.7078937336976225,
+        "transmission_delay": 0.707893733762875,
+        "mean_delay": 0.7078937336996098,
+        "hermiticity_error": 5.756916026664828e-11,
+        "smith_eigenvalues": [
+          0.6841035966457817,
+          0.731683870753438
+        ]
+      },
+      {
+        "omega": 40.0,
+        "reflection": 0.9616680556510754,
+        "transmission": 0.03833194434910179,
+        "reflection_delay": 0.7152748080635813,
+        "transmission_delay": 0.7152748081486515,
+        "mean_delay": 0.7152748080669691,
+        "hermiticity_error": 5.437479010479974e-11,
+        "smith_eigenvalues": [
+          0.6881341683600537,
+          0.7424154477738844
+        ]
+      },
+      {
+        "omega": 41.0,
+        "reflection": 0.9498730804284617,
+        "transmission": 0.05012691957180588,
+        "reflection_delay": 0.7228688588884116,
+        "transmission_delay": 0.7228688589670598,
+        "mean_delay": 0.7228688588925474,
+        "hermiticity_error": 5.987043136575531e-11,
+        "smith_eigenvalues": [
+          0.6925701356332992,
+          0.7531675821517956
+        ]
+      },
+      {
+        "omega": 42.0,
+        "reflection": 0.9351285668697522,
+        "transmission": 0.06487143313060596,
+        "reflection_delay": 0.7290410850872736,
+        "transmission_delay": 0.7290410851526349,
+        "mean_delay": 0.7290410850917748,
+        "hermiticity_error": 3.888531086136135e-11,
+        "smith_eigenvalues": [
+          0.6959325369832184,
+          0.7621496332003312
+        ]
+      },
+      {
+        "omega": 43.0,
+        "reflection": 0.9171596763414095,
+        "transmission": 0.08284032365892414,
+        "reflection_delay": 0.7329893115099276,
+        "transmission_delay": 0.7329893115414281,
+        "mean_delay": 0.7329893115127818,
+        "hermiticity_error": 2.466856800961673e-11,
+        "smith_eigenvalues": [
+          0.6972767826896068,
+          0.7687018403359568
+        ]
+      },
+      {
+        "omega": 44.0,
+        "reflection": 0.8955921556327378,
+        "transmission": 0.10440784436765943,
+        "reflection_delay": 0.7351130433507136,
+        "transmission_delay": 0.735113043388092,
+        "mean_delay": 0.735113043354908,
+        "hermiticity_error": 2.8905266324809083e-11,
+        "smith_eigenvalues": [
+          0.6965991834085202,
+          0.7736269033012959
+        ]
+      },
+      {
+        "omega": 45.0,
+        "reflection": 0.8697810888010721,
+        "transmission": 0.13021891119941523,
+        "reflection_delay": 0.736709225624781,
+        "transmission_delay": 0.7367092256145603,
+        "mean_delay": 0.736709225623809,
+        "hermiticity_error": 1.3485174361808305e-11,
+        "smith_eigenvalues": [
+          0.694770962671793,
+          0.7786474885758251
+        ]
+      },
+      {
+        "omega": 46.0,
+        "reflection": 0.8387889013490104,
+        "transmission": 0.16121109865157793,
+        "reflection_delay": 0.7391932980216008,
+        "transmission_delay": 0.7391932980240071,
+        "mean_delay": 0.7391932980224236,
+        "hermiticity_error": 3.183477414780204e-11,
+        "smith_eigenvalues": [
+          0.6930580209219149,
+          0.7853285751229323
+        ]
+      },
+      {
+        "omega": 47.0,
+        "reflection": 0.8016210088071336,
+        "transmission": 0.19837899119362598,
+        "reflection_delay": 0.7433121465020143,
+        "transmission_delay": 0.7433121465736139,
+        "mean_delay": 0.7433121465167829,
+        "hermiticity_error": 5.699355495363338e-11,
+        "smith_eigenvalues": [
+          0.6925169429892007,
+          0.7941073500443651
+        ]
+      },
+      {
+        "omega": 48.0,
+        "reflection": 0.7576940963325809,
+        "transmission": 0.2423059036684545,
+        "reflection_delay": 0.7487457115003007,
+        "transmission_delay": 0.7487457115313155,
+        "mean_delay": 0.748745711508591,
+        "hermiticity_error": 6.905971109939281e-11,
+        "smith_eigenvalues": [
+          0.6935621037334201,
+          0.803929319283762
+        ]
+      }
+    ],
+    "spectrum_energy_weights": [
+      0.0003247310886561514,
+      0.003575616914277434,
+      0.01593732107273411,
+      0.04320275108762122,
+      0.08369997283181306,
+      0.12587311639924592,
+      0.15425102853429154,
+      0.1589290023441528,
+      0.14067751027692502,
+      0.10866581212716724,
+      0.0741240129712079,
+      0.04506761553263258,
+      0.02460808149035246,
+      0.012142516033674255,
+      0.0054432050150155535,
+      0.0022268950645052913,
+      0.0008348043938713388,
+      0.00028777825781201965,
+      9.151928125472458e-05,
+      2.6928629474895596e-05,
+      7.3505923876237305e-06,
+      1.8659774728858243e-06,
+      4.4152864475257497e-07,
+      9.759001895883166e-08,
+      2.01889108808605e-08,
+      3.916483748653237e-09,
+      7.137140776638451e-10,
+      1.2238365775978075e-10,
+      1.977801273288736e-11,
+      3.0168670942360898e-12,
+      4.349772498535213e-13,
+      5.936180104258215e-14,
+      7.677928209472573e-15,
+      9.423639397118897e-16,
+      1.098875895886328e-16,
+      1.2187924063542541e-17,
+      1.2871722863199916e-18,
+      1.2957568676107236e-19,
+      1.2445848438545619e-20,
+      1.1417192315469142e-21,
+      1.0013348584842484e-22,
+      8.41091602585367e-24,
+      6.802797999470182e-25,
+      5.417087377887945e-26,
+      4.650550064925984e-27,
+      5.589510637138172e-28,
+      1.411533176496175e-28
+    ],
+    "scope": "Modal group-delay diagnostics, not a time-domain pulse arrival or router gate"
+  },
+  {
+    "lapse_depth": 0.4,
+    "neck_lapse": 0.6,
+    "optical_length": 0.8380207687347486,
+    "transmitted_energy_weight": 2.1436045826936338e-05,
+    "reflected_energy_weight": 0.9999785639541732,
+    "transmitted_weighted_group_delay": 0.8697344008214378,
+    "reflected_weighted_group_delay": 0.6442474076726669,
+    "incident_weighted_smith_delay": 0.6442522412221854,
+    "modes": [
+      {
+        "omega": 2.0,
+        "reflection": 0.9999999992279895,
+        "transmission": 7.720105016869795e-10,
+        "reflection_delay": 0.3287597036058802,
+        "transmission_delay": 0.32875970391985415,
+        "mean_delay": 0.3287597036058802,
+        "hermiticity_error": 2.8148029303231104e-11,
+        "smith_eigenvalues": [
+          0.3287427959479581,
+          0.32877661126380237
+        ]
+      },
+      {
+        "omega": 3.0,
+        "reflection": 0.9999999977192551,
+        "transmission": 2.2807447297124488e-09,
+        "reflection_delay": 0.34053974106266266,
+        "transmission_delay": 0.3405397414324045,
+        "mean_delay": 0.3405397410626626,
+        "hermiticity_error": 5.0055919902987615e-11,
+        "smith_eigenvalues": [
+          0.34051598921131104,
+          0.3405634929140142
+        ]
+      },
+      {
+        "omega": 4.0,
+        "reflection": 0.9999999940433799,
+        "transmission": 5.9566200015215305e-09,
+        "reflection_delay": 0.358426789894766,
+        "transmission_delay": 0.3584267903383229,
+        "mean_delay": 0.358426789894766,
+        "hermiticity_error": 7.513141597685177e-11,
+        "smith_eigenvalues": [
+          0.35839044834121536,
+          0.35846313144831665
+        ]
+      },
+      {
+        "omega": 5.0,
+        "reflection": 0.9999999846571107,
+        "transmission": 1.5342888994630398e-08,
+        "reflection_delay": 0.38407123735852283,
+        "transmission_delay": 0.3840712379008443,
+        "mean_delay": 0.38407123735852267,
+        "hermiticity_error": 1.1900119043314863e-10,
+        "smith_eigenvalues": [
+          0.3840118773087691,
+          0.3841305974082762
+        ]
+      },
+      {
+        "omega": 6.0,
+        "reflection": 0.9999999590207527,
+        "transmission": 4.097924753002073e-08,
+        "reflection_delay": 0.41997422083695435,
+        "transmission_delay": 0.4199742215374883,
+        "mean_delay": 0.4199742208369545,
+        "hermiticity_error": 1.7616077211411178e-10,
+        "smith_eigenvalues": [
+          0.419871931940044,
+          0.420076509733865
+        ]
+      },
+      {
+        "omega": 7.0,
+        "reflection": 0.9999998835206682,
+        "transmission": 1.1647933201912347e-07,
+        "reflection_delay": 0.4697101739468263,
+        "transmission_delay": 0.46971017487671896,
+        "mean_delay": 0.46971017394682635,
+        "hermiticity_error": 2.6921663908882406e-10,
+        "smith_eigenvalues": [
+          0.4695258091080776,
+          0.4698945387855751
+        ]
+      },
+      {
+        "omega": 8.0,
+        "reflection": 0.9999996441733744,
+        "transmission": 3.558266256276751e-07,
+        "reflection_delay": 0.5377954248943715,
+        "transmission_delay": 0.537795426104921,
+        "mean_delay": 0.5377954248943719,
+        "hermiticity_error": 4.2116381274066256e-10,
+        "smith_eigenvalues": [
+          0.5374519232065047,
+          0.5381389265822392
+        ]
+      },
+      {
+        "omega": 9.0,
+        "reflection": 0.9999988425914991,
+        "transmission": 1.1574085003545378e-06,
+        "reflection_delay": 0.6280208814838195,
+        "transmission_delay": 0.6280208829760762,
+        "mean_delay": 0.628020881483821,
+        "hermiticity_error": 6.361060434308702e-10,
+        "smith_eigenvalues": [
+          0.627374853527606,
+          0.6286669094400359
+        ]
+      },
+      {
+        "omega": 10.0,
+        "reflection": 0.9999961456413372,
+        "transmission": 3.8543586624130455e-06,
+        "reflection_delay": 0.7375433440863398,
+        "transmission_delay": 0.7375433456106841,
+        "mean_delay": 0.7375433440863453,
+        "hermiticity_error": 8.363656410435147e-10,
+        "smith_eigenvalues": [
+          0.7363735765251278,
+          0.7387131116475627
+        ]
+      },
+      {
+        "omega": 11.0,
+        "reflection": 0.9999878576765142,
+        "transmission": 1.2142323484799142e-05,
+        "reflection_delay": 0.8454865882648995,
+        "transmission_delay": 0.8454865894123708,
+        "mean_delay": 0.8454865882649125,
+        "hermiticity_error": 8.01591717491887e-10,
+        "smith_eigenvalues": [
+          0.8435954231530521,
+          0.8473777533767728
+        ]
+      },
+      {
+        "omega": 12.0,
+        "reflection": 0.9999672272337942,
+        "transmission": 3.277276620477463e-05,
+        "reflection_delay": 0.9114470964839884,
+        "transmission_delay": 0.9114470968210804,
+        "mean_delay": 0.9114470964839985,
+        "hermiticity_error": 3.0122322017725017e-10,
+        "smith_eigenvalues": [
+          0.90889630810985,
+          0.9139978848581468
+        ]
+      },
+      {
+        "omega": 13.0,
+        "reflection": 0.9999278055758053,
+        "transmission": 7.219442419515744e-05,
+        "reflection_delay": 0.9119819396329373,
+        "transmission_delay": 0.9119819397713396,
+        "mean_delay": 0.9119819396329476,
+        "hermiticity_error": 2.3688973201155305e-10,
+        "smith_eigenvalues": [
+          0.9090164123656981,
+          0.9149474669001971
+        ]
+      },
+      {
+        "omega": 14.0,
+        "reflection": 0.9998634631112912,
+        "transmission": 0.00013653688871022288,
+        "reflection_delay": 0.8737512146118573,
+        "transmission_delay": 0.8737512148387896,
+        "mean_delay": 0.8737512146118895,
+        "hermiticity_error": 3.53660733057451e-10,
+        "smith_eigenvalues": [
+          0.8702788078536373,
+          0.8772236213701419
+        ]
+      },
+      {
+        "omega": 15.0,
+        "reflection": 0.9997554001756809,
+        "transmission": 0.00024459982432524757,
+        "reflection_delay": 0.8405069740528276,
+        "transmission_delay": 0.8405069744483014,
+        "mean_delay": 0.8405069740529294,
+        "hermiticity_error": 1.6629024385943708e-10,
+        "smith_eigenvalues": [
+          0.8359408967077585,
+          0.8450730513981003
+        ]
+      },
+      {
+        "omega": 16.0,
+        "reflection": 0.9995545733402237,
+        "transmission": 0.0004454266597863308,
+        "reflection_delay": 0.8348812978382592,
+        "transmission_delay": 0.834881298336737,
+        "mean_delay": 0.8348812978384897,
+        "hermiticity_error": 7.990850773752846e-11,
+        "smith_eigenvalues": [
+          0.8283609711342398,
+          0.8414016245427397
+        ]
+      },
+      {
+        "omega": 17.0,
+        "reflection": 0.9991605948921082,
+        "transmission": 0.0008394051079060171,
+        "reflection_delay": 0.8569112643121314,
+        "transmission_delay": 0.8569112648187021,
+        "mean_delay": 0.8569112643125688,
+        "hermiticity_error": 2.827120907848725e-10,
+        "smith_eigenvalues": [
+          0.847564231778992,
+          0.8662582968461456
+        ]
+      },
+      {
+        "omega": 18.0,
+        "reflection": 0.9984038929664877,
+        "transmission": 0.0015961070335271104,
+        "reflection_delay": 0.8924400015939365,
+        "transmission_delay": 0.8924400020021341,
+        "mean_delay": 0.8924400015946012,
+        "hermiticity_error": 2.991448081969188e-10,
+        "smith_eigenvalues": [
+          0.8797999586481877,
+          0.9050800445410148
+        ]
+      },
+      {
+        "omega": 19.0,
+        "reflection": 0.9970711308862318,
+        "transmission": 0.002928869113787983,
+        "reflection_delay": 0.9207528976418061,
+        "transmission_delay": 0.9207528979135765,
+        "mean_delay": 0.9207528976426202,
+        "hermiticity_error": 1.6753389258331597e-10,
+        "smith_eigenvalues": [
+          0.9051367604362214,
+          0.9363690348490191
+        ]
+      },
+      {
+        "omega": 20.0,
+        "reflection": 0.9949696599546776,
+        "transmission": 0.005030340045349319,
+        "reflection_delay": 0.9277438197228246,
+        "transmission_delay": 0.9277438198810619,
+        "mean_delay": 0.9277438197236455,
+        "hermiticity_error": 4.138083470181228e-11,
+        "smith_eigenvalues": [
+          0.9097255128488849,
+          0.945762126598406
+        ]
+      },
+      {
+        "omega": 21.0,
+        "reflection": 0.99185818386977,
+        "transmission": 0.008141816130262517,
+        "reflection_delay": 0.9175480919914274,
+        "transmission_delay": 0.9175480921682694,
+        "mean_delay": 0.9175480919928972,
+        "hermiticity_error": 1.192366036756848e-10,
+        "smith_eigenvalues": [
+          0.8965881305556984,
+          0.9385080534300961
+        ]
+      },
+      {
+        "omega": 22.0,
+        "reflection": 0.9871376373893881,
+        "transmission": 0.012862362610658465,
+        "reflection_delay": 0.9070026377722924,
+        "transmission_delay": 0.9070026380067562,
+        "mean_delay": 0.9070026377753503,
+        "hermiticity_error": 5.274130165954415e-11,
+        "smith_eigenvalues": [
+          0.8808741444792209,
+          0.9331311310714796
+        ]
+      },
+      {
+        "omega": 23.0,
+        "reflection": 0.979500636887059,
+        "transmission": 0.020499363112997975,
+        "reflection_delay": 0.9102253063948409,
+        "transmission_delay": 0.9102253067036117,
+        "mean_delay": 0.9102253064012226,
+        "hermiticity_error": 1.1221938968479185e-10,
+        "smith_eigenvalues": [
+          0.8758053980659133,
+          0.9446452147365317
+        ]
+      },
+      {
+        "omega": 24.0,
+        "reflection": 0.9667558448311219,
+        "transmission": 0.033244155168963514,
+        "reflection_delay": 0.9300237603502909,
+        "transmission_delay": 0.9300237606612616,
+        "mean_delay": 0.9300237603607082,
+        "hermiticity_error": 2.7716467499072683e-10,
+        "smith_eigenvalues": [
+          0.884800100270649,
+          0.9752474204507674
+        ]
+      },
+      {
+        "omega": 25.0,
+        "reflection": 0.9461556233218517,
+        "transmission": 0.05384437667834253,
+        "reflection_delay": 0.9578358640379164,
+        "transmission_delay": 0.9578358642591819,
+        "mean_delay": 0.9578358640500163,
+        "hermiticity_error": 2.696303800917747e-10,
+        "smith_eigenvalues": [
+          0.9016519020687572,
+          1.0140198260312754
+        ]
+      },
+      {
+        "omega": 26.0,
+        "reflection": 0.9155765685711453,
+        "transmission": 0.08442343142911617,
+        "reflection_delay": 0.9797763466180108,
+        "transmission_delay": 0.9797763467667713,
+        "mean_delay": 0.9797763466308257,
+        "hermiticity_error": 1.5546489166039594e-10,
+        "smith_eigenvalues": [
+          0.9152679945449067,
+          1.0442846987167447
+        ]
+      },
+      {
+        "omega": 27.0,
+        "reflection": 0.8743800815137691,
+        "transmission": 0.12561991848664034,
+        "reflection_delay": 0.9878397594348778,
+        "transmission_delay": 0.9878397595127636,
+        "mean_delay": 0.9878397594450664,
+        "hermiticity_error": 5.1500461703296484e-11,
+        "smith_eigenvalues": [
+          0.9175269986482195,
+          1.0581525202419133
+        ]
+      },
+      {
+        "omega": 28.0,
+        "reflection": 0.8217285396667631,
+        "transmission": 0.178271460333795,
+        "reflection_delay": 0.986919193506962,
+        "transmission_delay": 0.986919193618465,
+        "mean_delay": 0.9869191935273905,
+        "hermiticity_error": 8.523416757980276e-11,
+        "smith_eigenvalues": [
+          0.9094483383055831,
+          1.064390048749198
+        ]
+      },
+      {
+        "omega": 29.0,
+        "reflection": 0.7541488871467243,
+        "transmission": 0.2458511128542163,
+        "reflection_delay": 0.988417273932637,
+        "transmission_delay": 0.9884172740675788,
+        "mean_delay": 0.9884172739667425,
+        "hermiticity_error": 1.1610956138142351e-10,
+        "smith_eigenvalues": [
+          0.899340089736369,
+          1.077494458197116
+        ]
+      },
+      {
+        "omega": 30.0,
+        "reflection": 0.6672752704580258,
+        "transmission": 0.3327247295436833,
+        "reflection_delay": 0.998135297204404,
+        "transmission_delay": 0.9981352973544476,
+        "mean_delay": 0.9981352972560332,
+        "hermiticity_error": 1.412889171149314e-10,
+        "smith_eigenvalues": [
+          0.8952995870878162,
+          1.1009710074242502
+        ]
+      },
+      {
+        "omega": 31.0,
+        "reflection": 0.5625730108792467,
+        "transmission": 0.4374269891228008,
+        "reflection_delay": 1.010908166267076,
+        "transmission_delay": 1.010908166294096,
+        "mean_delay": 1.0109081662809651,
+        "hermiticity_error": 1.0148910274312645e-10,
+        "smith_eigenvalues": [
+          0.8997146079591039,
+          1.1221017246028266
+        ]
+      },
+      {
+        "omega": 32.0,
+        "reflection": 0.4523610161825413,
+        "transmission": 0.5476389838205609,
+        "reflection_delay": 1.0162202632059547,
+        "transmission_delay": 1.0162202631099413,
+        "mean_delay": 1.0162202631565267,
+        "hermiticity_error": 9.556222928397487e-11,
+        "smith_eigenvalues": [
+          0.9086558515318932,
+          1.1237846747811602
+        ]
+      },
+      {
+        "omega": 33.0,
+        "reflection": 0.35311450399633193,
+        "transmission": 0.6468854960079847,
+        "reflection_delay": 1.009441405872083,
+        "transmission_delay": 1.0094414056566885,
+        "mean_delay": 1.0094414057371046,
+        "hermiticity_error": 2.0587334662852964e-10,
+        "smith_eigenvalues": [
+          0.9151405754825086,
+          1.1037422359917006
+        ]
+      },
+      {
+        "omega": 34.0,
+        "reflection": 0.27238268486942036,
+        "transmission": 0.7276173151364587,
+        "reflection_delay": 0.9952828260419323,
+        "transmission_delay": 0.995282825902122,
+        "mean_delay": 0.9952828259460551,
+        "hermiticity_error": 1.6696231881122613e-10,
+        "smith_eigenvalues": [
+          0.9143718725463393,
+          1.0761937793457708
+        ]
+      },
+      {
+        "omega": 35.0,
+        "reflection": 0.20699062573746982,
+        "transmission": 0.7930093742706015,
+        "reflection_delay": 0.9809808606516499,
+        "transmission_delay": 0.9809808605832491,
+        "mean_delay": 0.9809808606053252,
+        "hermiticity_error": 1.4959030415115967e-10,
+        "smith_eigenvalues": [
+          0.9072871709441865,
+          1.0546745502664638
+        ]
+      },
+      {
+        "omega": 36.0,
+        "reflection": 0.15179140582497527,
+        "transmission": 0.8482085941854826,
+        "reflection_delay": 0.9700066592809075,
+        "transmission_delay": 0.9700066591418857,
+        "mean_delay": 0.9700066591731321,
+        "hermiticity_error": 1.0546170391666567e-10,
+        "smith_eigenvalues": [
+          0.8992074377038828,
+          1.0408058806423814
+        ]
+      },
+      {
+        "omega": 37.0,
+        "reflection": 0.10583509748914899,
+        "transmission": 0.8941649025229268,
+        "reflection_delay": 0.9613871908026835,
+        "transmission_delay": 0.961387190673373,
+        "mean_delay": 0.9613871906986681,
+        "hermiticity_error": 7.947548895589547e-11,
+        "smith_eigenvalues": [
+          0.895257178415152,
+          1.0275172029821842
+        ]
+      },
+      {
+        "omega": 38.0,
+        "reflection": 0.07107878106787034,
+        "transmission": 0.9289212189460568,
+        "reflection_delay": 0.9527443249371781,
+        "transmission_delay": 0.9527443247310492,
+        "mean_delay": 0.9527443247589696,
+        "hermiticity_error": 1.0590335579697709e-10,
+        "smith_eigenvalues": [
+          0.8968543459953721,
+          1.0086343035225673
+        ]
+      },
+      {
+        "omega": 39.0,
+        "reflection": 0.047990574925841516,
+        "transmission": 0.9520094250887134,
+        "reflection_delay": 0.9432151987551007,
+        "transmission_delay": 0.9432151983591681,
+        "mean_delay": 0.9432151983918977,
+        "hermiticity_error": 1.6931903541440049e-10,
+        "smith_eigenvalues": [
+          0.9012920328140085,
+          0.9851383639697868
+        ]
+      },
+      {
+        "omega": 40.0,
+        "reflection": 0.03400346157265504,
+        "transmission": 0.9659965384425514,
+        "reflection_delay": 0.9335968907058924,
+        "transmission_delay": 0.9335968904678942,
+        "mean_delay": 0.9335968904901836,
+        "hermiticity_error": 1.0352643346011766e-10,
+        "smith_eigenvalues": [
+          0.9040073213454364,
+          0.9631864596349308
+        ]
+      },
+      {
+        "omega": 41.0,
+        "reflection": 0.02529530189095092,
+        "transmission": 0.9747046981246204,
+        "reflection_delay": 0.9249755009263003,
+        "transmission_delay": 0.924975500750651,
+        "mean_delay": 0.9249755007694972,
+        "hermiticity_error": 9.489794010681249e-11,
+        "smith_eigenvalues": [
+          0.9020071286742394,
+          0.9479438728647549
+        ]
+      },
+      {
+        "omega": 42.0,
+        "reflection": 0.018819611959871415,
+        "transmission": 0.9811803880563748,
+        "reflection_delay": 0.917934143486849,
+        "transmission_delay": 0.917934143544005,
+        "mean_delay": 0.9179341435578422,
+        "hermiticity_error": 6.792759326280667e-11,
+        "smith_eigenvalues": [
+          0.8959933747560203,
+          0.939874912359664
+        ]
+      },
+      {
+        "omega": 43.0,
+        "reflection": 0.013205182490416615,
+        "transmission": 0.986794817526007,
+        "reflection_delay": 0.9123821923877177,
+        "transmission_delay": 0.9123821923247627,
+        "mean_delay": 0.9123821923405788,
+        "hermiticity_error": 5.160547487611603e-11,
+        "smith_eigenvalues": [
+          0.8894616609040135,
+          0.9353027237771442
+        ]
+      },
+      {
+        "omega": 44.0,
+        "reflection": 0.00852731432335755,
+        "transmission": 0.9914726856932397,
+        "reflection_delay": 0.9077236818617875,
+        "transmission_delay": 0.9077236816998844,
+        "mean_delay": 0.9077236817163308,
+        "hermiticity_error": 4.017806556418577e-11,
+        "smith_eigenvalues": [
+          0.8858254850238939,
+          0.9296218784087676
+        ]
+      },
+      {
+        "omega": 45.0,
+        "reflection": 0.005261505487033583,
+        "transmission": 0.9947384945299623,
+        "reflection_delay": 0.9033965891647039,
+        "transmission_delay": 0.9033965888786292,
+        "mean_delay": 0.9033965888954884,
+        "hermiticity_error": 6.194264086513512e-11,
+        "smith_eigenvalues": [
+          0.8860879772338236,
+          0.9207052005571531
+        ]
+      },
+      {
+        "omega": 46.0,
+        "reflection": 0.0034209484281037938,
+        "transmission": 0.9965790515892053,
+        "reflection_delay": 0.8992496439111926,
+        "transmission_delay": 0.8992496435924926,
+        "mean_delay": 0.899249643609148,
+        "hermiticity_error": 3.735685486118126e-11,
+        "smith_eigenvalues": [
+          0.88846740388213,
+          0.910031883336166
+        ]
+      },
+      {
+        "omega": 47.0,
+        "reflection": 0.0025584548045871776,
+        "transmission": 0.9974415452127917,
+        "reflection_delay": 0.8953830322495201,
+        "transmission_delay": 0.8953830327093649,
+        "mean_delay": 0.8953830327237492,
+        "hermiticity_error": 4.6385368844457865e-11,
+        "smith_eigenvalues": [
+          0.8898656660067054,
+          0.9009003994407929
+        ]
+      },
+      {
+        "omega": 48.0,
+        "reflection": 0.002141296230167402,
+        "transmission": 0.997858703787322,
+        "reflection_delay": 0.8918953167067362,
+        "transmission_delay": 0.8918953166996939,
+        "mean_delay": 0.8918953167153076,
+        "hermiticity_error": 3.600718109203091e-11,
+        "smith_eigenvalues": [
+          0.8881434682108652,
+          0.8956471652197502
+        ]
+      }
+    ],
+    "spectrum_energy_weights": [
+      0.0003247310886561514,
+      0.003575616914277434,
+      0.01593732107273411,
+      0.04320275108762122,
+      0.08369997283181306,
+      0.12587311639924592,
+      0.15425102853429154,
+      0.1589290023441528,
+      0.14067751027692502,
+      0.10866581212716724,
+      0.0741240129712079,
+      0.04506761553263258,
+      0.02460808149035246,
+      0.012142516033674255,
+      0.0054432050150155535,
+      0.0022268950645052913,
+      0.0008348043938713388,
+      0.00028777825781201965,
+      9.151928125472458e-05,
+      2.6928629474895596e-05,
+      7.3505923876237305e-06,
+      1.8659774728858243e-06,
+      4.4152864475257497e-07,
+      9.759001895883166e-08,
+      2.01889108808605e-08,
+      3.916483748653237e-09,
+      7.137140776638451e-10,
+      1.2238365775978075e-10,
+      1.977801273288736e-11,
+      3.0168670942360898e-12,
+      4.349772498535213e-13,
+      5.936180104258215e-14,
+      7.677928209472573e-15,
+      9.423639397118897e-16,
+      1.098875895886328e-16,
+      1.2187924063542541e-17,
+      1.2871722863199916e-18,
+      1.2957568676107236e-19,
+      1.2445848438545619e-20,
+      1.1417192315469142e-21,
+      1.0013348584842484e-22,
+      8.41091602585367e-24,
+      6.802797999470182e-25,
+      5.417087377887945e-26,
+      4.650550064925984e-27,
+      5.589510637138172e-28,
+      1.411533176496175e-28
+    ],
+    "scope": "Modal group-delay diagnostics, not a time-domain pulse arrival or router gate"
+  },
+  {
+    "lapse_depth": 0.8,
+    "neck_lapse": 0.19999999999999996,
+    "optical_length": 1.4070399850441146,
+    "transmitted_energy_weight": 0.2795773712540088,
+    "reflected_energy_weight": 0.7204226287464132,
+    "transmitted_weighted_group_delay": 2.001897399982104,
+    "reflected_weighted_group_delay": 1.7618687875571244,
+    "incident_weighted_smith_delay": 1.8289753560446473,
+    "modes": [
+      {
+        "omega": 2.0,
+        "reflection": 0.9999999982098304,
+        "transmission": 1.7901692384410538e-09,
+        "reflection_delay": 0.361483270932131,
+        "transmission_delay": 0.36148327210563214,
+        "mean_delay": 0.3614832709321309,
+        "hermiticity_error": 6.375728889505874e-11,
+        "smith_eigenvalues": [
+          0.36144828362957326,
+          0.3615182582346885
+        ]
+      },
+      {
+        "omega": 3.0,
+        "reflection": 0.9999999907351165,
+        "transmission": 9.264883159290695e-09,
+        "reflection_delay": 0.38528993944017537,
+        "transmission_delay": 0.38528994109558984,
+        "mean_delay": 0.3852899394401753,
+        "hermiticity_error": 1.2080205009072718e-10,
+        "smith_eigenvalues": [
+          0.38520880562797194,
+          0.3853710732523787
+        ]
+      },
+      {
+        "omega": 4.0,
+        "reflection": 0.9999999439743986,
+        "transmission": 5.6025601154964185e-08,
+        "reflection_delay": 0.42698966001645916,
+        "transmission_delay": 0.42698966265631494,
+        "mean_delay": 0.42698966001645916,
+        "hermiticity_error": 2.2927339220470285e-10,
+        "smith_eigenvalues": [
+          0.4267598570257874,
+          0.4272194630071309
+        ]
+      },
+      {
+        "omega": 5.0,
+        "reflection": 0.9999995241327664,
+        "transmission": 4.758672333179031e-07,
+        "reflection_delay": 0.5029174266024379,
+        "transmission_delay": 0.5029174313986569,
+        "mean_delay": 0.5029174266024401,
+        "hermiticity_error": 5.240322726292474e-10,
+        "smith_eigenvalues": [
+          0.5021010033356524,
+          0.5037338498692276
+        ]
+      },
+      {
+        "omega": 6.0,
+        "reflection": 0.9999931346602673,
+        "transmission": 6.865339732749879e-06,
+        "reflection_delay": 0.6622350709416419,
+        "transmission_delay": 0.6622350816571213,
+        "mean_delay": 0.6622350709417156,
+        "hermiticity_error": 1.593512206209668e-09,
+        "smith_eigenvalues": [
+          0.6582797042649803,
+          0.666190437618451
+        ]
+      },
+      {
+        "omega": 7.0,
+        "reflection": 0.9997735667914339,
+        "transmission": 0.000226433208567211,
+        "reflection_delay": 1.1092643205620127,
+        "transmission_delay": 1.1092643547354102,
+        "mean_delay": 1.1092643205697519,
+        "hermiticity_error": 8.837432793992472e-09,
+        "smith_eigenvalues": [
+          1.0788167344838475,
+          1.1397119066556562
+        ]
+      },
+      {
+        "omega": 8.0,
+        "reflection": 0.9804979241631754,
+        "transmission": 0.019502075836874744,
+        "reflection_delay": 2.7751900488437853,
+        "transmission_delay": 2.7751901125470515,
+        "mean_delay": 2.7751900500862705,
+        "hermiticity_error": 6.579260977866551e-08,
+        "smith_eigenvalues": [
+          2.4803158129325995,
+          3.0700642872399415
+        ]
+      },
+      {
+        "omega": 9.0,
+        "reflection": 0.8919313293973925,
+        "transmission": 0.10806867060250254,
+        "reflection_delay": 2.3109752648248496,
+        "transmission_delay": 2.310975264211022,
+        "mean_delay": 2.3109752647582713,
+        "hermiticity_error": 3.692421481711965e-08,
+        "smith_eigenvalues": [
+          2.2844045817054126,
+          2.33754594781113
+        ]
+      },
+      {
+        "omega": 10.0,
+        "reflection": 0.7959409605586019,
+        "transmission": 0.20405903944107454,
+        "reflection_delay": 1.8083326583556172,
+        "transmission_delay": 1.8083326703494607,
+        "mean_delay": 1.8083326608024843,
+        "hermiticity_error": 9.6670931885638e-09,
+        "smith_eigenvalues": [
+          1.496896645080187,
+          2.1197686765247816
+        ]
+      },
+      {
+        "omega": 11.0,
+        "reflection": 0.3007949940404068,
+        "transmission": 0.6992050059606598,
+        "reflection_delay": 2.2932619436677952,
+        "transmission_delay": 2.2932619332741115,
+        "mean_delay": 2.293261936402925,
+        "hermiticity_error": 9.533353308897276e-09,
+        "smith_eigenvalues": [
+          1.7133878898610935,
+          2.873135982944757
+        ]
+      },
+      {
+        "omega": 12.0,
+        "reflection": 0.08980526066699059,
+        "transmission": 0.9101947393354005,
+        "reflection_delay": 1.9818577343185648,
+        "transmission_delay": 1.981857726518143,
+        "mean_delay": 1.9818577272234006,
+        "hermiticity_error": 6.268116296602109e-09,
+        "smith_eigenvalues": [
+          1.9561387887199388,
+          2.0075766657268623
+        ]
+      },
+      {
+        "omega": 13.0,
+        "reflection": 0.07236785421429363,
+        "transmission": 0.9276321457867391,
+        "reflection_delay": 1.7873643947124689,
+        "transmission_delay": 1.78736440162435,
+        "mean_delay": 1.7873644011259984,
+        "hermiticity_error": 3.5819391945311168e-09,
+        "smith_eigenvalues": [
+          1.6781607560451555,
+          1.8965680462068422
+        ]
+      },
+      {
+        "omega": 14.0,
+        "reflection": 0.009997484803282284,
+        "transmission": 0.9900025152018969,
+        "reflection_delay": 1.7416692277304398,
+        "transmission_delay": 1.741669217884795,
+        "mean_delay": 1.741669217992247,
+        "hermiticity_error": 1.958107044974775e-09,
+        "smith_eigenvalues": [
+          1.5621298807289938,
+          1.9212085552555003
+        ]
+      },
+      {
+        "omega": 15.0,
+        "reflection": 3.071108331723971e-05,
+        "transmission": 0.9999692889203229,
+        "reflection_delay": 1.671517985785972,
+        "transmission_delay": 1.6715177378941304,
+        "mean_delay": 1.6715177379078276,
+        "hermiticity_error": 2.7475734743720596e-09,
+        "smith_eigenvalues": [
+          1.6710484941485695,
+          1.6719869816670858
+        ]
+      },
+      {
+        "omega": 16.0,
+        "reflection": 0.002469646577894705,
+        "transmission": 0.997530353414652,
+        "reflection_delay": 1.6241463579344455,
+        "transmission_delay": 1.624146367877303,
+        "mean_delay": 1.624146367840642,
+        "hermiticity_error": 1.0103830905015216e-09,
+        "smith_eigenvalues": [
+          1.5746944957741658,
+          1.673598239907118
+        ]
+      },
+      {
+        "omega": 17.0,
+        "reflection": 0.0028289400501696834,
+        "transmission": 0.9971710599539715,
+        "reflection_delay": 1.5908931970709506,
+        "transmission_delay": 1.5908932090537466,
+        "mean_delay": 1.5908932090264365,
+        "hermiticity_error": 1.2741532111721602e-09,
+        "smith_eigenvalues": [
+          1.5459305300984225,
+          1.6358558879544505
+        ]
+      },
+      {
+        "omega": 18.0,
+        "reflection": 5.4952219316437324e-05,
+        "transmission": 0.9999450477747646,
+        "reflection_delay": 1.568129493269743,
+        "transmission_delay": 1.5681295577045047,
+        "mean_delay": 1.568129557691682,
+        "hermiticity_error": 9.626770957974941e-10,
+        "smith_eigenvalues": [
+          1.5161358326082168,
+          1.6201232827751473
+        ]
+      },
+      {
+        "omega": 19.0,
+        "reflection": 0.0004240198254820424,
+        "transmission": 0.9995759801772345,
+        "reflection_delay": 1.5471499194633525,
+        "transmission_delay": 1.54714994175191,
+        "mean_delay": 1.5471499417466616,
+        "hermiticity_error": 9.191397525131593e-10,
+        "smith_eigenvalues": [
+          1.5216267088723248,
+          1.5726731746209994
+        ]
+      },
+      {
+        "omega": 20.0,
+        "reflection": 0.00033157619347993356,
+        "transmission": 0.9996684238105087,
+        "reflection_delay": 1.5311725620808025,
+        "transmission_delay": 1.5311725789826565,
+        "mean_delay": 1.5311725789831594,
+        "hermiticity_error": 6.183291762963498e-10,
+        "smith_eigenvalues": [
+          1.4971150971700324,
+          1.5652300607962866
+        ]
+      },
+      {
+        "omega": 21.0,
+        "reflection": 0.0005859384884087169,
+        "transmission": 0.9994140615152449,
+        "reflection_delay": 1.5173919860080674,
+        "transmission_delay": 1.517392002259695,
+        "mean_delay": 1.5173920022557166,
+        "hermiticity_error": 7.858548797846793e-10,
+        "smith_eigenvalues": [
+          1.494539582521427,
+          1.5402444219900069
+        ]
+      },
+      {
+        "omega": 22.0,
+        "reflection": 9.294491720696839e-05,
+        "transmission": 0.9999070550908176,
+        "reflection_delay": 1.5066935555489755,
+        "transmission_delay": 1.5066935790440612,
+        "mean_delay": 1.506693579053968,
+        "hermiticity_error": 4.4462450486590903e-10,
+        "smith_eigenvalues": [
+          1.4755275662467358,
+          1.5378595918612001
+        ]
+      },
+      {
+        "omega": 23.0,
+        "reflection": 0.00035198658429494184,
+        "transmission": 0.9996480134254337,
+        "reflection_delay": 1.4967182406910828,
+        "transmission_delay": 1.4967182570851967,
+        "mean_delay": 1.4967182570939874,
+        "hermiticity_error": 6.16158514294672e-10,
+        "smith_eigenvalues": [
+          1.4820068424869925,
+          1.511429671700982
+        ]
+      },
+      {
+        "omega": 24.0,
+        "reflection": 5.498407333338791e-05,
+        "transmission": 0.9999450159374603,
+        "reflection_delay": 1.4889415751057389,
+        "transmission_delay": 1.4889415949376508,
+        "mean_delay": 1.4889415949526317,
+        "hermiticity_error": 2.9702566689827443e-10,
+        "smith_eigenvalues": [
+          1.4620902076194382,
+          1.5157929822858254
+        ]
+      },
+      {
+        "omega": 25.0,
+        "reflection": 0.00031376505480665447,
+        "transmission": 0.999686234956722,
+        "reflection_delay": 1.4814701052459087,
+        "transmission_delay": 1.4814701215722967,
+        "mean_delay": 1.4814701215842536,
+        "hermiticity_error": 5.781384762942351e-10,
+        "smith_eigenvalues": [
+          1.4723075318095769,
+          1.4906327113589315
+        ]
+      },
+      {
+        "omega": 26.0,
+        "reflection": 1.046460685723558e-05,
+        "transmission": 0.9999895354048046,
+        "reflection_delay": 1.4757081257791267,
+        "transmission_delay": 1.4757081612458596,
+        "mean_delay": 1.475708161262698,
+        "hermiticity_error": 2.28075409389448e-10,
+        "smith_eigenvalues": [
+          1.4514021930288743,
+          1.5000141294965221
+        ]
+      },
+      {
+        "omega": 27.0,
+        "reflection": 0.00023870093263542882,
+        "transmission": 0.9997612990796705,
+        "reflection_delay": 1.469938151865951,
+        "transmission_delay": 1.4699381669058618,
+        "mean_delay": 1.4699381669203606,
+        "hermiticity_error": 4.6470576816335455e-10,
+        "smith_eigenvalues": [
+          1.4662711682026566,
+          1.4736051656380647
+        ]
+      },
+      {
+        "omega": 28.0,
+        "reflection": 7.78881173567862e-08,
+        "transmission": 0.9999999221245239,
+        "reflection_delay": 1.465491335773102,
+        "transmission_delay": 1.4654914476732694,
+        "mean_delay": 1.4654914476917862,
+        "hermiticity_error": 6.649878888328206e-11,
+        "smith_eigenvalues": [
+          1.4441132765735492,
+          1.486869618810023
+        ]
+      },
+      {
+        "omega": 29.0,
+        "reflection": 0.00018408668414216075,
+        "transmission": 0.9998159133287937,
+        "reflection_delay": 1.4609621279119864,
+        "transmission_delay": 1.4609621432297863,
+        "mean_delay": 1.4609621432458657,
+        "hermiticity_error": 4.1562129216662044e-10,
+        "smith_eigenvalues": [
+          1.4601780130298472,
+          1.4617462734618851
+        ]
+      },
+      {
+        "omega": 30.0,
+        "reflection": 6.0562936344019336e-06,
+        "transmission": 0.9999939437199089,
+        "reflection_delay": 1.457425683762535,
+        "transmission_delay": 1.4574256900498526,
+        "mean_delay": 1.4574256900695532,
+        "hermiticity_error": 4.044060117535436e-11,
+        "smith_eigenvalues": [
+          1.4390269375319098,
+          1.475824442607197
+        ]
+      },
+      {
+        "omega": 31.0,
+        "reflection": 0.00012865594693707824,
+        "transmission": 0.9998713440665242,
+        "reflection_delay": 1.4538359845435775,
+        "transmission_delay": 1.4538360014056786,
+        "mean_delay": 1.4538360014230796,
+        "hermiticity_error": 3.824925882262467e-10,
+        "smith_eigenvalues": [
+          1.4493651417469373,
+          1.4583068610992207
+        ]
+      },
+      {
+        "omega": 32.0,
+        "reflection": 2.050434693356146e-05,
+        "transmission": 0.9999794956670806,
+        "reflection_delay": 1.4509340352606745,
+        "transmission_delay": 1.450934047551014,
+        "mean_delay": 1.4509340475710952,
+        "hermiticity_error": 1.1130626866145384e-10,
+        "smith_eigenvalues": [
+          1.4357996809233873,
+          1.4660684142188032
+        ]
+      },
+      {
+        "omega": 33.0,
+        "reflection": 8.17761301064942e-05,
+        "transmission": 0.999918223883825,
+        "reflection_delay": 1.4480699797873429,
+        "transmission_delay": 1.4480699948416995,
+        "mean_delay": 1.4480699948606424,
+        "hermiticity_error": 2.7225865480915646e-10,
+        "smith_eigenvalues": [
+          1.4408325771665098,
+          1.455307412554775
+        ]
+      },
+      {
+        "omega": 34.0,
+        "reflection": 3.650824898487575e-05,
+        "transmission": 0.9999634917654526,
+        "reflection_delay": 1.445630315049941,
+        "transmission_delay": 1.4456303270265425,
+        "mean_delay": 1.4456303270469764,
+        "hermiticity_error": 1.4471870130581698e-10,
+        "smith_eigenvalues": [
+          1.4339030047674717,
+          1.4573576493264808
+        ]
+      },
+      {
+        "omega": 35.0,
+        "reflection": 4.4218195794502196e-05,
+        "transmission": 0.9999557818185908,
+        "reflection_delay": 1.4433293981060933,
+        "transmission_delay": 1.4433294134270778,
+        "mean_delay": 1.443329413447163,
+        "hermiticity_error": 2.0374782269853672e-10,
+        "smith_eigenvalues": [
+          1.4342103081037019,
+          1.452448518790624
+        ]
+      },
+      {
+        "omega": 36.0,
+        "reflection": 4.821023603658191e-05,
+        "transmission": 0.9999517897787925,
+        "reflection_delay": 1.441243565973799,
+        "transmission_delay": 1.4412435798064236,
+        "mean_delay": 1.4412435798271288,
+        "hermiticity_error": 1.9207124172311734e-10,
+        "smith_eigenvalues": [
+          1.4329705194659954,
+          1.449516640188262
+        ]
+      },
+      {
+        "omega": 37.0,
+        "reflection": 1.8433604889213508e-05,
+        "transmission": 0.9999815664099088,
+        "reflection_delay": 1.4393749235186273,
+        "transmission_delay": 1.4393749355917427,
+        "mean_delay": 1.43937493561282,
+        "hermiticity_error": 1.0365288747464353e-10,
+        "smith_eigenvalues": [
+          1.4292529346412275,
+          1.4494969365844126
+        ]
+      },
+      {
+        "omega": 38.0,
+        "reflection": 5.294628780040823e-05,
+        "transmission": 0.9999470537273812,
+        "reflection_delay": 1.4375772954781305,
+        "transmission_delay": 1.437577307909847,
+        "mean_delay": 1.4375773079310137,
+        "hermiticity_error": 1.8090917577844995e-10,
+        "smith_eigenvalues": [
+          1.4326491987340935,
+          1.4425054171279341
+        ]
+      },
+      {
+        "omega": 39.0,
+        "reflection": 4.264144891301109e-06,
+        "transmission": 0.9999957358709224,
+        "reflection_delay": 1.4360347202407326,
+        "transmission_delay": 1.4360347317510396,
+        "mean_delay": 1.4360347317736997,
+        "hermiticity_error": 4.751207329767863e-11,
+        "smith_eigenvalues": [
+          1.4257239399240542,
+          1.4463455236233451
+        ]
+      },
+      {
+        "omega": 40.0,
+        "reflection": 5.017408990806389e-05,
+        "transmission": 0.9999498259260744,
+        "reflection_delay": 1.4344845363792829,
+        "transmission_delay": 1.4344845491951341,
+        "mean_delay": 1.4344845492174174,
+        "hermiticity_error": 1.8155247488092947e-10,
+        "smith_eigenvalues": [
+          1.432647595348968,
+          1.436321503085867
+        ]
+      },
+      {
+        "omega": 41.0,
+        "reflection": 4.667441644805957e-09,
+        "transmission": 0.9999999953490821,
+        "reflection_delay": 1.433183209539445,
+        "transmission_delay": 1.4331834437050455,
+        "mean_delay": 1.4331834437287259,
+        "hermiticity_error": 4.849268339994407e-11,
+        "smith_eigenvalues": [
+          1.4234070265268515,
+          1.4429598609306005
+        ]
+      },
+      {
+        "omega": 42.0,
+        "reflection": 4.1495028892908745e-05,
+        "transmission": 0.9999585049876186,
+        "reflection_delay": 1.43185223389892,
+        "transmission_delay": 1.431852244386223,
+        "mean_delay": 1.43185224440943,
+        "hermiticity_error": 1.3510814756104966e-10,
+        "smith_eigenvalues": [
+          1.4309877408001535,
+          1.432716748018707
+        ]
+      },
+      {
+        "omega": 43.0,
+        "reflection": 2.605208653586169e-06,
+        "transmission": 0.9999973948083957,
+        "reflection_delay": 1.4307287389414236,
+        "transmission_delay": 1.4307287386577012,
+        "mean_delay": 1.4307287386820946,
+        "hermiticity_error": 7.453893058228834e-12,
+        "smith_eigenvalues": [
+          1.4220848329219273,
+          1.439372644442262
+        ]
+      },
+      {
+        "omega": 44.0,
+        "reflection": 2.9638293187106974e-05,
+        "transmission": 0.9999703617238598,
+        "reflection_delay": 1.42959186618447,
+        "transmission_delay": 1.429591883635361,
+        "mean_delay": 1.4295918836592139,
+        "hermiticity_error": 1.9000303195695942e-10,
+        "smith_eigenvalues": [
+          1.4265233640713029,
+          1.4326604032471246
+        ]
+      },
+      {
+        "omega": 45.0,
+        "reflection": 8.518156270529749e-06,
+        "transmission": 0.9999914818613085,
+        "reflection_delay": 1.428601367362658,
+        "transmission_delay": 1.4286013829964945,
+        "mean_delay": 1.4286013830214748,
+        "hermiticity_error": 9.12463246438295e-11,
+        "smith_eigenvalues": [
+          1.421540907475238,
+          1.4356618585677114
+        ]
+      },
+      {
+        "omega": 46.0,
+        "reflection": 1.7629193647837806e-05,
+        "transmission": 0.9999823708239486,
+        "reflection_delay": 1.4276335692760784,
+        "transmission_delay": 1.427633584044032,
+        "mean_delay": 1.4276335840688927,
+        "hermiticity_error": 1.2401022039297155e-10,
+        "smith_eigenvalues": [
+          1.4229324754663661,
+          1.4323346926714193
+        ]
+      },
+      {
+        "omega": 47.0,
+        "reflection": 1.4507778916211048e-05,
+        "transmission": 0.9999854922392065,
+        "reflection_delay": 1.4267480972797826,
+        "transmission_delay": 1.4267481093287995,
+        "mean_delay": 1.4267481093544814,
+        "hermiticity_error": 9.17759389551086e-11,
+        "smith_eigenvalues": [
+          1.4215602500007505,
+          1.4319359687082123
+        ]
+      },
+      {
+        "omega": 48.0,
+        "reflection": 7.947383502432956e-06,
+        "transmission": 0.999992052634654,
+        "reflection_delay": 1.4259222926053814,
+        "transmission_delay": 1.4259223096438818,
+        "mean_delay": 1.425922309669636,
+        "hermiticity_error": 9.606757351102078e-11,
+        "smith_eigenvalues": [
+          1.4201943135711241,
+          1.431650305768148
+        ]
+      }
+    ],
+    "spectrum_energy_weights": [
+      0.0003247310886561514,
+      0.003575616914277434,
+      0.01593732107273411,
+      0.04320275108762122,
+      0.08369997283181306,
+      0.12587311639924592,
+      0.15425102853429154,
+      0.1589290023441528,
+      0.14067751027692502,
+      0.10866581212716724,
+      0.0741240129712079,
+      0.04506761553263258,
+      0.02460808149035246,
+      0.012142516033674255,
+      0.0054432050150155535,
+      0.0022268950645052913,
+      0.0008348043938713388,
+      0.00028777825781201965,
+      9.151928125472458e-05,
+      2.6928629474895596e-05,
+      7.3505923876237305e-06,
+      1.8659774728858243e-06,
+      4.4152864475257497e-07,
+      9.759001895883166e-08,
+      2.01889108808605e-08,
+      3.916483748653237e-09,
+      7.137140776638451e-10,
+      1.2238365775978075e-10,
+      1.977801273288736e-11,
+      3.0168670942360898e-12,
+      4.349772498535213e-13,
+      5.936180104258215e-14,
+      7.677928209472573e-15,
+      9.423639397118897e-16,
+      1.098875895886328e-16,
+      1.2187924063542541e-17,
+      1.2871722863199916e-18,
+      1.2957568676107236e-19,
+      1.2445848438545619e-20,
+      1.1417192315469142e-21,
+      1.0013348584842484e-22,
+      8.41091602585367e-24,
+      6.802797999470182e-25,
+      5.417087377887945e-26,
+      4.650550064925984e-27,
+      5.589510637138172e-28,
+      1.411533176496175e-28
+    ],
+    "scope": "Modal group-delay diagnostics, not a time-domain pulse arrival or router gate"
+  },
+  {
+    "lapse_depth": 0.9,
+    "neck_lapse": 0.09999999999999998,
+    "optical_length": 1.9637516765574174,
+    "transmitted_energy_weight": 0.7899515624353128,
+    "reflected_energy_weight": 0.21004843756995162,
+    "transmitted_weighted_group_delay": 2.5299964046885597,
+    "reflected_weighted_group_delay": 2.4525989436345044,
+    "incident_weighted_smith_delay": 2.5137391889226817,
+    "modes": [
+      {
+        "omega": 2.0,
+        "reflection": 0.9999999960301353,
+        "transmission": 3.969864409227629e-09,
+        "reflection_delay": 0.3750215662599488,
+        "transmission_delay": 0.37502156943499837,
+        "mean_delay": 0.37502156625994876,
+        "hermiticity_error": 8.737628892606287e-11,
+        "smith_eigenvalues": [
+          0.37494567081724495,
+          0.37509746170265257
+        ]
+      },
+      {
+        "omega": 3.0,
+        "reflection": 0.9999999430682892,
+        "transmission": 5.693171006652952e-08,
+        "reflection_delay": 0.40925725124099566,
+        "transmission_delay": 0.40925725718522915,
+        "mean_delay": 0.4092572512409957,
+        "hermiticity_error": 1.956182694109707e-10,
+        "smith_eigenvalues": [
+          0.40889806137437534,
+          0.4096164411076161
+        ]
+      },
+      {
+        "omega": 4.0,
+        "reflection": 0.9999979561152404,
+        "transmission": 2.0438847596524e-06,
+        "reflection_delay": 0.4850870077876899,
+        "transmission_delay": 0.4850870227041209,
+        "mean_delay": 0.4850870077877203,
+        "hermiticity_error": 5.763847840712938e-10,
+        "smith_eigenvalues": [
+          0.4820016379084044,
+          0.48817237766703614
+        ]
+      },
+      {
+        "omega": 5.0,
+        "reflection": 0.9992849499295355,
+        "transmission": 0.0007150500704600091,
+        "reflection_delay": 0.8359908555664077,
+        "transmission_delay": 0.8359909797687796,
+        "mean_delay": 0.8359908556552148,
+        "hermiticity_error": 1.034310788014364e-08,
+        "smith_eigenvalues": [
+          0.7211129586620016,
+          0.9508687526484281
+        ]
+      },
+      {
+        "omega": 6.0,
+        "reflection": 0.4294234505309529,
+        "transmission": 0.5705765494715929,
+        "reflection_delay": 4.938648181720631,
+        "transmission_delay": 4.938650377083032,
+        "mean_delay": 4.938649434355508,
+        "hermiticity_error": 2.1733796851189723e-06,
+        "smith_eigenvalues": [
+          1.2518630709818768,
+          8.625435797729143
+        ]
+      },
+      {
+        "omega": 7.0,
+        "reflection": 0.44182343048602635,
+        "transmission": 0.5581765695177754,
+        "reflection_delay": 2.870070022548866,
+        "transmission_delay": 2.8700702482051326,
+        "mean_delay": 2.8700701485158175,
+        "hermiticity_error": 2.2412296718373218e-07,
+        "smith_eigenvalues": [
+          1.3762583387110627,
+          4.363881958320572
+        ]
+      },
+      {
+        "omega": 8.0,
+        "reflection": 0.2468338469268083,
+        "transmission": 0.7531661530795112,
+        "reflection_delay": 2.4018803223393133,
+        "transmission_delay": 2.401880397279836,
+        "mean_delay": 2.401880378797157,
+        "hermiticity_error": 6.462368193501327e-08,
+        "smith_eigenvalues": [
+          1.9850282924468845,
+          2.8187324651474293
+        ]
+      },
+      {
+        "omega": 9.0,
+        "reflection": 0.09249309859251609,
+        "transmission": 0.9075069014143139,
+        "reflection_delay": 2.3870340195054696,
+        "transmission_delay": 2.387034101881444,
+        "mean_delay": 2.387034094278539,
+        "hermiticity_error": 4.773334048167792e-08,
+        "smith_eigenvalues": [
+          2.1060894897811475,
+          2.66797869877593
+        ]
+      },
+      {
+        "omega": 10.0,
+        "reflection": 0.0019225370788983399,
+        "transmission": 0.9980774629297534,
+        "reflection_delay": 2.411501631947747,
+        "transmission_delay": 2.411501842100579,
+        "mean_delay": 2.4115018417174165,
+        "hermiticity_error": 1.840156012462743e-08,
+        "smith_eigenvalues": [
+          1.8850649377937492,
+          2.9379387456410835
+        ]
+      },
+      {
+        "omega": 11.0,
+        "reflection": 0.011215466554688526,
+        "transmission": 0.9887845334509116,
+        "reflection_delay": 2.2780137440330197,
+        "transmission_delay": 2.2780137805503142,
+        "mean_delay": 2.278013780153513,
+        "hermiticity_error": 7.692507566586251e-09,
+        "smith_eigenvalues": [
+          1.9570035434443351,
+          2.599024016862691
+        ]
+      },
+      {
+        "omega": 12.0,
+        "reflection": 0.014116813739404883,
+        "transmission": 0.9858831862648096,
+        "reflection_delay": 2.192933709385643,
+        "transmission_delay": 2.192933762541667,
+        "mean_delay": 2.192933761800516,
+        "hermiticity_error": 1.2542025520960423e-08,
+        "smith_eigenvalues": [
+          2.165417724642212,
+          2.22044979895882
+        ]
+      },
+      {
+        "omega": 13.0,
+        "reflection": 0.002566073916437202,
+        "transmission": 0.9974339260878268,
+        "reflection_delay": 2.1681395913477526,
+        "transmission_delay": 2.168139663801328,
+        "mean_delay": 2.1681396636246513,
+        "hermiticity_error": 7.329535042910217e-09,
+        "smith_eigenvalues": [
+          2.020228367880624,
+          2.31605095936868
+        ]
+      },
+      {
+        "omega": 14.0,
+        "reflection": 0.0005477973187991098,
+        "transmission": 0.9994522026854865,
+        "reflection_delay": 2.1384319616241,
+        "transmission_delay": 2.1384319807705396,
+        "mean_delay": 2.138431980769216,
+        "hermiticity_error": 8.957623007720223e-10,
+        "smith_eigenvalues": [
+          1.9900238980015619,
+          2.2868400635368693
+        ]
+      },
+      {
+        "omega": 15.0,
+        "reflection": 0.002939271981752515,
+        "transmission": 0.9970607280223931,
+        "reflection_delay": 2.1064790991713838,
+        "transmission_delay": 2.1064791451889064,
+        "mean_delay": 2.1064791450623814,
+        "hermiticity_error": 4.982808985681875e-09,
+        "smith_eigenvalues": [
+          2.0645103231376862,
+          2.1484479669870766
+        ]
+      },
+      {
+        "omega": 16.0,
+        "reflection": 0.0012344029415906625,
+        "transmission": 0.9987655970644788,
+        "reflection_delay": 2.0892857536539426,
+        "transmission_delay": 2.089285808750198,
+        "mean_delay": 2.0892858086948674,
+        "hermiticity_error": 3.867821483378892e-09,
+        "smith_eigenvalues": [
+          2.0284393249684896,
+          2.150132292421245
+        ]
+      },
+      {
+        "omega": 17.0,
+        "reflection": 4.174252802902142e-05,
+        "transmission": 0.9999582574745827,
+        "reflection_delay": 2.075690751968156,
+        "transmission_delay": 2.0756907599884564,
+        "mean_delay": 2.0756907599935426,
+        "hermiticity_error": 3.3277627621591064e-10,
+        "smith_eigenvalues": [
+          1.990350419471783,
+          2.1610311005153022
+        ]
+      },
+      {
+        "omega": 18.0,
+        "reflection": 0.0010708960297683143,
+        "transmission": 0.9989291039587678,
+        "reflection_delay": 2.0602437704945458,
+        "transmission_delay": 2.0602438135940724,
+        "mean_delay": 2.060243813524299,
+        "hermiticity_error": 2.821119885927975e-09,
+        "smith_eigenvalues": [
+          2.0285971830325478,
+          2.09189044401605
+        ]
+      },
+      {
+        "omega": 19.0,
+        "reflection": 0.0006075712092757766,
+        "transmission": 0.9993924287806976,
+        "reflection_delay": 2.0501403850543656,
+        "transmission_delay": 2.0501404333995543,
+        "mean_delay": 2.0501404333496254,
+        "hermiticity_error": 2.3834681721088537e-09,
+        "smith_eigenvalues": [
+          2.0124897229967713,
+          2.0877911437024794
+        ]
+      },
+      {
+        "omega": 20.0,
+        "reflection": 2.0130392789003487e-05,
+        "transmission": 0.9999798696119917,
+        "reflection_delay": 2.0422365425816746,
+        "transmission_delay": 2.0422365632433594,
+        "mean_delay": 2.042236563252707,
+        "hermiticity_error": 2.7373504296333113e-10,
+        "smith_eigenvalues": [
+          1.9841640624602053,
+          2.100309064045209
+        ]
+      },
+      {
+        "omega": 21.0,
+        "reflection": 0.0005833839773711193,
+        "transmission": 0.9994166160307278,
+        "reflection_delay": 2.033296214109141,
+        "transmission_delay": 2.0332962559703827,
+        "mean_delay": 2.033296255962429,
+        "hermiticity_error": 2.022036997887935e-09,
+        "smith_eigenvalues": [
+          2.013864721862686,
+          2.052727790062172
+        ]
+      },
+      {
+        "omega": 22.0,
+        "reflection": 0.00028641495512082783,
+        "transmission": 0.9997135850523297,
+        "reflection_delay": 2.0272056621353953,
+        "transmission_delay": 2.027205706874139,
+        "mean_delay": 2.0272057068764293,
+        "hermiticity_error": 1.5142619004825795e-09,
+        "smith_eigenvalues": [
+          1.9959336279593072,
+          2.0584777857935515
+        ]
+      },
+      {
+        "omega": 23.0,
+        "reflection": 3.683628408980499e-05,
+        "transmission": 0.9999631637234178,
+        "reflection_delay": 2.022005025621623,
+        "transmission_delay": 2.022005053474533,
+        "mean_delay": 2.0220050534886873,
+        "hermiticity_error": 3.410808375579317e-10,
+        "smith_eigenvalues": [
+          1.9797652142866928,
+          2.0642448926906813
+        ]
+      },
+      {
+        "omega": 24.0,
+        "reflection": 0.00037496223288108275,
+        "transmission": 0.9996250377764454,
+        "reflection_delay": 2.016319047585275,
+        "transmission_delay": 2.016319087552576,
+        "mean_delay": 2.0163190875563957,
+        "hermiticity_error": 1.5476465510079033e-09,
+        "smith_eigenvalues": [
+          2.00784415896936,
+          2.0247940161434292
+        ]
+      },
+      {
+        "omega": 25.0,
+        "reflection": 0.00011406814761600271,
+        "transmission": 0.9998859318633211,
+        "reflection_delay": 2.0124608323243307,
+        "transmission_delay": 2.0124608775974475,
+        "mean_delay": 2.0124608776142936,
+        "hermiticity_error": 9.671232548116092e-10,
+        "smith_eigenvalues": [
+          1.9835966580273798,
+          2.0413250972012076
+        ]
+      },
+      {
+        "omega": 26.0,
+        "reflection": 6.331736878343805e-05,
+        "transmission": 0.9999366826434587,
+        "reflection_delay": 2.0087370363305586,
+        "transmission_delay": 2.00873706968659,
+        "mean_delay": 2.0087370697090687,
+        "hermiticity_error": 5.311664732119993e-10,
+        "smith_eigenvalues": [
+          1.978251643928582,
+          2.0392224954895557
+        ]
+      },
+      {
+        "omega": 27.0,
+        "reflection": 0.00024331473970740553,
+        "transmission": 0.9997566852734976,
+        "reflection_delay": 2.0049590106954303,
+        "transmission_delay": 2.004959051707743,
+        "mean_delay": 2.004959051724239,
+        "hermiticity_error": 1.2793086625800494e-09,
+        "smith_eigenvalues": [
+          2.004560689827028,
+          2.00535741362145
+        ]
+      },
+      {
+        "omega": 28.0,
+        "reflection": 3.072232480216746e-05,
+        "transmission": 0.9999692776888144,
+        "reflection_delay": 2.0023522865712637,
+        "transmission_delay": 2.0023523305792796,
+        "mean_delay": 2.002352330605193,
+        "hermiticity_error": 4.879061002099879e-10,
+        "smith_eigenvalues": [
+          1.975738225110526,
+          2.02896643609986
+        ]
+      },
+      {
+        "omega": 29.0,
+        "reflection": 8.437910119126655e-05,
+        "transmission": 0.999915620913255,
+        "reflection_delay": 1.9995478683045877,
+        "transmission_delay": 1.9995479065997723,
+        "mean_delay": 1.9995479066254274,
+        "hermiticity_error": 7.035657874360954e-10,
+        "smith_eigenvalues": [
+          1.9788962083007795,
+          2.020199604950076
+        ]
+      },
+      {
+        "omega": 30.0,
+        "reflection": 0.00014598444684414344,
+        "transmission": 0.9998540155683864,
+        "reflection_delay": 1.9969845576127425,
+        "transmission_delay": 1.9969845996879338,
+        "mean_delay": 1.996984599712207,
+        "hermiticity_error": 1.0166591786013978e-09,
+        "smith_eigenvalues": [
+          1.990013736163534,
+          2.0039554632608803
+        ]
+      },
+      {
+        "omega": 31.0,
+        "reflection": 2.0055219594574167e-06,
+        "transmission": 0.9999979944934377,
+        "reflection_delay": 1.9950845521802907,
+        "transmission_delay": 1.9950846044438177,
+        "mean_delay": 1.9950846044744317,
+        "hermiticity_error": 1.4809374118232215e-10,
+        "smith_eigenvalues": [
+          1.9715634873956067,
+          2.0186057215532567
+        ]
+      },
+      {
+        "omega": 32.0,
+        "reflection": 9.097134617438764e-05,
+        "transmission": 0.9999090286697909,
+        "reflection_delay": 1.992930643999923,
+        "transmission_delay": 1.9929306818162962,
+        "mean_delay": 1.9929306818446737,
+        "hermiticity_error": 7.213489687373462e-10,
+        "smith_eigenvalues": [
+          1.9807416439754746,
+          2.0051197197138717
+        ]
+      },
+      {
+        "omega": 33.0,
+        "reflection": 7.530578432372485e-05,
+        "transmission": 0.9999246942323254,
+        "reflection_delay": 1.9911582915185069,
+        "transmission_delay": 1.991158332050724,
+        "mean_delay": 1.9911583320808233,
+        "hermiticity_error": 7.034258520367263e-10,
+        "smith_eigenvalues": [
+          1.979872723006419,
+          2.0024439411552266
+        ]
+      },
+      {
+        "omega": 34.0,
+        "reflection": 2.981848562252243e-06,
+        "transmission": 0.9999970181682658,
+        "reflection_delay": 1.9896707466542005,
+        "transmission_delay": 1.989670782346187,
+        "mean_delay": 1.9896707823795627,
+        "hermiticity_error": 1.231691965459918e-10,
+        "smith_eigenvalues": [
+          1.9701423743268625,
+          2.009199190432263
+        ]
+      },
+      {
+        "omega": 35.0,
+        "reflection": 8.211469450898924e-05,
+        "transmission": 0.9999178853227418,
+        "reflection_delay": 1.9880198743004036,
+        "transmission_delay": 1.9880199134031458,
+        "mean_delay": 1.98801991343423,
+        "hermiticity_error": 7.086540200033835e-10,
+        "smith_eigenvalues": [
+          1.9829713123859343,
+          1.993068514482526
+        ]
+      },
+      {
+        "omega": 36.0,
+        "reflection": 2.9776130715760977e-05,
+        "transmission": 0.9999702238871376,
+        "reflection_delay": 1.9867536883634758,
+        "transmission_delay": 1.9867537270224052,
+        "mean_delay": 1.9867537270567242,
+        "hermiticity_error": 4.2188041202392036e-10,
+        "smith_eigenvalues": [
+          1.9732347221886686,
+          2.0002727319247806
+        ]
+      },
+      {
+        "omega": 37.0,
+        "reflection": 1.529770514790385e-05,
+        "transmission": 0.9999847023128783,
+        "reflection_delay": 1.9855313439692717,
+        "transmission_delay": 1.985531379538611,
+        "mean_delay": 1.985531379573859,
+        "hermiticity_error": 2.782332411354959e-10,
+        "smith_eigenvalues": [
+          1.9706216710044022,
+          2.0004410881433157
+        ]
+      },
+      {
+        "omega": 38.0,
+        "reflection": 6.257402603017244e-05,
+        "transmission": 0.9999374259923525,
+        "reflection_delay": 1.9842810908781876,
+        "transmission_delay": 1.9842811284527628,
+        "mean_delay": 1.984281128486888,
+        "hermiticity_error": 5.944391994343034e-10,
+        "smith_eigenvalues": [
+          1.9835985697988894,
+          1.984963687174886
+        ]
+      },
+      {
+        "omega": 39.0,
+        "reflection": 6.514760288005507e-06,
+        "transmission": 0.9999934852590421,
+        "reflection_delay": 1.9833270817041548,
+        "transmission_delay": 1.9833271253534293,
+        "mean_delay": 1.9833271253914824,
+        "hermiticity_error": 2.2279730629738007e-10,
+        "smith_eigenvalues": [
+          1.969392001278938,
+          1.9972622495040264
+        ]
+      },
+      {
+        "omega": 40.0,
+        "reflection": 2.690072161564991e-05,
+        "transmission": 0.999973099298292,
+        "reflection_delay": 1.9823048202170235,
+        "transmission_delay": 1.9823048632761067,
+        "mean_delay": 1.9823048633144116,
+        "hermiticity_error": 4.4665538193835806e-10,
+        "smith_eigenvalues": [
+          1.9722561404652268,
+          1.992353586163597
+        ]
+      },
+      {
+        "omega": 41.0,
+        "reflection": 3.947376300826375e-05,
+        "transmission": 0.9999605262570267,
+        "reflection_delay": 1.9813665145937354,
+        "transmission_delay": 1.9813665570915393,
+        "mean_delay": 1.9813665571295582,
+        "hermiticity_error": 5.340010442646512e-10,
+        "smith_eigenvalues": [
+          1.9764459215237056,
+          1.9862871927354118
+        ]
+      },
+      {
+        "omega": 42.0,
+        "reflection": 9.80134856641714e-09,
+        "transmission": 0.9999999902193009,
+        "reflection_delay": 1.9805993499646222,
+        "transmission_delay": 1.9805999890034438,
+        "mean_delay": 1.980599989044336,
+        "hermiticity_error": 1.2657522369849249e-10,
+        "smith_eigenvalues": [
+          1.9677330147564829,
+          1.9934669633321889
+        ]
+      },
+      {
+        "omega": 43.0,
+        "reflection": 3.179811200713823e-05,
+        "transmission": 0.999968201909187,
+        "reflection_delay": 1.9797515142974307,
+        "transmission_delay": 1.9797515511751345,
+        "mean_delay": 1.9797515512159212,
+        "hermiticity_error": 4.1590518159638827e-10,
+        "smith_eigenvalues": [
+          1.9744089510506007,
+          1.9850941513812417
+        ]
+      },
+      {
+        "omega": 44.0,
+        "reflection": 1.931263206299795e-05,
+        "transmission": 0.9999806873892912,
+        "reflection_delay": 1.9790426784709945,
+        "transmission_delay": 1.979042718008587,
+        "mean_delay": 1.9790427180500845,
+        "hermiticity_error": 3.4749151676627016e-10,
+        "smith_eigenvalues": [
+          1.9713962332122703,
+          1.9866892028878986
+        ]
+      },
+      {
+        "omega": 45.0,
+        "reflection": 3.2377868624571036e-06,
+        "transmission": 0.9999967622351018,
+        "reflection_delay": 1.9783927671164396,
+        "transmission_delay": 1.978392808360293,
+        "mean_delay": 1.9783928084036135,
+        "hermiticity_error": 1.4842427142597328e-10,
+        "smith_eigenvalues": [
+          1.9676943103913227,
+          1.9890913064159044
+        ]
+      },
+      {
+        "omega": 46.0,
+        "reflection": 2.9087603060773734e-05,
+        "transmission": 0.9999709124193369,
+        "reflection_delay": 1.9777031359446622,
+        "transmission_delay": 1.9777031767563766,
+        "mean_delay": 1.9777031767994853,
+        "hermiticity_error": 4.402118619365261e-10,
+        "smith_eigenvalues": [
+          1.9765560977752599,
+          1.9788502558237118
+        ]
+      },
+      {
+        "omega": 47.0,
+        "reflection": 6.0357007676097684e-06,
+        "transmission": 0.9999939643219131,
+        "reflection_delay": 1.9771510269462638,
+        "transmission_delay": 1.9771510604974365,
+        "mean_delay": 1.9771510605420772,
+        "hermiticity_error": 1.6485670497188097e-10,
+        "smith_eigenvalues": [
+          1.968220059395972,
+          1.9860820616881825
+        ]
+      },
+      {
+        "omega": 48.0,
+        "reflection": 9.518743843094735e-06,
+        "transmission": 0.9999904812794453,
+        "reflection_delay": 1.976585479197901,
+        "transmission_delay": 1.9765855157758987,
+        "mean_delay": 1.9765855158215817,
+        "hermiticity_error": 2.2569245992992653e-10,
+        "smith_eigenvalues": [
+          1.968745801332002,
+          1.9844252303111616
+        ]
+      }
+    ],
+    "spectrum_energy_weights": [
+      0.0003247310886561514,
+      0.003575616914277434,
+      0.01593732107273411,
+      0.04320275108762122,
+      0.08369997283181306,
+      0.12587311639924592,
+      0.15425102853429154,
+      0.1589290023441528,
+      0.14067751027692502,
+      0.10866581212716724,
+      0.0741240129712079,
+      0.04506761553263258,
+      0.02460808149035246,
+      0.012142516033674255,
+      0.0054432050150155535,
+      0.0022268950645052913,
+      0.0008348043938713388,
+      0.00028777825781201965,
+      9.151928125472458e-05,
+      2.6928629474895596e-05,
+      7.3505923876237305e-06,
+      1.8659774728858243e-06,
+      4.4152864475257497e-07,
+      9.759001895883166e-08,
+      2.01889108808605e-08,
+      3.916483748653237e-09,
+      7.137140776638451e-10,
+      1.2238365775978075e-10,
+      1.977801273288736e-11,
+      3.0168670942360898e-12,
+      4.349772498535213e-13,
+      5.936180104258215e-14,
+      7.677928209472573e-15,
+      9.423639397118897e-16,
+      1.098875895886328e-16,
+      1.2187924063542541e-17,
+      1.2871722863199916e-18,
+      1.2957568676107236e-19,
+      1.2445848438545619e-20,
+      1.1417192315469142e-21,
+      1.0013348584842484e-22,
+      8.41091602585367e-24,
+      6.802797999470182e-25,
+      5.417087377887945e-26,
+      4.650550064925984e-27,
+      5.589510637138172e-28,
+      1.411533176496175e-28
+    ],
+    "scope": "Modal group-delay diagnostics, not a time-domain pulse arrival or router gate"
+  },
+  {
+    "lapse_depth": 0.95,
+    "neck_lapse": 0.050000000000000044,
+    "optical_length": 2.750649462652995,
+    "transmitted_energy_weight": 0.9255595837628777,
+    "reflected_energy_weight": 0.07444041624579002,
+    "transmitted_weighted_group_delay": 3.7702366971279573,
+    "reflected_weighted_group_delay": 4.328097882325958,
+    "incident_weighted_smith_delay": 3.811764115956631,
+    "modes": [
+      {
+        "omega": 2.0,
+        "reflection": 0.9999999757445442,
+        "transmission": 2.4255455663442696e-08,
+        "reflection_delay": 0.38516253946412304,
+        "transmission_delay": 0.38516255247058095,
+        "mean_delay": 0.3851625394641234,
+        "hermiticity_error": 1.219427260564357e-10,
+        "smith_eigenvalues": [
+          0.38480231483236865,
+          0.3855227640958781
+        ]
+      },
+      {
+        "omega": 3.0,
+        "reflection": 0.9999703825237524,
+        "transmission": 2.9617476247973656e-05,
+        "reflection_delay": 0.47427809806118376,
+        "transmission_delay": 0.47427826947427165,
+        "mean_delay": 0.4742780980662607,
+        "hermiticity_error": 2.2707942402024554e-09,
+        "smith_eigenvalues": [
+          0.4375894292803456,
+          0.5109667668521756
+        ]
+      },
+      {
+        "omega": 4.0,
+        "reflection": 0.9927950629254024,
+        "transmission": 0.0072049370746622024,
+        "reflection_delay": 1.213971689126836,
+        "transmission_delay": 1.2139726737444008,
+        "mean_delay": 1.2139716962210223,
+        "hermiticity_error": 1.6789771365632277e-07,
+        "smith_eigenvalues": [
+          0.5609638839139139,
+          1.8669795085281318
+        ]
+      },
+      {
+        "omega": 5.0,
+        "reflection": 0.7443242570912114,
+        "transmission": 0.25567574291000483,
+        "reflection_delay": 5.791891290739137,
+        "transmission_delay": 5.791900950505464,
+        "mean_delay": 5.791893760514112,
+        "hermiticity_error": 8.432017435659832e-06,
+        "smith_eigenvalues": [
+          0.8097898546100892,
+          10.773997666418136
+        ]
+      },
+      {
+        "omega": 6.0,
+        "reflection": 0.11157236406723546,
+        "transmission": 0.8884276359359945,
+        "reflection_delay": 7.2592549861344775,
+        "transmission_delay": 7.259259182792374,
+        "mean_delay": 7.259258714584778,
+        "hermiticity_error": 2.651255684546259e-06,
+        "smith_eigenvalues": [
+          1.1829824551041126,
+          13.335534974065443
+        ]
+      },
+      {
+        "omega": 7.0,
+        "reflection": 0.02116802451723858,
+        "transmission": 0.9788319754977863,
+        "reflection_delay": 4.764968785535069,
+        "transmission_delay": 4.764968990667049,
+        "mean_delay": 4.764968986396403,
+        "hermiticity_error": 7.047231186314666e-08,
+        "smith_eigenvalues": [
+          1.5835675571824137,
+          7.946370415610392
+        ]
+      },
+      {
+        "omega": 8.0,
+        "reflection": 0.016746208817985494,
+        "transmission": 0.9832537911910055,
+        "reflection_delay": 3.7242736701421206,
+        "transmission_delay": 3.724273743082177,
+        "mean_delay": 3.724273741894193,
+        "hermiticity_error": 2.5611445215190616e-08,
+        "smith_eigenvalues": [
+          1.9285329342821096,
+          5.520014549506277
+        ]
+      },
+      {
+        "omega": 9.0,
+        "reflection": 0.017871390237446383,
+        "transmission": 0.9821286097715658,
+        "reflection_delay": 3.2874736856379303,
+        "transmission_delay": 3.2874737752904677,
+        "mean_delay": 3.2874737737178794,
+        "hermiticity_error": 2.3761176424259348e-08,
+        "smith_eigenvalues": [
+          2.2030623176259088,
+          4.37188522980985
+        ]
+      },
+      {
+        "omega": 10.0,
+        "reflection": 0.016834236706527644,
+        "transmission": 0.9831657633021228,
+        "reflection_delay": 3.0842807051564707,
+        "transmission_delay": 3.084280801130989,
+        "mean_delay": 3.084280799542012,
+        "hermiticity_error": 2.4696552060951616e-08,
+        "smith_eigenvalues": [
+          2.4159869207722835,
+          3.752574678311742
+        ]
+      },
+      {
+        "omega": 11.0,
+        "reflection": 0.013805399183440427,
+        "transmission": 0.9861946008250335,
+        "reflection_delay": 2.9824475484374413,
+        "transmission_delay": 2.982447650085416,
+        "mean_delay": 2.982447648707398,
+        "hermiticity_error": 2.372182833096363e-08,
+        "smith_eigenvalues": [
+          2.5754353499728566,
+          3.3894599474419396
+        ]
+      },
+      {
+        "omega": 12.0,
+        "reflection": 0.010289964742579505,
+        "transmission": 0.9897100352661106,
+        "reflection_delay": 2.9272034510399934,
+        "transmission_delay": 2.927203558729972,
+        "mean_delay": 2.9272035576472835,
+        "hermiticity_error": 2.1735824102759318e-08,
+        "smith_eigenvalues": [
+          2.689142712524708,
+          3.1652644027698584
+        ]
+      },
+      {
+        "omega": 13.0,
+        "reflection": 0.007248819989751994,
+        "transmission": 0.9927511800192045,
+        "reflection_delay": 2.8940292028717516,
+        "transmission_delay": 2.8940293162171553,
+        "mean_delay": 2.8940293154214554,
+        "hermiticity_error": 1.9230689651008846e-08,
+        "smith_eigenvalues": [
+          2.766526726496898,
+          3.0215319043460127
+        ]
+      },
+      {
+        "omega": 14.0,
+        "reflection": 0.004948160729260484,
+        "transmission": 0.995051839280303,
+        "reflection_delay": 2.871838082380222,
+        "transmission_delay": 2.8718381999736353,
+        "mean_delay": 2.871838199419229,
+        "hermiticity_error": 1.6503032937504023e-08,
+        "smith_eigenvalues": [
+          2.8176277554529165,
+          2.9260486433855415
+        ]
+      },
+      {
+        "omega": 15.0,
+        "reflection": 0.00329292070837743,
+        "transmission": 0.9967070793016019,
+        "reflection_delay": 2.8556421969868535,
+        "transmission_delay": 2.8556423181685533,
+        "mean_delay": 2.8556423177980093,
+        "hermiticity_error": 1.3884892518279777e-08,
+        "smith_eigenvalues": [
+          2.851092531593722,
+          2.860192104002295
+        ]
+      },
+      {
+        "omega": 16.0,
+        "reflection": 0.0021028209329809464,
+        "transmission": 0.9978971790769408,
+        "reflection_delay": 2.843116680929777,
+        "transmission_delay": 2.8431168037413355,
+        "mean_delay": 2.8431168035112937,
+        "hermiticity_error": 1.1251153400381633e-08,
+        "smith_eigenvalues": [
+          2.8132431835304033,
+          2.872990423492182
+        ]
+      },
+      {
+        "omega": 17.0,
+        "reflection": 0.001237497639610719,
+        "transmission": 0.998762502374306,
+        "reflection_delay": 2.8330417160476973,
+        "transmission_delay": 2.833041840215745,
+        "mean_delay": 2.8330418401015143,
+        "hermiticity_error": 8.729397259428334e-09,
+        "smith_eigenvalues": [
+          2.7793326840738537,
+          2.8867509961291744
+        ]
+      },
+      {
+        "omega": 18.0,
+        "reflection": 0.000621960455305689,
+        "transmission": 0.9993780395542691,
+        "reflection_delay": 2.824653721071729,
+        "transmission_delay": 2.8246538480870265,
+        "mean_delay": 2.8246538480350734,
+        "hermiticity_error": 6.332371940532331e-09,
+        "smith_eigenvalues": [
+          2.755497677861732,
+          2.893810018208414
+        ]
+      },
+      {
+        "omega": 19.0,
+        "reflection": 0.00022639999203463688,
+        "transmission": 0.9997735999992255,
+        "reflection_delay": 2.8174152712278406,
+        "transmission_delay": 2.817415400759521,
+        "mean_delay": 2.817415400705572,
+        "hermiticity_error": 3.904189245265162e-09,
+        "smith_eigenvalues": [
+          2.7403319045520855,
+          2.89449889685906
+        ]
+      },
+      {
+        "omega": 20.0,
+        "reflection": 3.2645771451439165e-05,
+        "transmission": 0.9999673542345129,
+        "reflection_delay": 2.810960983107294,
+        "transmission_delay": 2.8109611373461187,
+        "mean_delay": 2.8109611373578485,
+        "hermiticity_error": 1.7742342044803809e-09,
+        "smith_eigenvalues": [
+          2.733059429798281,
+          2.8888628449174156
+        ]
+      },
+      {
+        "omega": 21.0,
+        "reflection": 6.973896121742575e-06,
+        "transmission": 0.9999930261084901,
+        "reflection_delay": 2.805093934387374,
+        "transmission_delay": 2.8050939757409066,
+        "mean_delay": 2.8050939757535547,
+        "hermiticity_error": 4.99874967039513e-10,
+        "smith_eigenvalues": [
+          2.732949268530174,
+          2.8772386829769356
+        ]
+      },
+      {
+        "omega": 22.0,
+        "reflection": 9.077832443345485e-05,
+        "transmission": 0.9999092216901199,
+        "reflection_delay": 2.799766192990758,
+        "transmission_delay": 2.7997662892188013,
+        "mean_delay": 2.799766289250812,
+        "hermiticity_error": 1.838078751611017e-09,
+        "smith_eigenvalues": [
+          2.738999285766233,
+          2.8605332927353913
+        ]
+      },
+      {
+        "omega": 23.0,
+        "reflection": 0.00021076276246968862,
+        "transmission": 0.9997892372514723,
+        "reflection_delay": 2.7950250970325965,
+        "transmission_delay": 2.795025199650986,
+        "mean_delay": 2.7950251996683257,
+        "hermiticity_error": 2.981078869291989e-09,
+        "smith_eigenvalues": [
+          2.7498217092531756,
+          2.840228690083476
+        ]
+      },
+      {
+        "omega": 24.0,
+        "reflection": 0.0003006415530429477,
+        "transmission": 0.9996993584627379,
+        "reflection_delay": 2.7909357341541257,
+        "transmission_delay": 2.7909358403455764,
+        "mean_delay": 2.7909358403576943,
+        "hermiticity_error": 3.6825842773122197e-09,
+        "smith_eigenvalues": [
+          2.7636746666147345,
+          2.818197014100654
+        ]
+      },
+      {
+        "omega": 25.0,
+        "reflection": 0.000321653584420405,
+        "transmission": 0.9996783464335532,
+        "reflection_delay": 2.7875132792196897,
+        "transmission_delay": 2.7875133867127,
+        "mean_delay": 2.7875133867282265,
+        "hermiticity_error": 3.855171325359085e-09,
+        "smith_eigenvalues": [
+          2.7785974163699,
+          2.796429357086553
+        ]
+      },
+      {
+        "omega": 26.0,
+        "reflection": 0.000271443302235014,
+        "transmission": 0.9997285567167077,
+        "reflection_delay": 2.7846905870619807,
+        "transmission_delay": 2.7846906964747364,
+        "mean_delay": 2.784690696497786,
+        "hermiticity_error": 3.6047419055841163e-09,
+        "smith_eigenvalues": [
+          2.776767973594412,
+          2.7926134194011603
+        ]
+      },
+      {
+        "omega": 27.0,
+        "reflection": 0.000177864847861375,
+        "transmission": 0.9998221351723781,
+        "reflection_delay": 2.7823300225617795,
+        "transmission_delay": 2.782330134838003,
+        "mean_delay": 2.7823301348743454,
+        "hermiticity_error": 2.9944737258278567e-09,
+        "smith_eigenvalues": [
+          2.7606970437741607,
+          2.803963225974532
+        ]
+      },
+      {
+        "omega": 28.0,
+        "reflection": 8.18199519501604e-05,
+        "transmission": 0.9999181800694367,
+        "reflection_delay": 2.7802675826882193,
+        "transmission_delay": 2.780267696002589,
+        "mean_delay": 2.7802676960527797,
+        "hermiticity_error": 2.0499307176565155e-09,
+        "smith_eigenvalues": [
+          2.749211916043001,
+          2.8113234760625607
+        ]
+      },
+      {
+        "omega": 29.0,
+        "reflection": 1.774603250358957e-05,
+        "transmission": 0.9999822539892808,
+        "reflection_delay": 2.7783650214647704,
+        "transmission_delay": 2.778365141819251,
+        "mean_delay": 2.77836514187764,
+        "hermiticity_error": 1.014142346367124e-09,
+        "smith_eigenvalues": [
+          2.7427628990577424,
+          2.8139673846975377
+        ]
+      },
+      {
+        "omega": 30.0,
+        "reflection": 2.96523722896153e-07,
+        "transmission": 0.9999997034989232,
+        "reflection_delay": 2.776545948233136,
+        "transmission_delay": 2.776545908204367,
+        "mean_delay": 2.7765459082672566,
+        "hermiticity_error": 4.889932363840518e-11,
+        "smith_eigenvalues": [
+          2.7412596906088815,
+          2.8118321259256316
+        ]
+      },
+      {
+        "omega": 31.0,
+        "reflection": 2.1847639185044204e-05,
+        "transmission": 0.9999781523843506,
+        "reflection_delay": 2.774801305039215,
+        "transmission_delay": 2.774801405055926,
+        "mean_delay": 2.7748014051190473,
+        "hermiticity_error": 9.349999411371385e-10,
+        "smith_eigenvalues": [
+          2.744122824120768,
+          2.8054799861173265
+        ]
+      },
+      {
+        "omega": 32.0,
+        "reflection": 6.005192999192322e-05,
+        "transmission": 0.9999399480938088,
+        "reflection_delay": 2.7731693244677316,
+        "transmission_delay": 2.7731694226903487,
+        "mean_delay": 2.7731694227504535,
+        "hermiticity_error": 1.5222973237369392e-09,
+        "smith_eigenvalues": [
+          2.7503728609282643,
+          2.7959659845726423
+        ]
+      },
+      {
+        "omega": 33.0,
+        "reflection": 9.040467405488787e-05,
+        "transmission": 0.999909595350443,
+        "reflection_delay": 2.7716982982185425,
+        "transmission_delay": 2.7716984066161516,
+        "mean_delay": 2.771698406674253,
+        "hermiticity_error": 2.0612283952187536e-09,
+        "smith_eigenvalues": [
+          2.75875158500084,
+          2.7846452283476686
+        ]
+      },
+      {
+        "omega": 34.0,
+        "reflection": 9.743462369188971e-05,
+        "transmission": 0.9999025654015831,
+        "reflection_delay": 2.7704152471989296,
+        "transmission_delay": 2.7704153533862046,
+        "mean_delay": 2.7704153534458804,
+        "hermiticity_error": 2.0962267676927056e-09,
+        "smith_eigenvalues": [
+          2.7678691953000287,
+          2.77296151159173
+        ]
+      },
+      {
+        "omega": 35.0,
+        "reflection": 7.982190404532273e-05,
+        "transmission": 0.9999201781214588,
+        "reflection_delay": 2.7693104301304228,
+        "transmission_delay": 2.7693105362186134,
+        "mean_delay": 2.7693105362807744,
+        "hermiticity_error": 1.8955647822623777e-09,
+        "smith_eigenvalues": [
+          2.7622540288738273,
+          2.7763670436877215
+        ]
+      },
+      {
+        "omega": 36.0,
+        "reflection": 4.823470128529524e-05,
+        "transmission": 0.9999517653248371,
+        "reflection_delay": 2.7683425244819215,
+        "transmission_delay": 2.7683426359502046,
+        "mean_delay": 2.7683426360171435,
+        "hermiticity_error": 1.5482623486668352e-09,
+        "smith_eigenvalues": [
+          2.7536064850547137,
+          2.7830787869795754
+        ]
+      },
+      {
+        "omega": 37.0,
+        "reflection": 1.812810836739794e-05,
+        "transmission": 0.9999818719184732,
+        "reflection_delay": 2.7674580711471957,
+        "transmission_delay": 2.7674581818678483,
+        "mean_delay": 2.767458181940121,
+        "hermiticity_error": 9.427737994757226e-10,
+        "smith_eigenvalues": [
+          2.7477489273917532,
+          2.7871674364884886
+        ]
+      },
+      {
+        "omega": 38.0,
+        "reflection": 1.6429830102997287e-06,
+        "transmission": 0.9999983570440265,
+        "reflection_delay": 2.7666137149650596,
+        "transmission_delay": 2.7666138390513644,
+        "mean_delay": 2.766613839125961,
+        "hermiticity_error": 3.18037304226717e-10,
+        "smith_eigenvalues": [
+          2.745012173510057,
+          2.788215504741865
+        ]
+      },
+      {
+        "omega": 39.0,
+        "reflection": 2.4740055200986138e-06,
+        "transmission": 0.9999975260225122,
+        "reflection_delay": 2.7657906212988523,
+        "transmission_delay": 2.765790709003662,
+        "mean_delay": 2.765790709080977,
+        "hermiticity_error": 2.757709708660167e-10,
+        "smith_eigenvalues": [
+          2.7453292830481777,
+          2.7862521351137763
+        ]
+      },
+      {
+        "omega": 40.0,
+        "reflection": 1.558506636015491e-05,
+        "transmission": 0.9999844149624417,
+        "reflection_delay": 2.7649951282944616,
+        "transmission_delay": 2.7649952319803517,
+        "mean_delay": 2.7649952320583724,
+        "hermiticity_error": 8.186243067656872e-10,
+        "smith_eigenvalues": [
+          2.7482770126960636,
+          2.781713451420683
+        ]
+      },
+      {
+        "omega": 41.0,
+        "reflection": 3.1098532065463756e-05,
+        "transmission": 0.9999689014973067,
+        "reflection_delay": 2.764248360468165,
+        "transmission_delay": 2.764248462733068,
+        "mean_delay": 2.7642484628110804,
+        "hermiticity_error": 1.1405716620188684e-09,
+        "smith_eigenvalues": [
+          2.7531504941780813,
+          2.775346431444079
+        ]
+      },
+      {
+        "omega": 42.0,
+        "reflection": 3.983797398062531e-05,
+        "transmission": 0.9999601620557929,
+        "reflection_delay": 2.76357048215593,
+        "transmission_delay": 2.7635705871254514,
+        "mean_delay": 2.7635705872035508,
+        "hermiticity_error": 1.3250525266155314e-09,
+        "smith_eigenvalues": [
+          2.759064029218155,
+          2.7680771451889505
+        ]
+      },
+      {
+        "omega": 43.0,
+        "reflection": 3.762276503697968e-05,
+        "transmission": 0.9999623772655027,
+        "reflection_delay": 2.7629686714416533,
+        "transmission_delay": 2.762968784194317,
+        "mean_delay": 2.7629687842744555,
+        "hermiticity_error": 1.383163679644636e-09,
+        "smith_eigenvalues": [
+          2.7608684394904435,
+          2.765069129058467
+        ]
+      },
+      {
+        "omega": 44.0,
+        "reflection": 2.64596034900721e-05,
+        "transmission": 0.9999735404276933,
+        "reflection_delay": 2.76243352566678,
+        "transmission_delay": 2.7624336306491064,
+        "mean_delay": 2.7624336307324704,
+        "hermiticity_error": 1.0800169572822103e-09,
+        "smith_eigenvalues": [
+          2.7545896231793745,
+          2.7702776382855663
+        ]
+      },
+      {
+        "omega": 45.0,
+        "reflection": 1.2544468080736637e-05,
+        "transmission": 0.9999874555634576,
+        "reflection_delay": 2.7619443012006775,
+        "transmission_delay": 2.7619444079283784,
+        "mean_delay": 2.7619444080141466,
+        "hermiticity_error": 7.559635915872871e-10,
+        "smith_eigenvalues": [
+          2.749914110848911,
+          2.773974705179383
+        ]
+      },
+      {
+        "omega": 46.0,
+        "reflection": 2.5349261677931276e-06,
+        "transmission": 0.9999974651061209,
+        "reflection_delay": 2.7614792041982263,
+        "transmission_delay": 2.7614793104616284,
+        "mean_delay": 2.7614793105505235,
+        "hermiticity_error": 3.384068190552172e-10,
+        "smith_eigenvalues": [
+          2.747253282727911,
+          2.7757053383731356
+        ]
+      },
+      {
+        "omega": 47.0,
+        "reflection": 1.7220469240802956e-07,
+        "transmission": 0.9999998278282768,
+        "reflection_delay": 2.761024677573495,
+        "transmission_delay": 2.761024807710165,
+        "mean_delay": 2.7610248078011717,
+        "hermiticity_error": 1.0810650364729518e-10,
+        "smith_eigenvalues": [
+          2.746728559165577,
+          2.7753210564367667
+        ]
+      },
+      {
+        "omega": 48.0,
+        "reflection": 4.857338508633601e-06,
+        "transmission": 0.999995142694798,
+        "reflection_delay": 2.760579552272477,
+        "transmission_delay": 2.760579666599044,
+        "mean_delay": 2.760579666690434,
+        "hermiticity_error": 5.039140227406581e-10,
+        "smith_eigenvalues": [
+          2.748179614779712,
+          2.7729797186011558
+        ]
+      }
+    ],
+    "spectrum_energy_weights": [
+      0.0003247310886561514,
+      0.003575616914277434,
+      0.01593732107273411,
+      0.04320275108762122,
+      0.08369997283181306,
+      0.12587311639924592,
+      0.15425102853429154,
+      0.1589290023441528,
+      0.14067751027692502,
+      0.10866581212716724,
+      0.0741240129712079,
+      0.04506761553263258,
+      0.02460808149035246,
+      0.012142516033674255,
+      0.0054432050150155535,
+      0.0022268950645052913,
+      0.0008348043938713388,
+      0.00028777825781201965,
+      9.151928125472458e-05,
+      2.6928629474895596e-05,
+      7.3505923876237305e-06,
+      1.8659774728858243e-06,
+      4.4152864475257497e-07,
+      9.759001895883166e-08,
+      2.01889108808605e-08,
+      3.916483748653237e-09,
+      7.137140776638451e-10,
+      1.2238365775978075e-10,
+      1.977801273288736e-11,
+      3.0168670942360898e-12,
+      4.349772498535213e-13,
+      5.936180104258215e-14,
+      7.677928209472573e-15,
+      9.423639397118897e-16,
+      1.098875895886328e-16,
+      1.2187924063542541e-17,
+      1.2871722863199916e-18,
+      1.2957568676107236e-19,
+      1.2445848438545619e-20,
+      1.1417192315469142e-21,
+      1.0013348584842484e-22,
+      8.41091602585367e-24,
+      6.802797999470182e-25,
+      5.417087377887945e-26,
+      4.650550064925984e-27,
+      5.589510637138172e-28,
+      1.411533176496175e-28
+    ],
+    "scope": "Modal group-delay diagnostics, not a time-domain pulse arrival or router gate"
+  },
+  {
+    "lapse_depth": 0.99,
+    "neck_lapse": 0.010000000000000009,
+    "optical_length": 6.070558829891936,
+    "transmitted_energy_weight": 0.7570447855977425,
+    "reflected_energy_weight": 0.24295521441907245,
+    "transmitted_weighted_group_delay": 5.937746763546703,
+    "reflected_weighted_group_delay": 4.344484593094049,
+    "incident_weighted_smith_delay": 5.550655411325372,
+    "modes": [
+      {
+        "omega": 2.0,
+        "reflection": 0.9999686877061786,
+        "transmission": 3.131229382214106e-05,
+        "reflection_delay": 0.47663875878029144,
+        "transmission_delay": 0.47663970824145024,
+        "mean_delay": 0.47663875881002155,
+        "hermiticity_error": 1.0848079703963545e-08,
+        "smith_eigenvalues": [
+          0.4009777844278175,
+          0.5522997331922258
+        ]
+      },
+      {
+        "omega": 3.0,
+        "reflection": 0.9995315173025864,
+        "transmission": 0.00046848269741680816,
+        "reflection_delay": 0.6255965486808366,
+        "transmission_delay": 0.6255969159485891,
+        "mean_delay": 0.6255965488528973,
+        "hermiticity_error": 1.6214716032103805e-08,
+        "smith_eigenvalues": [
+          0.48981631177284574,
+          0.7613767859329492
+        ]
+      },
+      {
+        "omega": 4.0,
+        "reflection": 0.9930705370503515,
+        "transmission": 0.006929462949673759,
+        "reflection_delay": 1.1169805989797017,
+        "transmission_delay": 1.1169810775904485,
+        "mean_delay": 1.1169806022962452,
+        "hermiticity_error": 7.940947608844104e-08,
+        "smith_eigenvalues": [
+          0.7558156101951933,
+          1.4781455943972963
+        ]
+      },
+      {
+        "omega": 5.0,
+        "reflection": 0.9386175251054516,
+        "transmission": 0.061382474894886005,
+        "reflection_delay": 2.311051002501193,
+        "transmission_delay": 2.3110519421897115,
+        "mean_delay": 2.311051060182381,
+        "hermiticity_error": 4.511218791487431e-07,
+        "smith_eigenvalues": [
+          1.3856461512459144,
+          3.2364559691188473
+        ]
+      },
+      {
+        "omega": 6.0,
+        "reflection": 0.734772626074629,
+        "transmission": 0.26522737392767654,
+        "reflection_delay": 4.091307718479442,
+        "transmission_delay": 4.091309244060886,
+        "mean_delay": 4.0913081231148345,
+        "hermiticity_error": 1.3469502434928425e-06,
+        "smith_eigenvalues": [
+          2.3972891631729802,
+          5.7853270830566865
+        ]
+      },
+      {
+        "omega": 7.0,
+        "reflection": 0.43829977261886877,
+        "transmission": 0.5617002273923098,
+        "reflection_delay": 5.361807100435844,
+        "transmission_delay": 5.361808653400387,
+        "mean_delay": 5.361807972796319,
+        "hermiticity_error": 1.5410926947358759e-06,
+        "smith_eigenvalues": [
+          3.5295257333252685,
+          7.194090212267368
+        ]
+      },
+      {
+        "omega": 8.0,
+        "reflection": 0.2260906177271628,
+        "transmission": 0.7739093822882724,
+        "reflection_delay": 5.870501180570363,
+        "transmission_delay": 5.870502502240855,
+        "mean_delay": 5.87050220351417,
+        "hermiticity_error": 1.1057066856358643e-06,
+        "smith_eigenvalues": [
+          4.50378481268195,
+          7.237219594346387
+        ]
+      },
+      {
+        "omega": 9.0,
+        "reflection": 0.11341373780735785,
+        "transmission": 0.8865862622117606,
+        "reflection_delay": 6.053316077096718,
+        "transmission_delay": 6.053317271033971,
+        "mean_delay": 6.053317135740815,
+        "hermiticity_error": 7.571904818813936e-07,
+        "smith_eigenvalues": [
+          5.206165723200918,
+          6.9004685482807115
+        ]
+      },
+      {
+        "omega": 10.0,
+        "reflection": 0.05748944954399572,
+        "transmission": 0.9425105504772848,
+        "reflection_delay": 6.126397199819767,
+        "transmission_delay": 6.126398358282252,
+        "mean_delay": 6.126398291813255,
+        "hermiticity_error": 5.393237367397247e-07,
+        "smith_eigenvalues": [
+          5.6545012835024115,
+          6.598295300124098
+        ]
+      },
+      {
+        "omega": 11.0,
+        "reflection": 0.0298249401436276,
+        "transmission": 0.9701750598790444,
+        "reflection_delay": 6.154692761858158,
+        "transmission_delay": 6.154693922008288,
+        "mean_delay": 6.154693887546419,
+        "hermiticity_error": 3.946932324354185e-07,
+        "smith_eigenvalues": [
+          5.9163950564520675,
+          6.392992718640771
+        ]
+      },
+      {
+        "omega": 12.0,
+        "reflection": 0.016008627135305754,
+        "transmission": 0.9839913728892087,
+        "reflection_delay": 6.16179166962027,
+        "transmission_delay": 6.161792840968421,
+        "mean_delay": 6.161792822367798,
+        "hermiticity_error": 2.9402830619729096e-07,
+        "smith_eigenvalues": [
+          6.059209495481493,
+          6.264376149254103
+        ]
+      },
+      {
+        "omega": 13.0,
+        "reflection": 0.008992949153335823,
+        "transmission": 0.9910070508729619,
+        "reflection_delay": 6.159059242164751,
+        "transmission_delay": 6.15906042418958,
+        "mean_delay": 6.159060413721661,
+        "hermiticity_error": 2.2317534644109434e-07,
+        "smith_eigenvalues": [
+          6.132977033236283,
+          6.185143794207038
+        ]
+      },
+      {
+        "omega": 14.0,
+        "reflection": 0.005333909785151694,
+        "transmission": 0.99466609024291,
+        "reflection_delay": 6.1523920399344325,
+        "transmission_delay": 6.15239322932318,
+        "mean_delay": 6.152393223151734,
+        "hermiticity_error": 1.7326671140958474e-07,
+        "smith_eigenvalues": [
+          6.134935358074476,
+          6.169851088228988
+        ]
+      },
+      {
+        "omega": 15.0,
+        "reflection": 0.0033474906874154057,
+        "transmission": 0.9966525093419136,
+        "reflection_delay": 6.144697743730133,
+        "transmission_delay": 6.144698936546298,
+        "mean_delay": 6.144698932733576,
+        "hermiticity_error": 1.3779526669629042e-07,
+        "smith_eigenvalues": [
+          6.100781895474237,
+          6.188615969992913
+        ]
+      },
+      {
+        "omega": 16.0,
+        "reflection": 0.0022082803358224675,
+        "transmission": 0.9977917196945385,
+        "reflection_delay": 6.137273775945172,
+        "transmission_delay": 6.137274968633524,
+        "mean_delay": 6.137274966186068,
+        "hermiticity_error": 1.1196998668827909e-07,
+        "smith_eigenvalues": [
+          6.075203669310596,
+          6.1993462630615355
+        ]
+      },
+      {
+        "omega": 17.0,
+        "reflection": 0.0015090548374825324,
+        "transmission": 0.9984909451933844,
+        "reflection_delay": 6.130607595896719,
+        "transmission_delay": 6.1306087882558185,
+        "mean_delay": 6.130608786645718,
+        "hermiticity_error": 9.256671320883621e-08,
+        "smith_eigenvalues": [
+          6.05433332337045,
+          6.206884249920987
+        ]
+      },
+      {
+        "omega": 18.0,
+        "reflection": 0.0010471808963810874,
+        "transmission": 0.9989528191350258,
+        "reflection_delay": 6.1248065870986075,
+        "transmission_delay": 6.124807775849091,
+        "mean_delay": 6.124807774796615,
+        "hermiticity_error": 7.68940458136054e-08,
+        "smith_eigenvalues": [
+          6.036484352951096,
+          6.21313119664214
+        ]
+      },
+      {
+        "omega": 19.0,
+        "reflection": 0.0007214012076640659,
+        "transmission": 0.9992785988249482,
+        "reflection_delay": 6.119812421383197,
+        "transmission_delay": 6.119813609759744,
+        "mean_delay": 6.119813609102028,
+        "hermiticity_error": 6.381194954421522e-08,
+        "smith_eigenvalues": [
+          6.02116284977959,
+          6.218464368424463
+        ]
+      },
+      {
+        "omega": 20.0,
+        "reflection": 0.00048140030663182935,
+        "transmission": 0.9995185997286871,
+        "reflection_delay": 6.115503920027764,
+        "transmission_delay": 6.115505109479744,
+        "mean_delay": 6.115505109123134,
+        "hermiticity_error": 5.218060096335409e-08,
+        "smith_eigenvalues": [
+          6.008433881516713,
+          6.2225763367295555
+        ]
+      },
+      {
+        "omega": 21.0,
+        "reflection": 0.00030240901972729387,
+        "transmission": 0.9996975910136069,
+        "reflection_delay": 6.111746834338646,
+        "transmission_delay": 6.111748022321596,
+        "mean_delay": 6.1117480221660685,
+        "hermiticity_error": 4.131163625093572e-08,
+        "smith_eigenvalues": [
+          5.998545699427757,
+          6.22495034490438
+        ]
+      },
+      {
+        "omega": 22.0,
+        "reflection": 0.0001719145798817324,
+        "transmission": 0.9998280854543079,
+        "reflection_delay": 6.108418467499443,
+        "transmission_delay": 6.108419664589448,
+        "mean_delay": 6.1084196645924935,
+        "hermiticity_error": 3.1391905262645674e-08,
+        "smith_eigenvalues": [
+          5.9917277597371905,
+          6.225111569447796
+        ]
+      },
+      {
+        "omega": 23.0,
+        "reflection": 8.256097070247055e-05,
+        "transmission": 0.9999174390691444,
+        "reflection_delay": 6.105419491321169,
+        "transmission_delay": 6.105420704841448,
+        "mean_delay": 6.105420704984541,
+        "hermiticity_error": 2.205652388659552e-08,
+        "smith_eigenvalues": [
+          5.98809809894424,
+          6.22274331102484
+        ]
+      },
+      {
+        "omega": 24.0,
+        "reflection": 2.8476679808036913e-05,
+        "transmission": 0.9999715233623848,
+        "reflection_delay": 6.102677842183804,
+        "transmission_delay": 6.1026790939844195,
+        "mean_delay": 6.102679094206261,
+        "hermiticity_error": 1.3365262616448917e-08,
+        "smith_eigenvalues": [
+          5.987634251776893,
+          6.2177239366356325
+        ]
+      },
+      {
+        "omega": 25.0,
+        "reflection": 3.624525948724509e-06,
+        "transmission": 0.9999963755177326,
+        "reflection_delay": 6.100147522485915,
+        "transmission_delay": 6.100148920916873,
+        "mean_delay": 6.100148921178267,
+        "hermiticity_error": 5.33938787213187e-09,
+        "smith_eigenvalues": [
+          5.990177949730117,
+          6.210119892626418
+        ]
+      },
+      {
+        "omega": 26.0,
+        "reflection": 1.3555136579681297e-06,
+        "transmission": 0.9999986445321126,
+        "reflection_delay": 6.097805292746929,
+        "transmission_delay": 6.097806003942116,
+        "mean_delay": 6.097806004220254,
+        "hermiticity_error": 1.6709322965119465e-09,
+        "smith_eigenvalues": [
+          5.995455369231708,
+          6.2001566392087994
+        ]
+      },
+      {
+        "omega": 27.0,
+        "reflection": 1.463141066440208e-05,
+        "transmission": 0.9999853686373275,
+        "reflection_delay": 6.095640782204844,
+        "transmission_delay": 6.095641815855959,
+        "mean_delay": 6.0956418161333765,
+        "hermiticity_error": 7.910225654132271e-09,
+        "smith_eigenvalues": [
+          6.00310278000604,
+          6.188180852260713
+        ]
+      },
+      {
+        "omega": 28.0,
+        "reflection": 3.654873853370068e-05,
+        "transmission": 0.9999634513108062,
+        "reflection_delay": 6.093655971525291,
+        "transmission_delay": 6.093657049608456,
+        "mean_delay": 6.093657049869715,
+        "hermiticity_error": 1.3036017787638395e-08,
+        "smith_eigenvalues": [
+          6.012692467250995,
+          6.174621632488435
+        ]
+      },
+      {
+        "omega": 29.0,
+        "reflection": 6.091760556151589e-05,
+        "transmission": 0.99993908244534,
+        "reflection_delay": 6.091854673420305,
+        "transmission_delay": 6.091855767243992,
+        "mean_delay": 6.091855767487443,
+        "hermiticity_error": 1.707438179895124e-08,
+        "smith_eigenvalues": [
+          6.023756708100879,
+          6.159954826874007
+        ]
+      },
+      {
+        "omega": 30.0,
+        "reflection": 8.274267464577258e-05,
+        "transmission": 0.9999172573776991,
+        "reflection_delay": 6.090239684456918,
+        "transmission_delay": 6.0902407885591305,
+        "mean_delay": 6.090240788786569,
+        "hermiticity_error": 2.0085785242243746e-08,
+        "smith_eigenvalues": [
+          6.035809192341564,
+          6.144672385231574
+        ]
+      },
+      {
+        "omega": 31.0,
+        "reflection": 9.852623793201321e-05,
+        "transmission": 0.9999014738154907,
+        "reflection_delay": 6.088809446852262,
+        "transmission_delay": 6.088810559851127,
+        "mean_delay": 6.088810560066749,
+        "hermiticity_error": 2.209426576798385e-08,
+        "smith_eigenvalues": [
+          6.0483638756346245,
+          6.129257244498873
+        ]
+      },
+      {
+        "omega": 32.0,
+        "reflection": 0.00010636750701088986,
+        "transmission": 0.9998936325480704,
+        "reflection_delay": 6.087556454578711,
+        "transmission_delay": 6.087557572214815,
+        "mean_delay": 6.087557572431247,
+        "hermiticity_error": 2.305219504233439e-08,
+        "smith_eigenvalues": [
+          6.060951548722078,
+          6.114163596140415
+        ]
+      },
+      {
+        "omega": 33.0,
+        "reflection": 0.00010587039493335791,
+        "transmission": 0.9998941296611069,
+        "reflection_delay": 6.086467066716915,
+        "transmission_delay": 6.086468189976396,
+        "mean_delay": 6.0864681901985636,
+        "hermiticity_error": 2.311396451302539e-08,
+        "smith_eigenvalues": [
+          6.073134354268092,
+          6.099802026129035
+        ]
+      },
+      {
+        "omega": 34.0,
+        "reflection": 9.789690622563412e-05,
+        "transmission": 0.9999021031510562,
+        "reflection_delay": 6.085522429581634,
+        "transmission_delay": 6.085523556643425,
+        "mean_delay": 6.08552355688168,
+        "hermiticity_error": 2.2301854268858842e-08,
+        "smith_eigenvalues": [
+          6.084518282724873,
+          6.086528831038491
+        ]
+      },
+      {
+        "omega": 35.0,
+        "reflection": 8.42171330843501e-05,
+        "transmission": 0.9999157829254992,
+        "reflection_delay": 6.084700154643818,
+        "transmission_delay": 6.084701282445909,
+        "mean_delay": 6.084701282707392,
+        "hermiticity_error": 2.06987655619904e-08,
+        "smith_eigenvalues": [
+          6.074638922217982,
+          6.094763643196801
+        ]
+      },
+      {
+        "omega": 36.0,
+        "reflection": 6.71117462224461e-05,
+        "transmission": 0.9999328883133254,
+        "reflection_delay": 6.083976342818518,
+        "transmission_delay": 6.083977480124757,
+        "mean_delay": 6.083977480410717,
+        "hermiticity_error": 1.863334761296314e-08,
+        "smith_eigenvalues": [
+          6.064361674453983,
+          6.1035932863674525
+        ]
+      },
+      {
+        "omega": 37.0,
+        "reflection": 4.898044154826144e-05,
+        "transmission": 0.9999510196195048,
+        "reflection_delay": 6.0833278006607125,
+        "transmission_delay": 6.083328937255823,
+        "mean_delay": 6.083328937571559,
+        "hermiticity_error": 1.590879070955727e-08,
+        "smith_eigenvalues": [
+          6.055859360952782,
+          6.110798514190335
+        ]
+      },
+      {
+        "omega": 38.0,
+        "reflection": 3.200164637677363e-05,
+        "transmission": 0.9999679984155718,
+        "reflection_delay": 6.082733741805018,
+        "transmission_delay": 6.082734895797059,
+        "mean_delay": 6.082734896136946,
+        "hermiticity_error": 1.3055949966027919e-08,
+        "smith_eigenvalues": [
+          6.0492275310435195,
+          6.116242261230373
+        ]
+      },
+      {
+        "omega": 39.0,
+        "reflection": 1.787656617991229e-05,
+        "transmission": 0.9999821234976901,
+        "reflection_delay": 6.082177326779456,
+        "transmission_delay": 6.0821784695408905,
+        "mean_delay": 6.08217846990893,
+        "hermiticity_error": 9.663193411244002e-09,
+        "smith_eigenvalues": [
+          6.044497249393709,
+          6.119859690424156
+        ]
+      },
+      {
+        "omega": 40.0,
+        "reflection": 7.67615995707629e-06,
+        "transmission": 0.9999923239049069,
+        "reflection_delay": 6.081646266498158,
+        "transmission_delay": 6.0816474386842865,
+        "mean_delay": 6.081647439069769,
+        "hermiticity_error": 6.495275213935176e-09,
+        "smith_eigenvalues": [
+          6.04163879680924,
+          6.121656081330296
+        ]
+      },
+      {
+        "omega": 41.0,
+        "reflection": 1.794725592148705e-06,
+        "transmission": 0.9999982053407769,
+        "reflection_delay": 6.0811331766516945,
+        "transmission_delay": 6.0811343967857585,
+        "mean_delay": 6.081134397187168,
+        "hermiticity_error": 3.2691130064728506e-09,
+        "smith_eigenvalues": [
+          6.040566630137593,
+          6.121702164236747
+        ]
+      },
+      {
+        "omega": 42.0,
+        "reflection": 2.1778252539813467e-10,
+        "transmission": 0.9999999998496667,
+        "reflection_delay": 6.080644814173351,
+        "transmission_delay": 6.080636370778851,
+        "mean_delay": 6.080636371188987,
+        "hermiticity_error": 2.4059029675995596e-10,
+        "smith_eigenvalues": [
+          6.041145492512107,
+          6.120127249865868
+        ]
+      },
+      {
+        "omega": 43.0,
+        "reflection": 1.5606862474814943e-06,
+        "transmission": 0.9999984393823882,
+        "reflection_delay": 6.080152906812005,
+        "transmission_delay": 6.08015398048631,
+        "mean_delay": 6.080153980901949,
+        "hermiticity_error": 2.6821162469019475e-09,
+        "smith_eigenvalues": [
+          6.043197462547989,
+          6.117110499255909
+        ]
+      },
+      {
+        "omega": 44.0,
+        "reflection": 5.4193302511772e-06,
+        "transmission": 0.9999945807397943,
+        "reflection_delay": 6.079689162873191,
+        "transmission_delay": 6.079690245621586,
+        "mean_delay": 6.079690246041573,
+        "hermiticity_error": 5.04125561566107e-09,
+        "smith_eigenvalues": [
+          6.046509735995696,
+          6.1128707560874505
+        ]
+      },
+      {
+        "omega": 45.0,
+        "reflection": 1.0388071275045674e-05,
+        "transmission": 0.999989611999853,
+        "reflection_delay": 6.079248352230755,
+        "transmission_delay": 6.079249441631828,
+        "mean_delay": 6.079249442052917,
+        "hermiticity_error": 7.022244052067726e-09,
+        "smith_eigenvalues": [
+          6.050843192713449,
+          6.1076556913923845
+        ]
+      },
+      {
+        "omega": 46.0,
+        "reflection": 1.533111513160629e-05,
+        "transmission": 0.9999846689575306,
+        "reflection_delay": 6.078834725279958,
+        "transmission_delay": 6.078835826313822,
+        "mean_delay": 6.078835826738643,
+        "hermiticity_error": 8.62207758123051e-09,
+        "smith_eigenvalues": [
+          6.05594121778004,
+          6.101730435697242
+        ]
+      },
+      {
+        "omega": 47.0,
+        "reflection": 1.931504968828241e-05,
+        "transmission": 0.9999806850240293,
+        "reflection_delay": 6.078451639239572,
+        "transmission_delay": 6.078452758765686,
+        "mean_delay": 6.078452759192151,
+        "hermiticity_error": 9.840256031411214e-09,
+        "smith_eigenvalues": [
+          6.061538939537063,
+          6.095366578847242
+        ]
+      },
+      {
+        "omega": 48.0,
+        "reflection": 2.170955588622491e-05,
+        "transmission": 0.9999782905193859,
+        "reflection_delay": 6.0781008898534,
+        "transmission_delay": 6.078101998094465,
+        "mean_delay": 6.078101998527918,
+        "hermiticity_error": 1.0327243192732074e-08,
+        "smith_eigenvalues": [
+          6.067372332851487,
+          6.088831664204351
+        ]
+      }
+    ],
+    "spectrum_energy_weights": [
+      0.0003247310886561514,
+      0.003575616914277434,
+      0.01593732107273411,
+      0.04320275108762122,
+      0.08369997283181306,
+      0.12587311639924592,
+      0.15425102853429154,
+      0.1589290023441528,
+      0.14067751027692502,
+      0.10866581212716724,
+      0.0741240129712079,
+      0.04506761553263258,
+      0.02460808149035246,
+      0.012142516033674255,
+      0.0054432050150155535,
+      0.0022268950645052913,
+      0.0008348043938713388,
+      0.00028777825781201965,
+      9.151928125472458e-05,
+      2.6928629474895596e-05,
+      7.3505923876237305e-06,
+      1.8659774728858243e-06,
+      4.4152864475257497e-07,
+      9.759001895883166e-08,
+      2.01889108808605e-08,
+      3.916483748653237e-09,
+      7.137140776638451e-10,
+      1.2238365775978075e-10,
+      1.977801273288736e-11,
+      3.0168670942360898e-12,
+      4.349772498535213e-13,
+      5.936180104258215e-14,
+      7.677928209472573e-15,
+      9.423639397118897e-16,
+      1.098875895886328e-16,
+      1.2187924063542541e-17,
+      1.2871722863199916e-18,
+      1.2957568676107236e-19,
+      1.2445848438545619e-20,
+      1.1417192315469142e-21,
+      1.0013348584842484e-22,
+      8.41091602585367e-24,
+      6.802797999470182e-25,
+      5.417087377887945e-26,
+      4.650550064925984e-27,
+      5.589510637138172e-28,
+      1.411533176496175e-28
+    ],
+    "scope": "Modal group-delay diagnostics, not a time-domain pulse arrival or router gate"
+  }
+]
