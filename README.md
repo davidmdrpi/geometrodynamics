@@ -7,8 +7,8 @@
 
 [Release overview and evidence](docs/releases/bam-foundations-0.44.0.md) collect
 exact S³ Maxwell refocusing, geometry-derived throat scattering and mechanical
-loads, an action-derived attraction analogue, and independently checked Einstein
-radius evolution. Source, tests, archived histories and provenance ship together.
+loads, action-derived attraction in a 1+1-D kink analogue, and independently
+checked Einstein radius evolution. Source, tests, archived histories and provenance ship together.
 
 These are verified building blocks for the coupled BAM model. **Self-consistent
 mouth attraction and nonsingular annihilation remain open.** The attraction

@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "release": "0.44.0",
   "status": "release_candidate",
   "source_commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
@@ -654,7 +654,10 @@
       "path": "geometrodynamics/waves/pair_birth.py",
       "bytes": 30502,
       "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2",
-      "git_blob": "e75277e593fa236f3931066cc9f8222cbe241660"
+      "git_blob": "e75277e593fa236f3931066cc9f8222cbe241660",
+      "origin_commit": "fe228aca57698ac2dc248d060609aa104b2a7cec",
+      "origin_pr": 345,
+      "origin_note": "Original pair-birth implementation inherited through PR #349; later PR #345 versions may replace these working-tree files without changing historical evidence."
     },
     {
       "path": "geometrodynamics/waves/physical_throat.py",
@@ -726,7 +729,10 @@
       "path": "tests/test_pair_birth.py",
       "bytes": 7670,
       "sha256": "7362f595eeaadcbd018268a999611bf8004df564a5f4587904925ad6760120fe",
-      "git_blob": "703c90eb6674059ca676f3354ee79bbf2958f418"
+      "git_blob": "703c90eb6674059ca676f3354ee79bbf2958f418",
+      "origin_commit": "fe228aca57698ac2dc248d060609aa104b2a7cec",
+      "origin_pr": 345,
+      "origin_note": "Original pair-birth implementation inherited through PR #349; later PR #345 versions may replace these working-tree files without changing historical evidence."
     },
     {
       "path": "tests/test_pr349_review.py",
@@ -766,19 +772,45 @@
     "tests_passed": 228,
     "python": "3.12",
     "openblas_threads": 1,
-    "full_repository_suite_run": false,
+    "full_repository_suite_run": true,
     "wheel_built": "geometrodynamics-0.44.0-py3-none-any.whl",
     "independent_delay_replication": {
       "upstream_commit": "c1a5ae6247423c6fff5b2bff4bed8434faf258c1",
       "test": "test_two_port_reproduces_the_published_delay_table",
       "result": "passed; six lapse depths"
     },
-    "isolated_wheel_smoke": "passed: version, imports, throat transmission and radius acceleration"
+    "isolated_wheel_smoke": "passed: version, imports, throat transmission and radius acceleration",
+    "full_repository_ci": {
+      "commit": "2c07ff0e66162bf02fc1003a575221ee606c9326",
+      "run_url": "https://github.com/davidmdrpi/geometrodynamics/actions/runs/40792853865",
+      "python": [
+        "3.10",
+        "3.12"
+      ],
+      "conclusion": "success"
+    },
+    "review_revision": {
+      "release_tests_passed": 228,
+      "verifier_regressions_passed": 9,
+      "archive_files_checked": 82,
+      "historical_imports_checked": 122,
+      "source_blobs_and_origins_checked": 122,
+      "upstream_pair_birth_compatibility": {
+        "commit": "c1a5ae6247423c6fff5b2bff4bed8434faf258c1",
+        "substituted_files": [
+          "geometrodynamics/waves/pair_birth.py",
+          "tests/test_pair_birth.py"
+        ],
+        "archive_gate": "passed",
+        "selected_tests_plus_verifier_passed": 248,
+        "note": "Temporary compatibility substitution only; original imported files restored."
+      }
+    }
   },
   "boundaries": [
     "Exact refocusing is a prescribed source-free S3 reference",
     "Finite-port scattering does not attach the closed S3 exterior",
-    "The successful attraction run is a prepared two-channel field analogue",
+    "The successful attraction run is a prepared 1+1-D three-field kink analogue (phi, psi1, psi2 on a line)",
     "The refined BAM-scale analogue keeps separating",
     "Electrovacuum radius contraction is not mouth-center attraction or regular annihilation",
     "No derived charged Klein/time seam, support evolution or full matter-wave cycle is claimed"
@@ -789,5 +821,12 @@
     "archive": "experiments/closure_ledger/runs/20261020_coupled_mouth_throat_replay",
     "copied_into_release": false,
     "conclusion": "Scalar candidate failed sustained approach and collapse; limitations retained in pinned report"
+  },
+  "verification": {
+    "default_scope": "Working-tree run archives and images only; evolving source, tests and reports are not frozen",
+    "historical_import_ref": "2c07ff0e66162bf02fc1003a575221ee606c9326",
+    "historical_import_check": "python scripts/verify_bam_foundations_release.py --ref 2c07ff0e66162bf02fc1003a575221ee606c9326",
+    "source_provenance_check": "python scripts/verify_bam_foundations_release.py --source-ref dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+    "limits": "Default checks internal archive consistency. Explicit source-ref checks Git blob identity and SHA-256 against the indexed source commit. Neither proves the model."
   }
 }

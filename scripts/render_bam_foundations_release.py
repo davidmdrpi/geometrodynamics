@@ -53,7 +53,7 @@ def main():
         sub = [r for r in data if r['time']<=120 and len(r['centers'])==2]
         axes[1, 0].plot([r['time'] for r in sub],
                         [r['centers'][1]-r['centers'][0] for r in sub], color=color, lw=2, label=label)
-    axes[1, 0].set(title='C. Action-derived attraction in a field analogue',
+    axes[1, 0].set(title='C. Attraction in a 1+1-D kink analogue',
                    xlabel='Analogue time', ylabel='Defect separation')
     axes[1, 0].legend(frameon=False, fontsize=9)
     axes[1, 0].text(.04, .05, 'Prepared radiation ≈ 42% of rest energy\nAt BAM scale (0.6%), the pair keeps separating',
