@@ -1,0 +1,254 @@
+[
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.0,
+    "support_density": 0.0,
+    "holding_radial_pressure": -647.1056131010292,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -63.764288441335445,
+      -31.882144220667723,
+      0.0,
+      31.882144220667733,
+      63.764288441335445
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.5,
+    "support_density": 0.0,
+    "holding_radial_pressure": -687.2096131033895,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -63.264770026606115,
+      -31.632385013303058,
+      0.0,
+      31.63238501330305,
+      63.264770026606115
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.9,
+    "support_density": 0.0,
+    "holding_radial_pressure": -749.3743251768109,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -53.31461417161262,
+      -26.65730708580631,
+      0.0,
+      26.65730708580631,
+      53.31461417161262
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.99,
+    "support_density": 0.0,
+    "holding_radial_pressure": -478.9902930356319,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -27.161069738312932,
+      -13.580534869156464,
+      3.552713678800501e-15,
+      13.580534869156466,
+      27.16106973831294
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.0,
+    "support_density": 0.0,
+    "holding_radial_pressure": -59.736125328692424,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -19.373516587679134,
+      -9.686758293839567,
+      0.0,
+      9.686758293839567,
+      19.373516587679134
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.5,
+    "support_density": 0.0,
+    "holding_radial_pressure": -63.1153466254772,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -19.156132938832133,
+      -9.578066469416067,
+      0.0,
+      9.578066469416068,
+      19.156132938832133
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.9,
+    "support_density": 0.0,
+    "holding_radial_pressure": -67.70961157829849,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -15.967820594876347,
+      -7.983910297438173,
+      1.7763568394002505e-15,
+      7.983910297438175,
+      15.96782059487635
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.99,
+    "support_density": 0.0,
+    "holding_radial_pressure": -42.79908749716055,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -8.074430888793785,
+      -4.037215444396893,
+      -1.7763568394002505e-15,
+      4.037215444396889,
+      8.074430888793781
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.0,
+    "support_density": 0.0,
+    "holding_radial_pressure": -5.87531379333176,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -6.075827951919941,
+      -3.0379139759599703,
+      8.881784197001252e-16,
+      3.037913975959971,
+      6.075827951919943
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.5,
+    "support_density": 0.0,
+    "holding_radial_pressure": -6.1354182557432715,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -5.960390909583407,
+      -2.980195454791704,
+      -8.881784197001252e-16,
+      2.9801954547917022,
+      5.960390909583405
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.9,
+    "support_density": 0.0,
+    "holding_radial_pressure": -6.340679104064304,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -4.845141622897427,
+      -2.422570811448713,
+      8.881784197001252e-16,
+      2.422570811448714,
+      4.845141622897429
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.99,
+    "support_density": 0.0,
+    "holding_radial_pressure": -3.9074609513582192,
+    "pressure_multipliers": [
+      0.0,
+      0.5,
+      1.0,
+      1.5,
+      2.0
+    ],
+    "initial_neck_accelerations": [
+      -2.4087687098972417,
+      -1.204384354948622,
+      -2.220446049250313e-15,
+      1.2043843549486177,
+      2.4087687098972372
+    ],
+    "scope": "Initial acceleration sensitivity at identical Hamiltonian/momentum data; not five evolved matter models"
+  }
+]

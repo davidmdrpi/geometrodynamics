@@ -1,0 +1,36 @@
+{
+  "cases": [
+    {
+      "name": "pair_bam_scale_fine",
+      "length": 400.0,
+      "end": 100.0,
+      "dx": 0.05,
+      "dt": 0.010000000000000002,
+      "initial_speed": 0.3,
+      "amplitude": 0.0238054106804543,
+      "seed_energy": 0.01599999999999957,
+      "seed_over_continuum_rest": 0.005999999999999839,
+      "final_fitted_right_velocity": 0.29845858355747396,
+      "first_separation_below_2": null,
+      "first_lost_pair_zeros": null,
+      "maximum_relative_recorded_energy_error": 7.804469274605143e-08
+    },
+    {
+      "name": "pair_bam_no_wave_fine",
+      "length": 400.0,
+      "end": 100.0,
+      "dx": 0.05,
+      "dt": 0.010000000000000002,
+      "initial_speed": 0.3,
+      "amplitude": 0.0,
+      "seed_energy": 0.0,
+      "seed_over_continuum_rest": 0.0,
+      "final_fitted_right_velocity": 0.2999178701681396,
+      "first_separation_below_2": null,
+      "first_lost_pair_zeros": null,
+      "maximum_relative_recorded_energy_error": 1.0136373987464259e-10
+    }
+  ],
+  "velocity_change": -0.0014592866106656333,
+  "inferred_momentum_change": -0.0022395941559625876
+}

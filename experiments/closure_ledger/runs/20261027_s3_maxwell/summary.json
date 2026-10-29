@@ -1,0 +1,22 @@
+{
+  "geometry": "unit round S3 x time, prescribed metric, source-free TE dipole Maxwell",
+  "prepared_energy": 1.0,
+  "modal_frequency": "n=k+1, n>=2",
+  "total_encounter_cases": 18,
+  "refinement_cases": 18,
+  "max_refocus_field_error": 8.659739592076221e-15,
+  "max_whole_energy_residual": 1.4224732503009818e-16,
+  "max_whole_transparent_impulse": 2.581268532253489e-15,
+  "max_partial_transparent_impulse": 1.5126788710517758e-15,
+  "max_partial_incident_only_impulse": 0.11841870787350033,
+  "explicit_nonclaims": [
+    "No sourced birth law",
+    "No throat scattering or finite-mouth absorption",
+    "No curvature backreaction",
+    "No attraction or collapse established"
+  ],
+  "strict_router_modified": false,
+  "s2_dispersion_obstruction_applies_to_s3": false,
+  "reflection_cases": 12,
+  "reflection_scope": "Ideal fixed conductor, inward radius load; zero vector impulse by symmetry"
+}

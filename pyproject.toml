@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "geometrodynamics"
-version = "0.43.0"
+version = "0.44.0"
 description = "Research framework implementing and testing Wheeler's geometrodynamic program"
 readme = "README.md"
 requires-python = ">=3.10"

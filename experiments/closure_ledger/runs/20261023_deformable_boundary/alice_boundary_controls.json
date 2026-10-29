@@ -1,0 +1,698 @@
+[
+  {
+    "angle": 0.0,
+    "time_orientation": -1,
+    "clock_offset": -2.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 2.220446049250313e-16,
+    "local_energy": 0.6139933809802108,
+    "oriented_frequency": -0.9546116364258584,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 6.856723582110972e-16
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.9927523426172641
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.0,
+    "time_orientation": -1,
+    "clock_offset": 0.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 2.220446049250313e-16,
+    "local_energy": 0.6139933809802108,
+    "oriented_frequency": -0.9546116364258584,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.0
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.36055512754639896
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.0,
+    "time_orientation": -1,
+    "clock_offset": 0.7,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 2.220446049250313e-16,
+    "local_energy": 0.6139933809802108,
+    "oriented_frequency": -0.9546116364258584,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 5.985173094038516e-16
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.6350810622012502
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.0,
+    "time_orientation": 1,
+    "clock_offset": -2.0,
+    "metric_error": 1.1102230246251565e-16,
+    "stress_error": 1.1102230246251565e-16,
+    "local_energy": 0.9348733421395502,
+    "oriented_frequency": 0.7055825138799823,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 1.716587549445839e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 2.255140518769849e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.0,
+    "time_orientation": 1,
+    "clock_offset": 0.0,
+    "metric_error": 1.1102230246251565e-16,
+    "stress_error": 1.1102230246251565e-16,
+    "local_energy": 0.9348733421395502,
+    "oriented_frequency": 0.7055825138799823,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 2,
+        "nullity": 4,
+        "residual": 0.0
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 2,
+        "nullity": 4,
+        "residual": 1.019803902718557
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 2,
+        "nullity": 4,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.0,
+    "time_orientation": 1,
+    "clock_offset": 0.7,
+    "metric_error": 1.1102230246251565e-16,
+    "stress_error": 1.1102230246251565e-16,
+    "local_energy": 0.9348733421395502,
+    "oriented_frequency": 0.7055825138799823,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 5.011399652273759e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 1.8463195827281384e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.3,
+    "time_orientation": -1,
+    "clock_offset": -2.0,
+    "metric_error": 4.440892098500626e-16,
+    "stress_error": 3.3306690738754696e-16,
+    "local_energy": 0.5668603183262285,
+    "oriented_frequency": -0.9735814248842405,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 1.0963507264348514e-15
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.03865334828865739
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.3,
+    "time_orientation": -1,
+    "clock_offset": 0.0,
+    "metric_error": 4.440892098500626e-16,
+    "stress_error": 3.3306690738754696e-16,
+    "local_energy": 0.5668603183262285,
+    "oriented_frequency": -0.9735814248842405,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 5.763878168445254e-17
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.3
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.3,
+    "time_orientation": -1,
+    "clock_offset": 0.7,
+    "metric_error": 4.440892098500626e-16,
+    "stress_error": 3.3306690738754696e-16,
+    "local_energy": 0.5668603183262285,
+    "oriented_frequency": -0.9735814248842405,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 1.2428176919397965e-15
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.248444549651877
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.3,
+    "time_orientation": 1,
+    "clock_offset": -2.0,
+    "metric_error": 4.440892098500626e-16,
+    "stress_error": 4.440892098500626e-16,
+    "local_energy": 0.993904421215101,
+    "oriented_frequency": 0.6866127254216003,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 3.868394456087541e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 3.6168880473758516e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.3,
+    "time_orientation": 1,
+    "clock_offset": 0.0,
+    "metric_error": 4.440892098500626e-16,
+    "stress_error": 4.440892098500626e-16,
+    "local_energy": 0.993904421215101,
+    "oriented_frequency": 0.6866127254216003,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 1.5515838457795457e-17
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 1.182160275045642e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 0.3,
+    "time_orientation": 1,
+    "clock_offset": 0.7,
+    "metric_error": 4.440892098500626e-16,
+    "stress_error": 4.440892098500626e-16,
+    "local_energy": 0.993904421215101,
+    "oriented_frequency": 0.6866127254216003,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 4.767176663788471e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 4.763924632981393e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 1.5707963267948966,
+    "time_orientation": -1,
+    "clock_offset": -2.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 2.220446049250313e-16,
+    "local_energy": 0.5731043009547576,
+    "oriented_frequency": -0.9131067826682124,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 1.210155828689865e-15
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.038653348288657394
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 1.5707963267948966,
+    "time_orientation": -1,
+    "clock_offset": 0.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 2.220446049250313e-16,
+    "local_energy": 0.5731043009547576,
+    "oriented_frequency": -0.9131067826682124,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 1.9229626863835638e-16
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.3
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 1.5707963267948966,
+    "time_orientation": -1,
+    "clock_offset": 0.7,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 2.220446049250313e-16,
+    "local_energy": 0.5731043009547576,
+    "oriented_frequency": -0.9131067826682124,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 1.6883057536160649e-16
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.248444549651877
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 5,
+        "nullity": 1,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 1.5707963267948966,
+    "time_orientation": 1,
+    "clock_offset": -2.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 3.3306690738754696e-16,
+    "local_energy": 0.9808455133931815,
+    "oriented_frequency": 0.7470873676376283,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 2.915161381400467e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 3.506455013098515e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 1.5707963267948966,
+    "time_orientation": 1,
+    "clock_offset": 0.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 3.3306690738754696e-16,
+    "local_energy": 0.9808455133931815,
+    "oriented_frequency": 0.7470873676376283,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 2.0014830212433605e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 1.1443916996305594e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 1.5707963267948966,
+    "time_orientation": 1,
+    "clock_offset": 0.7,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 3.3306690738754696e-16,
+    "local_energy": 0.9808455133931815,
+    "oriented_frequency": 0.7470873676376283,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 4.815412394636862e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 1.0561879867986252e-15
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 3.141592653589793,
+    "time_orientation": -1,
+    "clock_offset": -2.0,
+    "metric_error": 1.1102230246251565e-16,
+    "stress_error": 1.3877787807814457e-16,
+    "local_energy": 0.9348733421395502,
+    "oriented_frequency": -0.7055825138799824,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 9.085447562802667e-16
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.2396475514078601
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 3.141592653589793,
+    "time_orientation": -1,
+    "clock_offset": 0.0,
+    "metric_error": 1.1102230246251565e-16,
+    "stress_error": 1.3877787807814457e-16,
+    "local_energy": 0.9348733421395502,
+    "oriented_frequency": -0.7055825138799824,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 2.7755575615628914e-17
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 1.044030650891055
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 3.141592653589793,
+    "time_orientation": -1,
+    "clock_offset": 0.7,
+    "metric_error": 1.1102230246251565e-16,
+    "stress_error": 1.3877787807814457e-16,
+    "local_energy": 0.9348733421395502,
+    "oriented_frequency": -0.7055825138799824,
+    "closure": {
+      "compatible": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 3.608224830031759e-16
+      },
+      "unselected": {
+        "status": "incompatible",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.8718494324920901
+      },
+      "homogeneous": {
+        "status": "nonunique",
+        "rank": 3,
+        "nullity": 3,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 3.141592653589793,
+    "time_orientation": 1,
+    "clock_offset": -2.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 5.551115123125783e-17,
+    "local_energy": 0.613993380980211,
+    "oriented_frequency": 0.9546116364258584,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 8.500145032286355e-17
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 2.362549233345768e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 3.141592653589793,
+    "time_orientation": 1,
+    "clock_offset": 0.0,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 5.551115123125783e-17,
+    "local_energy": 0.613993380980211,
+    "oriented_frequency": 0.9546116364258584,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  },
+  {
+    "angle": 3.141592653589793,
+    "time_orientation": 1,
+    "clock_offset": 0.7,
+    "metric_error": 2.220446049250313e-16,
+    "stress_error": 5.551115123125783e-17,
+    "local_energy": 0.613993380980211,
+    "oriented_frequency": 0.9546116364258584,
+    "closure": {
+      "compatible": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 4.079219866531555e-16
+      },
+      "unselected": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 5.045129370878557e-16
+      },
+      "homogeneous": {
+        "status": "unique",
+        "rank": 6,
+        "nullity": 0,
+        "residual": 0.0
+      }
+    }
+  }
+]

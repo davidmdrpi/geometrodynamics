@@ -1,0 +1,77 @@
+[
+  {
+    "name": "single_heavy"
+  },
+  {
+    "name": "single_heavy_fine",
+    "dx": 0.05,
+    "dt": 0.01
+  },
+  {
+    "name": "single_heavy_finer",
+    "dx": 0.025,
+    "dt": 0.005
+  },
+  {
+    "name": "single_light",
+    "channel": 2
+  },
+  {
+    "name": "single_disconnected",
+    "coupling": 0.0
+  },
+  {
+    "name": "single_offset",
+    "offset": 7.0
+  },
+  {
+    "name": "single_reversed",
+    "end": 60.0,
+    "reverse_check": true
+  },
+  {
+    "name": "single_closed_return",
+    "end": 400.0
+  },
+  {
+    "name": "pair_no_wave",
+    "pair": true,
+    "amplitude": 0.0,
+    "end": 240.0
+  },
+  {
+    "name": "pair_heavy",
+    "pair": true,
+    "amplitude": 0.2,
+    "end": 240.0
+  },
+  {
+    "name": "pair_heavy_fine",
+    "pair": true,
+    "amplitude": 0.2,
+    "dx": 0.05,
+    "dt": 0.01,
+    "end": 240.0
+  },
+  {
+    "name": "pair_heavy_time_fine",
+    "pair": true,
+    "amplitude": 0.2,
+    "dt": 0.01,
+    "end": 240.0
+  },
+  {
+    "name": "pair_light",
+    "pair": true,
+    "amplitude": 0.2,
+    "channel": 2,
+    "end": 120.0
+  },
+  {
+    "name": "pair_offset",
+    "pair": true,
+    "amplitude": 0.2,
+    "offset": 1.0,
+    "end": 120.0
+  }
+]

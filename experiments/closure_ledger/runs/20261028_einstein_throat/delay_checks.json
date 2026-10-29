@@ -1,0 +1,128 @@
+[
+  {
+    "lapse_depth": 0.0,
+    "omega": 5.0,
+    "mean_delay_change": 2.133411780569361e-10,
+    "transmission_delay_change": 7.052091133274985e-10,
+    "hermiticity_error": 1.769944820810643e-11
+  },
+  {
+    "lapse_depth": 0.0,
+    "omega": 10.0,
+    "mean_delay_change": 7.759554110364775e-10,
+    "transmission_delay_change": 9.283006585647513e-10,
+    "hermiticity_error": 6.109153936343506e-11
+  },
+  {
+    "lapse_depth": 0.0,
+    "omega": 20.0,
+    "mean_delay_change": 1.550834016761371e-09,
+    "transmission_delay_change": 9.321425853414667e-10,
+    "hermiticity_error": 2.5942957580924072e-11
+  },
+  {
+    "lapse_depth": 0.4,
+    "omega": 5.0,
+    "mean_delay_change": 3.0174490683876343e-10,
+    "transmission_delay_change": 1.7747461278361243e-09,
+    "hermiticity_error": 2.2995640451686298e-11
+  },
+  {
+    "lapse_depth": 0.4,
+    "omega": 10.0,
+    "mean_delay_change": 2.4722661695619763e-09,
+    "transmission_delay_change": 3.318356589510074e-09,
+    "hermiticity_error": 1.9580966165353524e-10
+  },
+  {
+    "lapse_depth": 0.4,
+    "omega": 20.0,
+    "mean_delay_change": 5.103640177139823e-09,
+    "transmission_delay_change": 4.546228282720222e-09,
+    "hermiticity_error": 9.784246915344624e-12
+  },
+  {
+    "lapse_depth": 0.8,
+    "omega": 5.0,
+    "mean_delay_change": 3.1446967252435343e-10,
+    "transmission_delay_change": 1.7649275929620956e-08,
+    "hermiticity_error": 1.261026647534065e-10
+  },
+  {
+    "lapse_depth": 0.8,
+    "omega": 10.0,
+    "mean_delay_change": 3.23737399110513e-08,
+    "transmission_delay_change": 3.583377816696043e-09,
+    "hermiticity_error": 2.4466516127989517e-09
+  },
+  {
+    "lapse_depth": 0.8,
+    "omega": 20.0,
+    "mean_delay_change": 2.260700604495014e-08,
+    "transmission_delay_change": 2.259034492801959e-08,
+    "hermiticity_error": 1.3670341104011595e-10
+  },
+  {
+    "lapse_depth": 0.9,
+    "omega": 5.0,
+    "mean_delay_change": 3.1328909355643475e-08,
+    "transmission_delay_change": 4.968266856808512e-07,
+    "hermiticity_error": 2.5800140368960493e-09
+  },
+  {
+    "lapse_depth": 0.9,
+    "omega": 10.0,
+    "mean_delay_change": 1.0570085295924514e-07,
+    "transmission_delay_change": 1.0420894991369778e-07,
+    "hermiticity_error": 4.680015906655975e-09
+  },
+  {
+    "lapse_depth": 0.9,
+    "omega": 20.0,
+    "mean_delay_change": 5.3389599852238234e-08,
+    "transmission_delay_change": 5.3398218735623004e-08,
+    "hermiticity_error": 7.153247147147046e-11
+  },
+  {
+    "lapse_depth": 0.95,
+    "omega": 5.0,
+    "mean_delay_change": 5.6675491375557385e-06,
+    "transmission_delay_change": 3.2629957046559355e-05,
+    "hermiticity_error": 2.108014346053908e-06
+  },
+  {
+    "lapse_depth": 0.95,
+    "omega": 10.0,
+    "mean_delay_change": 2.2371213148630886e-07,
+    "transmission_delay_change": 2.1767571789510498e-07,
+    "hermiticity_error": 6.181167908521545e-09
+  },
+  {
+    "lapse_depth": 0.95,
+    "omega": 20.0,
+    "mean_delay_change": 1.3929470865647886e-07,
+    "transmission_delay_change": 1.3928860020939737e-07,
+    "hermiticity_error": 4.2524545179890375e-10
+  },
+  {
+    "lapse_depth": 0.99,
+    "omega": 5.0,
+    "mean_delay_change": 1.2907646427251507e-06,
+    "transmission_delay_change": 4.600401518395358e-06,
+    "hermiticity_error": 1.1289050044583549e-07
+  },
+  {
+    "lapse_depth": 0.99,
+    "omega": 10.0,
+    "mean_delay_change": 1.3225872006472628e-06,
+    "transmission_delay_change": 1.0729528696629131e-06,
+    "hermiticity_error": 1.348055978076169e-07
+  },
+  {
+    "lapse_depth": 0.99,
+    "omega": 20.0,
+    "mean_delay_change": 1.4311585250226244e-06,
+    "transmission_delay_change": 1.4292051462305722e-06,
+    "hermiticity_error": 1.3002099951144678e-08
+  }
+]

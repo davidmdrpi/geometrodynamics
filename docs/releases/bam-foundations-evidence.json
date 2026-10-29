@@ -1,0 +1,793 @@
+{
+  "schema_version": 1,
+  "release": "0.44.0",
+  "status": "release_candidate",
+  "source_commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+  "base_commit": "50fdce477a9eab85de76f0d540f76ea4bc4a89a4",
+  "scope": "Selected classical wave, throat and mechanical benchmarks; not a completed BAM model",
+  "component_manifests": [
+    "experiments/closure_ledger/runs/20261023_deformable_boundary/manifest.json",
+    "experiments/closure_ledger/runs/20261024_gr_handle/manifest.json",
+    "experiments/closure_ledger/runs/20261025_review/manifest.json",
+    "experiments/closure_ledger/runs/20261027_s3_maxwell/manifest.json",
+    "experiments/closure_ledger/runs/20261028_einstein_throat/manifest.json",
+    "experiments/closure_ledger/runs/20261028_maxwell_throat/manifest.json"
+  ],
+  "imported_files": [
+    {
+      "path": "docs/deformable_alice_boundary.md",
+      "bytes": 15073,
+      "sha256": "60664363c19da54f86710f0cdefcd3e6a07ab5d25d5767ad93b159cab46c7699",
+      "git_blob": "f02b2b13a58b3bf1897ae86c0cbf286f030f1561"
+    },
+    {
+      "path": "docs/einstein_throat_evolution.md",
+      "bytes": 14108,
+      "sha256": "5f7c273592f5de89f92be9c68bfe8d2c1a39e3e834c267eb16f9fbc9d4e900f1",
+      "git_blob": "094ed3de2229f1b3f383d74fd2a4589e3aab67d2"
+    },
+    {
+      "path": "docs/gr_handle_orientation.md",
+      "bytes": 7862,
+      "sha256": "4ff0bb3d64df57ad4697928a9dd05c847ef5f69673561fa0446771a802e9ceef",
+      "git_blob": "3b12d2ae5be2f63fc16e7fe39b3919fb8229f586"
+    },
+    {
+      "path": "docs/images/history_throat/deformable_boundary.png",
+      "bytes": 300214,
+      "sha256": "9bb8c5a10acd964fae9f99c10b52cc5a53ec3bd88e9ef1400ecf597e43e82b15",
+      "git_blob": "f65420df46abacb27910f02b9fe932242ee20aa5"
+    },
+    {
+      "path": "docs/images/history_throat/einstein_throat_evolution.png",
+      "bytes": 180182,
+      "sha256": "6069ae895e06cb840ad3a6afd4edde063e2de53d0fc398ed28d1774c9be3f30c",
+      "git_blob": "ef2a2064d95985cf3f10c168dcc5db3e9c481fa4"
+    },
+    {
+      "path": "docs/images/history_throat/maxwell_throat_response.png",
+      "bytes": 196040,
+      "sha256": "95c17934172a23429d71e8b1a673d0d4abbea59c706188f4ae9a321d4518f734",
+      "git_blob": "cb1f61aac7f40a5bab069aa2afc07f5f1f4d848f"
+    },
+    {
+      "path": "docs/images/history_throat/s3_maxwell_encounter.png",
+      "bytes": 225221,
+      "sha256": "a8441acc2a5786512ab0bd75de5070e394277d47d57b15f621b1855e2a021db3",
+      "git_blob": "022966b313e546454ab9bab56e5c74e4c237aeb6"
+    },
+    {
+      "path": "docs/maxwell_throat_response.md",
+      "bytes": 14153,
+      "sha256": "ea9553450e751321a8ab10cf083c8bee8d83ff38ed0095c2147cae5a28b8d766",
+      "git_blob": "55529c84cbb57ee979d124c9481d570e31af3fdd"
+    },
+    {
+      "path": "docs/pr349_review_assessment.md",
+      "bytes": 9621,
+      "sha256": "3b3d8e89faa5a384f09c35d79e7063890507871027fa274681df622c63baa9c6",
+      "git_blob": "b552e3845690abadd704ac80d09b21aea8769cce"
+    },
+    {
+      "path": "docs/s3_maxwell_encounter.md",
+      "bytes": 11714,
+      "sha256": "b7b0c6c614edc3fc4aef30220d5660f032421be3d512bae7aa6d76bf2ca3b094",
+      "git_blob": "2ad1a6fafcc29b1c85a64eb2ebafbd8be73031e5"
+    },
+    {
+      "path": "experiments/closure_ledger/deformable_boundary_probe.py",
+      "bytes": 11653,
+      "sha256": "03c09ca06bcf69a457b492c2f4542db4c62bfd7f9f7db422e58e9aaa39f117d3",
+      "git_blob": "207a3ca7f398d2e82e0a927c80addeed82354c2c"
+    },
+    {
+      "path": "experiments/closure_ledger/deformable_boundary_report.py",
+      "bytes": 7305,
+      "sha256": "5a96f24c6f180b9652420c9e310b4d211b19443f71a615e5363a2aae2fb3154e",
+      "git_blob": "7933875790a283efb3ef01c6f2c099b03de8341e"
+    },
+    {
+      "path": "experiments/closure_ledger/einstein_throat_probe.py",
+      "bytes": 8106,
+      "sha256": "f0c795f804845dbcec97ea49a44906069aaf52c5c2818ccf6f5f48433bd823ec",
+      "git_blob": "d20a6334e13310488fe2e2bf0c312ecc1dc80815"
+    },
+    {
+      "path": "experiments/closure_ledger/gr_handle_probe.py",
+      "bytes": 3649,
+      "sha256": "7d5b602e1f840c66172356c725ad237b179e379cf54257accf33b1bf145f914b",
+      "git_blob": "56bac6a7d8d3f4afc3c5f88b9a7e005288989c6c"
+    },
+    {
+      "path": "experiments/closure_ledger/maxwell_throat_probe.py",
+      "bytes": 9702,
+      "sha256": "a2956a6af6c251def382a9464f27c2121d75c497bbce771425a8e0e3abea4b04",
+      "git_blob": "4892869f000fdd1e3fcaf0ec39a521afb6e0baa7"
+    },
+    {
+      "path": "experiments/closure_ledger/pr349_review_probe.py",
+      "bytes": 6240,
+      "sha256": "c6ee26f3af313b37cd87d9a1c2227d0b2aa0817ffdf5037d99815cf4f5d7fdd9",
+      "git_blob": "877a3988f0748751e77c654b420511b7ad165efd"
+    },
+    {
+      "path": "experiments/closure_ledger/quotient_endpoint_review.py",
+      "bytes": 3082,
+      "sha256": "d4f45ff25065e03d2b51ce0ee48847817c1081dab9dec2e41361c329da6334cd",
+      "git_blob": "9c2e342454711ff5df0922e1cb5c458500dcf664"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/alice_boundary_controls.json",
+      "bytes": 16615,
+      "sha256": "ab9f66410c8a8c9f44f18b6ba49e3ee6251eb5e356ddc784ed9f0d8f5020b6c3",
+      "git_blob": "bcf8ddcce77a41049a61395406aee844f975acc0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/directional_gap_screen.json",
+      "bytes": 39504,
+      "sha256": "f3f811d3b0ea222ea7a2d8145f9fde5595aac25d05bc0a95b73d48a0b0e09d3a",
+      "git_blob": "b98e202cd3f94fca8ef399e7896e476bd0010d06"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/historical_sources.json",
+      "bytes": 3381,
+      "sha256": "112a76a76ab91513427748b0495b2e95974629c8bbdd1ba5a229731024bb451b",
+      "git_blob": "1278eaf8c22967ea718b3870094719764d7d4809"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/manifest.json",
+      "bytes": 9656,
+      "sha256": "da5d6e2e16e414a367c7f24b7cc8b34be05fcf65be8e93ad1461b05330039bfe",
+      "git_blob": "51e6c6cf37526b1cc6014181291806334362e0fa"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/nonlinear_time_quotient.json",
+      "bytes": 47367,
+      "sha256": "d90a2308f792e58a76683984a2619930d76b17615e71b1fcb9502520e6837e16",
+      "git_blob": "0f4afd95290bc45a1259463b3cc613994369eeb0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/nonlinear_time_quotient.npz",
+      "bytes": 693942,
+      "sha256": "13444fc3b9c551bd0006c1fae07cf77cdb1d61bcc485bec470f96309916de7ca",
+      "git_blob": "e9e0471beafb41b5377b39752d0f951c52dae425"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy.json",
+      "bytes": 164489,
+      "sha256": "fc333713a753121758b4d75a63bc9233d7afdf67813c177257d86795a36a9648",
+      "git_blob": "0470cf329227168ebd2c6cae70a1388258a2ad2e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy.npz",
+      "bytes": 661015,
+      "sha256": "e8af0f1ddf15ec4f4e9efbc2fcfcaf4989bf512e43d80877b6752935e9848737",
+      "git_blob": "d8d38a7ae36eb186152ff89f489aad5404431785"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.json",
+      "bytes": 164268,
+      "sha256": "3e91fa77773210578a078a7d1f515c7fafcbcf38d99fcae077f44608fbcd45c0",
+      "git_blob": "ff55e63d6364c43d7542e8d94b7fada3f03c0f88"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.npz",
+      "bytes": 862336,
+      "sha256": "f04ec8c22df4250cc6a07d7da3fb2d5097dc75176da730053bdbb19e801b8b2c",
+      "git_blob": "4db43ce8fda4c8e4d64081acb57cef695cd70776"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_time_fine.json",
+      "bytes": 165037,
+      "sha256": "0caa349feea0fc3c8c16b5c25bb6253fc0c7f002db8e8401cbedb25c46994663",
+      "git_blob": "67ba0a44a10b25185a98772b7566e21655a64df1"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_time_fine.npz",
+      "bytes": 664026,
+      "sha256": "05afa38d4cd1078247f154ec9394a7f337712748c42a5e72f85206b7edfb9a18",
+      "git_blob": "fa353ee07289e193ec8f24014d4a039e5d69245d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_light.json",
+      "bytes": 84653,
+      "sha256": "9e54f210c177948142bd62df4f3aa3003d829b7a3f13f201de4cbe7f3f425738",
+      "git_blob": "570b91d0046ddfbc6a9b8089f06fa892d20c90de"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_light.npz",
+      "bytes": 368635,
+      "sha256": "b5fe45910cd25210f65fc29f3090477467703d0934fcde8cd700e4d21a38c0d5",
+      "git_blob": "d6f4fec5f00873c8a131ca80b9063034830b4167"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_no_wave.json",
+      "bytes": 160252,
+      "sha256": "049a73ad9867874180116939798ae2d572a05374d7679742e6b93c5dacd4eb09",
+      "git_blob": "bb12cd9b0a6aa613d4ed2c48e6110e0bdabf9bfa"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_no_wave.npz",
+      "bytes": 236326,
+      "sha256": "e3a0968b1af82fc9b656ad57ce91bbae14cf18f433e87dd46ee0feb18dd47989",
+      "git_blob": "9af11aa336e2992548f4fb3b0fc384230011c0a7"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_offset.json",
+      "bytes": 84580,
+      "sha256": "ae79c687e3fd6c0dc216b363598af6c2a88e168838150412dd3f15deb17385cf",
+      "git_blob": "4db5495c4636605105929bf87e4ec977c78b0642"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_offset.npz",
+      "bytes": 472217,
+      "sha256": "737d93dd1e6a11c48220047422411c765aaa50dc3fd75df76f3a467399286d19",
+      "git_blob": "886a09fed896f22a21842535b69249c7aa3c88af"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/replay.json",
+      "bytes": 3324,
+      "sha256": "e79e57340cbe8a7bc81cbce3ca2ac1b11faeeac76c0b950574262c339b1e3413",
+      "git_blob": "d70ea4723c7636ea2744ff706880b0a52abde3d6"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/schedule.json",
+      "bytes": 1162,
+      "sha256": "44b8829c5d89afbf15fb8a2347c1e6bd2d5c30dfbc731b6b9845dda7df9a2c21",
+      "git_blob": "3740742ecb5d76c850a3b217a7da236c3f28a2f0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_closed_return.json",
+      "bytes": 269992,
+      "sha256": "45654f4885be5d2f4b8703e69778cd6f833cb72753c239b1afc738c4b476d0af",
+      "git_blob": "b3c29feafb9bb4803de93948855d9ba344c56568"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_closed_return.npz",
+      "bytes": 976296,
+      "sha256": "eaf8f048a235833d2a9f806bf2f9763f4f5be4f52695fe67532898dd9e832909",
+      "git_blob": "ec1edfc9eaaa8a3cf7d18183517102056eeb512a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_disconnected.json",
+      "bytes": 55271,
+      "sha256": "5afb61ddb6e5e34d7ef2f2d70a453577559eec9ca42c56485fd456143c485718",
+      "git_blob": "f0d4cbc244c8fc20e08f9ec9fa52326873a3ee71"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_disconnected.npz",
+      "bytes": 248819,
+      "sha256": "50cc8e5ec6de9aff9a3013220480f36aa2903bcdde76110f85c49501ae49fc46",
+      "git_blob": "3fd382f311d7b099c50a90dde78b8721439fcfda"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy.json",
+      "bytes": 54938,
+      "sha256": "5daf722b3016f0bbc3009d47f8a67df9cecc2ee6a6682c99e1055a4742d8b1b0",
+      "git_blob": "90c91a8c1da1c6c8b51a98ea64d2860dacfaebab"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy.npz",
+      "bytes": 267926,
+      "sha256": "a79fd52d28d1b03730a4d37d2f3011013a0a73e85a67abd16409e01d7323fc09",
+      "git_blob": "332e9861c37bd3c1247c6a6d523760a97706f2db"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_fine.json",
+      "bytes": 55042,
+      "sha256": "446342a034643e2add22eada2f30e46ede06324775723b938610ae56dd80e69d",
+      "git_blob": "8b76ff687ce70914dca60055fab0b71878fb2439"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_fine.npz",
+      "bytes": 376551,
+      "sha256": "f99933421571c23d8d24072e51c304ee4a59693c61f938df9a0a60afe1ce8a6d",
+      "git_blob": "c8d3288711efc0a3545ef3aedff13c720a78964d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_finer.json",
+      "bytes": 55113,
+      "sha256": "bf2447b07bb4f2c332b7bacf7e01993509b91dbf4835f649f14e0d5690a7784b",
+      "git_blob": "ab383e944c2f18afdf9f02ab79f9b9db3478e2bd"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_finer.npz",
+      "bytes": 602533,
+      "sha256": "ba346b083142f6586b988f9438a17efcee39f9e4d7b1f5d3a8b06d748b129f16",
+      "git_blob": "9f06199d74e8bc0097dd71c932b2816bdf0aedc9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_light.json",
+      "bytes": 55323,
+      "sha256": "d7277f415d891074b67b609d1279e4945fdca312523f868ec9a5b91d27417cbb",
+      "git_blob": "db57818843384fdb150ea4d05622ef4b8c579ab2"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_light.npz",
+      "bytes": 268172,
+      "sha256": "214ccf1f7b3c79272c2d896ae8f60511cefb53c95a5199933c5266d4d2c24634",
+      "git_blob": "eda9881a1b3ecc50676cd14c6afaf2c435713418"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_offset.json",
+      "bytes": 55205,
+      "sha256": "8271ec07cc0b04934ba876b35a13fdc47b7a0ceb1b6bf3f2139c75f0bc4bda3c",
+      "git_blob": "569df3f6721e3157676d059a0279f90f25cff08d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_offset.npz",
+      "bytes": 270238,
+      "sha256": "648c2bb22d3cd19bb61254453ed4acfd1991bea0e3c6cd391436f168485e42b0",
+      "git_blob": "eb9ff2bc41d9efadf6c99186c9e16765b3159ed5"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_reversed.json",
+      "bytes": 41648,
+      "sha256": "fda9b86d95b38f988e7baacb647311bb71dc118851f67a3e6112610159729832",
+      "git_blob": "4f210c1141487ab2c80a8dd69959ca105c7a3e56"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_reversed.npz",
+      "bytes": 222501,
+      "sha256": "8cceedec8bd2c30aa0849717cc4708d4ad5129473979ba8720560ea1cdab34bd",
+      "git_blob": "2299bf852aeb17743d490b02f0e05f74ec974ea7"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/step_scattering.json",
+      "bytes": 4962,
+      "sha256": "d5563c9362ab05b689f174da2c133c78bda94abef9f16f087783d2e75b8420d9",
+      "git_blob": "6ec26c607640c43de10a1a4f586051da14724f4e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/summary.json",
+      "bytes": 450,
+      "sha256": "cc4b551381437aacd83d38cfd8264b744482d4ce4e4ed0277603cec449b3d9f3",
+      "git_blob": "4fc0a95ae541c2589883ec0349e4c3fca2b80ed5"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/manifest.json",
+      "bytes": 1505,
+      "sha256": "bbad31aaa5bbb5849ab0242dc30ef05c68d5b60005a5ad9d53c68f5432a453cd",
+      "git_blob": "e6dc786c0e876b6b7c9f8b002daadff1d43b8e36"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/orientation.json",
+      "bytes": 6662,
+      "sha256": "d71efa18bb84095b349168e28f4045e330ad44571c1d6dc900291f26406c4748",
+      "git_blob": "6b400d5954c172a55884f70c9416543c962ea174"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/scattering.json",
+      "bytes": 7205,
+      "sha256": "0cfa4bb1af675eae5138f6c46fbb6d09f594862f0f18c5c887575c872590c2aa",
+      "git_blob": "66ac6f7e1672a3385a34cfad718ca14f28516aa2"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/summary.json",
+      "bytes": 1459,
+      "sha256": "3640aaa014250ee266ec2f403d1610c151e77b7b69159d80feb38e8933ec62e9",
+      "git_blob": "1b33f3e36d518f418a9ba020d585f863087b55f4"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/support.json",
+      "bytes": 4447,
+      "sha256": "67a7d33534795b37acc3f1865e96d9e66db8668a4b5f37f56f0e5f89bd3ccf83",
+      "git_blob": "ccdeef94b2f01c154d52ce102012b35b98a3c39f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/carryovers.json",
+      "bytes": 2852,
+      "sha256": "ce805823927a58482e206b417d510586285f37404361454b7dc9edff5e2c98e3",
+      "git_blob": "dc965d1562592afaf3bc4f55cd7e2d9ece63dbbe"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/manifest.json",
+      "bytes": 3309,
+      "sha256": "bf464dc63f767f3bc6f536265fe2b8b037234949621d34be57e030caa9f23ee3",
+      "git_blob": "b4c612f6638fdc2cef0bba1714757062b7cfca00"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_no_wave.json",
+      "bytes": 37146,
+      "sha256": "825e74b084f8cd93f5e7105696d2f1d318e1234be8b7ca382c4696a717c2e8fa",
+      "git_blob": "d007c3c9f4d715b7d058533ae286569b3fd7c7de"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_no_wave_fine.json",
+      "bytes": 39857,
+      "sha256": "65cedc5254261f14847a2e8aa0872009491df6dc7c051aa267fcab7ac5c2cb9b",
+      "git_blob": "85d1133d82a72b96608652b7c6f414098f151bea"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_scale.json",
+      "bytes": 40544,
+      "sha256": "bd9484b910db414b0921da6b10d2ecfa04dadc4f01eb5c18115273a65ebc1c42",
+      "git_blob": "a5837bd5946f93c41e7d0cd78e7084db7c9d360d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_scale_fine.json",
+      "bytes": 43363,
+      "sha256": "340054a3d96fc41b301132147babb5ffd92b796eb8a3621fa100234b21db14ef",
+      "git_blob": "8599cf7e94c0758aa65e8eac5e65ba1e92bf70eb"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_no_wave_80.json",
+      "bytes": 52000,
+      "sha256": "0a8fd3f03a77368905013e87f46703a2ce0a99521c3345bb69082672ded96105",
+      "git_blob": "613441b58c92237a347a9b54557c670bcda533f6"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_return_60.json",
+      "bytes": 47666,
+      "sha256": "2194406a8bda7a612270194665b79bdd4757e7973ab769d3d9fae59c4f656c01",
+      "git_blob": "760ceef666a544f13f48f900b632361447d14d1d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_return_80.json",
+      "bytes": 55663,
+      "sha256": "841ed6a8236dc7c42910e3b8cfdaad8466924df7b94800b5b88c6b8b0fbbc7e9",
+      "git_blob": "1c73efca11dcba6efefb9488c4ed69cd92a436d9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/quotient_geometry.json",
+      "bytes": 19233,
+      "sha256": "e8a06450866c048ac4f4f96d5e89945e812c645079eaedc417fdc171ac0ec0f6",
+      "git_blob": "90f1fdd96e6d3ac941b56c424bc1d2fc5588ad84"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/refinement.json",
+      "bytes": 1103,
+      "sha256": "b4e78fefbfe090b2ad8f2515d324ea32285a5898bcb0b8edebb28c290f621694",
+      "git_blob": "ddacf5456b6e02eea96ee22cd744d0cd8ca58637"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/summary.json",
+      "bytes": 2623,
+      "sha256": "aff625d41aa6975cc1b42f60c6fb02f8677a2b355ef99e5751bf4ed00de0b437",
+      "git_blob": "0afcef551558e04c29ffdc3392e6485b13a1580e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/encounters.json",
+      "bytes": 34141,
+      "sha256": "5eaf1bdf3848519d7d56a0aebf0ef516462e96fd6bcda11066a41537b0bbb4ac",
+      "git_blob": "48ffc85398685ae84d0ad4060cc04c6725603715"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/manifest.json",
+      "bytes": 3273,
+      "sha256": "ab64dbead489356ff486990f2ebcf8ba3e3348325bac09838b7eb15baee383a0",
+      "git_blob": "d1506a6560ad3e29b83da53323e471f630530e69"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/offset_symmetry.json",
+      "bytes": 1739,
+      "sha256": "bb18690208e5bf9b9c24772367013e217a07f371db9c9768affcac4e6d80ceb2",
+      "git_blob": "bfd2a1c7f06a581cb40c891b01faf0f79958a1d1"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/pinned_endpoint_order.json",
+      "bytes": 8707,
+      "sha256": "2add63d1e2d93f903299e75e33b35836e7f39e1d28aecbf8b34e72684c4875fc",
+      "git_blob": "1816dd4c1a7fc1dac63d4169a32ab22c8a640a56"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/refinement.json",
+      "bytes": 17949,
+      "sha256": "7977b83edb9bf78ea33434f66dd7543cc87bf809bab88f9d822cdabdd1dfb74f",
+      "git_blob": "9bc140c54c56faa02d55faf674682fc8cbebe90a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/reflection.json",
+      "bytes": 5879,
+      "sha256": "86f369e02322438c8ecc71b93c09b3dc96bf90da4f7963058446490880e33f6f",
+      "git_blob": "13406eeecaaf6d7d889dafdcae8baaece968d1a3"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/s2_phase_review.json",
+      "bytes": 2157,
+      "sha256": "1bc5766d92e590784fb13bd30c09c2c048fc7cd0cb6670aa202ea2289465880c",
+      "git_blob": "598ced67b9f112a5e36657a2d15679faf756ddb6"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/summary.json",
+      "bytes": 900,
+      "sha256": "3f80b4011d458f6edf40ea5ee36ef231d667363fe49dbba4140da8cb50b7e690",
+      "git_blob": "22bf4d118a7ad4417bb740090b73516b15fd37b8"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/trace.json",
+      "bytes": 33530,
+      "sha256": "add54db08b88a2c6384d9f3d5816baea67154d8d14bc9b55aa8c81e988b2bdae",
+      "git_blob": "fc32be62f2fc18dfceac0dc52ef8d23f3059a56e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/transport.json",
+      "bytes": 1932,
+      "sha256": "e1630ed0b607118a94935e593af0d38cddcd967c3c54552939925b6388020572",
+      "git_blob": "d08fa73da742d5217931f8f7e9c67c547c53236f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/delay_checks.json",
+      "bytes": 3686,
+      "sha256": "eabdfeab3b3ac7a82e61a1d7ec9e4f0b3c63bbc96b0aeeb95ee2fb90f1e38147",
+      "git_blob": "beb2b4f540a873a379760f32da53eca896afb67a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/delays.json",
+      "bytes": 129542,
+      "sha256": "a767c4ef97eac819716de672cda29d711a3be90725b8ac2a821a5108389a1066",
+      "git_blob": "06ea2f5cff2e2f03a24663e881cb49feaa6a49ee"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/evolution_checks.json",
+      "bytes": 3686,
+      "sha256": "8467c86947670036b885600bf82ae18b7cea97adbe9ef0299ef75bb8ceff927a",
+      "git_blob": "046c14dba710ae3f8d581edaefa24bb9c0ce8fc9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/histories.json",
+      "bytes": 251278,
+      "sha256": "655196d8e7baa4e4a3218b0ba5bef4e78726087918dd639013185e3a92e3006a",
+      "git_blob": "fe83a9a775cff50833d5bdb189ebb2c06372b499"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/manifest.json",
+      "bytes": 2727,
+      "sha256": "3043cfa3a3983cf5693dc0b40b3c74c911868f7012621b883904e487464502dd",
+      "git_blob": "e5207ed75235db2f4385cb0d871933149b4801cd"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/pressure_sensitivity.json",
+      "bytes": 6150,
+      "sha256": "feec767ed5b0b3802f71338d9320969f5a2ee047015bff84f9744fa9393d4095",
+      "git_blob": "fbe826bd1bc9bb2daf774342e975afcdb250c20a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/summary.json",
+      "bytes": 562,
+      "sha256": "00df3ee2822f81135346115fe752467eee0c0d766cc564ac633ae74699a3edc4",
+      "git_blob": "6c6844dd9622a4943faf8f32374abefed65a147e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/manifest.json",
+      "bytes": 2491,
+      "sha256": "05ee4a08a33a1f4b4119d5841f64fcd12ec520f96d9f9d1a65652c5765f35808",
+      "git_blob": "cfc1495c4ff1403bf7c47e353fbd9b231ab1b331"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/scattering.json",
+      "bytes": 288096,
+      "sha256": "9e4dd8ce553856c343ce94b7a3425fc9d854f1e5863081e90e649ee537cb7b48",
+      "git_blob": "647f1a1d13deed487271cbe33c2c2cec8daf9817"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/summary.json",
+      "bytes": 1011,
+      "sha256": "665621eb7aff85871d9676fef1781a63f93ff6bd7f5d29ca5993cdf41e403be7",
+      "git_blob": "cad5fdb3eb28fc41d49fa1c6dafd265a74ac2635"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/support.json",
+      "bytes": 196290,
+      "sha256": "39f89761ebe50398e36899ce824c5400f21ce2921a738a113ff33ef12378889d",
+      "git_blob": "270355582d4f7c3f64ae3fdb02ddceed7dad65fe"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/verification.json",
+      "bytes": 4512,
+      "sha256": "e54efb266a561a5fe471cb646d109dd3e9f14e13bd0a1c6b4299e75a21c496d5",
+      "git_blob": "0694a7f41f949514b5e915a24487384caa57637f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/weighted_drive.json",
+      "bytes": 29981,
+      "sha256": "d6b4a234477be68f24d046b35ebef6d96291b3a639538ebf61520c4e6001ef96",
+      "git_blob": "c47de3d4ff6613946bb3b4eed82c3482fb046b54"
+    },
+    {
+      "path": "experiments/closure_ledger/s3_maxwell_probe.py",
+      "bytes": 10120,
+      "sha256": "d24cb1b6bda4e95507f56e51acce5232b6ac60ce44ded9eebf983458656fc7b6",
+      "git_blob": "f23c14867dc9cf5463cfbd83e6e8e2761b635f8f"
+    },
+    {
+      "path": "geometrodynamics/viz/moving_mouth_pairs.py",
+      "bytes": 3916,
+      "sha256": "1a238de157967b96dbd6471844a1e549e3f64288a6d7acf4d2b91ed681852975",
+      "git_blob": "80971e302484b8b88aaf27521221f6001546b3d7"
+    },
+    {
+      "path": "geometrodynamics/waves/alice_boundary.py",
+      "bytes": 5866,
+      "sha256": "f0bfd0291d2c540af21def469faef0b4d38e0545d0e772ced0dc21c738444bad",
+      "git_blob": "fb1dea8d146f3eddd45fcf1aa09a931e184f3b06"
+    },
+    {
+      "path": "geometrodynamics/waves/antipodal_kick.py",
+      "bytes": 10339,
+      "sha256": "151005d44a8c63eca17616c9f0ec7186b42326af9a0ba58399763d5a64f93ed5",
+      "git_blob": "3d59dccec4d993e2cf88eda5a9bab1b85524abbd"
+    },
+    {
+      "path": "geometrodynamics/waves/antipodal_throat_transport.py",
+      "bytes": 16484,
+      "sha256": "248ffa9a2520955b4274200242ca7a73fa51f594b4f74c6c025a59f627691188",
+      "git_blob": "decdcd6e25ac1064b6e02d9806c3ed6772a4d323"
+    },
+    {
+      "path": "geometrodynamics/waves/deformable_mode_conversion.py",
+      "bytes": 7780,
+      "sha256": "27fa50ffe0ea8e55ddd94df62f3a443b727fcd1e31d2d3b91c90b6a652d358f7",
+      "git_blob": "114b44851d0a22f9e23b5e5a9be01c2bd940a39e"
+    },
+    {
+      "path": "geometrodynamics/waves/directional_flash_response.py",
+      "bytes": 4994,
+      "sha256": "fc44515cf735aedd8ac768daf39b610f9f44d29fe2807faca8ea9d6ca64619f5",
+      "git_blob": "395c1fb98aa77abe693210861ee735147e1995dc"
+    },
+    {
+      "path": "geometrodynamics/waves/einstein_throat_evolution.py",
+      "bytes": 5633,
+      "sha256": "5d6759b8eb354bfec1ab5530219d6bb1d6273b495668c97a19e6f670674e069b",
+      "git_blob": "382e63b837dd10a158478991918c6a8380696fce"
+    },
+    {
+      "path": "geometrodynamics/waves/gr_handle_checks.py",
+      "bytes": 4942,
+      "sha256": "3f9de605153a7a68f5769570c5a8e711327af57362a2fb58f9e01db99147045d",
+      "git_blob": "b0ffb993c29131b17416429e8ea3b749fd84e82d"
+    },
+    {
+      "path": "geometrodynamics/waves/maxwell_throat_response.py",
+      "bytes": 10853,
+      "sha256": "ac2d945175c0a1fdc468614b73901cb380d9e18d677c05b964e405b18c309c12",
+      "git_blob": "b7d98199f6a77cabab2107ab98fe974c482751bc"
+    },
+    {
+      "path": "geometrodynamics/waves/moving_mouth_pairs.py",
+      "bytes": 8422,
+      "sha256": "91d1b6d7d6c7709c904943bb9e0f82cd3f053f674ad69384e2b278ac70eca5d2",
+      "git_blob": "817c2feff6f638d2b4b9b8011d26860bd13610c4"
+    },
+    {
+      "path": "geometrodynamics/waves/pair_birth.py",
+      "bytes": 30502,
+      "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2",
+      "git_blob": "e75277e593fa236f3931066cc9f8222cbe241660"
+    },
+    {
+      "path": "geometrodynamics/waves/physical_throat.py",
+      "bytes": 52495,
+      "sha256": "b60ba592626a764004e3d278a27d827c2acb970b1b78d1d28bacbb03fa5a940b",
+      "git_blob": "9b1add03e2ecde04753a0123edb1b7dd2bdc32ab"
+    },
+    {
+      "path": "geometrodynamics/waves/quotient_flash.py",
+      "bytes": 4310,
+      "sha256": "7ad27ed7c0fb2ab7d92cef72e65c171c596e4b171792694c84ea9e773b4416ef",
+      "git_blob": "e9f4cf410d6a1342429256a049ea95db887fa056"
+    },
+    {
+      "path": "geometrodynamics/waves/s3_maxwell_encounter.py",
+      "bytes": 13694,
+      "sha256": "999981c4e5997bcf8db0f17173f74d207b0d3c5f30d36f78d01d65a3ce3f5e7f",
+      "git_blob": "94c4bb612d6dc2c27e38adb239525c0bebcabbc7"
+    },
+    {
+      "path": "tests/test_alice_boundary.py",
+      "bytes": 4021,
+      "sha256": "ec00e9ef26d4455e0fd11e107a3e37d933faa2bfc1cd3346a2f266742773e491",
+      "git_blob": "811716d534904c5377eefedded09d8c7f2f40d74"
+    },
+    {
+      "path": "tests/test_antipodal_kick.py",
+      "bytes": 4543,
+      "sha256": "45feb1f56b9751475b1f24707326310cb175fbdd46788e8df4d53e842a61df55",
+      "git_blob": "d3f1ada79d46064385064b12d6ebd4d4666bd71d"
+    },
+    {
+      "path": "tests/test_deformable_mode_conversion.py",
+      "bytes": 2343,
+      "sha256": "ec278c4f37adcb7396d966b534417acfe653dedfefc1f22084fe773a3463b401",
+      "git_blob": "5895d31d276a267ad4cd878e30d09bf3c1170393"
+    },
+    {
+      "path": "tests/test_directional_flash_response.py",
+      "bytes": 5407,
+      "sha256": "0341df0cf420a4410c09ce72d985e83312a9cee5d251b1106523a5d403ef405c",
+      "git_blob": "e7a43f1eb03a83d09c12a2e34af1bb2166fc8a3f"
+    },
+    {
+      "path": "tests/test_einstein_throat_evolution.py",
+      "bytes": 4600,
+      "sha256": "3a09d3d89d4e8b2f0a446d191e175ad87eb78db81a1fa4292abe4a31861a9bf4",
+      "git_blob": "0cf82092e4b3ed0c658029d9fc780ed124d1c92f"
+    },
+    {
+      "path": "tests/test_gr_handle_checks.py",
+      "bytes": 4300,
+      "sha256": "6972c9c7e3f730bb70900ac957992fded6161c557f6d92a2d7c33af3f8c37113",
+      "git_blob": "4e36376eda3537323c2de4cf257846e7281f3f8b"
+    },
+    {
+      "path": "tests/test_maxwell_throat_response.py",
+      "bytes": 5640,
+      "sha256": "19847efdd3c0f694a63a9f26f81130be4df5cb48b8831848b674278d63d6ec85",
+      "git_blob": "b36b0d2471e8aa224964a54715806dfe5ddb9728"
+    },
+    {
+      "path": "tests/test_moving_mouth_pairs.py",
+      "bytes": 5092,
+      "sha256": "438ad9fb007e4fae924c9997348ff86087ff22f52fdc1932b82d7dbbea2277e5",
+      "git_blob": "c4df2b48c78d77b74d742389bf18db26b2495b70"
+    },
+    {
+      "path": "tests/test_pair_birth.py",
+      "bytes": 7670,
+      "sha256": "7362f595eeaadcbd018268a999611bf8004df564a5f4587904925ad6760120fe",
+      "git_blob": "703c90eb6674059ca676f3354ee79bbf2958f418"
+    },
+    {
+      "path": "tests/test_pr349_review.py",
+      "bytes": 1377,
+      "sha256": "1b28511f8cb77a3d99dd9ac733fd001ea9b7134d4007a95bc6b201744000e8fa",
+      "git_blob": "2e5abca0362a720d7d979a57a71b8dbb6df6a5cb"
+    },
+    {
+      "path": "tests/test_quotient_flash.py",
+      "bytes": 3719,
+      "sha256": "4ac9c5cb8948035b1b673624981710d1136d04401fb89d434a0ad299ad31f6fe",
+      "git_blob": "56e52b2d41602d5694101fd63c0f9ecc912b74dd"
+    },
+    {
+      "path": "tests/test_s3_maxwell_encounter.py",
+      "bytes": 7167,
+      "sha256": "9a9990c9410286418ac2821637fc07855fc2ad7f145d4f049e10060eab332a60",
+      "git_blob": "7cd3ddc410f1e3e1121e91d4a12c328b4d392ee7"
+    }
+  ],
+  "validation": {
+    "test_files": [
+      "tests/test_alice_boundary.py",
+      "tests/test_antipodal_kick.py",
+      "tests/test_deformable_mode_conversion.py",
+      "tests/test_directional_flash_response.py",
+      "tests/test_einstein_throat_evolution.py",
+      "tests/test_gr_handle_checks.py",
+      "tests/test_maxwell_throat_response.py",
+      "tests/test_moving_mouth_pairs.py",
+      "tests/test_pair_birth.py",
+      "tests/test_pr349_review.py",
+      "tests/test_quotient_flash.py",
+      "tests/test_s3_maxwell_encounter.py",
+      "tests/test_waves_physical_throat.py"
+    ],
+    "tests_passed": 228,
+    "python": "3.12",
+    "openblas_threads": 1,
+    "full_repository_suite_run": false,
+    "wheel_built": "geometrodynamics-0.44.0-py3-none-any.whl",
+    "independent_delay_replication": {
+      "upstream_commit": "c1a5ae6247423c6fff5b2bff4bed8434faf258c1",
+      "test": "test_two_port_reproduces_the_published_delay_table",
+      "result": "passed; six lapse depths"
+    },
+    "isolated_wheel_smoke": "passed: version, imports, throat transmission and radius acceleration"
+  },
+  "boundaries": [
+    "Exact refocusing is a prescribed source-free S3 reference",
+    "Finite-port scattering does not attach the closed S3 exterior",
+    "The successful attraction run is a prepared two-channel field analogue",
+    "The refined BAM-scale analogue keeps separating",
+    "Electrovacuum radius contraction is not mouth-center attraction or regular annihilation",
+    "No derived charged Klein/time seam, support evolution or full matter-wave cycle is claimed"
+  ],
+  "historical_negative_result": {
+    "commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+    "report": "docs/coupled_mouth_throat_results.md",
+    "archive": "experiments/closure_ledger/runs/20261020_coupled_mouth_throat_replay",
+    "copied_into_release": false,
+    "conclusion": "Scalar candidate failed sustained approach and collapse; limitations retained in pinned report"
+  }
+}

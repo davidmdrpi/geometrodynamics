@@ -3,6 +3,21 @@
 
 **A research framework implementing and testing Wheeler's geometrodynamic program.**
 
+## v0.44.0 research foundations
+
+[Release overview and evidence](docs/releases/bam-foundations-0.44.0.md) collect
+exact S³ Maxwell refocusing, geometry-derived throat scattering and mechanical
+loads, an action-derived attraction analogue, and independently checked Einstein
+radius evolution. Source, tests, archived histories and provenance ship together.
+
+These are verified building blocks for the coupled BAM model. **Self-consistent
+mouth attraction and nonsingular annihilation remain open.** The attraction
+analogue's negative BAM-scale control and the earlier scalar failure are retained
+in the evidence assessment.
+
+![Verified wave and throat building blocks](docs/images/releases/bam_foundations.png)
+
+
 This package computationally explores the hypothesis that structures
 physicists call electromagnetism, charge, spin, confinement, **black
 holes**, and **Bell correlations** may emerge from the geometry of

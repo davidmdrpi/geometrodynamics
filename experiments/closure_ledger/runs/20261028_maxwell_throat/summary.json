@@ -1,0 +1,21 @@
+{
+  "scattering_cases": 138,
+  "weighted_drive_cases": 9,
+  "verification_cases": 16,
+  "support_cases": 12,
+  "max_unitarity_error": 6.851590406142806e-10,
+  "minimum_waist_force_eigenvalue": 0.0020233149281898106,
+  "minimum_stretch_force_eigenvalue": 0.013202432998233425,
+  "max_phase_force_error": 5.5296592418101515e-08,
+  "max_quadrature_ode_change": 1.3350753835794649e-10,
+  "actual_support_constitutive_law_derived": false,
+  "mouth_translation_or_collapse_derived": false,
+  "findings": [
+    "Maxwell geometry determines a finite-port scattering map for each stated positive lapse",
+    "Fixed-lapse nonnegative waist variations have nonnegative radiative and static-flux loads",
+    "Fixed topological flux supplies intrinsic-length tension",
+    "Charged Hamiltonian constraint is solved before including finite static flux",
+    "Positive-lapse static completions require additional null-energy-violating stress",
+    "Time-reversing seams require real-linear matching, not a complex gain"
+  ]
+}

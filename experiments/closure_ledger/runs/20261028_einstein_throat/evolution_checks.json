@@ -1,0 +1,98 @@
+[
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.0,
+    "max_radius_error_over_initial_radius": 5.106796367944298e-12,
+    "max_velocity_error": 2.4431191292251242e-08,
+    "max_refinement_radius_change_over_initial_radius": 1.7963633330983175e-10,
+    "max_exact_energy_residual": 5.684341886080802e-14
+  },
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.5,
+    "max_radius_error_over_initial_radius": 2.2943389279343427e-12,
+    "max_velocity_error": 2.803435261711229e-11,
+    "max_refinement_radius_change_over_initial_radius": 2.797788175018182e-10,
+    "max_exact_energy_residual": 3.552713678800501e-15
+  },
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.9,
+    "max_radius_error_over_initial_radius": 1.9533175300701884e-12,
+    "max_velocity_error": 5.602573960317159e-12,
+    "max_refinement_radius_change_over_initial_radius": 1.068699853058876e-10,
+    "max_exact_energy_residual": 4.440892098500626e-16
+  },
+  {
+    "angle": 0.2,
+    "charge_fraction": 0.99,
+    "max_radius_error_over_initial_radius": 4.034810055582084e-12,
+    "max_velocity_error": 2.6019394971932286e-12,
+    "max_refinement_radius_change_over_initial_radius": 5.943074730385678e-11,
+    "max_exact_energy_residual": 4.440892098500626e-16
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.0,
+    "max_radius_error_over_initial_radius": 5.111504723874194e-12,
+    "max_velocity_error": 2.445374036597059e-08,
+    "max_refinement_radius_change_over_initial_radius": 1.796363333741868e-10,
+    "max_exact_energy_residual": 5.684341886080802e-14
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.5,
+    "max_radius_error_over_initial_radius": 2.780866656115897e-12,
+    "max_velocity_error": 2.697508882931743e-11,
+    "max_refinement_radius_change_over_initial_radius": 7.697566462865856e-11,
+    "max_exact_energy_residual": 2.6645352591003757e-15
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.9,
+    "max_radius_error_over_initial_radius": 1.7858785452185766e-12,
+    "max_velocity_error": 5.523692614417541e-12,
+    "max_refinement_radius_change_over_initial_radius": 1.061018914241889e-10,
+    "max_exact_energy_residual": 4.440892098500626e-16
+  },
+  {
+    "angle": 0.3,
+    "charge_fraction": 0.99,
+    "max_radius_error_over_initial_radius": 5.285746608639935e-12,
+    "max_velocity_error": 3.1785477028201115e-12,
+    "max_refinement_radius_change_over_initial_radius": 4.9552560096666715e-11,
+    "max_exact_energy_residual": 4.440892098500626e-16
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.0,
+    "max_radius_error_over_initial_radius": 5.106796173748953e-12,
+    "max_velocity_error": 2.4431191292251242e-08,
+    "max_refinement_radius_change_over_initial_radius": 1.796363333292394e-10,
+    "max_exact_energy_residual": 1.1368683772161603e-13
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.5,
+    "max_radius_error_over_initial_radius": 1.3291253690273743e-12,
+    "max_velocity_error": 2.20840012943313e-11,
+    "max_refinement_radius_change_over_initial_radius": 3.863807299981908e-11,
+    "max_exact_energy_residual": 1.7763568394002505e-15
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.9,
+    "max_radius_error_over_initial_radius": 1.7829921690373276e-12,
+    "max_velocity_error": 1.297806306865823e-11,
+    "max_refinement_radius_change_over_initial_radius": 1.1500373662764996e-10,
+    "max_exact_energy_residual": 4.440892098500626e-16
+  },
+  {
+    "angle": 0.45,
+    "charge_fraction": 0.99,
+    "max_radius_error_over_initial_radius": 3.1872686681610553e-12,
+    "max_velocity_error": 1.453948073049105e-12,
+    "max_refinement_radius_change_over_initial_radius": 7.217587085095319e-11,
+    "max_exact_energy_residual": 3.3306690738754696e-16
+  }
+]

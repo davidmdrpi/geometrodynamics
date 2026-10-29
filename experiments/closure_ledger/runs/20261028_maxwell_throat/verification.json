@@ -1,0 +1,162 @@
+[
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 10.0,
+    "parameter": "waist",
+    "step": 2e-05,
+    "phase_derivative_error": 9.68131578991237e-12,
+    "quadrature_ode_change": 4.261910269143258e-12,
+    "fine_unitarity_error": 2.90569357693224e-16
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 10.0,
+    "parameter": "waist",
+    "step": 5e-06,
+    "phase_derivative_error": 1.477043985498214e-11,
+    "quadrature_ode_change": 4.261910269143258e-12,
+    "fine_unitarity_error": 2.90569357693224e-16
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 10.0,
+    "parameter": "stretch",
+    "step": 2e-05,
+    "phase_derivative_error": 5.086161968208967e-11,
+    "quadrature_ode_change": 7.636308252401152e-12,
+    "fine_unitarity_error": 2.90569357693224e-16
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 10.0,
+    "parameter": "stretch",
+    "step": 5e-06,
+    "phase_derivative_error": 1.8815715161695777e-11,
+    "quadrature_ode_change": 7.636308252401152e-12,
+    "fine_unitarity_error": 2.90569357693224e-16
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 60.0,
+    "parameter": "waist",
+    "step": 2e-05,
+    "phase_derivative_error": 7.610768080691706e-10,
+    "quadrature_ode_change": 3.2541747074787963e-11,
+    "fine_unitarity_error": 8.87068196699066e-13
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 60.0,
+    "parameter": "waist",
+    "step": 5e-06,
+    "phase_derivative_error": 4.9411169532901956e-11,
+    "quadrature_ode_change": 3.2541747074787963e-11,
+    "fine_unitarity_error": 8.87068196699066e-13
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 60.0,
+    "parameter": "stretch",
+    "step": 2e-05,
+    "phase_derivative_error": 5.5296592418101515e-08,
+    "quadrature_ode_change": 1.3350753835794649e-10,
+    "fine_unitarity_error": 8.87068196699066e-13
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.0,
+    "omega": 60.0,
+    "parameter": "stretch",
+    "step": 5e-06,
+    "phase_derivative_error": 3.4603975514097708e-09,
+    "quadrature_ode_change": 1.3350753835794649e-10,
+    "fine_unitarity_error": 8.87068196699066e-13
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.8,
+    "omega": 10.0,
+    "parameter": "waist",
+    "step": 2e-05,
+    "phase_derivative_error": 5.91419885719887e-09,
+    "quadrature_ode_change": 9.844125514746613e-12,
+    "fine_unitarity_error": 5.318941034871553e-14
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.8,
+    "omega": 10.0,
+    "parameter": "waist",
+    "step": 5e-06,
+    "phase_derivative_error": 3.8210367872130327e-10,
+    "quadrature_ode_change": 9.844125514746613e-12,
+    "fine_unitarity_error": 5.318941034871553e-14
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.8,
+    "omega": 10.0,
+    "parameter": "stretch",
+    "step": 2e-05,
+    "phase_derivative_error": 1.6136074359252321e-09,
+    "quadrature_ode_change": 1.2754686196103677e-11,
+    "fine_unitarity_error": 5.318941034871553e-14
+  },
+  {
+    "charge_fraction": 0.0,
+    "lapse_depth": 0.8,
+    "omega": 10.0,
+    "parameter": "stretch",
+    "step": 5e-06,
+    "phase_derivative_error": 5.773542733432289e-11,
+    "quadrature_ode_change": 1.2754686196103677e-11,
+    "fine_unitarity_error": 5.318941034871553e-14
+  },
+  {
+    "charge_fraction": 0.9,
+    "lapse_depth": 0.4,
+    "omega": 20.0,
+    "parameter": "waist",
+    "step": 2e-05,
+    "phase_derivative_error": 2.8792648057375904e-10,
+    "quadrature_ode_change": 2.5925761537592968e-11,
+    "fine_unitarity_error": 3.9769024314938635e-15
+  },
+  {
+    "charge_fraction": 0.9,
+    "lapse_depth": 0.4,
+    "omega": 20.0,
+    "parameter": "waist",
+    "step": 5e-06,
+    "phase_derivative_error": 4.291758672323058e-12,
+    "quadrature_ode_change": 2.5925761537592968e-11,
+    "fine_unitarity_error": 3.9769024314938635e-15
+  },
+  {
+    "charge_fraction": 0.9,
+    "lapse_depth": 0.4,
+    "omega": 20.0,
+    "parameter": "stretch",
+    "step": 2e-05,
+    "phase_derivative_error": 5.4268157054591194e-09,
+    "quadrature_ode_change": 2.1776247471905208e-11,
+    "fine_unitarity_error": 3.9769024314938635e-15
+  },
+  {
+    "charge_fraction": 0.9,
+    "lapse_depth": 0.4,
+    "omega": 20.0,
+    "parameter": "stretch",
+    "step": 5e-06,
+    "phase_derivative_error": 3.3180967660651505e-10,
+    "quadrature_ode_change": 2.1776247471905208e-11,
+    "fine_unitarity_error": 3.9769024314938635e-15
+  }
+]

@@ -1,0 +1,578 @@
+[
+  {
+    "width": 0.12,
+    "cutoff": 24,
+    "angular_order": 16,
+    "time_order": 64,
+    "radial_order": 16,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7422396529240732,
+        "momentum_flux": 0.10294547656273609,
+        "normal_stress": 0.6817004982714653,
+        "incoming_characteristic": 0.7736641395707037,
+        "outgoing_characteristic": 0.031424486646630403
+      },
+      "stored_initial": [
+        0.001308596447409831,
+        -0.00011172151317269489
+      ],
+      "stored_final": [
+        0.7435482493715658,
+        -0.10305719807300773
+      ],
+      "energy_balance_residual": 8.271161533457416e-14,
+      "transparent_matter_impulse": -2.9010543967089575e-12,
+      "incident_only_impulse": -0.10294547656273609,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 129.39957069001298
+  },
+  {
+    "width": 0.12,
+    "cutoff": 24,
+    "angular_order": 24,
+    "time_order": 96,
+    "radial_order": 24,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7422396529241667,
+        "momentum_flux": 0.10294547655991187,
+        "normal_stress": 0.6817004982762764,
+        "incoming_characteristic": 0.7736641395718323,
+        "outgoing_characteristic": 0.03142448664766577
+      },
+      "stored_initial": [
+        0.0013085964473949412,
+        -0.00011172151316729838
+      ],
+      "stored_final": [
+        0.7435482493715642,
+        -0.10305719807307785
+      ],
+      "energy_balance_residual": 2.55351295663786e-15,
+      "transparent_matter_impulse": -1.3183898417423734e-15,
+      "incident_only_impulse": -0.10294547655991187,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 129.39957069001298
+  },
+  {
+    "width": 0.12,
+    "cutoff": 24,
+    "angular_order": 36,
+    "time_order": 144,
+    "radial_order": 36,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7422396529241664,
+        "momentum_flux": 0.10294547655991251,
+        "normal_stress": 0.6817004982762758,
+        "incoming_characteristic": 0.773664139571832,
+        "outgoing_characteristic": 0.03142448664766556
+      },
+      "stored_initial": [
+        0.001308596447394941,
+        -0.00011172151316729805
+      ],
+      "stored_final": [
+        0.7435482493715638,
+        -0.10305719807307762
+      ],
+      "energy_balance_residual": 2.55351295663786e-15,
+      "transparent_matter_impulse": -2.192690473634684e-15,
+      "incident_only_impulse": -0.10294547655991251,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 129.39957069001298
+  },
+  {
+    "width": 0.12,
+    "cutoff": 48,
+    "angular_order": 16,
+    "time_order": 64,
+    "radial_order": 16,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7662793683585014,
+        "momentum_flux": 0.10426169734428418,
+        "normal_stress": 0.6994805874299259,
+        "incoming_characteristic": 0.7955303093671042,
+        "outgoing_characteristic": 0.029250941008602777
+      },
+      "stored_initial": [
+        9.17005380795889e-05,
+        -7.731515170135436e-05
+      ],
+      "stored_final": [
+        0.7663710688959486,
+        -0.10433901249798064
+      ],
+      "energy_balance_residual": -6.323830348264892e-13,
+      "transparent_matter_impulse": 1.995098530827022e-12,
+      "incident_only_impulse": -0.10426169734428418,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 167.68957333013924
+  },
+  {
+    "width": 0.12,
+    "cutoff": 48,
+    "angular_order": 24,
+    "time_order": 96,
+    "radial_order": 24,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7662793683574525,
+        "momentum_flux": 0.10426169734559829,
+        "normal_stress": 0.6994805874312172,
+        "incoming_characteristic": 0.7955303093667337,
+        "outgoing_characteristic": 0.0292509410092813
+      },
+      "stored_initial": [
+        9.170053807956584e-05,
+        -7.73151517012644e-05
+      ],
+      "stored_final": [
+        0.7663710688955349,
+        -0.10433901249729803
+      ],
+      "energy_balance_residual": 2.7755575615628914e-15,
+      "transparent_matter_impulse": -1.5265566588595902e-15,
+      "incident_only_impulse": -0.10426169734559829,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 167.68957333013924
+  },
+  {
+    "width": 0.12,
+    "cutoff": 48,
+    "angular_order": 36,
+    "time_order": 144,
+    "radial_order": 36,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7662793683574521,
+        "momentum_flux": 0.10426169734559891,
+        "normal_stress": 0.6994805874312167,
+        "incoming_characteristic": 0.7955303093667332,
+        "outgoing_characteristic": 0.02925094100928112
+      },
+      "stored_initial": [
+        9.170053807956604e-05,
+        -7.731515170126457e-05
+      ],
+      "stored_final": [
+        0.7663710688955345,
+        -0.10433901249729775
+      ],
+      "energy_balance_residual": 2.7755575615628914e-15,
+      "transparent_matter_impulse": -2.42861286636753e-15,
+      "incident_only_impulse": -0.10426169734559891,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 167.68957333013924
+  },
+  {
+    "width": 0.12,
+    "cutoff": 72,
+    "angular_order": 16,
+    "time_order": 64,
+    "radial_order": 16,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7662794326732558,
+        "momentum_flux": 0.1042616446651807,
+        "normal_stress": 0.6994806737073278,
+        "incoming_characteristic": 0.7955303869655661,
+        "outgoing_characteristic": 0.029250954292310383
+      },
+      "stored_initial": [
+        9.169985619637716e-05,
+        -7.731443156110727e-05
+      ],
+      "stored_final": [
+        0.7663711325288123,
+        -0.10433895909869809
+      ],
+      "energy_balance_residual": -6.399325513939402e-13,
+      "transparent_matter_impulse": 1.956282358328565e-12,
+      "incident_only_impulse": -0.1042616446651807,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 167.6910654886279
+  },
+  {
+    "width": 0.12,
+    "cutoff": 72,
+    "angular_order": 24,
+    "time_order": 96,
+    "radial_order": 24,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7662794326722109,
+        "momentum_flux": 0.10426164466645646,
+        "normal_stress": 0.6994806737086499,
+        "incoming_characteristic": 0.7955303869652084,
+        "outgoing_characteristic": 0.029250954292997424
+      },
+      "stored_initial": [
+        9.169985619636632e-05,
+        -7.73144315610228e-05
+      ],
+      "stored_final": [
+        0.7663711325284102,
+        -0.10433895909801595
+      ],
+      "energy_balance_residual": 2.886579864025407e-15,
+      "transparent_matter_impulse": -1.5265566588595902e-15,
+      "incident_only_impulse": -0.10426164466645646,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 167.6910654886279
+  },
+  {
+    "width": 0.12,
+    "cutoff": 72,
+    "angular_order": 36,
+    "time_order": 144,
+    "radial_order": 36,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.7662794326722107,
+        "momentum_flux": 0.10426164466645707,
+        "normal_stress": 0.6994806737086492,
+        "incoming_characteristic": 0.795530386965208,
+        "outgoing_characteristic": 0.02925095429299724
+      },
+      "stored_initial": [
+        9.169985619636651e-05,
+        -7.731443156102296e-05
+      ],
+      "stored_final": [
+        0.7663711325284097,
+        -0.1043389590980157
+      ],
+      "energy_balance_residual": 2.6645352591003757e-15,
+      "transparent_matter_impulse": -2.3869795029440866e-15,
+      "incident_only_impulse": -0.10426164466645707,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 167.6910654886279
+  },
+  {
+    "width": 0.2,
+    "cutoff": 24,
+    "angular_order": 16,
+    "time_order": 64,
+    "radial_order": 16,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.5275983683809997,
+        "momentum_flux": 0.11842929622893758,
+        "normal_stress": 0.6211018865151219,
+        "incoming_characteristic": 0.6549113230737781,
+        "outgoing_characteristic": 0.12731295469277842
+      },
+      "stored_initial": [
+        0.007003856857205809,
+        -0.0034791689245022867
+      ],
+      "stored_final": [
+        0.5346022252382072,
+        -0.12190846515344031
+      ],
+      "energy_balance_residual": 1.6653345369377348e-15,
+      "transparent_matter_impulse": 4.440892098500626e-16,
+      "incident_only_impulse": -0.11842929622893758,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.728963539272
+  },
+  {
+    "width": 0.2,
+    "cutoff": 24,
+    "angular_order": 24,
+    "time_order": 96,
+    "radial_order": 24,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.5275983683809993,
+        "momentum_flux": 0.11842929622893841,
+        "normal_stress": 0.6211018865152981,
+        "incoming_characteristic": 0.6549113230737538,
+        "outgoing_characteristic": 0.12731295469275455
+      },
+      "stored_initial": [
+        0.007003856857205812,
+        -0.003479168924502292
+      ],
+      "stored_final": [
+        0.5346022252382072,
+        -0.12190846515344042
+      ],
+      "energy_balance_residual": 2.1094237467877974e-15,
+      "transparent_matter_impulse": -2.7755575615628914e-16,
+      "incident_only_impulse": -0.11842929622893841,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.728963539272
+  },
+  {
+    "width": 0.2,
+    "cutoff": 24,
+    "angular_order": 36,
+    "time_order": 144,
+    "radial_order": 36,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.527598368380999,
+        "momentum_flux": 0.11842929622893861,
+        "normal_stress": 0.6211018865152975,
+        "incoming_characteristic": 0.6549113230737534,
+        "outgoing_characteristic": 0.12731295469275444
+      },
+      "stored_initial": [
+        0.007003856857205815,
+        -0.0034791689245022924
+      ],
+      "stored_final": [
+        0.5346022252382071,
+        -0.12190846515344039
+      ],
+      "energy_balance_residual": 2.220446049250313e-15,
+      "transparent_matter_impulse": -5.134781488891349e-16,
+      "incident_only_impulse": -0.11842929622893861,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.728963539272
+  },
+  {
+    "width": 0.2,
+    "cutoff": 48,
+    "angular_order": 16,
+    "time_order": 64,
+    "radial_order": 16,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.5276076392032183,
+        "momentum_flux": 0.11841870787350149,
+        "normal_stress": 0.6211134577038705,
+        "incoming_characteristic": 0.6549234237367071,
+        "outgoing_characteristic": 0.12731578453348874
+      },
+      "stored_initial": [
+        0.007003125347458771,
+        -0.0034784408143299153
+      ],
+      "stored_final": [
+        0.5346107645506786,
+        -0.12189714868783214
+      ],
+      "energy_balance_residual": 1.5543122344752192e-15,
+      "transparent_matter_impulse": 7.355227538141662e-16,
+      "incident_only_impulse": -0.11841870787350149,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.761204707112185
+  },
+  {
+    "width": 0.2,
+    "cutoff": 48,
+    "angular_order": 24,
+    "time_order": 96,
+    "radial_order": 24,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.5276076392032178,
+        "momentum_flux": 0.11841870787350266,
+        "normal_stress": 0.6211134577040467,
+        "incoming_characteristic": 0.6549234237366827,
+        "outgoing_characteristic": 0.12731578453346487
+      },
+      "stored_initial": [
+        0.007003125347458773,
+        -0.0034784408143299188
+      ],
+      "stored_final": [
+        0.5346107645506787,
+        -0.1218971486878323
+      ],
+      "energy_balance_residual": 2.1094237467877974e-15,
+      "transparent_matter_impulse": -2.7755575615628914e-16,
+      "incident_only_impulse": -0.11841870787350266,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.761204707112185
+  },
+  {
+    "width": 0.2,
+    "cutoff": 48,
+    "angular_order": 36,
+    "time_order": 144,
+    "radial_order": 36,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.5276076392032175,
+        "momentum_flux": 0.11841870787350284,
+        "normal_stress": 0.621113457704046,
+        "incoming_characteristic": 0.6549234237366823,
+        "outgoing_characteristic": 0.12731578453346476
+      },
+      "stored_initial": [
+        0.0070031253474587786,
+        -0.00347844081432992
+      ],
+      "stored_final": [
+        0.5346107645506785,
+        -0.12189714868783226
+      ],
+      "energy_balance_residual": 2.220446049250313e-15,
+      "transparent_matter_impulse": -4.996003610813204e-16,
+      "incident_only_impulse": -0.11841870787350284,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.761204707112185
+  },
+  {
+    "width": 0.2,
+    "cutoff": 72,
+    "angular_order": 16,
+    "time_order": 64,
+    "radial_order": 16,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.5276076392032196,
+        "momentum_flux": 0.11841870787350284,
+        "normal_stress": 0.6211134577038696,
+        "incoming_characteristic": 0.6549234237367071,
+        "outgoing_characteristic": 0.1273157845334874
+      },
+      "stored_initial": [
+        0.007003125347458761,
+        -0.003478440814329929
+      ],
+      "stored_final": [
+        0.53461076455068,
+        -0.12189714868783347
+      ],
+      "energy_balance_residual": 1.6653345369377348e-15,
+      "transparent_matter_impulse": 6.938893903907228e-16,
+      "incident_only_impulse": -0.11841870787350284,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.76120470711205
+  },
+  {
+    "width": 0.2,
+    "cutoff": 72,
+    "angular_order": 24,
+    "time_order": 96,
+    "radial_order": 24,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.5276076392032192,
+        "momentum_flux": 0.11841870787350399,
+        "normal_stress": 0.6211134577040458,
+        "incoming_characteristic": 0.6549234237366828,
+        "outgoing_characteristic": 0.12731578453346354
+      },
+      "stored_initial": [
+        0.007003125347458764,
+        -0.003478440814329932
+      ],
+      "stored_final": [
+        0.53461076455068,
+        -0.12189714868783363
+      ],
+      "energy_balance_residual": 2.1094237467877974e-15,
+      "transparent_matter_impulse": -2.914335439641036e-16,
+      "incident_only_impulse": -0.11841870787350399,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.76120470711205
+  },
+  {
+    "width": 0.2,
+    "cutoff": 72,
+    "angular_order": 36,
+    "time_order": 144,
+    "radial_order": 36,
+    "result": {
+      "start": 2.3415926535897933,
+      "stop": 3.021592653589793,
+      "integrals": {
+        "energy_flux": -0.527607639203219,
+        "momentum_flux": 0.11841870787350417,
+        "normal_stress": 0.6211134577040451,
+        "incoming_characteristic": 0.6549234237366823,
+        "outgoing_characteristic": 0.1273157845334634
+      },
+      "stored_initial": [
+        0.007003125347458771,
+        -0.003478440814329934
+      ],
+      "stored_final": [
+        0.5346107645506798,
+        -0.12189714868783362
+      ],
+      "energy_balance_residual": 2.1094237467877974e-15,
+      "transparent_matter_impulse": -4.85722573273506e-16,
+      "incident_only_impulse": -0.11841870787350417,
+      "focus_inside": true,
+      "scope": "Vacuum observation worldtube, no absorption/reflection law or mouth recoil"
+    },
+    "focal_density": 36.76120470711205
+  }
+]
