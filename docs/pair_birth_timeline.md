@@ -138,8 +138,8 @@ A classical experiment on #345, answering the acceptance test set in its review 
       focus the reflected recoil pushes the pair apart.
     - **A deep lapse lets more through,** 2.5–16% of the flash, but slowly and through narrow
       resonances.
-    - **The throat must be held open.** Unsupported, it pinches off within 0.04 (#349), and the
-      mouth then absorbs what it catches.
+    - **The throat must be held open.** Unsupported, it pinches off before any signal can cross
+      it (#349; Fuller and Wheeler), and the mouth then absorbs what it catches.
 
 **What this is not.**
 - **The field and mouths are effective.** The sphere-side field is 2+1 Maxwell on the round
@@ -1304,9 +1304,12 @@ frequencies √(l(l + 1)):
     these transmissions are upper bounds.
   - **The lapse itself.**
   - **The support.** A static throat, whatever its lapse, has to be held open.
-    - Unsupported, it contracts under Einstein's equation. At a = 0.3 the neutral bridge pinches
-      off within πM = 0.041 of proper time at its centre (#349, dc9c689). That is before light
-      could cross it (0.662), and long before a flight ends (about 9).
+    - Unsupported, it contracts under Einstein's equation (#349, dc9c689). As Fuller and Wheeler
+      showed for the neutral bridge, it pinches off before any signal can cross it.
+    - Its central collapse time, πM = 0.041 at a = 0.3, is proper time on the central geodesic of
+      that unsupported completion. It is not a reading of the rims' clocks, so it is not compared
+      here with the supported throat's crossing time (0.662) or a flight (about 9), as an earlier
+      version did (#350).
     - The mouth is then a horizon that absorbs what it catches. That is a third outcome, neither
       transmission nor reflection, which this router does not model.
     - How the support responds is the missing equation.
