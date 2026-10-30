@@ -3,19 +3,19 @@
 
 **A research framework implementing and testing Wheeler's geometrodynamic program.**
 
-## v0.44.0 research foundations
+## v1.3.5 — BAM research capstone
 
-[Release overview and evidence](docs/releases/bam-foundations-0.44.0.md) collect
-exact S³ Maxwell refocusing, geometry-derived throat scattering and mechanical
-loads, action-derived attraction in a 1+1-D kink analogue, and independently
-checked Einstein radius evolution. Source, tests, archived histories and provenance ship together.
+[Release notes and verified results](docs/releases/bam-foundations-1.3.5.md)
+bring together the work since v1.3.0: constrained handle data, antipodal packet
+transport, R3 return families and symmetry predictions, reciprocal scalar recoil,
+strict-cycle timing, Maxwell throat scattering and conditional Einstein radius
+evolution. The release includes final PR #345 code and pins the other research
+lines to their evidence and tests. Each result retains its physical scope.
 
-These are verified building blocks for the coupled BAM model. **Self-consistent
-mouth attraction and nonsingular annihilation remain open.** The attraction
-analogue's negative BAM-scale control and the earlier scalar failure are retained
-in the evidence assessment.
+![BAM research capstone](docs/images/releases/bam_capstone.png)
 
-![Verified wave and throat building blocks](docs/images/releases/bam_foundations.png)
+The [research record](docs/releases/bam-foundations-research-record.md) preserves
+all controls, negative results and the remaining requirements for the coupled model.
 
 
 This package computationally explores the hypothesis that structures

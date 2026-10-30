@@ -22,4 +22,4 @@ blackhole     Black holes as coherent wormhole-throat condensates
 viz           Visualisation helpers (animation, plotting)
 """
 
-__version__ = "0.44.0"
+__version__ = "1.3.5"

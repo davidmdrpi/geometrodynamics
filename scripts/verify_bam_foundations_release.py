@@ -1,4 +1,4 @@
-"""Verify saved v0.44.0 evidence without freezing evolving source or tests.
+"""Verify saved v1.3.5 evidence without freezing evolving source or tests.
 
 Default: check working-tree run archives and images against the release index.
 --ref: check all indexed imports at a historical Git ref (including source).
@@ -51,8 +51,13 @@ def verify(root=ROOT, ref=None, source_ref=None):
         return local.read_bytes()
 
     checked = set()
+    snapshot_catalog = {}
+    if snapshot and 'capstone' in index:
+        snapshot_catalog = json.loads(read(INDEX_PATH)).get('capstone', {})
+    replacements = {entry['path']: entry for entry in snapshot_catalog.get('source_imports', [])}
 
     def check(entry):
+        entry = replacements.get(entry['path'], entry)
         name = entry['path']
         if not snapshot and not archive_path(name):
             return
@@ -76,6 +81,8 @@ def verify(root=ROOT, ref=None, source_ref=None):
                     raise ValueError('Origin provenance mismatch: '+entry['path'])
             provenance_checked += 1
 
+    for entry in snapshot_catalog.get('source_imports', []) + snapshot_catalog.get('artifacts', []):
+        check(entry)
     component_entries = 0
     for name in index['component_manifests']:
         entries = json.loads(read(name))['files']
@@ -92,7 +99,12 @@ def verify(root=ROOT, ref=None, source_ref=None):
                 state = str(PurePosixPath(name).with_suffix('.npz'))
                 if hashlib.sha256(read(state)).hexdigest() != value['state_sha256']:
                     raise ValueError('Full-state replay mismatch: '+state)
-    return dict(release=index['release'], mode='historical imports' if snapshot else 'working-tree archives',
+    catalog_checks = {}
+    if not snapshot and 'capstone' in index:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        from bam_release_catalog import verify_catalog
+        catalog_checks = verify_catalog(index, root, provenance=bool(source))
+    return dict(**catalog_checks, release=index['release'], mode='historical imports' if snapshot else 'working-tree archives',
                 checked_ref=snapshot, imported_files=len(index['imported_files']),
                 component_manifests=len(index['component_manifests']),
                 component_entries=component_entries, unique_files_checked=len(checked),

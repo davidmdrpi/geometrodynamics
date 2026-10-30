@@ -105,3 +105,70 @@ def test_wrong_source_commit_rejected(evidence):
     path.write_text(json.dumps(index))
     with pytest.raises(ValueError, match='Source ref does not resolve'):
         verifier.verify(root, source_ref=ref)
+
+
+def test_release_ref_accepts_explicit_source_successors_and_keeps_original_audit(evidence):
+    root, _, index, path = evidence
+    def git(*args):
+        return subprocess.check_output(['git','-C',str(root),*args],stderr=subprocess.PIPE).decode().strip()
+    def commit():
+        git('add','.')
+        git('-c','user.name=Verifier Test','-c','user.email=verifier@example.invalid',
+            'commit','-qm','Release revision')
+        return git('rev-parse','HEAD')
+    old_ref = commit()  # Include the original index in its historical tree.
+    name='geometrodynamics/waves/pair_birth.py'
+    data=b'corrected_upstream = True\n'
+    (root/name).write_bytes(data)
+    replacement=dict(path=name,bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
+    index['capstone']={'source_imports':[replacement],'artifacts':[]}
+    path.write_text(json.dumps(index))
+    new_ref=commit()
+    assert verifier.verify(root,ref=new_ref)['unique_files_checked']==7
+    assert verifier.verify(root,ref=old_ref)['unique_files_checked']==7
+    (root/name).write_text('later development')
+    assert verifier.verify(root,ref=new_ref)['unique_files_checked']==7
+
+
+@pytest.fixture
+def headline_evidence(tmp_path):
+    spec=importlib.util.spec_from_file_location(
+        'bam_catalog_test',Path(__file__).resolve().parents[1]/'scripts/bam_release_catalog.py')
+    catalog=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(catalog)
+    data=b'{"error": 6.851590406142806e-10}'
+    path=tmp_path/'data.json';path.write_bytes(data)
+    entry=dict(path='data.json',bytes=len(data),sha256=hashlib.sha256(data).hexdigest())
+    row=dict(title='Throat',file='data.json',source_commit='a'*40,report='report.md',scope='Finite ports',
+             metrics=[dict(label='unitarity',pointer='/error',format='.4g')])
+    index={'capstone':{'artifacts':[entry],'headlines':[row],'source_imports':[]}}
+    notes=tmp_path/catalog.NOTES_PATH;notes.parent.mkdir(parents=True)
+    notes.write_text(catalog.START+'\n'+catalog.table(index,tmp_path)+'\n'+catalog.END)
+    return catalog,tmp_path,index,notes
+
+
+def test_headline_uses_declared_rounding(headline_evidence):
+    catalog,root,index,notes=headline_evidence
+    assert '**6.852e-10**' in notes.read_text()
+    assert catalog.verify_catalog(index,root)['headlines_checked']==1
+
+
+def test_printed_value_drift_is_rejected(headline_evidence):
+    catalog,root,index,notes=headline_evidence
+    notes.write_text(notes.read_text().replace('6.852e-10','6.86e-10'))
+    with pytest.raises(ValueError,match='headline drift'):
+        catalog.verify_catalog(index,root)
+
+
+def test_changed_capstone_archive_is_rejected(headline_evidence):
+    catalog,root,index,_=headline_evidence
+    (root/'data.json').write_text('{"error": 0}')
+    with pytest.raises(ValueError,match='Capstone archive mismatch'):
+        catalog.verify_catalog(index,root)
+
+
+def test_wrong_json_pointer_is_rejected(headline_evidence):
+    catalog,root,index,_=headline_evidence
+    index['capstone']['headlines'][0]['metrics'][0]['pointer']='/missing'
+    with pytest.raises(KeyError):
+        catalog.verify_catalog(index,root)

@@ -1,4 +1,4 @@
-# BAM foundations — v0.44.0
+# BAM foundations — research record
 
 **A reproducible research release of the wave, scattering and mechanical
 building blocks for the coupled BAM model.** This release brings the strongest
@@ -183,7 +183,7 @@ OPENBLAS_NUM_THREADS=1 python scripts/verify_bam_foundations_release.py --tests
 ```
 
 **Release validation:** 228 tests pass on Python 3.12 with one OpenBLAS thread.
-The v0.44.0 wheel builds successfully. The full repository-wide suite passed
+The original candidate wheel built successfully. The full repository-wide suite passed
 on Python 3.10 and 3.12 in [CI for the original release commit
 2c07ff0](https://github.com/davidmdrpi/geometrodynamics/actions/runs/40792853865);
 the 228 count covers the 13 selected integration and baseline test files.
@@ -218,14 +218,12 @@ origin commits. Missing history fails explicitly; the verifier never silently
 skips provenance or fetches refs. The default archive check establishes internal
 consistency only, and neither mode proves the physical model.
 
-**PR #345 origin and merge compatibility.** `pair_birth.py` and its test originate
+**Original PR #345 import.** `pair_birth.py` and its test originate
 in [PR #345's fe228ac](https://github.com/davidmdrpi/geometrodynamics/commit/fe228aca57698ac2dc248d060609aa104b2a7cec),
 inherited through the PR #349 research branch. They are dependencies of the
 selected numerical controls, not an adoption of PR #345's later packet router.
-When merging PR #345, keep its newer versions of these two files if Git reports
-add/add conflicts, then run the integration tests. The historical index remains
-unchanged and the archive gate permits those source updates. This release does
-not require merging the separate PR or freezing its implementation.
+The v1.3.5 candidate now ships the final PR #345 source at `cd70f0f`. The
+original dependency snapshot remains auditable at `2c07ff0`.
 
 Individual calculation producers remain available:
 
