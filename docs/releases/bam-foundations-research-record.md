@@ -1,11 +1,12 @@
 # BAM foundations — research record
 
-**A reproducible research release of the wave, scattering and mechanical
-building blocks for the coupled BAM model.** This release brings the strongest
-verified results from the PR #349 research sequence onto `main`, with their
-source, tests, figures and original numerical histories. It prepares a common
-baseline for the next model release; it does not announce a completed derivation
-of mouth attraction, nonsingular annihilation or quantum field theory.
+**Record of the earlier foundations candidate assembled from the PR #349
+research sequence.** This document preserves its measurements, controls,
+negative results and stated limitations. The current v1.3.5 release overview
+is [the capstone notes](bam-foundations-1.3.5.md). The earlier candidate brought
+these source files, tests and original numerical histories together; it did not
+establish a completed derivation of mouth attraction, nonsingular annihilation
+or quantum field theory.
 
 ![Four verified building blocks](../images/releases/bam_foundations.png)
 
@@ -245,3 +246,13 @@ The overview figure is generated from the included data and the exact S³
 reference by `python scripts/render_bam_foundations_release.py`. It is a
 scientific comparison of separate models, not a visualization of a solved BAM
 matter-wave cycle.
+
+
+## Supporting two-region result
+
+PR #312 measured a metric effect on proper matter inventories for overlapping
+seeds. Its registered coarse-grid gate remains failed, and the regional
+momentum rates are not body accelerations. The capstone index retains the
+byte-identical `pr312.json` control snapshot under `supporting_results`, with
+its original measurement, scope and pinned source/test links. See the
+[pinned report](https://github.com/davidmdrpi/geometrodynamics/blob/1fcbd30df62d36df318bd57570d4a98cc3a6e114/docs/two_gravitating_regions.md).

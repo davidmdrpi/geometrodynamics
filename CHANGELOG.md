@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.5 — release candidate
+## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the
 [data-generated release notes](docs/releases/bam-foundations-1.3.5.md).

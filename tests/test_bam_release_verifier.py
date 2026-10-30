@@ -172,3 +172,58 @@ def test_wrong_json_pointer_is_rejected(headline_evidence):
     index['capstone']['headlines'][0]['metrics'][0]['pointer']='/missing'
     with pytest.raises(KeyError):
         catalog.verify_catalog(index,root)
+
+
+def test_sampled_amplification_uses_all_points(headline_evidence):
+    catalog,_,_,_=headline_evidence
+    metric=dict(pointer='/rows',item_pointer='/powers',operation='max_samples',format='.3f')
+    assert catalog.metric_value({'rows':[{'powers':[1.1,2.1]},{'powers':[2.85,1.2]}]},metric)=='2.850'
+
+
+def test_sampled_amplification_rejects_nonfinite_samples(headline_evidence):
+    catalog,_,_,_=headline_evidence
+    metric=dict(pointer='/rows',item_pointer='/powers',operation='max_samples',format='.3f')
+    with pytest.raises(ValueError,match='Invalid sampled bound'):
+        catalog.metric_value({'rows':[{'powers':[1.1,float('nan'),2.1]}]},metric)
+
+
+@pytest.fixture
+def release_dates(tmp_path):
+    spec=importlib.util.spec_from_file_location(
+        'release_metadata_test',Path(__file__).resolve().parents[1]/'scripts/prepare_bam_release_metadata.py')
+    module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+    path=tmp_path/'docs/releases/bam-foundations-evidence.json';path.parent.mkdir(parents=True)
+    path.write_text(json.dumps({'release':'1.3.5'}))
+    (tmp_path/'CITATION.cff').write_text('cff-version: 1.2.0\nversion: 1.3.5\n')
+    (tmp_path/'CHANGELOG.md').write_text('# Changelog\n\n## 1.3.5 — release candidate\n\nResults.\n')
+    return module,tmp_path
+
+
+def test_undated_candidate_cannot_publish(release_dates):
+    module,root=release_dates
+    with pytest.raises(ValueError,match='actual release date'):
+        module.prepare(root)
+
+
+def test_set_release_date_updates_both_files_and_is_idempotent(release_dates):
+    module,root=release_dates
+    assert module.prepare(root,'2026-10-29')=='2026-10-29'
+    assert module.prepare(root)=='2026-10-29'
+    module.prepare(root,'2026-10-30')
+    assert (root/'CITATION.cff').read_text().count('date-released:')==1
+    assert '## 1.3.5 — 2026-10-30' in (root/'CHANGELOG.md').read_text()
+
+
+def test_inconsistent_dates_cannot_publish(release_dates):
+    module,root=release_dates
+    module.prepare(root,'2026-10-29')
+    path=root/'CHANGELOG.md';path.write_text(path.read_text().replace('2026-10-29','2026-10-30'))
+    with pytest.raises(ValueError,match='dates differ'):
+        module.prepare(root)
+
+
+def test_invalid_date_leaves_metadata_untouched(release_dates):
+    module,root=release_dates
+    before={p:p.read_bytes() for p in (root/'CITATION.cff',root/'CHANGELOG.md')}
+    with pytest.raises(ValueError):module.prepare(root,'2026-02-30')
+    assert all(p.read_bytes()==content for p,content in before.items())

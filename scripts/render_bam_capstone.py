@@ -27,10 +27,14 @@ def main():
     ax.semilogy(np.arange(1,16),h[1:16],'o-',color='#55834b')
     ax.axhline(100*d['noise'],color='#c15127',ls='--',label='Registered detection gate')
     ax.set(title='C. Held-out half-clock prediction',xlabel='Angular harmonic',ylabel='Obstruction Fourier amplitude',xticks=[1,3,5,7,9,11,13,15]);ax.legend(frameon=False,fontsize=9)
-    ax=axes[1,1];d=archived(339)['cases'];names=['symmetric','directional','mirror','dephased']
-    ax.bar(range(4),[d[k]['focus_impulse'][2] for k in names],color=['#888888','#226b98','#c15127','#55834b'])
-    ax.axhline(0,color='black',lw=.6);ax.set(title='D. Reciprocal scalar recoil',xticks=range(4),xticklabels=['Symmetric','Directional','Mirrored','Dephased'],ylabel='Focus-window ΔLz')
-    ax.text(.03,.04,'S² mobile-attachment comparator\nContinuous reciprocal coupling',transform=ax.transAxes,fontsize=9)
+    ax.set_title('C. Held-out half-clock prediction',pad=28)
+    ax.text(.5,1.02,'Prediction: dominant seventh harmonic; 14 sign changes',ha='center',transform=ax.transAxes,fontsize=9)
+    ax=axes[1,1];d=archived(345);band=d['bands'][0];rows=d['router'][:3]
+    ax.axvspan(band['two_port'],band['u_k'],color='#55834b',alpha=.12,label='Derived closure band')
+    ax.semilogy([r['speed'] for r in rows],[r['speed_drift'] for r in rows],'o',color='#226b98',ms=7)
+    ax.set(title='D. Strict-cycle band confirmation',xlabel='Birth speed',ylabel='Cycle-to-cycle speed drift')
+    ax.legend(frameon=False,fontsize=9,loc='upper right')
+    ax.text(.04,.45,'Below: drift ≈ 0.030\nInside and upper edge: roundoff closure\nStated packet router, unit lapse, k=1',transform=ax.transAxes,fontsize=9)
     ax=axes[2,0];data=ROOT/'experiments/closure_ledger/runs';rows=json.loads((data/'20261028_maxwell_throat/scattering.json').read_text())
     for depth,color in [(0.,'#226b98'),(.4,'#55834b'),(.8,'#c15127')]:
         sub=[r for r in rows if r['angle']==.3 and r['ell']==1 and r['charge_fraction']==0 and r['lapse_depth']==depth]
@@ -43,7 +47,10 @@ def main():
     ax.set(title='F. Conditional Einstein radius evolution',xlabel='Central proper time / (πM)',ylabel='Neck radius / initial radius');ax.legend(frameon=False,fontsize=9)
     ax.text(.03,.04,'Unsupported electrovacuum completion\nEndpoints: singularity / inner horizon',transform=ax.transAxes,fontsize=9)
     fig.suptitle('BAM v1.3.5 · constrained geometry, transport and response',fontsize=17)
-    fig.savefig(ROOT/'docs/images/releases/bam_capstone.png',dpi=155)
+    target=ROOT/'docs/images/releases/bam_capstone.png'
+    pending=target.with_suffix('.tmp.png')
+    fig.savefig(pending,dpi=155)
+    pending.replace(target)
     plt.close(fig)
 
 if __name__=='__main__':main()

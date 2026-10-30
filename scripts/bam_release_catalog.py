@@ -20,6 +20,11 @@ def pointer(value, path):
 
 def metric_value(data, metric):
     value = pointer(data, metric['pointer'])
+    if metric.get('operation') == 'max_samples':
+        samples = [float(x) for item in value for x in pointer(item, metric['item_pointer'])]
+        if not samples or not all(math.isfinite(x) for x in samples):
+            raise ValueError('Invalid sampled bound')
+        value = max(samples)
     if metric.get('operation') == 'difference':
         if len(value) != 2:
             raise ValueError('Separation requires exactly two centres')

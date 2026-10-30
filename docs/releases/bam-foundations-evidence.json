@@ -784,7 +784,7 @@
       "tests/test_throat_two_port.py",
       "tests/test_viz_klein_handles.py"
     ],
-    "tests_passed": 362,
+    "tests_passed": 368,
     "python": "3.12",
     "openblas_threads": 1,
     "full_repository_suite_run": true,
@@ -827,19 +827,19 @@
       "wheel_built": "geometrodynamics-0.44.0-py3-none-any.whl"
     },
     "capstone_revision": {
-      "selected_suite_passed": 362,
-      "additional_verifier_regressions_passed": 5,
-      "unique_tests_passed": 362,
-      "verifier_tests_total": 14,
+      "selected_suite_passed": 368,
+      "unique_tests_passed": 368,
+      "verifier_tests_total": 20,
       "test_files_count": 18,
-      "scope": "Final indexed --tests command passed all 362 tests; no full side-branch simulation reruns",
+      "scope": "Final indexed --tests command passed all 368 tests; no full side-branch simulation reruns",
       "historical_source_files_verified": 122,
       "capstone_source_files_verified": 22,
-      "headlines_verified": 18,
+      "headlines_verified": 17,
       "isolated_wheel_smoke": "passed; version and final PR #345 two-port numerical check",
       "extracted_evidence_verifier": "passed without git checkout",
       "full_repository_ci": "Previous df4cb86 passed on Python 3.10 and 3.12; new head pending",
-      "test_command": "OPENBLAS_NUM_THREADS=1 python scripts/verify_bam_foundations_release.py --tests"
+      "test_command": "OPENBLAS_NUM_THREADS=1 python scripts/verify_bam_foundations_release.py --tests",
+      "asset_build_isolation": "passed with deliberately incompatible host setuptools raising AttributeError: install_layout"
     }
   },
   "boundaries": [
@@ -1319,27 +1319,9 @@
         ]
       },
       {
-        "id": "pr312",
-        "title": "Two-region metric response",
-        "scope": "Proper matter inventory response for overlapping seeds; registered coarse-grid gate remains failed; not body acceleration.",
-        "file": "docs/releases/evidence-v1.3.5/pr312.json",
-        "source_commit": "1fcbd30df62d36df318bd57570d4a98cc3a6e114",
-        "source_path": "experiments/closure_ledger/runs/20260927_two_regions/review_controls.json",
-        "test": "tests/test_two_regions_controls.py",
-        "report": "docs/two_gravitating_regions.md",
-        "metrics": [
-          {
-            "label": "off-diagonal response A\u2190B",
-            "pointer": "/grids/1/energy_response/solved/0/1",
-            "format": ".7f",
-            "scale": 1
-          }
-        ]
-      },
-      {
         "id": "pr313",
         "title": "Poincar\u00e9\u2013Cartan implementation",
-        "scope": "Conserved preparation-loop circulation checks canonical dynamics, not physical action selection.",
+        "scope": "Preparation loop at epsilon=0.01; conservation of the Poincar\u00e9\u2013Cartan circulation, not physical action selection.",
         "file": "docs/releases/evidence-v1.3.5/pr313.json",
         "source_commit": "8388f7f7056677e3d79ca43f80647d77432d0d21",
         "source_path": "experiments/closure_ledger/runs/20260928_action_selection/action.json",
@@ -1347,10 +1329,11 @@
         "report": "docs/dynamical_action_selection.md",
         "metrics": [
           {
-            "label": "numerical check passed",
-            "pointer": "/numerical_check_passed",
-            "format": "s",
-            "scale": 1
+            "label": "relative circulation drift",
+            "pointer": "/cases/1/circulation_absolute_drift",
+            "denominator_pointer": "/cases/1/prediction",
+            "operation": "ratio",
+            "format": ".3g"
           }
         ]
       },
@@ -1385,7 +1368,7 @@
           {
             "label": "loop action",
             "pointer": "/loop_action",
-            "format": ".12f",
+            "format": ".10f",
             "scale": 1
           },
           {
@@ -1399,13 +1382,22 @@
       {
         "id": "pr320",
         "title": "Bounded R3 normal response",
-        "scope": "Linear centre quotient after removing rotation/family tangents and excluding the physical hyperbolic pair; finite horizon.",
+        "scope": "Linear centre quotient; sampled powers 1\u20131024 across twelve family points. Physical hyperbolic pair excluded; unreduced system remains unstable.",
         "file": "docs/releases/evidence-v1.3.5/pr320.json",
         "source_commit": "80d894a9304b9c1cbe4db51b955865a0083d6f4b",
         "source_path": "experiments/closure_ledger/runs/20261003_r3_normal_quotient/result.json",
         "test": "tests/test_r3_normal_quotient.py",
         "report": "docs/r3_normal_quotient.md",
         "metrics": [
+          {
+            "label": "largest tested amplification",
+            "pointer": "/reduced",
+            "item_pointer": "/modal/power_norms",
+            "operation": "max_samples",
+            "format": ".4f"
+          }
+        ],
+        "supporting_metrics": [
           {
             "label": "constraint residual",
             "pointer": "/max_constraint",
@@ -1543,6 +1535,16 @@
             "pointer": "/flash/0/T",
             "format": ".6g",
             "scale": 1
+          },
+          {
+            "label": "speed drift inside",
+            "pointer": "/router/0/speed_drift",
+            "format": ".2g"
+          },
+          {
+            "label": "speed drift below",
+            "pointer": "/router/1/speed_drift",
+            "format": ".3f"
           }
         ]
       },
@@ -1641,6 +1643,26 @@
             "label": "relative radius discrepancy",
             "pointer": "/max_radius_error_over_initial_radius",
             "format": ".3g",
+            "scale": 1
+          }
+        ]
+      }
+    ],
+    "supporting_results": [
+      {
+        "id": "pr312",
+        "title": "Two-region metric response",
+        "scope": "Proper matter inventory response for overlapping seeds; registered coarse-grid gate remains failed; not body acceleration.",
+        "file": "docs/releases/evidence-v1.3.5/pr312.json",
+        "source_commit": "1fcbd30df62d36df318bd57570d4a98cc3a6e114",
+        "source_path": "experiments/closure_ledger/runs/20260927_two_regions/review_controls.json",
+        "test": "tests/test_two_regions_controls.py",
+        "report": "docs/two_gravitating_regions.md",
+        "metrics": [
+          {
+            "label": "off-diagonal response A\u2190B",
+            "pointer": "/grids/1/energy_response/solved/0/1",
+            "format": ".7f",
             "scale": 1
           }
         ]

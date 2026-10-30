@@ -45,7 +45,7 @@ def main():
     target.mkdir(parents=True, exist_ok=True)
     version = index['release']
     subprocess.run([sys.executable, '-m', 'pip', 'wheel', str(ROOT), '--no-deps',
-                    '--no-build-isolation', '--wheel-dir', str(target)], check=True)
+                    '--wheel-dir', str(target)], check=True)
     wheel = target/f'geometrodynamics-{version}-py3-none-any.whl'
     if not wheel.is_file():
         raise ValueError('Wheel version does not match evidence index')
