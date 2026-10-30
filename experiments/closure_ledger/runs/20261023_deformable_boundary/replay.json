@@ -1,0 +1,112 @@
+{
+  "state_replays": [
+    {
+      "case": "single_heavy",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 7.273065557694287e-08
+    },
+    {
+      "case": "single_heavy_fine",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 1.7059704138251656e-08
+    },
+    {
+      "case": "single_heavy_finer",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 4.191078700311019e-09
+    },
+    {
+      "case": "single_light",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 7.463740133754032e-08
+    },
+    {
+      "case": "single_disconnected",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 1.0245186107737148e-08
+    },
+    {
+      "case": "single_offset",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 7.175801043425079e-08
+    },
+    {
+      "case": "single_reversed",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 7.273065557694287e-08
+    },
+    {
+      "case": "single_closed_return",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 8.44132464339617e-08
+    },
+    {
+      "case": "pair_no_wave",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 3.6160826547392324e-10
+    },
+    {
+      "case": "pair_heavy",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 0.00030080823114981864
+    },
+    {
+      "case": "pair_heavy_fine",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 7.626483008094459e-05
+    },
+    {
+      "case": "pair_heavy_time_fine",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 7.555179868683239e-05
+    },
+    {
+      "case": "pair_light",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 7.948913101044368e-06
+    },
+    {
+      "case": "pair_offset",
+      "final_energy_replay_error": 0.0,
+      "relative_recorded_energy_error": 8.542712276405775e-06
+    }
+  ],
+  "quotient_verified": true,
+  "comparison": {
+    "pair_no_wave": {
+      "separation_at_120": 24.79515302816184,
+      "first_separation_below_2": null,
+      "seed_over_background": 0.0
+    },
+    "pair_heavy": {
+      "separation_at_120": 8.187250790019789,
+      "first_separation_below_2": 161.5,
+      "seed_over_background": 0.42377782114141205
+    },
+    "pair_heavy_fine": {
+      "separation_at_120": 8.229873803719276,
+      "first_separation_below_2": 162.0,
+      "seed_over_background": 0.42374424105894937
+    },
+    "pair_heavy_time_fine": {
+      "separation_at_120": 8.187670956277355,
+      "first_separation_below_2": 161.5,
+      "seed_over_background": 0.42377782114141205
+    },
+    "pair_light": {
+      "separation_at_120": 47.579320198689175,
+      "first_separation_below_2": null,
+      "seed_over_background": 0.42370019006000387
+    },
+    "pair_offset": {
+      "separation_at_120": 8.191333817152927,
+      "first_separation_below_2": null,
+      "seed_over_background": 0.4237641914489919
+    }
+  },
+  "translation_check": {
+    "fitted_center_velocity": 0.007646558302885462,
+    "localized_phi_momentum": 0.010195844972978133,
+    "kink_mass_times_gamma_velocity": 0.010195709145683088
+  }
+}

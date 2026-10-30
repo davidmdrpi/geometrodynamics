@@ -1,0 +1,15 @@
+{
+  "evolution_cases": 12,
+  "pressure_cases": 12,
+  "delay_modes": 282,
+  "delay_refinement_cases": 18,
+  "max_radius_error_over_initial_radius": 5.285746608639935e-12,
+  "max_velocity_error": 2.445374036597059e-08,
+  "max_delay_refinement_change": 5.6675491375557385e-06,
+  "conditional_electrovacuum_radius_evolution_solved": true,
+  "bam_mouth_center_acceleration_solved": false,
+  "nonsingular_annihilation_solved": false,
+  "router_modified": false,
+  "evolved_support_constitutive_law": false,
+  "charged_history_continued_beyond_cauchy_horizon": false
+}

@@ -1,0 +1,89 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/encounters.json",
+      "bytes": 34141,
+      "sha256": "5eaf1bdf3848519d7d56a0aebf0ef516462e96fd6bcda11066a41537b0bbb4ac"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/offset_symmetry.json",
+      "bytes": 1739,
+      "sha256": "bb18690208e5bf9b9c24772367013e217a07f371db9c9768affcac4e6d80ceb2"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/pinned_endpoint_order.json",
+      "bytes": 8707,
+      "sha256": "2add63d1e2d93f903299e75e33b35836e7f39e1d28aecbf8b34e72684c4875fc"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/refinement.json",
+      "bytes": 17949,
+      "sha256": "7977b83edb9bf78ea33434f66dd7543cc87bf809bab88f9d822cdabdd1dfb74f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/reflection.json",
+      "bytes": 5879,
+      "sha256": "86f369e02322438c8ecc71b93c09b3dc96bf90da4f7963058446490880e33f6f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/s2_phase_review.json",
+      "bytes": 2157,
+      "sha256": "1bc5766d92e590784fb13bd30c09c2c048fc7cd0cb6670aa202ea2289465880c"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/summary.json",
+      "bytes": 900,
+      "sha256": "3f80b4011d458f6edf40ea5ee36ef231d667363fe49dbba4140da8cb50b7e690"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/trace.json",
+      "bytes": 33530,
+      "sha256": "add54db08b88a2c6384d9f3d5816baea67154d8d14bc9b55aa8c81e988b2bdae"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/transport.json",
+      "bytes": 1932,
+      "sha256": "e1630ed0b607118a94935e593af0d38cddcd967c3c54552939925b6388020572"
+    },
+    {
+      "path": "experiments/closure_ledger/s3_maxwell_probe.py",
+      "bytes": 10120,
+      "sha256": "d24cb1b6bda4e95507f56e51acce5232b6ac60ce44ded9eebf983458656fc7b6"
+    },
+    {
+      "path": "geometrodynamics/waves/s3_maxwell_encounter.py",
+      "bytes": 13694,
+      "sha256": "999981c4e5997bcf8db0f17173f74d207b0d3c5f30d36f78d01d65a3ce3f5e7f"
+    },
+    {
+      "path": "tests/test_s3_maxwell_encounter.py",
+      "bytes": 7167,
+      "sha256": "9a9990c9410286418ac2821637fc07855fc2ad7f145d4f049e10060eab332a60"
+    },
+    {
+      "path": "docs/s3_maxwell_encounter.md",
+      "bytes": 11714,
+      "sha256": "b7b0c6c614edc3fc4aef30220d5660f032421be3d512bae7aa6d76bf2ca3b094"
+    },
+    {
+      "path": "docs/images/history_throat/s3_maxwell_encounter.png",
+      "bytes": 225221,
+      "sha256": "a8441acc2a5786512ab0bd75de5070e394277d47d57b15f621b1855e2a021db3"
+    },
+    {
+      "path": "experiments/closure_ledger/quotient_endpoint_review.py",
+      "bytes": 3082,
+      "sha256": "d4f45ff25065e03d2b51ce0ee48847817c1081dab9dec2e41361c329da6334cd"
+    },
+    {
+      "path": "geometrodynamics/waves/pair_birth.py",
+      "bytes": 30502,
+      "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2"
+    },
+    {
+      "path": "geometrodynamics/waves/quotient_flash.py",
+      "bytes": 4310,
+      "sha256": "7ad27ed7c0fb2ab7d92cef72e65c171c596e4b171792694c84ea9e773b4416ef"
+    }
+  ]
+}

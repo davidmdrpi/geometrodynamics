@@ -1,0 +1,1672 @@
+{
+  "schema_version": 3,
+  "release": "1.3.5",
+  "status": "release_candidate",
+  "source_commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+  "base_commit": "50fdce477a9eab85de76f0d540f76ea4bc4a89a4",
+  "scope": "Selected classical wave, throat and mechanical benchmarks; not a completed BAM model",
+  "component_manifests": [
+    "experiments/closure_ledger/runs/20261023_deformable_boundary/manifest.json",
+    "experiments/closure_ledger/runs/20261024_gr_handle/manifest.json",
+    "experiments/closure_ledger/runs/20261025_review/manifest.json",
+    "experiments/closure_ledger/runs/20261027_s3_maxwell/manifest.json",
+    "experiments/closure_ledger/runs/20261028_einstein_throat/manifest.json",
+    "experiments/closure_ledger/runs/20261028_maxwell_throat/manifest.json"
+  ],
+  "imported_files": [
+    {
+      "path": "docs/deformable_alice_boundary.md",
+      "bytes": 15073,
+      "sha256": "60664363c19da54f86710f0cdefcd3e6a07ab5d25d5767ad93b159cab46c7699",
+      "git_blob": "f02b2b13a58b3bf1897ae86c0cbf286f030f1561"
+    },
+    {
+      "path": "docs/einstein_throat_evolution.md",
+      "bytes": 14108,
+      "sha256": "5f7c273592f5de89f92be9c68bfe8d2c1a39e3e834c267eb16f9fbc9d4e900f1",
+      "git_blob": "094ed3de2229f1b3f383d74fd2a4589e3aab67d2"
+    },
+    {
+      "path": "docs/gr_handle_orientation.md",
+      "bytes": 7862,
+      "sha256": "4ff0bb3d64df57ad4697928a9dd05c847ef5f69673561fa0446771a802e9ceef",
+      "git_blob": "3b12d2ae5be2f63fc16e7fe39b3919fb8229f586"
+    },
+    {
+      "path": "docs/images/history_throat/deformable_boundary.png",
+      "bytes": 300214,
+      "sha256": "9bb8c5a10acd964fae9f99c10b52cc5a53ec3bd88e9ef1400ecf597e43e82b15",
+      "git_blob": "f65420df46abacb27910f02b9fe932242ee20aa5"
+    },
+    {
+      "path": "docs/images/history_throat/einstein_throat_evolution.png",
+      "bytes": 180182,
+      "sha256": "6069ae895e06cb840ad3a6afd4edde063e2de53d0fc398ed28d1774c9be3f30c",
+      "git_blob": "ef2a2064d95985cf3f10c168dcc5db3e9c481fa4"
+    },
+    {
+      "path": "docs/images/history_throat/maxwell_throat_response.png",
+      "bytes": 196040,
+      "sha256": "95c17934172a23429d71e8b1a673d0d4abbea59c706188f4ae9a321d4518f734",
+      "git_blob": "cb1f61aac7f40a5bab069aa2afc07f5f1f4d848f"
+    },
+    {
+      "path": "docs/images/history_throat/s3_maxwell_encounter.png",
+      "bytes": 225221,
+      "sha256": "a8441acc2a5786512ab0bd75de5070e394277d47d57b15f621b1855e2a021db3",
+      "git_blob": "022966b313e546454ab9bab56e5c74e4c237aeb6"
+    },
+    {
+      "path": "docs/maxwell_throat_response.md",
+      "bytes": 14153,
+      "sha256": "ea9553450e751321a8ab10cf083c8bee8d83ff38ed0095c2147cae5a28b8d766",
+      "git_blob": "55529c84cbb57ee979d124c9481d570e31af3fdd"
+    },
+    {
+      "path": "docs/pr349_review_assessment.md",
+      "bytes": 9621,
+      "sha256": "3b3d8e89faa5a384f09c35d79e7063890507871027fa274681df622c63baa9c6",
+      "git_blob": "b552e3845690abadd704ac80d09b21aea8769cce"
+    },
+    {
+      "path": "docs/s3_maxwell_encounter.md",
+      "bytes": 11714,
+      "sha256": "b7b0c6c614edc3fc4aef30220d5660f032421be3d512bae7aa6d76bf2ca3b094",
+      "git_blob": "2ad1a6fafcc29b1c85a64eb2ebafbd8be73031e5"
+    },
+    {
+      "path": "experiments/closure_ledger/deformable_boundary_probe.py",
+      "bytes": 11653,
+      "sha256": "03c09ca06bcf69a457b492c2f4542db4c62bfd7f9f7db422e58e9aaa39f117d3",
+      "git_blob": "207a3ca7f398d2e82e0a927c80addeed82354c2c"
+    },
+    {
+      "path": "experiments/closure_ledger/deformable_boundary_report.py",
+      "bytes": 7305,
+      "sha256": "5a96f24c6f180b9652420c9e310b4d211b19443f71a615e5363a2aae2fb3154e",
+      "git_blob": "7933875790a283efb3ef01c6f2c099b03de8341e"
+    },
+    {
+      "path": "experiments/closure_ledger/einstein_throat_probe.py",
+      "bytes": 8106,
+      "sha256": "f0c795f804845dbcec97ea49a44906069aaf52c5c2818ccf6f5f48433bd823ec",
+      "git_blob": "d20a6334e13310488fe2e2bf0c312ecc1dc80815"
+    },
+    {
+      "path": "experiments/closure_ledger/gr_handle_probe.py",
+      "bytes": 3649,
+      "sha256": "7d5b602e1f840c66172356c725ad237b179e379cf54257accf33b1bf145f914b",
+      "git_blob": "56bac6a7d8d3f4afc3c5f88b9a7e005288989c6c"
+    },
+    {
+      "path": "experiments/closure_ledger/maxwell_throat_probe.py",
+      "bytes": 9702,
+      "sha256": "a2956a6af6c251def382a9464f27c2121d75c497bbce771425a8e0e3abea4b04",
+      "git_blob": "4892869f000fdd1e3fcaf0ec39a521afb6e0baa7"
+    },
+    {
+      "path": "experiments/closure_ledger/pr349_review_probe.py",
+      "bytes": 6240,
+      "sha256": "c6ee26f3af313b37cd87d9a1c2227d0b2aa0817ffdf5037d99815cf4f5d7fdd9",
+      "git_blob": "877a3988f0748751e77c654b420511b7ad165efd"
+    },
+    {
+      "path": "experiments/closure_ledger/quotient_endpoint_review.py",
+      "bytes": 3082,
+      "sha256": "d4f45ff25065e03d2b51ce0ee48847817c1081dab9dec2e41361c329da6334cd",
+      "git_blob": "9c2e342454711ff5df0922e1cb5c458500dcf664"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/alice_boundary_controls.json",
+      "bytes": 16615,
+      "sha256": "ab9f66410c8a8c9f44f18b6ba49e3ee6251eb5e356ddc784ed9f0d8f5020b6c3",
+      "git_blob": "bcf8ddcce77a41049a61395406aee844f975acc0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/directional_gap_screen.json",
+      "bytes": 39504,
+      "sha256": "f3f811d3b0ea222ea7a2d8145f9fde5595aac25d05bc0a95b73d48a0b0e09d3a",
+      "git_blob": "b98e202cd3f94fca8ef399e7896e476bd0010d06"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/historical_sources.json",
+      "bytes": 3381,
+      "sha256": "112a76a76ab91513427748b0495b2e95974629c8bbdd1ba5a229731024bb451b",
+      "git_blob": "1278eaf8c22967ea718b3870094719764d7d4809"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/manifest.json",
+      "bytes": 9656,
+      "sha256": "da5d6e2e16e414a367c7f24b7cc8b34be05fcf65be8e93ad1461b05330039bfe",
+      "git_blob": "51e6c6cf37526b1cc6014181291806334362e0fa"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/nonlinear_time_quotient.json",
+      "bytes": 47367,
+      "sha256": "d90a2308f792e58a76683984a2619930d76b17615e71b1fcb9502520e6837e16",
+      "git_blob": "0f4afd95290bc45a1259463b3cc613994369eeb0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/nonlinear_time_quotient.npz",
+      "bytes": 693942,
+      "sha256": "13444fc3b9c551bd0006c1fae07cf77cdb1d61bcc485bec470f96309916de7ca",
+      "git_blob": "e9e0471beafb41b5377b39752d0f951c52dae425"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy.json",
+      "bytes": 164489,
+      "sha256": "fc333713a753121758b4d75a63bc9233d7afdf67813c177257d86795a36a9648",
+      "git_blob": "0470cf329227168ebd2c6cae70a1388258a2ad2e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy.npz",
+      "bytes": 661015,
+      "sha256": "e8af0f1ddf15ec4f4e9efbc2fcfcaf4989bf512e43d80877b6752935e9848737",
+      "git_blob": "d8d38a7ae36eb186152ff89f489aad5404431785"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.json",
+      "bytes": 164268,
+      "sha256": "3e91fa77773210578a078a7d1f515c7fafcbcf38d99fcae077f44608fbcd45c0",
+      "git_blob": "ff55e63d6364c43d7542e8d94b7fada3f03c0f88"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.npz",
+      "bytes": 862336,
+      "sha256": "f04ec8c22df4250cc6a07d7da3fb2d5097dc75176da730053bdbb19e801b8b2c",
+      "git_blob": "4db43ce8fda4c8e4d64081acb57cef695cd70776"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_time_fine.json",
+      "bytes": 165037,
+      "sha256": "0caa349feea0fc3c8c16b5c25bb6253fc0c7f002db8e8401cbedb25c46994663",
+      "git_blob": "67ba0a44a10b25185a98772b7566e21655a64df1"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_time_fine.npz",
+      "bytes": 664026,
+      "sha256": "05afa38d4cd1078247f154ec9394a7f337712748c42a5e72f85206b7edfb9a18",
+      "git_blob": "fa353ee07289e193ec8f24014d4a039e5d69245d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_light.json",
+      "bytes": 84653,
+      "sha256": "9e54f210c177948142bd62df4f3aa3003d829b7a3f13f201de4cbe7f3f425738",
+      "git_blob": "570b91d0046ddfbc6a9b8089f06fa892d20c90de"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_light.npz",
+      "bytes": 368635,
+      "sha256": "b5fe45910cd25210f65fc29f3090477467703d0934fcde8cd700e4d21a38c0d5",
+      "git_blob": "d6f4fec5f00873c8a131ca80b9063034830b4167"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_no_wave.json",
+      "bytes": 160252,
+      "sha256": "049a73ad9867874180116939798ae2d572a05374d7679742e6b93c5dacd4eb09",
+      "git_blob": "bb12cd9b0a6aa613d4ed2c48e6110e0bdabf9bfa"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_no_wave.npz",
+      "bytes": 236326,
+      "sha256": "e3a0968b1af82fc9b656ad57ce91bbae14cf18f433e87dd46ee0feb18dd47989",
+      "git_blob": "9af11aa336e2992548f4fb3b0fc384230011c0a7"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_offset.json",
+      "bytes": 84580,
+      "sha256": "ae79c687e3fd6c0dc216b363598af6c2a88e168838150412dd3f15deb17385cf",
+      "git_blob": "4db5495c4636605105929bf87e4ec977c78b0642"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_offset.npz",
+      "bytes": 472217,
+      "sha256": "737d93dd1e6a11c48220047422411c765aaa50dc3fd75df76f3a467399286d19",
+      "git_blob": "886a09fed896f22a21842535b69249c7aa3c88af"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/replay.json",
+      "bytes": 3324,
+      "sha256": "e79e57340cbe8a7bc81cbce3ca2ac1b11faeeac76c0b950574262c339b1e3413",
+      "git_blob": "d70ea4723c7636ea2744ff706880b0a52abde3d6"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/schedule.json",
+      "bytes": 1162,
+      "sha256": "44b8829c5d89afbf15fb8a2347c1e6bd2d5c30dfbc731b6b9845dda7df9a2c21",
+      "git_blob": "3740742ecb5d76c850a3b217a7da236c3f28a2f0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_closed_return.json",
+      "bytes": 269992,
+      "sha256": "45654f4885be5d2f4b8703e69778cd6f833cb72753c239b1afc738c4b476d0af",
+      "git_blob": "b3c29feafb9bb4803de93948855d9ba344c56568"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_closed_return.npz",
+      "bytes": 976296,
+      "sha256": "eaf8f048a235833d2a9f806bf2f9763f4f5be4f52695fe67532898dd9e832909",
+      "git_blob": "ec1edfc9eaaa8a3cf7d18183517102056eeb512a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_disconnected.json",
+      "bytes": 55271,
+      "sha256": "5afb61ddb6e5e34d7ef2f2d70a453577559eec9ca42c56485fd456143c485718",
+      "git_blob": "f0d4cbc244c8fc20e08f9ec9fa52326873a3ee71"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_disconnected.npz",
+      "bytes": 248819,
+      "sha256": "50cc8e5ec6de9aff9a3013220480f36aa2903bcdde76110f85c49501ae49fc46",
+      "git_blob": "3fd382f311d7b099c50a90dde78b8721439fcfda"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy.json",
+      "bytes": 54938,
+      "sha256": "5daf722b3016f0bbc3009d47f8a67df9cecc2ee6a6682c99e1055a4742d8b1b0",
+      "git_blob": "90c91a8c1da1c6c8b51a98ea64d2860dacfaebab"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy.npz",
+      "bytes": 267926,
+      "sha256": "a79fd52d28d1b03730a4d37d2f3011013a0a73e85a67abd16409e01d7323fc09",
+      "git_blob": "332e9861c37bd3c1247c6a6d523760a97706f2db"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_fine.json",
+      "bytes": 55042,
+      "sha256": "446342a034643e2add22eada2f30e46ede06324775723b938610ae56dd80e69d",
+      "git_blob": "8b76ff687ce70914dca60055fab0b71878fb2439"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_fine.npz",
+      "bytes": 376551,
+      "sha256": "f99933421571c23d8d24072e51c304ee4a59693c61f938df9a0a60afe1ce8a6d",
+      "git_blob": "c8d3288711efc0a3545ef3aedff13c720a78964d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_finer.json",
+      "bytes": 55113,
+      "sha256": "bf2447b07bb4f2c332b7bacf7e01993509b91dbf4835f649f14e0d5690a7784b",
+      "git_blob": "ab383e944c2f18afdf9f02ab79f9b9db3478e2bd"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_finer.npz",
+      "bytes": 602533,
+      "sha256": "ba346b083142f6586b988f9438a17efcee39f9e4d7b1f5d3a8b06d748b129f16",
+      "git_blob": "9f06199d74e8bc0097dd71c932b2816bdf0aedc9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_light.json",
+      "bytes": 55323,
+      "sha256": "d7277f415d891074b67b609d1279e4945fdca312523f868ec9a5b91d27417cbb",
+      "git_blob": "db57818843384fdb150ea4d05622ef4b8c579ab2"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_light.npz",
+      "bytes": 268172,
+      "sha256": "214ccf1f7b3c79272c2d896ae8f60511cefb53c95a5199933c5266d4d2c24634",
+      "git_blob": "eda9881a1b3ecc50676cd14c6afaf2c435713418"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_offset.json",
+      "bytes": 55205,
+      "sha256": "8271ec07cc0b04934ba876b35a13fdc47b7a0ceb1b6bf3f2139c75f0bc4bda3c",
+      "git_blob": "569df3f6721e3157676d059a0279f90f25cff08d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_offset.npz",
+      "bytes": 270238,
+      "sha256": "648c2bb22d3cd19bb61254453ed4acfd1991bea0e3c6cd391436f168485e42b0",
+      "git_blob": "eb9ff2bc41d9efadf6c99186c9e16765b3159ed5"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_reversed.json",
+      "bytes": 41648,
+      "sha256": "fda9b86d95b38f988e7baacb647311bb71dc118851f67a3e6112610159729832",
+      "git_blob": "4f210c1141487ab2c80a8dd69959ca105c7a3e56"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_reversed.npz",
+      "bytes": 222501,
+      "sha256": "8cceedec8bd2c30aa0849717cc4708d4ad5129473979ba8720560ea1cdab34bd",
+      "git_blob": "2299bf852aeb17743d490b02f0e05f74ec974ea7"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/step_scattering.json",
+      "bytes": 4962,
+      "sha256": "d5563c9362ab05b689f174da2c133c78bda94abef9f16f087783d2e75b8420d9",
+      "git_blob": "6ec26c607640c43de10a1a4f586051da14724f4e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/summary.json",
+      "bytes": 450,
+      "sha256": "cc4b551381437aacd83d38cfd8264b744482d4ce4e4ed0277603cec449b3d9f3",
+      "git_blob": "4fc0a95ae541c2589883ec0349e4c3fca2b80ed5"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/manifest.json",
+      "bytes": 1505,
+      "sha256": "bbad31aaa5bbb5849ab0242dc30ef05c68d5b60005a5ad9d53c68f5432a453cd",
+      "git_blob": "e6dc786c0e876b6b7c9f8b002daadff1d43b8e36"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/orientation.json",
+      "bytes": 6662,
+      "sha256": "d71efa18bb84095b349168e28f4045e330ad44571c1d6dc900291f26406c4748",
+      "git_blob": "6b400d5954c172a55884f70c9416543c962ea174"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/scattering.json",
+      "bytes": 7205,
+      "sha256": "0cfa4bb1af675eae5138f6c46fbb6d09f594862f0f18c5c887575c872590c2aa",
+      "git_blob": "66ac6f7e1672a3385a34cfad718ca14f28516aa2"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/summary.json",
+      "bytes": 1459,
+      "sha256": "3640aaa014250ee266ec2f403d1610c151e77b7b69159d80feb38e8933ec62e9",
+      "git_blob": "1b33f3e36d518f418a9ba020d585f863087b55f4"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/support.json",
+      "bytes": 4447,
+      "sha256": "67a7d33534795b37acc3f1865e96d9e66db8668a4b5f37f56f0e5f89bd3ccf83",
+      "git_blob": "ccdeef94b2f01c154d52ce102012b35b98a3c39f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/carryovers.json",
+      "bytes": 2852,
+      "sha256": "ce805823927a58482e206b417d510586285f37404361454b7dc9edff5e2c98e3",
+      "git_blob": "dc965d1562592afaf3bc4f55cd7e2d9ece63dbbe"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/manifest.json",
+      "bytes": 3309,
+      "sha256": "bf464dc63f767f3bc6f536265fe2b8b037234949621d34be57e030caa9f23ee3",
+      "git_blob": "b4c612f6638fdc2cef0bba1714757062b7cfca00"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_no_wave.json",
+      "bytes": 37146,
+      "sha256": "825e74b084f8cd93f5e7105696d2f1d318e1234be8b7ca382c4696a717c2e8fa",
+      "git_blob": "d007c3c9f4d715b7d058533ae286569b3fd7c7de"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_no_wave_fine.json",
+      "bytes": 39857,
+      "sha256": "65cedc5254261f14847a2e8aa0872009491df6dc7c051aa267fcab7ac5c2cb9b",
+      "git_blob": "85d1133d82a72b96608652b7c6f414098f151bea"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_scale.json",
+      "bytes": 40544,
+      "sha256": "bd9484b910db414b0921da6b10d2ecfa04dadc4f01eb5c18115273a65ebc1c42",
+      "git_blob": "a5837bd5946f93c41e7d0cd78e7084db7c9d360d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_scale_fine.json",
+      "bytes": 43363,
+      "sha256": "340054a3d96fc41b301132147babb5ffd92b796eb8a3621fa100234b21db14ef",
+      "git_blob": "8599cf7e94c0758aa65e8eac5e65ba1e92bf70eb"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_no_wave_80.json",
+      "bytes": 52000,
+      "sha256": "0a8fd3f03a77368905013e87f46703a2ce0a99521c3345bb69082672ded96105",
+      "git_blob": "613441b58c92237a347a9b54557c670bcda533f6"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_return_60.json",
+      "bytes": 47666,
+      "sha256": "2194406a8bda7a612270194665b79bdd4757e7973ab769d3d9fae59c4f656c01",
+      "git_blob": "760ceef666a544f13f48f900b632361447d14d1d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_return_80.json",
+      "bytes": 55663,
+      "sha256": "841ed6a8236dc7c42910e3b8cfdaad8466924df7b94800b5b88c6b8b0fbbc7e9",
+      "git_blob": "1c73efca11dcba6efefb9488c4ed69cd92a436d9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/quotient_geometry.json",
+      "bytes": 19233,
+      "sha256": "e8a06450866c048ac4f4f96d5e89945e812c645079eaedc417fdc171ac0ec0f6",
+      "git_blob": "90f1fdd96e6d3ac941b56c424bc1d2fc5588ad84"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/refinement.json",
+      "bytes": 1103,
+      "sha256": "b4e78fefbfe090b2ad8f2515d324ea32285a5898bcb0b8edebb28c290f621694",
+      "git_blob": "ddacf5456b6e02eea96ee22cd744d0cd8ca58637"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/summary.json",
+      "bytes": 2623,
+      "sha256": "aff625d41aa6975cc1b42f60c6fb02f8677a2b355ef99e5751bf4ed00de0b437",
+      "git_blob": "0afcef551558e04c29ffdc3392e6485b13a1580e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/encounters.json",
+      "bytes": 34141,
+      "sha256": "5eaf1bdf3848519d7d56a0aebf0ef516462e96fd6bcda11066a41537b0bbb4ac",
+      "git_blob": "48ffc85398685ae84d0ad4060cc04c6725603715"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/manifest.json",
+      "bytes": 3273,
+      "sha256": "ab64dbead489356ff486990f2ebcf8ba3e3348325bac09838b7eb15baee383a0",
+      "git_blob": "d1506a6560ad3e29b83da53323e471f630530e69"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/offset_symmetry.json",
+      "bytes": 1739,
+      "sha256": "bb18690208e5bf9b9c24772367013e217a07f371db9c9768affcac4e6d80ceb2",
+      "git_blob": "bfd2a1c7f06a581cb40c891b01faf0f79958a1d1"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/pinned_endpoint_order.json",
+      "bytes": 8707,
+      "sha256": "2add63d1e2d93f903299e75e33b35836e7f39e1d28aecbf8b34e72684c4875fc",
+      "git_blob": "1816dd4c1a7fc1dac63d4169a32ab22c8a640a56"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/refinement.json",
+      "bytes": 17949,
+      "sha256": "7977b83edb9bf78ea33434f66dd7543cc87bf809bab88f9d822cdabdd1dfb74f",
+      "git_blob": "9bc140c54c56faa02d55faf674682fc8cbebe90a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/reflection.json",
+      "bytes": 5879,
+      "sha256": "86f369e02322438c8ecc71b93c09b3dc96bf90da4f7963058446490880e33f6f",
+      "git_blob": "13406eeecaaf6d7d889dafdcae8baaece968d1a3"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/s2_phase_review.json",
+      "bytes": 2157,
+      "sha256": "1bc5766d92e590784fb13bd30c09c2c048fc7cd0cb6670aa202ea2289465880c",
+      "git_blob": "598ced67b9f112a5e36657a2d15679faf756ddb6"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/summary.json",
+      "bytes": 900,
+      "sha256": "3f80b4011d458f6edf40ea5ee36ef231d667363fe49dbba4140da8cb50b7e690",
+      "git_blob": "22bf4d118a7ad4417bb740090b73516b15fd37b8"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/trace.json",
+      "bytes": 33530,
+      "sha256": "add54db08b88a2c6384d9f3d5816baea67154d8d14bc9b55aa8c81e988b2bdae",
+      "git_blob": "fc32be62f2fc18dfceac0dc52ef8d23f3059a56e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261027_s3_maxwell/transport.json",
+      "bytes": 1932,
+      "sha256": "e1630ed0b607118a94935e593af0d38cddcd967c3c54552939925b6388020572",
+      "git_blob": "d08fa73da742d5217931f8f7e9c67c547c53236f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/delay_checks.json",
+      "bytes": 3686,
+      "sha256": "eabdfeab3b3ac7a82e61a1d7ec9e4f0b3c63bbc96b0aeeb95ee2fb90f1e38147",
+      "git_blob": "beb2b4f540a873a379760f32da53eca896afb67a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/delays.json",
+      "bytes": 129542,
+      "sha256": "a767c4ef97eac819716de672cda29d711a3be90725b8ac2a821a5108389a1066",
+      "git_blob": "06ea2f5cff2e2f03a24663e881cb49feaa6a49ee"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/evolution_checks.json",
+      "bytes": 3686,
+      "sha256": "8467c86947670036b885600bf82ae18b7cea97adbe9ef0299ef75bb8ceff927a",
+      "git_blob": "046c14dba710ae3f8d581edaefa24bb9c0ce8fc9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/histories.json",
+      "bytes": 251278,
+      "sha256": "655196d8e7baa4e4a3218b0ba5bef4e78726087918dd639013185e3a92e3006a",
+      "git_blob": "fe83a9a775cff50833d5bdb189ebb2c06372b499"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/manifest.json",
+      "bytes": 2727,
+      "sha256": "3043cfa3a3983cf5693dc0b40b3c74c911868f7012621b883904e487464502dd",
+      "git_blob": "e5207ed75235db2f4385cb0d871933149b4801cd"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/pressure_sensitivity.json",
+      "bytes": 6150,
+      "sha256": "feec767ed5b0b3802f71338d9320969f5a2ee047015bff84f9744fa9393d4095",
+      "git_blob": "fbe826bd1bc9bb2daf774342e975afcdb250c20a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_einstein_throat/summary.json",
+      "bytes": 562,
+      "sha256": "00df3ee2822f81135346115fe752467eee0c0d766cc564ac633ae74699a3edc4",
+      "git_blob": "6c6844dd9622a4943faf8f32374abefed65a147e"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/manifest.json",
+      "bytes": 2491,
+      "sha256": "05ee4a08a33a1f4b4119d5841f64fcd12ec520f96d9f9d1a65652c5765f35808",
+      "git_blob": "cfc1495c4ff1403bf7c47e353fbd9b231ab1b331"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/scattering.json",
+      "bytes": 288096,
+      "sha256": "9e4dd8ce553856c343ce94b7a3425fc9d854f1e5863081e90e649ee537cb7b48",
+      "git_blob": "647f1a1d13deed487271cbe33c2c2cec8daf9817"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/summary.json",
+      "bytes": 1011,
+      "sha256": "665621eb7aff85871d9676fef1781a63f93ff6bd7f5d29ca5993cdf41e403be7",
+      "git_blob": "cad5fdb3eb28fc41d49fa1c6dafd265a74ac2635"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/support.json",
+      "bytes": 196290,
+      "sha256": "39f89761ebe50398e36899ce824c5400f21ce2921a738a113ff33ef12378889d",
+      "git_blob": "270355582d4f7c3f64ae3fdb02ddceed7dad65fe"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/verification.json",
+      "bytes": 4512,
+      "sha256": "e54efb266a561a5fe471cb646d109dd3e9f14e13bd0a1c6b4299e75a21c496d5",
+      "git_blob": "0694a7f41f949514b5e915a24487384caa57637f"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261028_maxwell_throat/weighted_drive.json",
+      "bytes": 29981,
+      "sha256": "d6b4a234477be68f24d046b35ebef6d96291b3a639538ebf61520c4e6001ef96",
+      "git_blob": "c47de3d4ff6613946bb3b4eed82c3482fb046b54"
+    },
+    {
+      "path": "experiments/closure_ledger/s3_maxwell_probe.py",
+      "bytes": 10120,
+      "sha256": "d24cb1b6bda4e95507f56e51acce5232b6ac60ce44ded9eebf983458656fc7b6",
+      "git_blob": "f23c14867dc9cf5463cfbd83e6e8e2761b635f8f"
+    },
+    {
+      "path": "geometrodynamics/viz/moving_mouth_pairs.py",
+      "bytes": 3916,
+      "sha256": "1a238de157967b96dbd6471844a1e549e3f64288a6d7acf4d2b91ed681852975",
+      "git_blob": "80971e302484b8b88aaf27521221f6001546b3d7"
+    },
+    {
+      "path": "geometrodynamics/waves/alice_boundary.py",
+      "bytes": 5866,
+      "sha256": "f0bfd0291d2c540af21def469faef0b4d38e0545d0e772ced0dc21c738444bad",
+      "git_blob": "fb1dea8d146f3eddd45fcf1aa09a931e184f3b06"
+    },
+    {
+      "path": "geometrodynamics/waves/antipodal_kick.py",
+      "bytes": 10339,
+      "sha256": "151005d44a8c63eca17616c9f0ec7186b42326af9a0ba58399763d5a64f93ed5",
+      "git_blob": "3d59dccec4d993e2cf88eda5a9bab1b85524abbd"
+    },
+    {
+      "path": "geometrodynamics/waves/antipodal_throat_transport.py",
+      "bytes": 16484,
+      "sha256": "248ffa9a2520955b4274200242ca7a73fa51f594b4f74c6c025a59f627691188",
+      "git_blob": "decdcd6e25ac1064b6e02d9806c3ed6772a4d323"
+    },
+    {
+      "path": "geometrodynamics/waves/deformable_mode_conversion.py",
+      "bytes": 7780,
+      "sha256": "27fa50ffe0ea8e55ddd94df62f3a443b727fcd1e31d2d3b91c90b6a652d358f7",
+      "git_blob": "114b44851d0a22f9e23b5e5a9be01c2bd940a39e"
+    },
+    {
+      "path": "geometrodynamics/waves/directional_flash_response.py",
+      "bytes": 4994,
+      "sha256": "fc44515cf735aedd8ac768daf39b610f9f44d29fe2807faca8ea9d6ca64619f5",
+      "git_blob": "395c1fb98aa77abe693210861ee735147e1995dc"
+    },
+    {
+      "path": "geometrodynamics/waves/einstein_throat_evolution.py",
+      "bytes": 5633,
+      "sha256": "5d6759b8eb354bfec1ab5530219d6bb1d6273b495668c97a19e6f670674e069b",
+      "git_blob": "382e63b837dd10a158478991918c6a8380696fce"
+    },
+    {
+      "path": "geometrodynamics/waves/gr_handle_checks.py",
+      "bytes": 4942,
+      "sha256": "3f9de605153a7a68f5769570c5a8e711327af57362a2fb58f9e01db99147045d",
+      "git_blob": "b0ffb993c29131b17416429e8ea3b749fd84e82d"
+    },
+    {
+      "path": "geometrodynamics/waves/maxwell_throat_response.py",
+      "bytes": 10853,
+      "sha256": "ac2d945175c0a1fdc468614b73901cb380d9e18d677c05b964e405b18c309c12",
+      "git_blob": "b7d98199f6a77cabab2107ab98fe974c482751bc"
+    },
+    {
+      "path": "geometrodynamics/waves/moving_mouth_pairs.py",
+      "bytes": 8422,
+      "sha256": "91d1b6d7d6c7709c904943bb9e0f82cd3f053f674ad69384e2b278ac70eca5d2",
+      "git_blob": "817c2feff6f638d2b4b9b8011d26860bd13610c4"
+    },
+    {
+      "path": "geometrodynamics/waves/pair_birth.py",
+      "bytes": 30502,
+      "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2",
+      "git_blob": "e75277e593fa236f3931066cc9f8222cbe241660",
+      "origin_commit": "fe228aca57698ac2dc248d060609aa104b2a7cec",
+      "origin_pr": 345,
+      "origin_note": "Original pair-birth implementation inherited through PR #349; later PR #345 versions may replace these working-tree files without changing historical evidence.",
+      "superseded_by": {
+        "commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "pr": 345,
+        "note": "Historical snapshot preserved at 2c07ff0; release ships final PR #345 source."
+      }
+    },
+    {
+      "path": "geometrodynamics/waves/physical_throat.py",
+      "bytes": 52495,
+      "sha256": "b60ba592626a764004e3d278a27d827c2acb970b1b78d1d28bacbb03fa5a940b",
+      "git_blob": "9b1add03e2ecde04753a0123edb1b7dd2bdc32ab"
+    },
+    {
+      "path": "geometrodynamics/waves/quotient_flash.py",
+      "bytes": 4310,
+      "sha256": "7ad27ed7c0fb2ab7d92cef72e65c171c596e4b171792694c84ea9e773b4416ef",
+      "git_blob": "e9f4cf410d6a1342429256a049ea95db887fa056"
+    },
+    {
+      "path": "geometrodynamics/waves/s3_maxwell_encounter.py",
+      "bytes": 13694,
+      "sha256": "999981c4e5997bcf8db0f17173f74d207b0d3c5f30d36f78d01d65a3ce3f5e7f",
+      "git_blob": "94c4bb612d6dc2c27e38adb239525c0bebcabbc7"
+    },
+    {
+      "path": "tests/test_alice_boundary.py",
+      "bytes": 4021,
+      "sha256": "ec00e9ef26d4455e0fd11e107a3e37d933faa2bfc1cd3346a2f266742773e491",
+      "git_blob": "811716d534904c5377eefedded09d8c7f2f40d74"
+    },
+    {
+      "path": "tests/test_antipodal_kick.py",
+      "bytes": 4543,
+      "sha256": "45feb1f56b9751475b1f24707326310cb175fbdd46788e8df4d53e842a61df55",
+      "git_blob": "d3f1ada79d46064385064b12d6ebd4d4666bd71d"
+    },
+    {
+      "path": "tests/test_deformable_mode_conversion.py",
+      "bytes": 2343,
+      "sha256": "ec278c4f37adcb7396d966b534417acfe653dedfefc1f22084fe773a3463b401",
+      "git_blob": "5895d31d276a267ad4cd878e30d09bf3c1170393"
+    },
+    {
+      "path": "tests/test_directional_flash_response.py",
+      "bytes": 5407,
+      "sha256": "0341df0cf420a4410c09ce72d985e83312a9cee5d251b1106523a5d403ef405c",
+      "git_blob": "e7a43f1eb03a83d09c12a2e34af1bb2166fc8a3f"
+    },
+    {
+      "path": "tests/test_einstein_throat_evolution.py",
+      "bytes": 4600,
+      "sha256": "3a09d3d89d4e8b2f0a446d191e175ad87eb78db81a1fa4292abe4a31861a9bf4",
+      "git_blob": "0cf82092e4b3ed0c658029d9fc780ed124d1c92f"
+    },
+    {
+      "path": "tests/test_gr_handle_checks.py",
+      "bytes": 4300,
+      "sha256": "6972c9c7e3f730bb70900ac957992fded6161c557f6d92a2d7c33af3f8c37113",
+      "git_blob": "4e36376eda3537323c2de4cf257846e7281f3f8b"
+    },
+    {
+      "path": "tests/test_maxwell_throat_response.py",
+      "bytes": 5640,
+      "sha256": "19847efdd3c0f694a63a9f26f81130be4df5cb48b8831848b674278d63d6ec85",
+      "git_blob": "b36b0d2471e8aa224964a54715806dfe5ddb9728"
+    },
+    {
+      "path": "tests/test_moving_mouth_pairs.py",
+      "bytes": 5092,
+      "sha256": "438ad9fb007e4fae924c9997348ff86087ff22f52fdc1932b82d7dbbea2277e5",
+      "git_blob": "c4df2b48c78d77b74d742389bf18db26b2495b70"
+    },
+    {
+      "path": "tests/test_pair_birth.py",
+      "bytes": 7670,
+      "sha256": "7362f595eeaadcbd018268a999611bf8004df564a5f4587904925ad6760120fe",
+      "git_blob": "703c90eb6674059ca676f3354ee79bbf2958f418",
+      "origin_commit": "fe228aca57698ac2dc248d060609aa104b2a7cec",
+      "origin_pr": 345,
+      "origin_note": "Original pair-birth implementation inherited through PR #349; later PR #345 versions may replace these working-tree files without changing historical evidence.",
+      "superseded_by": {
+        "commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "pr": 345,
+        "note": "Historical snapshot preserved at 2c07ff0; release ships final PR #345 source."
+      }
+    },
+    {
+      "path": "tests/test_pr349_review.py",
+      "bytes": 1377,
+      "sha256": "1b28511f8cb77a3d99dd9ac733fd001ea9b7134d4007a95bc6b201744000e8fa",
+      "git_blob": "2e5abca0362a720d7d979a57a71b8dbb6df6a5cb"
+    },
+    {
+      "path": "tests/test_quotient_flash.py",
+      "bytes": 3719,
+      "sha256": "4ac9c5cb8948035b1b673624981710d1136d04401fb89d434a0ad299ad31f6fe",
+      "git_blob": "56e52b2d41602d5694101fd63c0f9ecc912b74dd"
+    },
+    {
+      "path": "tests/test_s3_maxwell_encounter.py",
+      "bytes": 7167,
+      "sha256": "9a9990c9410286418ac2821637fc07855fc2ad7f145d4f049e10060eab332a60",
+      "git_blob": "7cd3ddc410f1e3e1121e91d4a12c328b4d392ee7"
+    }
+  ],
+  "validation": {
+    "test_files": [
+      "tests/test_alice_boundary.py",
+      "tests/test_antipodal_kick.py",
+      "tests/test_deformable_mode_conversion.py",
+      "tests/test_directional_flash_response.py",
+      "tests/test_einstein_throat_evolution.py",
+      "tests/test_gr_handle_checks.py",
+      "tests/test_maxwell_throat_response.py",
+      "tests/test_moving_mouth_pairs.py",
+      "tests/test_pair_birth.py",
+      "tests/test_pr349_review.py",
+      "tests/test_quotient_flash.py",
+      "tests/test_s3_maxwell_encounter.py",
+      "tests/test_waves_physical_throat.py",
+      "tests/test_bam_release_verifier.py",
+      "tests/test_antipodal_pair_birth.py",
+      "tests/test_s3_focusing.py",
+      "tests/test_throat_two_port.py",
+      "tests/test_viz_klein_handles.py"
+    ],
+    "tests_passed": 368,
+    "python": "3.12",
+    "openblas_threads": 1,
+    "full_repository_suite_run": true,
+    "wheel_built": "geometrodynamics-1.3.5-py3-none-any.whl",
+    "independent_delay_replication": {
+      "upstream_commit": "c1a5ae6247423c6fff5b2bff4bed8434faf258c1",
+      "test": "test_two_port_reproduces_the_published_delay_table",
+      "result": "passed; six lapse depths"
+    },
+    "isolated_wheel_smoke": "passed: version, imports, throat transmission and radius acceleration",
+    "full_repository_ci": {
+      "commit": "2c07ff0e66162bf02fc1003a575221ee606c9326",
+      "run_url": "https://github.com/davidmdrpi/geometrodynamics/actions/runs/40792853865",
+      "python": [
+        "3.10",
+        "3.12"
+      ],
+      "conclusion": "success"
+    },
+    "review_revision": {
+      "release_tests_passed": 228,
+      "verifier_regressions_passed": 9,
+      "archive_files_checked": 82,
+      "historical_imports_checked": 122,
+      "source_blobs_and_origins_checked": 122,
+      "upstream_pair_birth_compatibility": {
+        "commit": "c1a5ae6247423c6fff5b2bff4bed8434faf258c1",
+        "substituted_files": [
+          "geometrodynamics/waves/pair_birth.py",
+          "tests/test_pair_birth.py"
+        ],
+        "archive_gate": "passed",
+        "selected_tests_plus_verifier_passed": 248,
+        "note": "Temporary compatibility substitution only; original imported files restored."
+      }
+    },
+    "previous_candidate": {
+      "release": "0.44.0",
+      "tests_passed": 228,
+      "wheel_built": "geometrodynamics-0.44.0-py3-none-any.whl"
+    },
+    "capstone_revision": {
+      "selected_suite_passed": 368,
+      "unique_tests_passed": 368,
+      "verifier_tests_total": 20,
+      "test_files_count": 18,
+      "scope": "Final indexed --tests command passed all 368 tests; no full side-branch simulation reruns",
+      "historical_source_files_verified": 122,
+      "capstone_source_files_verified": 22,
+      "headlines_verified": 17,
+      "isolated_wheel_smoke": "passed; version and final PR #345 two-port numerical check",
+      "extracted_evidence_verifier": "passed without git checkout",
+      "full_repository_ci": "Previous df4cb86 passed on Python 3.10 and 3.12; new head pending",
+      "test_command": "OPENBLAS_NUM_THREADS=1 python scripts/verify_bam_foundations_release.py --tests",
+      "asset_build_isolation": "passed with deliberately incompatible host setuptools raising AttributeError: install_layout"
+    }
+  },
+  "boundaries": [
+    "Exact refocusing is a prescribed source-free S3 reference",
+    "Finite-port scattering does not attach the closed S3 exterior",
+    "The successful attraction run is a prepared 1+1-D three-field kink analogue (phi, psi1, psi2 on a line)",
+    "The refined BAM-scale analogue keeps separating",
+    "Electrovacuum radius contraction is not mouth-center attraction or regular annihilation",
+    "No derived charged Klein/time seam, support evolution or full matter-wave cycle is claimed"
+  ],
+  "historical_negative_result": {
+    "commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+    "report": "docs/coupled_mouth_throat_results.md",
+    "archive": "experiments/closure_ledger/runs/20261020_coupled_mouth_throat_replay",
+    "copied_into_release": false,
+    "conclusion": "Scalar candidate failed sustained approach and collapse; limitations retained in pinned report"
+  },
+  "verification": {
+    "default_scope": "Working-tree run archives and images only; evolving source, tests and reports are not frozen",
+    "historical_import_ref": "2c07ff0e66162bf02fc1003a575221ee606c9326",
+    "historical_import_check": "python scripts/verify_bam_foundations_release.py --ref 2c07ff0e66162bf02fc1003a575221ee606c9326",
+    "source_provenance_check": "python scripts/verify_bam_foundations_release.py --source-ref dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+    "limits": "Default checks internal archive consistency. Explicit source-ref checks Git blob identity and SHA-256 against the indexed source commit. Neither proves the model."
+  },
+  "capstone": {
+    "since_tag": "v1.3.0",
+    "window": "PR #301\u2013#350",
+    "research_lines": [
+      {
+        "pr": 304,
+        "sha": "ae9764042de4486c46d769794f585f35f8fb3e3d",
+        "title": "Solve nontrivial vacuum constraints on a compact antipodally twisted handle",
+        "branch": "codex/mouth-momentum-controls",
+        "data_path": "experiments/closure_ledger/runs/20260915_mouth_momentum/verdict.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr304.json",
+        "report": "docs/mouth_momentum.md",
+        "test": "tests/test_mouth_momentum.py",
+        "availability": "pinned side branch; verdict snapshot bundled"
+      },
+      {
+        "pr": 307,
+        "sha": "19a674d8625469c869c4f373efe062c7ab55c1e1",
+        "title": "Pass localized initial-data gates with independent physical error budget",
+        "branch": "codex/localized-mouth-error-budget",
+        "data_path": "experiments/closure_ledger/runs/20260922_localized_mouth_error_budget/error_budget_verdict.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr307.json",
+        "report": "docs/localized_mouth_error_budget.md",
+        "test": "tests/test_localized_mouth_error_budget.py",
+        "availability": "pinned side branch; verdict snapshot bundled"
+      },
+      {
+        "pr": 310,
+        "sha": "109c7ee6146d1e3134bbad33f1b380db06b4f0cc",
+        "title": "Floquet perturbation spectrum of the breathing four-scalar ESU and antipodal refocusing fidelity",
+        "branch": "claude/geometrodynamics-qft-audit-vpktax",
+        "data_path": "experiments/closure_ledger/runs/20260926_esu_floquet/esu_floquet.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr310.json",
+        "report": "docs/esu_floquet_refocusing.md",
+        "test": "tests/test_esu_floquet.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 311,
+        "sha": "b8b6cbd9c4e9ad9c275561d49cedbca4e7e5710b",
+        "title": "Finite tensor packet first transit and #310 replay correction",
+        "branch": "codex/finite-packet-first-transit",
+        "data_path": "experiments/closure_ledger/runs/20260927_finite_packet/packet.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr311.json",
+        "report": "docs/finite_packet_first_transit.md",
+        "test": "tests/test_finite_packet.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 312,
+        "sha": "1fcbd30df62d36df318bd57570d4a98cc3a6e114",
+        "title": "Add two separately measured gravitating regions and interaction controls",
+        "branch": "codex/two-gravitating-regions",
+        "data_path": "experiments/closure_ledger/runs/20260927_two_regions/review_controls.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr312.json",
+        "report": "docs/two_gravitating_regions.md",
+        "test": "tests/test_two_regions_controls.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 313,
+        "sha": "8388f7f7056677e3d79ca43f80647d77432d0d21",
+        "title": "Verify Poincar\u00e9\u2013Cartan implementation and audit selection-mechanism prerequisites",
+        "branch": "codex/dynamical-action-selection",
+        "data_path": "experiments/closure_ledger/runs/20260928_action_selection/action.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr313.json",
+        "report": "docs/dynamical_action_selection.md",
+        "test": "tests/test_action_selection.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 317,
+        "sha": "b1b265bb14a432fc14f0353aee46e22cd531d16e",
+        "title": "Constrained R3 return map: leading coefficient, all polarisations and large amplitude",
+        "branch": "claude/geometrodynamics-qft-audit-vpktax",
+        "data_path": "experiments/closure_ledger/runs/20260929_r3_extension/result.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr317.json",
+        "report": "docs/r3_extension.md",
+        "test": "tests/test_r3_extension.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 319,
+        "sha": "e226d69d8a87ea3d849827c51d41eb4ad0001c47",
+        "title": "Two-return family: closed-loop action and transverse stability",
+        "branch": "claude/geometrodynamics-qft-audit-vpktax",
+        "data_path": "experiments/closure_ledger/runs/20261001_r3_family/result.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr319.json",
+        "report": "docs/r3_family.md",
+        "test": "tests/test_r3_family.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 320,
+        "sha": "80d894a9304b9c1cbe4db51b955865a0083d6f4b",
+        "title": "Verify bounded linear normal response of the two-return family",
+        "branch": "codex/r3-normal-quotient",
+        "data_path": "experiments/closure_ledger/runs/20261003_r3_normal_quotient/result.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr320.json",
+        "report": "docs/r3_normal_quotient.md",
+        "test": "tests/test_r3_normal_quotient.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 325,
+        "sha": "196fc881782f270ec09cb705584d9896079ac406",
+        "title": "Explain R3 harmonic suppression with half-clock symmetry; confirm held-out 3/7 prediction",
+        "branch": "codex/r3-resonance-symmetry",
+        "data_path": "experiments/closure_ledger/runs/20261010_r3_half_clock/result.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr325.json",
+        "report": "docs/r3_half_clock.md",
+        "test": "tests/test_r3_half_clock.py",
+        "availability": "main baseline"
+      },
+      {
+        "pr": 326,
+        "sha": "39e3527b4b5b16c46f21f20f43b4da3bc93a1a26",
+        "title": "Support order-twelve symmetry selection on the diagonal-circular loop",
+        "branch": "codex/r3-diagonal-symmetry",
+        "data_path": "experiments/closure_ledger/runs/20261011_r3_diagonal_symmetry/result.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr326.json",
+        "report": "docs/r3_diagonal_symmetry.md",
+        "test": "tests/test_r3_diagonal_symmetry.py",
+        "availability": "pinned side branch; verdict snapshot bundled"
+      },
+      {
+        "pr": 339,
+        "sha": "4e6223a20680f0827708798a2b8b7817ec76b582",
+        "title": "Compute antipodal recoil from symmetric and asymmetric scalar focusing",
+        "branch": "codex/antipodal-kick",
+        "data_path": "experiments/closure_ledger/runs/20261016_antipodal_kick/summary.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr339.json",
+        "report": "docs/antipodal_kick_results.md",
+        "test": "tests/test_antipodal_kick.py",
+        "availability": "bundled source"
+      },
+      {
+        "pr": 340,
+        "sha": "45224b64399583c949ead4b90eaa64cfeda64641",
+        "title": "Move two antipodal mouth pairs with reciprocal scalar momentum exchange",
+        "branch": "codex/moving-mouth-pairs",
+        "data_path": "experiments/closure_ledger/runs/20261016_moving_mouth_pairs/summary.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr340.json",
+        "report": "docs/moving_mouth_pairs_results.md",
+        "test": "tests/test_moving_mouth_pairs.py",
+        "availability": "bundled source"
+      },
+      {
+        "pr": 345,
+        "sha": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "title": "Single-exchange rim fluxes, clock-offset re-emission, and pair birth to annihilation with moving flux mouths",
+        "branch": "claude/geometrodynamics-qft-audit-vpktax",
+        "data_path": "experiments/closure_ledger/runs/20261019_pair_birth/two_port.json",
+        "snapshot": "docs/releases/evidence-v1.3.5/pr345.json",
+        "report": "docs/pair_birth_timeline.md",
+        "test": "tests/test_throat_two_port.py",
+        "availability": "bundled source"
+      },
+      {
+        "pr": 337,
+        "title": "Klein-handle explorer with MTY clock offsets",
+        "sha": "ac7188e2c0bf0764f460e397894461a2ba3eb844",
+        "source_path": "geometrodynamics/viz/klein_handles.py",
+        "test": "tests/test_viz_klein_handles.py",
+        "availability": "main baseline; tested with this candidate"
+      }
+    ],
+    "artifacts": [
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr304.json",
+        "source_path": "experiments/closure_ledger/runs/20260915_mouth_momentum/verdict.json",
+        "source_commit": "ae9764042de4486c46d769794f585f35f8fb3e3d",
+        "bytes": 3387,
+        "sha256": "4e265d563611a7b1c5432fe539e42857d8c4740cbd252acacc2541555db6b532",
+        "git_blob": "42f3d236300dad13f821d2ec094f385ce48bf0f2",
+        "pr": 304
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr307.json",
+        "source_path": "experiments/closure_ledger/runs/20260922_localized_mouth_error_budget/error_budget_verdict.json",
+        "source_commit": "19a674d8625469c869c4f373efe062c7ab55c1e1",
+        "bytes": 53632,
+        "sha256": "9a9801f8375ad9a9b3a761f83e6ec5168578d46e91c852da89249a5ea01c611f",
+        "git_blob": "1df0268a7cae159b019ff8410656a6d21fa61c7d",
+        "pr": 307
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr310.json",
+        "source_path": "experiments/closure_ledger/runs/20260926_esu_floquet/esu_floquet.json",
+        "source_commit": "109c7ee6146d1e3134bbad33f1b380db06b4f0cc",
+        "bytes": 421617,
+        "sha256": "ea5ba87eda92081ffa753c714a0cc7aef69f3dec5a6a39e8e45e9dfc83170d64",
+        "git_blob": "28acf7b011b0e4c49ff34ba702ca257fb60157b6",
+        "pr": 310
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr311.json",
+        "source_path": "experiments/closure_ledger/runs/20260927_finite_packet/packet.json",
+        "source_commit": "b8b6cbd9c4e9ad9c275561d49cedbca4e7e5710b",
+        "bytes": 34847,
+        "sha256": "42fb700991fa8c0a583612985af9a166e3dc284402c0ebbb1f76ecb8df22649f",
+        "git_blob": "1266d2482c1301ed87dcba112f6302dceacbf421",
+        "pr": 311
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr312.json",
+        "source_path": "experiments/closure_ledger/runs/20260927_two_regions/review_controls.json",
+        "source_commit": "1fcbd30df62d36df318bd57570d4a98cc3a6e114",
+        "bytes": 7902,
+        "sha256": "38cf724c051a529a9fe4d0869e79372a3a0806275020a9e00184c082e1f0a116",
+        "git_blob": "7cab495ffd7ba6208e82bcf9b8e2a78e73a8eaa3",
+        "pr": 312
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr313.json",
+        "source_path": "experiments/closure_ledger/runs/20260928_action_selection/action.json",
+        "source_commit": "8388f7f7056677e3d79ca43f80647d77432d0d21",
+        "bytes": 42709,
+        "sha256": "66629ee0666910529751df58a074c4c1be61e4a5e2380b0a6136cf3de0293ba2",
+        "git_blob": "604ed4d2eac1e0c026e19c0636902d388d962275",
+        "pr": 313
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr317.json",
+        "source_path": "experiments/closure_ledger/runs/20260929_r3_extension/result.json",
+        "source_commit": "b1b265bb14a432fc14f0353aee46e22cd531d16e",
+        "bytes": 1993,
+        "sha256": "124f9064019bf7a138c28b1ff805a49e18f4f59db4a58453ea03b4a4d8790386",
+        "git_blob": "cfb395729935f399eeef09be7577ba10d17a8191",
+        "pr": 317
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr319.json",
+        "source_path": "experiments/closure_ledger/runs/20261001_r3_family/result.json",
+        "source_commit": "e226d69d8a87ea3d849827c51d41eb4ad0001c47",
+        "bytes": 11286,
+        "sha256": "40070b9854c5ea3f7759c92de0871999a3f3f5da551eef9f62db892a89206cf8",
+        "git_blob": "485f101d1a0d1319e74d35acd9dbd0b7a117e141",
+        "pr": 319
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr320.json",
+        "source_path": "experiments/closure_ledger/runs/20261003_r3_normal_quotient/result.json",
+        "source_commit": "80d894a9304b9c1cbe4db51b955865a0083d6f4b",
+        "bytes": 213628,
+        "sha256": "431aedfa5f1a6401731008e544a105dd752496b2bc65948a419d9e40212da261",
+        "git_blob": "82793be45f56cf3b6e74dd723cc3cc7fb724089e",
+        "pr": 320
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr325.json",
+        "source_path": "experiments/closure_ledger/runs/20261010_r3_half_clock/result.json",
+        "source_commit": "196fc881782f270ec09cb705584d9896079ac406",
+        "bytes": 2636,
+        "sha256": "446ddb73c43016d343b86ba5751bcff2cc1ec3427e3d6b5eb3b21ada98c276fa",
+        "git_blob": "51677c2d641ade04294884bd15e727962cc71796",
+        "pr": 325
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr326.json",
+        "source_path": "experiments/closure_ledger/runs/20261011_r3_diagonal_symmetry/result.json",
+        "source_commit": "39e3527b4b5b16c46f21f20f43b4da3bc93a1a26",
+        "bytes": 1910,
+        "sha256": "247b73d2e8a981ab43b1f9f41ba1ff6d741ea806ca0842bda4cc63686eb5c206",
+        "git_blob": "1ff633381374d56b57e6e5bc5ebe005d2169f7c9",
+        "pr": 326
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr339.json",
+        "source_path": "experiments/closure_ledger/runs/20261016_antipodal_kick/summary.json",
+        "source_commit": "4e6223a20680f0827708798a2b8b7817ec76b582",
+        "bytes": 11365,
+        "sha256": "bd4710f76b6b776ad27bdb11a83e168918ff65d62d6b4bdc6118844118d4bc30",
+        "git_blob": "fba940c79ab5a481116c6fe53b81618370d8eda9",
+        "pr": 339
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr340.json",
+        "source_path": "experiments/closure_ledger/runs/20261016_moving_mouth_pairs/summary.json",
+        "source_commit": "45224b64399583c949ead4b90eaa64cfeda64641",
+        "bytes": 18656,
+        "sha256": "0839661d53c44adb954ab9a1f7da74725bfe10fb33a9b101b8579202116a93c0",
+        "git_blob": "786ed6301d72c8bcfe4b5f7846458b30d344dfef",
+        "pr": 340
+      },
+      {
+        "path": "docs/releases/evidence-v1.3.5/pr345.json",
+        "source_path": "experiments/closure_ledger/runs/20261019_pair_birth/two_port.json",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 100261,
+        "sha256": "57eb76996207ab661545914c41e925b276f11452849f7dc1239763ba1ee96223",
+        "git_blob": "4ad262ad425312f54fd4a7f47eea711a36e4a641",
+        "pr": 345
+      }
+    ],
+    "source_imports": [
+      {
+        "path": "geometrodynamics/waves/pair_birth.py",
+        "source_path": "geometrodynamics/waves/pair_birth.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 60161,
+        "sha256": "fe5fb3a8bee79c2eb9c577da753150a37d2c64be723c86e3b9bfa09407d933fd",
+        "git_blob": "8f97ca498b0ad7aac9982057f307101ee1d51711",
+        "pr": 345
+      },
+      {
+        "path": "tests/test_pair_birth.py",
+        "source_path": "tests/test_pair_birth.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 18213,
+        "sha256": "dc91624598186363a9f3c9fe4bddbb157ff09d34971d4aeeae0f0edcaa381aff",
+        "git_blob": "8883219f75f0923de0b5045e26817a2a52149d09",
+        "pr": 345
+      },
+      {
+        "path": "geometrodynamics/waves/antipodal_pair_birth.py",
+        "source_path": "geometrodynamics/waves/antipodal_pair_birth.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 40034,
+        "sha256": "15860de96da0392da19d9c974208403889c19f4b89067e2505795cbc59ec0377",
+        "git_blob": "158100a8ee332de9341e49f48c11287eb6e0b66c",
+        "pr": 345
+      },
+      {
+        "path": "tests/test_antipodal_pair_birth.py",
+        "source_path": "tests/test_antipodal_pair_birth.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 19157,
+        "sha256": "20e48cf69d7206afb6ce084fed070360dbaac3d744a2127d659a45f21df18863",
+        "git_blob": "c1af131a90afb80157c227a524a2f7d479898348",
+        "pr": 345
+      },
+      {
+        "path": "geometrodynamics/waves/s3_focusing.py",
+        "source_path": "geometrodynamics/waves/s3_focusing.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 11892,
+        "sha256": "b2c3f250e07254149084603fcf5b652e79bb7a0678d08e05faa032d4d6faa9bc",
+        "git_blob": "c5e85a8918e70cc8f0183974064c3f8a1f0a1e30",
+        "pr": 345
+      },
+      {
+        "path": "tests/test_s3_focusing.py",
+        "source_path": "tests/test_s3_focusing.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 7372,
+        "sha256": "e44e8f656890c055e055aacf11a8e0a99b3b55a9132cf06fbf87dcf1281076e7",
+        "git_blob": "592d7ee542ed0b2cb374e531383a29d8bc9dfc2f",
+        "pr": 345
+      },
+      {
+        "path": "geometrodynamics/waves/throat_two_port.py",
+        "source_path": "geometrodynamics/waves/throat_two_port.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 5568,
+        "sha256": "586ebf7602d5ba206b28e99355f7209e44394b3c88274c5338025c308484dc4c",
+        "git_blob": "c0e9855e3cee1903d9f11164e7560faec40eef5c",
+        "pr": 345
+      },
+      {
+        "path": "tests/test_throat_two_port.py",
+        "source_path": "tests/test_throat_two_port.py",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "bytes": 7736,
+        "sha256": "14a81f458117a53fc06ce6820de3ff8294fc308b7349af925c28aacb4a27b134",
+        "git_blob": "3435fd38b864d630049df5aadb7188ec93b904be",
+        "pr": 345
+      }
+    ],
+    "headlines": [
+      {
+        "id": "pr304",
+        "title": "Vacuum handle constraints",
+        "scope": "Compact twisted vacuum initial data; minimal anti-trapped section; chosen \u039b and seed.",
+        "file": "docs/releases/evidence-v1.3.5/pr304.json",
+        "source_commit": "ae9764042de4486c46d769794f585f35f8fb3e3d",
+        "source_path": "experiments/closure_ledger/runs/20260915_mouth_momentum/verdict.json",
+        "test": "tests/test_mouth_momentum.py",
+        "report": "docs/mouth_momentum.md",
+        "metrics": [
+          {
+            "label": "registered gates",
+            "pointer": "/passed",
+            "format": "d",
+            "scale": 1
+          },
+          {
+            "label": "off-grid residual",
+            "pointer": "/metrics/offgrid_max",
+            "format": ".3g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr307",
+        "title": "Localized handle initial data",
+        "scope": "Chosen four-scalar family; independent coordinate error budget, not a vacuum derivation.",
+        "file": "docs/releases/evidence-v1.3.5/pr307.json",
+        "source_commit": "19a674d8625469c869c4f373efe062c7ab55c1e1",
+        "source_path": "experiments/closure_ledger/runs/20260922_localized_mouth_error_budget/error_budget_verdict.json",
+        "test": "tests/test_localized_mouth_error_budget.py",
+        "report": "docs/localized_mouth_error_budget.md",
+        "metrics": [
+          {
+            "label": "registered gates",
+            "pointer": "/passed",
+            "format": "d",
+            "scale": 1
+          },
+          {
+            "label": "reference H residual",
+            "pointer": "/points/16/absolute/0",
+            "format": ".6g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr310",
+        "title": "Tensor Floquet refocusing",
+        "scope": "Linear tensor sector of the supported breathing ESU; other sectors have separate stability verdicts.",
+        "file": "docs/releases/evidence-v1.3.5/pr310.json",
+        "source_commit": "109c7ee6146d1e3134bbad33f1b380db06b4f0cc",
+        "source_path": "experiments/closure_ledger/runs/20260926_esu_floquet/esu_floquet.json",
+        "test": "tests/test_esu_floquet.py",
+        "report": "docs/esu_floquet_refocusing.md",
+        "metrics": [
+          {
+            "label": "infidelity exponent",
+            "pointer": "/result/sectors/T/fit/p",
+            "format": ".4f",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr311",
+        "title": "Finite tensor packet transit",
+        "scope": "Centre-24, zero-phase S\u00b3-cover packet; squared-Weyl fraction is a curvature diagnostic, not absorbed energy.",
+        "file": "docs/releases/evidence-v1.3.5/pr311.json",
+        "source_commit": "b8b6cbd9c4e9ad9c275561d49cedbca4e7e5710b",
+        "source_path": "experiments/closure_ledger/runs/20260927_finite_packet/packet.json",
+        "test": "tests/test_finite_packet.py",
+        "report": "docs/finite_packet_first_transit.md",
+        "metrics": [
+          {
+            "label": "target cap fraction (%)",
+            "pointer": "/result/packets/2/final_weyl_cap_fraction",
+            "format": ".4f",
+            "scale": 100
+          }
+        ]
+      },
+      {
+        "id": "pr313",
+        "title": "Poincar\u00e9\u2013Cartan implementation",
+        "scope": "Preparation loop at epsilon=0.01; conservation of the Poincar\u00e9\u2013Cartan circulation, not physical action selection.",
+        "file": "docs/releases/evidence-v1.3.5/pr313.json",
+        "source_commit": "8388f7f7056677e3d79ca43f80647d77432d0d21",
+        "source_path": "experiments/closure_ledger/runs/20260928_action_selection/action.json",
+        "test": "tests/test_action_selection.py",
+        "report": "docs/dynamical_action_selection.md",
+        "metrics": [
+          {
+            "label": "relative circulation drift",
+            "pointer": "/cases/1/circulation_absolute_drift",
+            "denominator_pointer": "/cases/1/prediction",
+            "operation": "ratio",
+            "format": ".3g"
+          }
+        ]
+      },
+      {
+        "id": "pr317",
+        "title": "R3 polarization-dependent shift",
+        "scope": "Homogeneous constrained return map; local shift toward resonance, not proof of a crossing.",
+        "file": "docs/releases/evidence-v1.3.5/pr317.json",
+        "source_commit": "b1b265bb14a432fc14f0353aee46e22cd531d16e",
+        "source_path": "experiments/closure_ledger/runs/20260929_r3_extension/result.json",
+        "test": "tests/test_r3_extension.py",
+        "report": "docs/r3_extension.md",
+        "metrics": [
+          {
+            "label": "largest sampled coefficient",
+            "pointer": "/B/nu_max",
+            "format": ".6f",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr319",
+        "title": "R3 closed two-return family",
+        "scope": "Traced diagonal-circular family at one action; elliptic diagonal response with unreduced secular drift and ESU instability.",
+        "file": "docs/releases/evidence-v1.3.5/pr319.json",
+        "source_commit": "e226d69d8a87ea3d849827c51d41eb4ad0001c47",
+        "source_path": "experiments/closure_ledger/runs/20261001_r3_family/result.json",
+        "test": "tests/test_r3_family.py",
+        "report": "docs/r3_family.md",
+        "metrics": [
+          {
+            "label": "loop action",
+            "pointer": "/loop_action",
+            "format": ".10f",
+            "scale": 1
+          },
+          {
+            "label": "action uncertainty",
+            "pointer": "/loop_action_uncertainty",
+            "format": ".2g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr320",
+        "title": "Bounded R3 normal response",
+        "scope": "Linear centre quotient; sampled powers 1\u20131024 across twelve family points. Physical hyperbolic pair excluded; unreduced system remains unstable.",
+        "file": "docs/releases/evidence-v1.3.5/pr320.json",
+        "source_commit": "80d894a9304b9c1cbe4db51b955865a0083d6f4b",
+        "source_path": "experiments/closure_ledger/runs/20261003_r3_normal_quotient/result.json",
+        "test": "tests/test_r3_normal_quotient.py",
+        "report": "docs/r3_normal_quotient.md",
+        "metrics": [
+          {
+            "label": "largest tested amplification",
+            "pointer": "/reduced",
+            "item_pointer": "/modal/power_norms",
+            "operation": "max_samples",
+            "format": ".4f"
+          }
+        ],
+        "supporting_metrics": [
+          {
+            "label": "constraint residual",
+            "pointer": "/max_constraint",
+            "format": ".3g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr325",
+        "title": "Held-out half-clock prediction",
+        "scope": "Resolved angular harmonic and sign changes; conventional symmetry selection, not action quantization.",
+        "file": "docs/releases/evidence-v1.3.5/pr325.json",
+        "source_commit": "196fc881782f270ec09cb705584d9896079ac406",
+        "source_path": "experiments/closure_ledger/runs/20261010_r3_half_clock/result.json",
+        "test": "tests/test_r3_half_clock.py",
+        "report": "docs/r3_half_clock.md",
+        "metrics": [
+          {
+            "label": "dominant harmonic",
+            "pointer": "/dominant_harmonic",
+            "format": "d",
+            "scale": 1
+          },
+          {
+            "label": "sign changes",
+            "pointer": "/sign_changes",
+            "format": "d",
+            "scale": 1
+          },
+          {
+            "label": "seventh coefficient",
+            "pointer": "/harmonics/7",
+            "format": ".8g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr326",
+        "title": "Order-twelve selection",
+        "scope": "Sampled commuting half-clock and axis-permutation actions; whole-circle extension remains a condition.",
+        "file": "docs/releases/evidence-v1.3.5/pr326.json",
+        "source_commit": "39e3527b4b5b16c46f21f20f43b4da3bc93a1a26",
+        "source_path": "experiments/closure_ledger/runs/20261011_r3_diagonal_symmetry/result.json",
+        "test": "tests/test_r3_diagonal_symmetry.py",
+        "report": "docs/r3_diagonal_symmetry.md",
+        "metrics": [
+          {
+            "label": "sampled points",
+            "pointer": "/sample_count",
+            "format": "d",
+            "scale": 1
+          },
+          {
+            "label": "commutator defect",
+            "pointer": "/metrics/commutator",
+            "format": ".3g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "pr339",
+        "title": "Directional antipodal recoil",
+        "scope": "Smooth round-S\u00b2 scalar comparator with a reciprocal mobile attachment; continuous coupling.",
+        "file": "docs/releases/evidence-v1.3.5/pr339.json",
+        "source_commit": "4e6223a20680f0827708798a2b8b7817ec76b582",
+        "source_path": "experiments/closure_ledger/runs/20261016_antipodal_kick/summary.json",
+        "test": "tests/test_antipodal_kick.py",
+        "report": "docs/antipodal_kick_results.md",
+        "metrics": [
+          {
+            "label": "focus-window \u0394Lz",
+            "pointer": "/cases/directional/focus_impulse/2",
+            "format": ".8f",
+            "scale": 1
+          },
+          {
+            "label": "focus activity (%)",
+            "pointer": "/cases/directional/focus_activity_fraction",
+            "format": ".2f",
+            "scale": 100
+          }
+        ]
+      },
+      {
+        "id": "pr340",
+        "title": "Reciprocal moving pairs",
+        "scope": "Two constrained antipodal pairs in an effective S\u00b2 scalar Hamiltonian; no evolving handled metric.",
+        "file": "docs/releases/evidence-v1.3.5/pr340.json",
+        "source_commit": "45224b64399583c949ead4b90eaa64cfeda64641",
+        "source_path": "experiments/closure_ledger/runs/20261016_moving_mouth_pairs/summary.json",
+        "test": "tests/test_moving_mouth_pairs.py",
+        "report": "docs/moving_mouth_pairs_results.md",
+        "metrics": [
+          {
+            "label": "axis A motion (degrees)",
+            "pointer": "/cases/directional/final_displacement/0",
+            "format": ".5f",
+            "scale": 57.29577951308232
+          },
+          {
+            "label": "axis B motion (degrees)",
+            "pointer": "/cases/directional/final_displacement/1",
+            "format": ".5f",
+            "scale": 57.29577951308232
+          }
+        ]
+      },
+      {
+        "id": "pr345",
+        "title": "Strict-cycle timing bands",
+        "scope": "Final PR #345 packet reduction; unit neck lapse, k=1. Exact router closure retains stated capture/rebirth laws and omits scattering phases.",
+        "file": "docs/releases/evidence-v1.3.5/pr345.json",
+        "source_commit": "cd70f0fa1386dc95c648a8c2bdf5565025f43e20",
+        "source_path": "experiments/closure_ledger/runs/20261019_pair_birth/two_port.json",
+        "test": "tests/test_throat_two_port.py",
+        "report": "docs/pair_birth_timeline.md",
+        "metrics": [
+          {
+            "label": "lower speed (open)",
+            "pointer": "/bands/0/two_port",
+            "format": ".8f",
+            "scale": 1
+          },
+          {
+            "label": "upper speed (closed)",
+            "pointer": "/bands/0/u_k",
+            "format": ".8f",
+            "scale": 1
+          },
+          {
+            "label": "flash transmission",
+            "pointer": "/flash/0/T",
+            "format": ".6g",
+            "scale": 1
+          },
+          {
+            "label": "speed drift inside",
+            "pointer": "/router/0/speed_drift",
+            "format": ".2g"
+          },
+          {
+            "label": "speed drift below",
+            "pointer": "/router/1/speed_drift",
+            "format": ".3f"
+          }
+        ]
+      },
+      {
+        "id": "s3",
+        "title": "Exact S\u00b3 Maxwell refocusing",
+        "file": "experiments/closure_ledger/runs/20261027_s3_maxwell/summary.json",
+        "source_path": "experiments/closure_ledger/runs/20261027_s3_maxwell/summary.json",
+        "source_commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+        "test": "tests/test_s3_maxwell_encounter.py",
+        "report": "docs/s3_maxwell_encounter.md",
+        "scope": "Prepared source-free dipole-sector Maxwell reference on the round S\u00b3.",
+        "metrics": [
+          {
+            "label": "full-field defect",
+            "pointer": "/max_refocus_field_error",
+            "format": ".3g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "throat",
+        "title": "Geometry-derived throat scattering",
+        "file": "experiments/closure_ledger/runs/20261028_maxwell_throat/summary.json",
+        "source_path": "experiments/closure_ledger/runs/20261028_maxwell_throat/summary.json",
+        "source_commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+        "test": "tests/test_maxwell_throat_response.py",
+        "report": "docs/maxwell_throat_response.md",
+        "scope": "Finite ports and specified supported lapse; independent boundary-map and phase-force checks.",
+        "metrics": [
+          {
+            "label": "cases",
+            "pointer": "/scattering_cases",
+            "format": "d",
+            "scale": 1
+          },
+          {
+            "label": "unitarity defect",
+            "pointer": "/max_unitarity_error",
+            "format": ".4g",
+            "scale": 1
+          },
+          {
+            "label": "phase-force error",
+            "pointer": "/max_phase_force_error",
+            "format": ".3g",
+            "scale": 1
+          }
+        ]
+      },
+      {
+        "id": "attraction",
+        "title": "Action-derived attraction",
+        "file": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.json",
+        "source_path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.json",
+        "source_commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+        "test": "tests/test_deformable_mode_conversion.py",
+        "report": "docs/deformable_alice_boundary.md",
+        "scope": "1+1-D three-field kink analogue with prepared radiation; t=120, dx=0.05.",
+        "metrics": [
+          {
+            "label": "separation",
+            "pointer": "/rows/240/centers",
+            "format": ".6f",
+            "scale": 1,
+            "operation": "difference"
+          },
+          {
+            "label": "prepared radiation (% rest energy)",
+            "pointer": "/seed_energy",
+            "denominator_pointer": "/background_energy",
+            "operation": "ratio",
+            "format": ".2f",
+            "scale": 100
+          }
+        ]
+      },
+      {
+        "id": "einstein",
+        "title": "Einstein radius evolution",
+        "file": "experiments/closure_ledger/runs/20261028_einstein_throat/summary.json",
+        "source_path": "experiments/closure_ledger/runs/20261028_einstein_throat/summary.json",
+        "source_commit": "dc9c6890ea2fd843cafbd53f7b2ee64746cb5fd9",
+        "test": "tests/test_einstein_throat_evolution.py",
+        "report": "docs/einstein_throat_evolution.md",
+        "scope": "Unsupported spherical electrovacuum completion; radius dynamics, with neutral singular and charged inner-horizon endpoints.",
+        "metrics": [
+          {
+            "label": "histories",
+            "pointer": "/evolution_cases",
+            "format": "d",
+            "scale": 1
+          },
+          {
+            "label": "relative radius discrepancy",
+            "pointer": "/max_radius_error_over_initial_radius",
+            "format": ".3g",
+            "scale": 1
+          }
+        ]
+      }
+    ],
+    "supporting_results": [
+      {
+        "id": "pr312",
+        "title": "Two-region metric response",
+        "scope": "Proper matter inventory response for overlapping seeds; registered coarse-grid gate remains failed; not body acceleration.",
+        "file": "docs/releases/evidence-v1.3.5/pr312.json",
+        "source_commit": "1fcbd30df62d36df318bd57570d4a98cc3a6e114",
+        "source_path": "experiments/closure_ledger/runs/20260927_two_regions/review_controls.json",
+        "test": "tests/test_two_regions_controls.py",
+        "report": "docs/two_gravitating_regions.md",
+        "metrics": [
+          {
+            "label": "off-diagonal response A\u2190B",
+            "pointer": "/grids/1/energy_response/solved/0/1",
+            "format": ".7f",
+            "scale": 1
+          }
+        ]
+      }
+    ]
+  }
+}

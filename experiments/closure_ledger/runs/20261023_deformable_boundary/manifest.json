@@ -1,0 +1,234 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/alice_boundary_controls.json",
+      "bytes": 16615,
+      "sha256": "ab9f66410c8a8c9f44f18b6ba49e3ee6251eb5e356ddc784ed9f0d8f5020b6c3"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/directional_gap_screen.json",
+      "bytes": 39504,
+      "sha256": "f3f811d3b0ea222ea7a2d8145f9fde5595aac25d05bc0a95b73d48a0b0e09d3a"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/historical_sources.json",
+      "bytes": 3381,
+      "sha256": "112a76a76ab91513427748b0495b2e95974629c8bbdd1ba5a229731024bb451b"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/nonlinear_time_quotient.json",
+      "bytes": 47367,
+      "sha256": "d90a2308f792e58a76683984a2619930d76b17615e71b1fcb9502520e6837e16"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/nonlinear_time_quotient.npz",
+      "bytes": 693942,
+      "sha256": "13444fc3b9c551bd0006c1fae07cf77cdb1d61bcc485bec470f96309916de7ca"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy.json",
+      "bytes": 164489,
+      "sha256": "fc333713a753121758b4d75a63bc9233d7afdf67813c177257d86795a36a9648"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy.npz",
+      "bytes": 661015,
+      "sha256": "e8af0f1ddf15ec4f4e9efbc2fcfcaf4989bf512e43d80877b6752935e9848737"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.json",
+      "bytes": 164268,
+      "sha256": "3e91fa77773210578a078a7d1f515c7fafcbcf38d99fcae077f44608fbcd45c0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_fine.npz",
+      "bytes": 862336,
+      "sha256": "f04ec8c22df4250cc6a07d7da3fb2d5097dc75176da730053bdbb19e801b8b2c"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_time_fine.json",
+      "bytes": 165037,
+      "sha256": "0caa349feea0fc3c8c16b5c25bb6253fc0c7f002db8e8401cbedb25c46994663"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_heavy_time_fine.npz",
+      "bytes": 664026,
+      "sha256": "05afa38d4cd1078247f154ec9394a7f337712748c42a5e72f85206b7edfb9a18"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_light.json",
+      "bytes": 84653,
+      "sha256": "9e54f210c177948142bd62df4f3aa3003d829b7a3f13f201de4cbe7f3f425738"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_light.npz",
+      "bytes": 368635,
+      "sha256": "b5fe45910cd25210f65fc29f3090477467703d0934fcde8cd700e4d21a38c0d5"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_no_wave.json",
+      "bytes": 160252,
+      "sha256": "049a73ad9867874180116939798ae2d572a05374d7679742e6b93c5dacd4eb09"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_no_wave.npz",
+      "bytes": 236326,
+      "sha256": "e3a0968b1af82fc9b656ad57ce91bbae14cf18f433e87dd46ee0feb18dd47989"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_offset.json",
+      "bytes": 84580,
+      "sha256": "ae79c687e3fd6c0dc216b363598af6c2a88e168838150412dd3f15deb17385cf"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/pair_offset.npz",
+      "bytes": 472217,
+      "sha256": "737d93dd1e6a11c48220047422411c765aaa50dc3fd75df76f3a467399286d19"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/replay.json",
+      "bytes": 3324,
+      "sha256": "e79e57340cbe8a7bc81cbce3ca2ac1b11faeeac76c0b950574262c339b1e3413"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/schedule.json",
+      "bytes": 1162,
+      "sha256": "44b8829c5d89afbf15fb8a2347c1e6bd2d5c30dfbc731b6b9845dda7df9a2c21"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_closed_return.json",
+      "bytes": 269992,
+      "sha256": "45654f4885be5d2f4b8703e69778cd6f833cb72753c239b1afc738c4b476d0af"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_closed_return.npz",
+      "bytes": 976296,
+      "sha256": "eaf8f048a235833d2a9f806bf2f9763f4f5be4f52695fe67532898dd9e832909"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_disconnected.json",
+      "bytes": 55271,
+      "sha256": "5afb61ddb6e5e34d7ef2f2d70a453577559eec9ca42c56485fd456143c485718"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_disconnected.npz",
+      "bytes": 248819,
+      "sha256": "50cc8e5ec6de9aff9a3013220480f36aa2903bcdde76110f85c49501ae49fc46"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy.json",
+      "bytes": 54938,
+      "sha256": "5daf722b3016f0bbc3009d47f8a67df9cecc2ee6a6682c99e1055a4742d8b1b0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy.npz",
+      "bytes": 267926,
+      "sha256": "a79fd52d28d1b03730a4d37d2f3011013a0a73e85a67abd16409e01d7323fc09"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_fine.json",
+      "bytes": 55042,
+      "sha256": "446342a034643e2add22eada2f30e46ede06324775723b938610ae56dd80e69d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_fine.npz",
+      "bytes": 376551,
+      "sha256": "f99933421571c23d8d24072e51c304ee4a59693c61f938df9a0a60afe1ce8a6d"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_finer.json",
+      "bytes": 55113,
+      "sha256": "bf2447b07bb4f2c332b7bacf7e01993509b91dbf4835f649f14e0d5690a7784b"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_heavy_finer.npz",
+      "bytes": 602533,
+      "sha256": "ba346b083142f6586b988f9438a17efcee39f9e4d7b1f5d3a8b06d748b129f16"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_light.json",
+      "bytes": 55323,
+      "sha256": "d7277f415d891074b67b609d1279e4945fdca312523f868ec9a5b91d27417cbb"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_light.npz",
+      "bytes": 268172,
+      "sha256": "214ccf1f7b3c79272c2d896ae8f60511cefb53c95a5199933c5266d4d2c24634"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_offset.json",
+      "bytes": 55205,
+      "sha256": "8271ec07cc0b04934ba876b35a13fdc47b7a0ceb1b6bf3f2139c75f0bc4bda3c"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_offset.npz",
+      "bytes": 270238,
+      "sha256": "648c2bb22d3cd19bb61254453ed4acfd1991bea0e3c6cd391436f168485e42b0"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_reversed.json",
+      "bytes": 41648,
+      "sha256": "fda9b86d95b38f988e7baacb647311bb71dc118851f67a3e6112610159729832"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/single_reversed.npz",
+      "bytes": 222501,
+      "sha256": "8cceedec8bd2c30aa0849717cc4708d4ad5129473979ba8720560ea1cdab34bd"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/step_scattering.json",
+      "bytes": 4962,
+      "sha256": "d5563c9362ab05b689f174da2c133c78bda94abef9f16f087783d2e75b8420d9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261023_deformable_boundary/summary.json",
+      "bytes": 450,
+      "sha256": "cc4b551381437aacd83d38cfd8264b744482d4ce4e4ed0277603cec449b3d9f3"
+    },
+    {
+      "path": "experiments/closure_ledger/deformable_boundary_report.py",
+      "bytes": 7305,
+      "sha256": "5a96f24c6f180b9652420c9e310b4d211b19443f71a615e5363a2aae2fb3154e"
+    },
+    {
+      "path": "experiments/closure_ledger/deformable_boundary_probe.py",
+      "bytes": 11653,
+      "sha256": "03c09ca06bcf69a457b492c2f4542db4c62bfd7f9f7db422e58e9aaa39f117d3"
+    },
+    {
+      "path": "geometrodynamics/waves/alice_boundary.py",
+      "bytes": 5866,
+      "sha256": "f0bfd0291d2c540af21def469faef0b4d38e0545d0e772ced0dc21c738444bad"
+    },
+    {
+      "path": "geometrodynamics/waves/deformable_mode_conversion.py",
+      "bytes": 7780,
+      "sha256": "27fa50ffe0ea8e55ddd94df62f3a443b727fcd1e31d2d3b91c90b6a652d358f7"
+    },
+    {
+      "path": "geometrodynamics/waves/pair_birth.py",
+      "bytes": 30502,
+      "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2"
+    },
+    {
+      "path": "tests/test_alice_boundary.py",
+      "bytes": 4021,
+      "sha256": "ec00e9ef26d4455e0fd11e107a3e37d933faa2bfc1cd3346a2f266742773e491"
+    },
+    {
+      "path": "tests/test_deformable_mode_conversion.py",
+      "bytes": 2343,
+      "sha256": "ec278c4f37adcb7396d966b534417acfe653dedfefc1f22084fe773a3463b401"
+    },
+    {
+      "path": "docs/deformable_alice_boundary.md",
+      "bytes": 15073,
+      "sha256": "60664363c19da54f86710f0cdefcd3e6a07ab5d25d5767ad93b159cab46c7699"
+    },
+    {
+      "path": "docs/images/history_throat/deformable_boundary.png",
+      "bytes": 300214,
+      "sha256": "9bb8c5a10acd964fae9f99c10b52cc5a53ec3bd88e9ef1400ecf597e43e82b15"
+    }
+  ]
+}

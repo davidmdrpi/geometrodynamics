@@ -3,6 +3,21 @@
 
 **A research framework implementing and testing Wheeler's geometrodynamic program.**
 
+## v1.3.5 — BAM research capstone
+
+[Release notes and verified results](docs/releases/bam-foundations-1.3.5.md)
+bring together the work since v1.3.0: constrained handle data, antipodal packet
+transport, R3 return families and symmetry predictions, reciprocal scalar recoil,
+strict-cycle timing, Maxwell throat scattering and conditional Einstein radius
+evolution. The release includes final PR #345 code and pins the other research
+lines to their evidence and tests. Each result retains its physical scope.
+
+![BAM research capstone](docs/images/releases/bam_capstone.png)
+
+The [research record](docs/releases/bam-foundations-research-record.md) preserves
+all controls, negative results and the remaining requirements for the coupled model.
+
+
 This package computationally explores the hypothesis that structures
 physicists call electromagnetism, charge, spin, confinement, **black
 holes**, and **Bell correlations** may emerge from the geometry of

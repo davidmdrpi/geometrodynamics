@@ -1,0 +1,83 @@
+[
+  {
+    "phase": 0.0,
+    "time": 0.17,
+    "max_field_refocus_error": 5.88418203051333e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 4.0,
+      "1": 4.118679922513228e-30
+    }
+  },
+  {
+    "phase": 0.0,
+    "time": 0.74,
+    "max_field_refocus_error": 4.08006961549745e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 4.0,
+      "1": 4.118679922513228e-30
+    }
+  },
+  {
+    "phase": 0.0,
+    "time": 1.31,
+    "max_field_refocus_error": 3.0499691314189725e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 4.0,
+      "1": 4.118679922513228e-30
+    }
+  },
+  {
+    "phase": 0.7853981633974483,
+    "time": 0.17,
+    "max_field_refocus_error": 8.659739592076221e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 2.000000000000003,
+      "1": 1.9999999999999967
+    }
+  },
+  {
+    "phase": 0.7853981633974483,
+    "time": 0.74,
+    "max_field_refocus_error": 4.6351811278100286e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 2.000000000000003,
+      "1": 1.9999999999999967
+    }
+  },
+  {
+    "phase": 0.7853981633974483,
+    "time": 1.31,
+    "max_field_refocus_error": 4.026781078719788e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 2.000000000000003,
+      "1": 1.9999999999999967
+    }
+  },
+  {
+    "phase": 1.5707963267948966,
+    "time": 0.17,
+    "max_field_refocus_error": 6.8833827526759706e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 4.4705740236454746e-30,
+      "1": 4.0
+    }
+  },
+  {
+    "phase": 1.5707963267948966,
+    "time": 0.74,
+    "max_field_refocus_error": 4.6629367034256575e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 4.4705740236454746e-30,
+      "1": 4.0
+    }
+  },
+  {
+    "phase": 1.5707963267948966,
+    "time": 1.31,
+    "max_field_refocus_error": 3.5207297147121785e-15,
+    "quotient_raw_defect_energy_fraction": {
+      "-1": 4.4705740236454746e-30,
+      "1": 4.0
+    }
+  }
+]

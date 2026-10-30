@@ -1,0 +1,57 @@
+{
+  "cases": 24,
+  "max_flux_error": 3.1925679877531365e-09,
+  "max_metric_error": 3.3306690738754696e-16,
+  "endpoint_convergence": [
+    {
+      "ell": 1,
+      "omega_b": 0.2,
+      "last_change": 4.926372882112923e-07,
+      "previous_change": 3.6641532660673833e-06
+    },
+    {
+      "ell": 1,
+      "omega_b": 0.5,
+      "last_change": 2.223520285393743e-06,
+      "previous_change": 4.899483240461411e-05
+    },
+    {
+      "ell": 1,
+      "omega_b": 1.0,
+      "last_change": 1.2282582873002212e-07,
+      "previous_change": 1.5161844523214896e-06
+    },
+    {
+      "ell": 1,
+      "omega_b": 2.0,
+      "last_change": 1.4941952120040014e-09,
+      "previous_change": 1.024402340732422e-09
+    },
+    {
+      "ell": 2,
+      "omega_b": 0.2,
+      "last_change": 1.9267528723646206e-10,
+      "previous_change": 1.1590308329039814e-09
+    },
+    {
+      "ell": 2,
+      "omega_b": 0.5,
+      "last_change": 9.524733686342487e-08,
+      "previous_change": 3.127222825651172e-07
+    },
+    {
+      "ell": 2,
+      "omega_b": 1.0,
+      "last_change": 1.946088149484826e-05,
+      "previous_change": 5.766582077104676e-05
+    },
+    {
+      "ell": 2,
+      "omega_b": 2.0,
+      "last_change": 5.280441084387633e-09,
+      "previous_change": 1.8746533658742237e-08
+    }
+  ],
+  "bam_solution_established": false,
+  "interpretation": "T enters the future horizon; no second-exterior transmission, pair recoil, or nonlinear Einstein evolution computed"
+}

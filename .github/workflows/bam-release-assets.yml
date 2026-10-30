@@ -1,0 +1,57 @@
+name: BAM release assets
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'pyproject.toml'
+      - 'geometrodynamics/**'
+      - 'docs/releases/**'
+      - 'docs/images/releases/**'
+      - 'scripts/*bam*release*'
+      - 'scripts/bam_release_catalog.py'
+      - 'CITATION.cff'
+      - 'CHANGELOG.md'
+      - '.github/workflows/bam-release-assets.yml'
+  push:
+    tags: ['v1.3.5']
+permissions:
+  contents: read
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/build_bam_release_assets.py --output-dir dist/bam-1.3.5
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bam-1.3.5-release-assets
+          path: dist/bam-1.3.5/*
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/tags/v1.3.5'
+    needs: prepare
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: bam-1.3.5-release-assets
+          path: dist/bam-1.3.5
+      - name: Check dated release metadata
+        run: python scripts/prepare_bam_release_metadata.py --check
+      - name: Verify release asset checksums
+        working-directory: dist/bam-1.3.5
+        run: sha256sum --check SHA256SUMS
+      - name: Publish the tagged release and assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "$GITHUB_REF_NAME" dist/bam-1.3.5/*
+          --verify-tag --title "BAM v1.3.5 research capstone"
+          --notes-file docs/releases/bam-foundations-1.3.5.md

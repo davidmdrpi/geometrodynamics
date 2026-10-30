@@ -1,0 +1,44 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/orientation.json",
+      "bytes": 6662,
+      "sha256": "d71efa18bb84095b349168e28f4045e330ad44571c1d6dc900291f26406c4748"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/scattering.json",
+      "bytes": 7205,
+      "sha256": "0cfa4bb1af675eae5138f6c46fbb6d09f594862f0f18c5c887575c872590c2aa"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/summary.json",
+      "bytes": 1459,
+      "sha256": "3640aaa014250ee266ec2f403d1610c151e77b7b69159d80feb38e8933ec62e9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261024_gr_handle/support.json",
+      "bytes": 4447,
+      "sha256": "67a7d33534795b37acc3f1865e96d9e66db8668a4b5f37f56f0e5f89bd3ccf83"
+    },
+    {
+      "path": "experiments/closure_ledger/gr_handle_probe.py",
+      "bytes": 3649,
+      "sha256": "7d5b602e1f840c66172356c725ad237b179e379cf54257accf33b1bf145f914b"
+    },
+    {
+      "path": "geometrodynamics/waves/gr_handle_checks.py",
+      "bytes": 4942,
+      "sha256": "3f9de605153a7a68f5769570c5a8e711327af57362a2fb58f9e01db99147045d"
+    },
+    {
+      "path": "tests/test_gr_handle_checks.py",
+      "bytes": 4300,
+      "sha256": "6972c9c7e3f730bb70900ac957992fded6161c557f6d92a2d7c33af3f8c37113"
+    },
+    {
+      "path": "docs/gr_handle_orientation.md",
+      "bytes": 7862,
+      "sha256": "4ff0bb3d64df57ad4697928a9dd05c847ef5f69673561fa0446771a802e9ceef"
+    }
+  ]
+}

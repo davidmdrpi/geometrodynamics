@@ -1,0 +1,89 @@
+{
+  "files": [
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/carryovers.json",
+      "bytes": 2852,
+      "sha256": "ce805823927a58482e206b417d510586285f37404361454b7dc9edff5e2c98e3"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_no_wave.json",
+      "bytes": 37146,
+      "sha256": "825e74b084f8cd93f5e7105696d2f1d318e1234be8b7ca382c4696a717c2e8fa"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_no_wave_fine.json",
+      "bytes": 39857,
+      "sha256": "65cedc5254261f14847a2e8aa0872009491df6dc7c051aa267fcab7ac5c2cb9b"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_scale.json",
+      "bytes": 40544,
+      "sha256": "bd9484b910db414b0921da6b10d2ecfa04dadc4f01eb5c18115273a65ebc1c42"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_bam_scale_fine.json",
+      "bytes": 43363,
+      "sha256": "340054a3d96fc41b301132147babb5ffd92b796eb8a3621fa100234b21db14ef"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_no_wave_80.json",
+      "bytes": 52000,
+      "sha256": "0a8fd3f03a77368905013e87f46703a2ce0a99521c3345bb69082672ded96105"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_return_60.json",
+      "bytes": 47666,
+      "sha256": "2194406a8bda7a612270194665b79bdd4757e7973ab769d3d9fae59c4f656c01"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/pair_return_80.json",
+      "bytes": 55663,
+      "sha256": "841ed6a8236dc7c42910e3b8cfdaad8466924df7b94800b5b88c6b8b0fbbc7e9"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/quotient_geometry.json",
+      "bytes": 19233,
+      "sha256": "e8a06450866c048ac4f4f96d5e89945e812c645079eaedc417fdc171ac0ec0f6"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/refinement.json",
+      "bytes": 1103,
+      "sha256": "b4e78fefbfe090b2ad8f2515d324ea32285a5898bcb0b8edebb28c290f621694"
+    },
+    {
+      "path": "experiments/closure_ledger/runs/20261025_review/summary.json",
+      "bytes": 2623,
+      "sha256": "aff625d41aa6975cc1b42f60c6fb02f8677a2b355ef99e5751bf4ed00de0b437"
+    },
+    {
+      "path": "experiments/closure_ledger/pr349_review_probe.py",
+      "bytes": 6240,
+      "sha256": "c6ee26f3af313b37cd87d9a1c2227d0b2aa0817ffdf5037d99815cf4f5d7fdd9"
+    },
+    {
+      "path": "docs/pr349_review_assessment.md",
+      "bytes": 9621,
+      "sha256": "3b3d8e89faa5a384f09c35d79e7063890507871027fa274681df622c63baa9c6"
+    },
+    {
+      "path": "tests/test_pr349_review.py",
+      "bytes": 1377,
+      "sha256": "1b28511f8cb77a3d99dd9ac733fd001ea9b7134d4007a95bc6b201744000e8fa"
+    },
+    {
+      "path": "geometrodynamics/waves/pair_birth.py",
+      "bytes": 30502,
+      "sha256": "c707bc752079aafb29d27c96f6abac5287276e7299824160c4ef78cb2a4c40d2"
+    },
+    {
+      "path": "geometrodynamics/waves/deformable_mode_conversion.py",
+      "bytes": 7780,
+      "sha256": "27fa50ffe0ea8e55ddd94df62f3a443b727fcd1e31d2d3b91c90b6a652d358f7"
+    },
+    {
+      "path": "geometrodynamics/waves/directional_flash_response.py",
+      "bytes": 4994,
+      "sha256": "fc44515cf735aedd8ac768daf39b610f9f44d29fe2807faca8ea9d6ca64619f5"
+    }
+  ]
+}
