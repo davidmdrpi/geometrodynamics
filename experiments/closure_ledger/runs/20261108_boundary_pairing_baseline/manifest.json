@@ -1,0 +1,20 @@
+{
+  "baseline_commit": "3293d5bad3c8e103c8514ad85afc0128050004e4",
+  "environment": {
+    "numpy": "2.3.5",
+    "python": "3.12.14",
+    "scipy": "1.17.0"
+  },
+  "protocol_commit": "836bb278074030262819c4bbfd91c5b791068be1",
+  "scope": "Static/algebraic qualification; dynamic experiment pending",
+  "sha256": {
+    "docs/conjugate_boundary_pairing_baseline.md": "94150ddfbe8317faaeba2d3d34c8cd02c4be4a4095c6d7eb2db6c72bbb55737a",
+    "docs/conjugate_boundary_pairing_protocol.md": "b6f4b4d51d4497860fbd6b527697db8667a7df4c82e639b661cb26a6eb5703fe",
+    "experiments/closure_ledger/boundary_pairing_baseline_probe.py": "f20851289e1d987e87e6b9c98da0c6b790785a08aadc7cbb3c77a2b36cb7bfff",
+    "experiments/closure_ledger/runs/20261108_boundary_pairing_baseline/probe.json": "8169032d660a76986a595c35c3d53afbd04bc1e3a46dff6068617c34352b0f6f",
+    "geometrodynamics/embedding/transport.py": "1d5f35105eb80752e41385978a5e7b1c2324b694b489146adcd9059af86b3608",
+    "geometrodynamics/waves/boundary_pairing.py": "fec21a00d2eb441f16924cd9858c8bcace40f2a5ce9596a01f484601d9e5d840",
+    "geometrodynamics/waves/maxwell_throat_response.py": "ac2d945175c0a1fdc468614b73901cb380d9e18d677c05b964e405b18c309c12",
+    "tests/test_boundary_pairing.py": "cb51d0ceab2ddc0364bc72ec1c72e61f27281783945f6940fa2b0e9a03f6087b"
+  }
+}
