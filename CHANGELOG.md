@@ -13,6 +13,15 @@
   separate `INCOMPLETE`, `UNRESOLVED_NUMERICALLY` and `COUNTEREXAMPLE`.
   28 checks, 80 tests. No quantum rule is derived.
 
+- Round 13, localized responding Klein handle
+  (`bulk/klein_handle_response.py`, freeze `5d15963`): on a lattice handle
+  with a time-reversing seam and a solved waist coordinate, the
+  complementary-quadrature structure survives nonlinear response exactly;
+  the waist response supplies no sector pairing; for a charged field the
+  conserved charge pairs the sectors only when the seam reverses both time
+  and fibre. Indefinite pairing, prescribed potential, no probability rule.
+  32 checks at two sizes, 26 tests.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the

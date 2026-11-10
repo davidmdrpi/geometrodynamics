@@ -5435,6 +5435,54 @@ python -m experiments.closure_ledger.klein_time_probe   # 28/28
 python -m pytest -q tests/test_klein_time.py             # 80 tests
 ```
 
+## A localized, responding Klein handle: the pairing is the charge (round 13)
+
+*Pre-registered in `docs/klein_handle_response_prereg.md` (`5d15963`),
+committed before the module. Module
+`geometrodynamics/bulk/klein_handle_response.py`; probe
+`klein_handle_response_probe.py`; tests `tests/test_klein_handle_response.py`.
+Write-up: [klein_handle_response.md](docs/klein_handle_response.md).*
+
+Round 12's surviving result was for a global quotient of a linear field.
+This round takes a lattice ring with one handle whose seam reverses time,
+gives each tube a waist coordinate solved from the same Hamiltonian as the
+field (effective oscillator support, the protocol's `q|psi|^2` coupling),
+and asks whether the structure survives and whether the response pairs the
+two sectors. It is not Stage 1 of the boundary-pairing protocol.
+
+**All eight frozen predictions hold, 32/32 checks at two network sizes.**
+Most are consequences of one reversing symmetry; the numerics confirm the
+derivation, they are not independent evidence.
+
+* **The structure survives, exactly.** Admissible nonlinear histories obey
+  `z(t) = D z(-t)` to `7e-16` at every amplitude, including a supplementary
+  run with the tube barrier more than halved, and form a Lagrangian
+  submanifold. The two sectors are time-even solutions on the ordinary
+  handle and time-odd solutions on the handle with one sign-twisted edge.
+* **Locally nothing is halved.** One sheet's Cauchy data are free. What
+  changes is conservation: the sheet Wronskian is symmetric in time but not
+  constant. Symplectic flux crosses the seam.
+* **The waist response supplies no pairing.** With the mouths moving, a
+  purely real admissible field stays real, exactly.
+* **A pairing exists only for a charged field on a seam that reverses both
+  time and fibre.** Either reversal alone makes the total charge vanish
+  identically. With both, the real and imaginary parts are the two sectors
+  and the conserved charge is their Wronskian pairing; the variable coupled
+  to it is the electric potential.
+
+**What it is not.** The pairing is indefinite, signature `(32, 32)`, and
+multiplication by `i` preserves no admissible field: not a norm, not a
+complex structure, no probability. The potential is prescribed, so no
+*response* is shown to supply the pairing. The repository records both a
+time-reversing map (PR #129) and a fibre-reversing transport (PR #279), but
+no matching map to this field exists, so which seam BAM has is
+`NOT_ESTABLISHED`.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_response_probe   # 32/32
+python -m pytest -q tests/test_klein_handle_response.py             # 26 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

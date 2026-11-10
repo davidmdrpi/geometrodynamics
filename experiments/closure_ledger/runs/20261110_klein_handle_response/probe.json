@@ -1,0 +1,778 @@
+{
+  "public_preregistration": "5d15963",
+  "scope": "A lattice ring with one handle whose seam may reverse time and fibre; one waist coordinate per tube solved from the same Hamiltonian as the field; effective oscillator support; static prescribed potential. Classical throughout. No probability rule, spinor matching or statement about the cell BAM occupies.",
+  "seed": 2026111002,
+  "measurements": {
+    "primary": {
+      "config": {
+        "n_ext": 12,
+        "port_a": 0,
+        "port_b": 5,
+        "n_tube": 4
+      },
+      "cover_sites": 32,
+      "H1": {
+        "size": 32,
+        "twists": [
+          {
+            "eta": 1,
+            "involution_error": 0.0,
+            "antisymplectic_error": 0.0,
+            "field_dim": 64,
+            "fixed_dim": 32,
+            "omega_on_fixed": 3.106957642167896e-16,
+            "frozen_seam_defect": 3.3306690738754696e-16
+          },
+          {
+            "eta": -1,
+            "involution_error": 0.0,
+            "antisymplectic_error": 0.0,
+            "field_dim": 64,
+            "fixed_dim": 32,
+            "omega_on_fixed": 3.106957642167896e-16,
+            "frozen_seam_defect": 3.0531133177191805e-16
+          }
+        ],
+        "swap_commutator": 0.0,
+        "spectrum_error": {
+          "even": 4.440892098500626e-15,
+          "even_dim": 16,
+          "odd": 3.552713678800501e-15,
+          "odd_dim": 16
+        },
+        "even_odd_spectra_differ": 0.2557311906789197,
+        "control": {
+          "symplectic_error": 0.0,
+          "fixed_dim": 32,
+          "restricted_rank": 32
+        }
+      },
+      "H2": {
+        "sheet_data_rank": 32,
+        "sheet_data_dim": 32,
+        "mirror_symmetry_error": 1.5265566588595902e-16,
+        "relative_variation": 0.019684589944163278,
+        "value_at_mirror": -0.08790557122417042,
+        "cover_wronskian": 3.0531133177191805e-16
+      },
+      "H3": {
+        "reversibility_error": 1.2248105755177127e-16,
+        "amplitudes": [
+          {
+            "amplitude": 0.015625,
+            "seam_defect": 2.498001805406602e-16,
+            "energy_drift": 2.606544474947427e-10,
+            "max_q": 6.254651731898376e-06
+          },
+          {
+            "amplitude": 0.03125,
+            "seam_defect": 3.3306690738754696e-16,
+            "energy_drift": 1.021114357853129e-09,
+            "max_q": 2.5018429833354155e-05
+          },
+          {
+            "amplitude": 0.0625,
+            "seam_defect": 3.0531133177191805e-16,
+            "energy_drift": 4.0564870505504265e-09,
+            "max_q": 0.00010007088594686049
+          },
+          {
+            "amplitude": 0.125,
+            "seam_defect": 3.885780586188048e-16,
+            "energy_drift": 1.621661366268828e-08,
+            "max_q": 0.000400238217329986
+          },
+          {
+            "amplitude": 0.5,
+            "seam_defect": 2.5326962749261384e-16,
+            "energy_drift": 2.576945722368258e-07,
+            "max_q": 0.0063893484566976124
+          }
+        ],
+        "moving_mouth_seam_defect": 2.0851463159053677e-16,
+        "phase_space_dim": 68,
+        "tangent_dim": 34,
+        "tangent_rank": 34,
+        "tangent_lagrangian_error": 1.068216136580577e-14,
+        "tangent_fd_error": 1.8464209377708126e-11
+      },
+      "H4": {
+        "rows": [
+          {
+            "amplitude": 0.015625,
+            "max_q": 3.6227690952079145e-06,
+            "field_deviation": 1.1974430983467424e-08,
+            "mouth_asymmetry": 1.3601427521212127e-06,
+            "mouth_mirror_error": 6.352747104407253e-22
+          },
+          {
+            "amplitude": 0.03125,
+            "max_q": 1.4491026773817359e-05,
+            "field_deviation": 9.57945457066856e-08,
+            "mouth_asymmetry": 5.4405718939753335e-06,
+            "mouth_mirror_error": 6.1409888675936775e-21
+          },
+          {
+            "amplitude": 0.0625,
+            "max_q": 5.7963313398114006e-05,
+            "field_deviation": 7.66327497827716e-07,
+            "mouth_asymmetry": 2.176230166512109e-05,
+            "mouth_mirror_error": 6.098637220230962e-20
+          },
+          {
+            "amplitude": 0.125,
+            "max_q": 0.00023184055537319137,
+            "field_deviation": 6.129696376723987e-06,
+            "mouth_asymmetry": 8.704942693709338e-05,
+            "mouth_mirror_error": 1.2197274440461925e-19
+          }
+        ],
+        "q_slopes": [
+          1.9999950612422335,
+          1.999980245175037,
+          1.9999209838147
+        ],
+        "deviation_slopes": [
+          2.999986413243676,
+          2.9999456541951344,
+          2.999782635029656
+        ]
+      },
+      "H5": [
+        {
+          "s_t": 1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 132,
+          "fixed_dim": 66,
+          "omega_on_fixed": 1.0000000000000002,
+          "omega_rank_on_fixed": 66,
+          "charge_on_fixed": 0.5000000000000001,
+          "charge_positive": 32,
+          "charge_negative": 32,
+          "field_fixed_dim": 64,
+          "twist_is_a_rotation_error": 2.0,
+          "fix_meet_i_fix": 64
+        },
+        {
+          "s_t": 1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 132,
+          "fixed_dim": 66,
+          "omega_on_fixed": 1.0000000000000002,
+          "omega_rank_on_fixed": 66,
+          "charge_on_fixed": 1.553478821083948e-16,
+          "charge_positive": 0,
+          "charge_negative": 0,
+          "field_fixed_dim": 64,
+          "twist_is_a_rotation_error": 0.0,
+          "fix_meet_i_fix": 0
+        },
+        {
+          "s_t": -1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 132,
+          "fixed_dim": 66,
+          "omega_on_fixed": 2.5473041632379165e-15,
+          "omega_rank_on_fixed": 0,
+          "charge_on_fixed": 1.553478821083948e-16,
+          "charge_positive": 0,
+          "charge_negative": 0,
+          "field_fixed_dim": 64,
+          "twist_is_a_rotation_error": 2.0,
+          "fix_meet_i_fix": 64
+        },
+        {
+          "s_t": -1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 132,
+          "fixed_dim": 66,
+          "omega_on_fixed": 2.5473041632379165e-15,
+          "omega_rank_on_fixed": 0,
+          "charge_on_fixed": 0.5000000000000001,
+          "charge_positive": 32,
+          "charge_negative": 32,
+          "field_fixed_dim": 64,
+          "twist_is_a_rotation_error": 0.0,
+          "fix_meet_i_fix": 0
+        }
+      ],
+      "H6": {
+        "alpha": 0.5,
+        "matching_seam_defect": 1.6653345369377348e-16,
+        "mismatched_seam_defect": 0.6299901258484686
+      },
+      "H7": {
+        "re_outside_untwisted": 1.5291755943151047e-16,
+        "im_outside_twisted": 6.539312172694733e-17,
+        "charge_minus_wronskian": 3.469446951953614e-18,
+        "charge_value": 9.641612117065651e-05,
+        "charge_scale": 0.015625,
+        "charge_drift": 2.2320686965393577e-14,
+        "sheet_relation_error": 2.2273849431542203e-14,
+        "sheet_charge_variation": 0.035016579733524664,
+        "energy_drift": 2.101372501437498e-06,
+        "mechanical_leak": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mechanical_mouth_motion": [
+          6.969816217652083e-06,
+          2.7879111692609966e-05,
+          0.00011151399602312193,
+          0.0004460167785243362,
+          0.007123756935616487
+        ],
+        "alphas": [
+          0.001,
+          0.002,
+          0.004
+        ],
+        "potential_ratios": [
+          0.002922067983897732,
+          0.005844092295525976,
+          0.01168783521728864
+        ],
+        "potential_slopes": [
+          0.9999892189363185,
+          0.9999568754818045
+        ]
+      },
+      "supplementary": {
+        "strong_response": [
+          {
+            "amplitude": 2.0,
+            "seam_defect": 3.3306690738754696e-16,
+            "max_q": 0.11508411581505817,
+            "min_barrier_factor": 0.8157575236391935,
+            "energy_drift": 2.194090531980499e-06
+          },
+          {
+            "amplitude": 4.0,
+            "seam_defect": 4.787836793695988e-16,
+            "max_q": 0.44633364141687365,
+            "min_barrier_factor": 0.45394697580387705,
+            "energy_drift": 9.272509320635667e-06
+          }
+        ],
+        "ordinary_handle_potential_ratios": [
+          0.0021654424388149033,
+          0.0043308510557797456,
+          0.008661431540180066
+        ],
+        "ordinary_handle_potential_slopes": [
+          0.9999887332941728,
+          0.9999549328666301
+        ],
+        "sheet_data_conditioning": [
+          {
+            "time": 0.0,
+            "rank": 32,
+            "smallest_singular": 0.7071067811865475,
+            "largest_singular": 0.7071067811865477
+          },
+          {
+            "time": 1.0,
+            "rank": 32,
+            "smallest_singular": 0.2740193825707316,
+            "largest_singular": 1.3765855261707616
+          },
+          {
+            "time": 2.0,
+            "rank": 32,
+            "smallest_singular": 0.22745309054084772,
+            "largest_singular": 1.726355909835613
+          },
+          {
+            "time": 4.0,
+            "rank": 32,
+            "smallest_singular": 0.0932402976883896,
+            "largest_singular": 1.4972773504490378
+          }
+        ]
+      }
+    },
+    "replicate": {
+      "config": {
+        "n_ext": 20,
+        "port_a": 0,
+        "port_b": 7,
+        "n_tube": 6
+      },
+      "cover_sites": 52,
+      "H1": {
+        "size": 52,
+        "twists": [
+          {
+            "eta": 1,
+            "involution_error": 0.0,
+            "antisymplectic_error": 0.0,
+            "field_dim": 104,
+            "fixed_dim": 52,
+            "omega_on_fixed": 3.3306690738754696e-16,
+            "frozen_seam_defect": 1.665334536937735e-16
+          },
+          {
+            "eta": -1,
+            "involution_error": 0.0,
+            "antisymplectic_error": 0.0,
+            "field_dim": 104,
+            "fixed_dim": 52,
+            "omega_on_fixed": 3.3306690738754696e-16,
+            "frozen_seam_defect": 1.9428902930940242e-16
+          }
+        ],
+        "swap_commutator": 0.0,
+        "spectrum_error": {
+          "even": 4.440892098500626e-15,
+          "even_dim": 26,
+          "odd": 5.329070518200751e-15,
+          "odd_dim": 26
+        },
+        "even_odd_spectra_differ": 0.2259150771579379,
+        "control": {
+          "symplectic_error": 0.0,
+          "fixed_dim": 52,
+          "restricted_rank": 52
+        }
+      },
+      "H2": {
+        "sheet_data_rank": 52,
+        "sheet_data_dim": 52,
+        "mirror_symmetry_error": 1.249000902703301e-16,
+        "relative_variation": 0.02212800269897095,
+        "value_at_mirror": 0.04937143935770185,
+        "cover_wronskian": 1.2945373939476923e-16
+      },
+      "H3": {
+        "reversibility_error": 5.011464294981195e-17,
+        "amplitudes": [
+          {
+            "amplitude": 0.015625,
+            "seam_defect": 2.775557561562892e-16,
+            "energy_drift": 5.451934680213847e-10,
+            "max_q": 9.89266516992282e-06
+          },
+          {
+            "amplitude": 0.03125,
+            "seam_defect": 6.106226635438362e-16,
+            "energy_drift": 2.1674953585967384e-09,
+            "max_q": 3.957031653415002e-05
+          },
+          {
+            "amplitude": 0.0625,
+            "seam_defect": 3.8857805861880484e-16,
+            "energy_drift": 8.655745013418077e-09,
+            "max_q": 0.00015827576009996695
+          },
+          {
+            "amplitude": 0.125,
+            "seam_defect": 3.8857805861880484e-16,
+            "energy_drift": 3.45890181890054e-08,
+            "max_q": 0.0006330149625023761
+          },
+          {
+            "amplitude": 0.5,
+            "seam_defect": 4.440892098500627e-16,
+            "energy_drift": 5.482549465008862e-07,
+            "max_q": 0.010100154518227442
+          }
+        ],
+        "moving_mouth_seam_defect": 1.853463391915882e-16,
+        "phase_space_dim": 108,
+        "tangent_dim": 54,
+        "tangent_rank": 54,
+        "tangent_lagrangian_error": 1.2412652090286047e-14,
+        "tangent_fd_error": 2.1927320274577864e-11
+      },
+      "H4": {
+        "rows": [
+          {
+            "amplitude": 0.015625,
+            "max_q": 1.4133889439238678e-05,
+            "field_deviation": 1.373676026439171e-07,
+            "mouth_asymmetry": 1.0270375250108774e-05,
+            "mouth_mirror_error": 5.082197683525802e-21
+          },
+          {
+            "amplitude": 0.03125,
+            "max_q": 5.6534704639688074e-05,
+            "field_deviation": 1.098883653763516e-06,
+            "mouth_asymmetry": 4.108155267204613e-05,
+            "mouth_mirror_error": 6.437450399132683e-20
+          },
+          {
+            "amplitude": 0.0625,
+            "max_q": 0.00022612516993523925,
+            "field_deviation": 8.789240164606692e-06,
+            "mouth_asymmetry": 0.00016432703455674706,
+            "mouth_mirror_error": 1.8973538018496328e-19
+          },
+          {
+            "amplitude": 0.125,
+            "max_q": 0.0009042823818253216,
+            "field_deviation": 7.02554285218604e-05,
+            "mouth_asymmetry": 0.0006573211361333798,
+            "mouth_mirror_error": 2.168404344971009e-19
+          }
+        ],
+        "q_slopes": [
+          1.9999782296773032,
+          1.9999129234165702,
+          1.9996517688289497
+        ],
+        "deviation_slopes": [
+          2.9999249484134247,
+          2.9996998023551624,
+          2.9987993503529506
+        ]
+      },
+      "H5": [
+        {
+          "s_t": 1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 212,
+          "fixed_dim": 106,
+          "omega_on_fixed": 1.0,
+          "omega_rank_on_fixed": 106,
+          "charge_on_fixed": 0.3596376112679919,
+          "charge_positive": 52,
+          "charge_negative": 52,
+          "field_fixed_dim": 104,
+          "twist_is_a_rotation_error": 2.0,
+          "fix_meet_i_fix": 104
+        },
+        {
+          "s_t": 1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 212,
+          "fixed_dim": 106,
+          "omega_on_fixed": 1.0,
+          "omega_rank_on_fixed": 106,
+          "charge_on_fixed": 1.1412468670091573e-15,
+          "charge_positive": 0,
+          "charge_negative": 0,
+          "field_fixed_dim": 104,
+          "twist_is_a_rotation_error": 0.0,
+          "fix_meet_i_fix": 0
+        },
+        {
+          "s_t": -1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 212,
+          "fixed_dim": 106,
+          "omega_on_fixed": 2.2824937340183145e-15,
+          "omega_rank_on_fixed": 0,
+          "charge_on_fixed": 1.1412468670091573e-15,
+          "charge_positive": 0,
+          "charge_negative": 0,
+          "field_fixed_dim": 104,
+          "twist_is_a_rotation_error": 2.0,
+          "fix_meet_i_fix": 104
+        },
+        {
+          "s_t": -1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "charge_parity_error": 0.0,
+          "phase_space_dim": 212,
+          "fixed_dim": 106,
+          "omega_on_fixed": 2.2824937340183145e-15,
+          "omega_rank_on_fixed": 0,
+          "charge_on_fixed": 0.3596376112679919,
+          "charge_positive": 52,
+          "charge_negative": 52,
+          "field_fixed_dim": 104,
+          "twist_is_a_rotation_error": 0.0,
+          "fix_meet_i_fix": 0
+        }
+      ],
+      "H6": {
+        "alpha": 0.5,
+        "matching_seam_defect": 6.869504964868157e-16,
+        "mismatched_seam_defect": 0.5921383803101549
+      },
+      "H7": {
+        "re_outside_untwisted": 5.545684679802416e-16,
+        "im_outside_twisted": 2.783457606376584e-16,
+        "charge_minus_wronskian": 1.3877787807814457e-17,
+        "charge_value": 0.002043903232873163,
+        "charge_scale": 0.015624999999999997,
+        "charge_drift": 2.1205259770340493e-14,
+        "sheet_relation_error": 2.1233015345956122e-14,
+        "sheet_charge_variation": 0.011493586388895251,
+        "energy_drift": 3.3557624413714207e-06,
+        "mechanical_leak": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "mechanical_mouth_motion": [
+          4.928411022373167e-06,
+          1.971340216251722e-05,
+          7.884973801179877e-05,
+          0.00031533703420765397,
+          0.005025804044661584
+        ],
+        "alphas": [
+          0.001,
+          0.002,
+          0.004
+        ],
+        "potential_ratios": [
+          0.002078131376037938,
+          0.0041562297873627245,
+          0.008312195860413292
+        ],
+        "potential_slopes": [
+          0.9999885574566321,
+          0.9999542295078685
+        ]
+      },
+      "supplementary": {
+        "strong_response": [
+          {
+            "amplitude": 2.0,
+            "seam_defect": 2.7755575615628914e-16,
+            "max_q": 0.05850772744063507,
+            "min_barrier_factor": 0.8940149057954944,
+            "energy_drift": 8.976220522567646e-07
+          },
+          {
+            "amplitude": 4.0,
+            "seam_defect": 2.7755575615628914e-16,
+            "max_q": 0.21598559154782845,
+            "min_barrier_factor": 0.6612803104434253,
+            "energy_drift": 3.043559851927633e-06
+          }
+        ],
+        "ordinary_handle_potential_ratios": [
+          0.0026225603350061933,
+          0.005245088534726683,
+          0.010489919989618643
+        ],
+        "ordinary_handle_potential_slopes": [
+          0.9999911610118698,
+          0.9999646438430057
+        ],
+        "sheet_data_conditioning": [
+          {
+            "time": 0.0,
+            "rank": 52,
+            "smallest_singular": 0.7071067811865475,
+            "largest_singular": 0.7071067811865477
+          },
+          {
+            "time": 1.0,
+            "rank": 52,
+            "smallest_singular": 0.27401949920864266,
+            "largest_singular": 1.3775828525410534
+          },
+          {
+            "time": 2.0,
+            "rank": 52,
+            "smallest_singular": 0.22744719826591733,
+            "largest_singular": 1.725676991681176
+          },
+          {
+            "time": 4.0,
+            "rank": 52,
+            "smallest_singular": 0.09341240627655882,
+            "largest_singular": 1.4800478221726505
+          }
+        ]
+      }
+    }
+  },
+  "checks_by_size": {
+    "primary": {
+      "H1 deck map is an antisymplectic involution": true,
+      "H1 fixed space is a Lagrangian half": true,
+      "H1 frozen histories satisfy the seam relation": true,
+      "H1 even and odd spectra are the ordinary and twisted handle": true,
+      "H1 time-preserving seam keeps a symplectic subspace": true,
+      "H3 scheme is reversed by the deck map": true,
+      "H3 responding histories satisfy the seam relation at every amplitude": true,
+      "H3 tangent space is a Lagrangian half": true,
+      "H3 linearized tangent agrees with finite differences": true,
+      "H3 energy closes to 1e-5 for amplitudes up to 1/8": true,
+      "H4 mouth response is second order in amplitude": true,
+      "H4 field correction is third order in amplitude": true,
+      "H4 the two mouths respond differently and mirror each other": true,
+      "H2 sheet data are free at the mirror time": true,
+      "H2 sheet Wronskian is symmetric about the mirror time": true,
+      "H2 sheet Wronskian is not conserved": true,
+      "H7 mechanical response generates no imaginary part": true,
+      "H7 the mouths were responding in those runs": true,
+      "H5 each deck map is an involution with the predicted symplectic sign": true,
+      "H5 charge density has parity s_t s_f": true,
+      "H5 fixed space is half, Lagrangian iff the seam reverses time": true,
+      "H5 charge vanishes identically in the two mixed cells": true,
+      "H5 twist is a quarter rotation in the antilinear cells only": true,
+      "H6 matching potential parity admits the seam": true,
+      "H6 mismatched potential parity breaks it": true,
+      "H7 charge is nondegenerate with balanced signature": true,
+      "H7 charge is the Wronskian pairing of the two sectors": true,
+      "H7 charge is conserved with potential and moving mouths": true,
+      "H7 sheet charge obeys Q1(t) + Q1(-t) = Q": true,
+      "H7 potential couples the sectors at first order": true,
+      "H8 charge is indefinite": true,
+      "H8 multiplication by i preserves no admissible field": true
+    },
+    "replicate": {
+      "H1 deck map is an antisymplectic involution": true,
+      "H1 fixed space is a Lagrangian half": true,
+      "H1 frozen histories satisfy the seam relation": true,
+      "H1 even and odd spectra are the ordinary and twisted handle": true,
+      "H1 time-preserving seam keeps a symplectic subspace": true,
+      "H3 scheme is reversed by the deck map": true,
+      "H3 responding histories satisfy the seam relation at every amplitude": true,
+      "H3 tangent space is a Lagrangian half": true,
+      "H3 linearized tangent agrees with finite differences": true,
+      "H3 energy closes to 1e-5 for amplitudes up to 1/8": true,
+      "H4 mouth response is second order in amplitude": true,
+      "H4 field correction is third order in amplitude": true,
+      "H4 the two mouths respond differently and mirror each other": true,
+      "H2 sheet data are free at the mirror time": true,
+      "H2 sheet Wronskian is symmetric about the mirror time": true,
+      "H2 sheet Wronskian is not conserved": true,
+      "H7 mechanical response generates no imaginary part": true,
+      "H7 the mouths were responding in those runs": true,
+      "H5 each deck map is an involution with the predicted symplectic sign": true,
+      "H5 charge density has parity s_t s_f": true,
+      "H5 fixed space is half, Lagrangian iff the seam reverses time": true,
+      "H5 charge vanishes identically in the two mixed cells": true,
+      "H5 twist is a quarter rotation in the antilinear cells only": true,
+      "H6 matching potential parity admits the seam": true,
+      "H6 mismatched potential parity breaks it": true,
+      "H7 charge is nondegenerate with balanced signature": true,
+      "H7 charge is the Wronskian pairing of the two sectors": true,
+      "H7 charge is conserved with potential and moving mouths": true,
+      "H7 sheet charge obeys Q1(t) + Q1(-t) = Q": true,
+      "H7 potential couples the sectors at first order": true,
+      "H8 charge is indefinite": true,
+      "H8 multiplication by i preserves no admissible field": true
+    }
+  },
+  "checks": {
+    "H1 deck map is an antisymplectic involution": true,
+    "H1 fixed space is a Lagrangian half": true,
+    "H1 frozen histories satisfy the seam relation": true,
+    "H1 even and odd spectra are the ordinary and twisted handle": true,
+    "H1 time-preserving seam keeps a symplectic subspace": true,
+    "H3 scheme is reversed by the deck map": true,
+    "H3 responding histories satisfy the seam relation at every amplitude": true,
+    "H3 tangent space is a Lagrangian half": true,
+    "H3 linearized tangent agrees with finite differences": true,
+    "H3 energy closes to 1e-5 for amplitudes up to 1/8": true,
+    "H4 mouth response is second order in amplitude": true,
+    "H4 field correction is third order in amplitude": true,
+    "H4 the two mouths respond differently and mirror each other": true,
+    "H2 sheet data are free at the mirror time": true,
+    "H2 sheet Wronskian is symmetric about the mirror time": true,
+    "H2 sheet Wronskian is not conserved": true,
+    "H7 mechanical response generates no imaginary part": true,
+    "H7 the mouths were responding in those runs": true,
+    "H5 each deck map is an involution with the predicted symplectic sign": true,
+    "H5 charge density has parity s_t s_f": true,
+    "H5 fixed space is half, Lagrangian iff the seam reverses time": true,
+    "H5 charge vanishes identically in the two mixed cells": true,
+    "H5 twist is a quarter rotation in the antilinear cells only": true,
+    "H6 matching potential parity admits the seam": true,
+    "H6 mismatched potential parity breaks it": true,
+    "H7 charge is nondegenerate with balanced signature": true,
+    "H7 charge is the Wronskian pairing of the two sectors": true,
+    "H7 charge is conserved with potential and moving mouths": true,
+    "H7 sheet charge obeys Q1(t) + Q1(-t) = Q": true,
+    "H7 potential couples the sectors at first order": true,
+    "H8 charge is indefinite": true,
+    "H8 multiplication by i preserves no admissible field": true
+  },
+  "check_groups": {
+    "localized_structure": [
+      "H1 deck map is an antisymplectic involution",
+      "H1 fixed space is a Lagrangian half",
+      "H1 frozen histories satisfy the seam relation",
+      "H1 even and odd spectra are the ordinary and twisted handle",
+      "H1 time-preserving seam keeps a symplectic subspace",
+      "H3 scheme is reversed by the deck map",
+      "H3 responding histories satisfy the seam relation at every amplitude",
+      "H3 tangent space is a Lagrangian half",
+      "H3 linearized tangent agrees with finite differences",
+      "H3 energy closes to 1e-5 for amplitudes up to 1/8",
+      "H4 mouth response is second order in amplitude",
+      "H4 field correction is third order in amplitude",
+      "H4 the two mouths respond differently and mirror each other"
+    ],
+    "local_bracket": [
+      "H2 sheet data are free at the mirror time",
+      "H2 sheet Wronskian is symmetric about the mirror time",
+      "H2 sheet Wronskian is not conserved"
+    ],
+    "neutral_sector_pairing": [
+      "H7 mechanical response generates no imaginary part",
+      "H7 the mouths were responding in those runs"
+    ],
+    "charged_sector_pairing": [
+      "H5 each deck map is an involution with the predicted symplectic sign",
+      "H5 charge density has parity s_t s_f",
+      "H5 fixed space is half, Lagrangian iff the seam reverses time",
+      "H5 charge vanishes identically in the two mixed cells",
+      "H5 twist is a quarter rotation in the antilinear cells only",
+      "H6 matching potential parity admits the seam",
+      "H6 mismatched potential parity breaks it",
+      "H7 charge is nondegenerate with balanced signature",
+      "H7 charge is the Wronskian pairing of the two sectors",
+      "H7 charge is conserved with potential and moving mouths",
+      "H7 sheet charge obeys Q1(t) + Q1(-t) = Q",
+      "H7 potential couples the sectors at first order"
+    ],
+    "positive_response": [
+      "H8 charge is indefinite",
+      "H8 multiplication by i preserves no admissible field"
+    ]
+  },
+  "checks_passed": true,
+  "verdict": {
+    "localized_structure": "LAGRANGIAN_HALF_SURVIVES_A_LOCALIZED_RESPONDING_HANDLE",
+    "local_bracket": "SHEET_DATA_FREE_AT_MIRROR_WRONSKIAN_NOT_CONSERVED",
+    "neutral_sector_pairing": "NOT_SUPPLIED_BY_MECHANICAL_RESPONSE",
+    "charged_sector_pairing": "CHARGE_PAIRS_THE_SECTORS_ONLY_WITH_BOTH_REVERSALS",
+    "positive_response": "NOT_DERIVED",
+    "support_dynamics": "EFFECTIVE_SUPPORT_ASSUMED",
+    "electric_response": "EXTERNAL_POTENTIAL_PRESCRIBED",
+    "spinor_matching": "NOT_DERIVED",
+    "event_law": "NOT_DERIVED",
+    "bam_cell": "NOT_ESTABLISHED",
+    "numerical_validity": "PASS",
+    "failed_checks": [],
+    "missing_checks": [],
+    "counterexamples": {}
+  }
+}

@@ -1006,6 +1006,30 @@ between the two twist sectors is supplied. The caps and twist are placed by
 hand, and the mode phase is not the frame holonomy the Bell rounds condition
 on. See [klein_time_attachment.md](klein_time_attachment.md).
 
+## Localized responding Klein handle (round 13)
+
+Round 12's structure survives localization and nonlinear mouth response,
+exactly: on a lattice handle with a time-reversing seam and a waist
+coordinate solved from the field's own Hamiltonian, admissible histories
+form a Lagrangian submanifold at every amplitude tested. Locally one sheet's
+data are free; the sheet Wronskian is time-symmetric but not conserved.
+
+On the pairing question the result is mostly negative and locates one
+candidate. The mechanical response supplies no coupling between the two
+quadrature sectors. For a charged field, the total charge vanishes
+identically when the seam reverses time or fibre alone, and is a
+nondegenerate, conserved, **indefinite** pairing of the two sectors when it
+reverses both; the variable coupled to it is the electric potential, which
+was prescribed and did not respond.
+
+Effect on the findings: **none of F1-F9 changes status.** F9's missing
+inputs are untouched: an indefinite pairing is not a readout. The datum `T`
+(PR #129) and the fibre-reversing transport (PR #279) now matter jointly,
+because together they would select the one seam type with a pairing, but no
+matching map from the Hopf data to a fibre-charged field on a handle exists
+and the cell is recorded as `NOT_ESTABLISHED`. Frozen at `5d15963`. See
+[klein_handle_response.md](klein_handle_response.md).
+
 ## Expanding supported TT transport (PR #298)
 
 On the exact expanding four-component FRW family, the homogeneous TT normal
