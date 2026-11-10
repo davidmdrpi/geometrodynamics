@@ -33,11 +33,11 @@ numerics confirm derivations. Only Part II integrates anything.
 (`3d3ee38`), committed before the module and unchanged. Module
 `geometrodynamics/bulk/klein_handle_matching.py`; probe
 `klein_handle_matching_probe.py`; tests `tests/test_klein_handle_matching.py`
-(23). Archive `experiments/closure_ledger/runs/20261110_klein_handle_matching/`.*
+(24, one added after the round-14 review). Archive `experiments/closure_ledger/runs/20261110_klein_handle_matching/`.*
 
 ```bash
 python -m experiments.closure_ledger.klein_handle_matching_probe   # 30/30
-python -m pytest -q tests/test_klein_handle_matching.py             # 23 tests
+python -m pytest -q tests/test_klein_handle_matching.py             # 24 tests
 ```
 
 | verdict field | value |
@@ -184,6 +184,29 @@ and it means the flux sign is a second, separate pair label. My round-14
 sentence that the flux sign "should be tied to the Pin sector label" was a
 guess, and it is retracted.
 
+### Note added after the review of round 14
+
+That review ([klein_handle_electric.md](klein_handle_electric.md), R3) showed
+that the real and imaginary parts of the field are gauge dependent in the
+gauged model. Checked against this round:
+
+* The quarter rotation `Ψ → iΨ` **is** a constant gauge transformation in
+  round 14's model (`5.6e-17`). So there the Pin sign of a single handle is
+  a gauge choice, not only a convention. The conclusion above, that it is
+  not an invariant of one handle and is independent of the flux sign, stands
+  and is stronger than stated. Charge conjugation is a genuine symmetry, so
+  the flux sign distinguishes two physically distinct mirror configurations.
+* Whether a **relative** Pin sign between two handles is gauge invariant in
+  a gauged model is not analysed. The repository's own setting differs: its
+  `U(1)` is the frame rotation, with the Levi-Civita connection fixed by the
+  geometry and no independent gauge field.
+* Parts I and II are unaffected: Part I is about maps on `S³`, and the
+  charges in Part II are Noether forms of global symmetries of an ungauged
+  model.
+
+Round 14's chain entry also changed: the orienting datum is trapped flux
+**or a matter current**, not trapped flux alone. The table below is updated.
+
 ## What this does and does not show
 
 Shown: how each recorded map acts on fibre-charged functions; that they are
@@ -218,7 +241,7 @@ Not shown:
 |---|---|---|
 | 12 | two complementary quadrature sectors | a seam that reverses time |
 | 13 | the sectors are `Re` and `Im` of one field; charge is their pairing | a charged field; a seam that also reverses the fibre |
-| 14 | the pairing is an electric flux; its coupling has an orientation | trapped handle flux, with a sign |
+| 14 | the sheet pairing is the electric flux through the seam | a conjugation-odd initial datum: trapped flux, or a matter current |
 | 15 | the recorded transport supplies the fibre reversal for the spinor doublet | a spin-frame field, not a bulk scalar; PT; the `−1` spin holonomy |
 
 Round 15 removes one free input and names two. The fibre reversal no longer

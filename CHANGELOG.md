@@ -23,14 +23,15 @@
   32 checks at two sizes, 26 tests.
 
 - Round 14, responding electric field on the Klein handle
-  (`bulk/klein_handle_electric.py`, freeze `4ab8bcd`): lattice scalar
-  electrodynamics solved from one Hamiltonian with the charged field and the
-  mouths. Response alone never couples the two quadrature sectors; flux
-  trapped around the handle loop does, with orientation set by its sign, and
-  is admissible only where the charge exists; the sheet pairing is the seam
-  flux by Gauss's law. The flux is initial data. Expected screening was not
-  found. 27 checks at two sizes, 24 tests.
-
+  (`bulk/klein_handle_electric.py`, freeze `4ab8bcd`, corrected after
+  review of `562af71`): lattice scalar electrodynamics solved from one
+  Hamiltonian with the charged field and the mouths. The sheet value of the
+  sector pairing is the electric flux through the seam, by Gauss's law. It
+  is driven by conjugation-odd initial data of two kinds: flux trapped around
+  the handle loop, or a matter current with no flux. Review withdrew the
+  claim that trapped flux is necessary, moved the tangent test onto the
+  Gauss surface and into the reduced space, and marked the imaginary part of
+  the field as gauge dependent. 45 checks at two sizes, 34 tests.
 - Round 15, the matching map (`bulk/klein_handle_matching.py`, freeze
   `3d3ee38`): PR #129's antipodal map is a Hopf fibre translation, so on a
   bulk scalar it gives the fibre-preserving cell with no pairing; PR #279's

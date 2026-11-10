@@ -1033,24 +1033,26 @@ and the cell is recorded as `NOT_ESTABLISHED`. Frozen at `5d15963`. See
 ## Responding electric field on the Klein handle (round 14)
 
 With the electric field solved from the same Hamiltonian as the charged
-field and the mouths, the round-12 structure again survives. The result on
-the pairing is a negative with a located input: electric response to the
-field alone never couples the two quadrature sectors (charge conjugation
-forbids it, exactly); flux trapped around the handle loop does, at first
-order, with its sign fixing the sense of rotation; that flux is admissible
-only in the two seam types where the charge exists; and the pairing's value
-on one sheet is the electric flux through the seam, by Gauss's law. An
-expected screening of the flux was not found, and charge separation across
-the seam was found to require the time reversal.
+field and the mouths, the round-12 structure survives, in the ambient phase
+space and in the Gauss-reduced one. The result on the pairing: by Gauss's
+law its value on one sheet is the electric flux through the seam, a
+gauge-invariant identification. It is driven by charge-conjugation-odd
+initial data of two kinds, flux trapped around the handle loop or a matter
+current with no flux; neither is derived.
+
+*Corrected after review of `562af71`.* The first version of this note said
+flux trapped around the handle was what coupled the sectors and that
+response alone never did. That generalised a result for real initial data.
+Admissible data with a matter current and no flux generate sheet charge with
+the handle-loop flux zero throughout. The first version's tangent test left
+the Gauss surface, and its "sense of rotation" was gauge dependent.
 
 Effect on the findings: **none of F1-F9 changes status.** The chain of
-rounds 12-14 now rests on three underived inputs: a time-reversing seam, a
-fibre-reversing seam acting on a charged field, and trapped handle flux with
-a sign. It yields no norm, readout or event frequency, so F9 is untouched.
-What it adds is a specific question for the geometry: whether PR #129's map
-and PR #279's transport act on a fibre-charged field as the doubly reversed
-seam does, and whether the flux sign is the Pin sector label of PR #279.
-Frozen at `4ab8bcd`. See [klein_handle_electric.md](klein_handle_electric.md).
+rounds 12-14 rests on three underived inputs: a time-reversing seam, a
+fibre-reversing seam acting on a charged field, and a conjugation-odd
+initial datum. It yields no norm, readout or event frequency, so F9 is
+untouched. Frozen at `4ab8bcd`. See
+[klein_handle_electric.md](klein_handle_electric.md).
 
 ## The matching map (round 15)
 

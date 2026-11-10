@@ -5483,10 +5483,10 @@ python -m experiments.closure_ledger.klein_handle_response_probe   # 32/32
 python -m pytest -q tests/test_klein_handle_response.py             # 26 tests
 ```
 
-## A responding electric field on the Klein handle: trapped flux, not response (round 14)
+## A responding electric field on the Klein handle: the sheet pairing is an electric flux (round 14)
 
 *Pre-registered in `docs/klein_handle_electric_prereg.md` (`4ab8bcd`),
-committed before the module. Module
+committed before the module; corrected after review of `562af71`. Module
 `geometrodynamics/bulk/klein_handle_electric.py`; probe
 `klein_handle_electric_probe.py`; tests `tests/test_klein_handle_electric.py`.
 Write-up: [klein_handle_electric.md](docs/klein_handle_electric.md).*
@@ -5499,34 +5499,43 @@ the mouths solved from one Hamiltonian. On a graph the gauge field's free
 content is one mode per cycle; flux around the handle loop is Wheeler's
 charge without charge.
 
-**All seven frozen predictions hold, 27/27 checks at two sizes.** Most are
-symmetry consequences; the numerics confirm the derivation.
+**The seven frozen predictions hold; three conclusions drawn from them were
+too strong and are corrected.** 45/45 checks at two sizes.
 
-* **The structure survives electric response.** Seam relation to `9e-15`,
-  Gauss's law to `2e-15`, tangent space Lagrangian.
-* **Response alone does not couple the sectors.** From a real field with no
-  gauge field, the imaginary part and the gauge field stay exactly zero at
-  every amplitude. Charge conjugation forbids it.
-* **Trapped handle flux does, and its sign sets the orientation.** The
-  imaginary part appears at first order in the flux and is exactly odd in
-  it. Such flux is admissible in exactly the two seam types where round 13
-  found a charge.
-* **The sheet pairing is the flux through the seam**, by Gauss's law.
+* **The sheet pairing is the flux through the seam**, by Gauss's law. Every
+  quantity in that identity is gauge invariant. This is the result that
+  stands.
+* **Two inputs can drive it.** Flux trapped around the handle loop, with a
+  real field; or a matter current, with no charge, no field and no flux.
+  In the second the handle-loop flux stays zero throughout while the sheet
+  charge grows at second order in amplitude. Both are charge-conjugation-odd
+  initial data, and conjugation reverses the result exactly.
+* **The structure survives in the Gauss-reduced space.** On the constraint
+  surface the deck-fixed tangent space has dimension 84 (134), of which 16
+  (26) are gauge directions; the remaining 68 (108) are exactly half the
+  reduced space.
+* **Trapped flux is admissible in exactly the two seam types where round 13
+  found a charge.**
 
-**Not as expected.** I expected the flux to be screened; over 48 initial
-fields it decreased in 19 and increased in 29, so no screening statement is
-made. And, not predicted: charge separates across the seam **only** when it
-reverses time; on the ordinary handle the sheet charge is exactly zero.
+**Withdrawn after review.** That the pairing "becomes active only through
+trapped flux": false, trapped flux is sufficient and not necessary. That the
+tangent test was done with Gauss's law imposed: its perturbations left the
+constraint surface by `0.7071`. That the generated imaginary part is a
+physical orientation: a gauge transformation preserving the deck condition
+changes it from `0` to `0.033`; the gauge-invariant statements are about
+link currents, sheet charge and loop holonomy.
 
-**What it is not.** The trapped flux is an initial datum; nothing derives it
-or its sign. An orientation is not a complex structure, the pairing is
-indefinite and totals zero on a closed network, and there is no norm or
-probability. Flux coupling `Re` to `Im` also occurs on the ordinary handle.
-Which seam BAM has remains `NOT_ESTABLISHED`.
+**Also not as expected.** The flux is not reliably screened (19 of 48
+fields). With trapped flux, charge separates across the seam only when it
+reverses time.
+
+**What it is not.** Neither orienting datum is derived. The pairing is
+indefinite and totals zero on a closed network; there is no norm or
+probability. Which seam BAM has remains open.
 
 ```bash
-python -m experiments.closure_ledger.klein_handle_electric_probe   # 27/27
-python -m pytest -q tests/test_klein_handle_electric.py             # 24 tests
+python -m experiments.closure_ledger.klein_handle_electric_probe   # 45/45
+python -m pytest -q tests/test_klein_handle_electric.py             # 34 tests
 ```
 
 ## The matching map: the two recorded reversals live on different spheres (round 15)
@@ -5575,7 +5584,7 @@ pairing. No norm or probability follows.
 
 ```bash
 python -m experiments.closure_ledger.klein_handle_matching_probe   # 30/30
-python -m pytest -q tests/test_klein_handle_matching.py             # 23 tests
+python -m pytest -q tests/test_klein_handle_matching.py             # 24 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

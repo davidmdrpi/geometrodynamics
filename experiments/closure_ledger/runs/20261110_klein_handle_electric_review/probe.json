@@ -1,0 +1,1575 @@
+{
+  "public_preregistration": "4ab8bcd",
+  "reviewed_commit": "562af71",
+  "scope": "Lattice scalar electrodynamics on the cover network of a ring with one handle: charged field, link potentials, electric fields and two waist coordinates solved from one Hamiltonian. Effective oscillator support. Classical throughout; no probability rule, norm, spinor matching or statement about the seam BAM has. Corrected after review: trapped flux is sufficient but not necessary for sheet pairing, the frozen tangent test was ambient, and the imaginary part of the field is gauge dependent.",
+  "seed": 2026111003,
+  "withdrawn_claims": {
+    "response becomes dynamically active only through trapped handle flux": "Admissible Klein data with x swap even, y swap odd and Pi = a = E = 0 have no charge, no field and no flux, and generate sheet charge with the handle-loop flux zero throughout. Trapped flux is sufficient, not necessary.",
+    "the tangent test was done with Gauss's law imposed": "The frozen test perturbed along every deck-fixed direction; those violate linearized Gauss. It establishes an ambient property only.",
+    "the generated imaginary part is a physical orientation": "A gauge transformation preserving the deck condition changes it. The gauge-invariant statements are about link currents, sheet charge, loop holonomy and the electric field."
+  },
+  "frozen_labels_changed": {
+    "structure": "LAGRANGIAN_HALF_SURVIVES_ELECTRIC_RESPONSE",
+    "spontaneous_pairing": "NOT_GENERATED_BY_RESPONSE_WITHOUT_FLUX",
+    "flux_pairing": "TRAPPED_FLUX_COUPLES_SECTORS_AND_SETS_ORIENTATION",
+    "flux_origin": "INITIAL_DATA_NOT_DERIVED"
+  },
+  "measurements": {
+    "primary": {
+      "config": {
+        "n_ext": 12,
+        "port_a": 0,
+        "port_b": 5,
+        "n_tube": 4
+      },
+      "sites": 32,
+      "edges": 34,
+      "phase_space_dim": 200,
+      "deck": [
+        {
+          "s_t": 1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 2.5853496259887043e-16,
+          "gauss_covariance_error": 1.1102230246251565e-16,
+          "phase_space_dim": 200,
+          "fixed_dim": 100,
+          "omega_on_fixed": 1.0000000000000009,
+          "omega_rank_on_fixed": 100
+        },
+        {
+          "s_t": 1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 2.5853496259887043e-16,
+          "gauss_covariance_error": 1.1102230246251565e-16,
+          "phase_space_dim": 200,
+          "fixed_dim": 100,
+          "omega_on_fixed": 1.0000000000000009,
+          "omega_rank_on_fixed": 100
+        },
+        {
+          "s_t": -1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 2.5853496259887043e-16,
+          "gauss_covariance_error": 1.1102230246251565e-16,
+          "phase_space_dim": 200,
+          "fixed_dim": 100,
+          "omega_on_fixed": 3.319801977948995e-15,
+          "omega_rank_on_fixed": 0
+        },
+        {
+          "s_t": -1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 2.5853496259887043e-16,
+          "gauss_covariance_error": 1.1102230246251565e-16,
+          "phase_space_dim": 200,
+          "fixed_dim": 100,
+          "omega_on_fixed": 3.319801977948995e-15,
+          "omega_rank_on_fixed": 0
+        }
+      ],
+      "structure": {
+        "cells": [
+          {
+            "s_t": 1,
+            "s_f": 1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 1.734723475976807e-18,
+                "symmetry_defect": 2.089945523694029e-17,
+                "gauss_max": 1.6116241777523396e-16,
+                "total_charge": 1.2544219135657286e-16,
+                "local_charge": 1.6745806789758285e-05,
+                "energy_drift": 1.221130461502902e-07,
+                "max_mouth": 0.020616831460707793,
+                "max_field_strength": 1.3260852413865393e-05
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 2.6020852139652106e-18,
+                "symmetry_defect": 3.2300727240776233e-17,
+                "gauss_max": 4.779789980697072e-16,
+                "total_charge": 1.1368334116960976e-15,
+                "local_charge": 6.280574678032705e-05,
+                "energy_drift": 4.847943636585025e-07,
+                "max_mouth": 0.020617553971517065,
+                "max_field_strength": 4.8175672084893894e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 3.469446951953614e-18,
+                "symmetry_defect": 1.2276228027823963e-16,
+                "gauss_max": 2.2258941651670527e-15,
+                "total_charge": 2.7074425600764895e-15,
+                "local_charge": 0.00017626825033018327,
+                "energy_drift": 1.334459983398058e-06,
+                "max_mouth": 0.020634654305626426,
+                "max_field_strength": 0.00015836218595605763
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 6.938893903907228e-18,
+                "symmetry_defect": 1.2177191421974308e-16,
+                "gauss_max": 1.4226481626045898e-15,
+                "total_charge": 6.874017956411127e-15,
+                "local_charge": 0.0002249398631227568,
+                "energy_drift": 2.2208424219440686e-06,
+                "max_mouth": 0.020793526139097462,
+                "max_field_strength": 0.0001558167526649856
+              }
+            ]
+          },
+          {
+            "s_t": 1,
+            "s_f": -1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 8.673617379884035e-19,
+                "symmetry_defect": 3.800961237136595e-17,
+                "gauss_max": 2.0902909665752173e-16,
+                "total_charge": 2.133464235896769e-20,
+                "local_charge": 1.0844673967755794e-05,
+                "energy_drift": 3.3162817474937593e-07,
+                "max_mouth": 0.020615490586373124,
+                "max_field_strength": 8.820325651456678e-06
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 1.734723475976807e-18,
+                "symmetry_defect": 3.8279667624160113e-17,
+                "gauss_max": 5.005456498504562e-16,
+                "total_charge": 3.6422416731934915e-20,
+                "local_charge": 4.1786738750488466e-05,
+                "energy_drift": 3.6838103465165793e-07,
+                "max_mouth": 0.02061541781619837,
+                "max_field_strength": 3.717487569038517e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 3.469446951953614e-18,
+                "symmetry_defect": 9.311299045832686e-17,
+                "gauss_max": 1.9528107429722663e-15,
+                "total_charge": 2.193815333388638e-19,
+                "local_charge": 0.00017509293862459364,
+                "energy_drift": 1.0364704139097181e-06,
+                "max_mouth": 0.020617643692898625,
+                "max_field_strength": 0.0001593555448513968
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 6.938893903907228e-18,
+                "symmetry_defect": 1.7159285844589542e-16,
+                "gauss_max": 1.131364966988624e-16,
+                "total_charge": 6.403569081242511e-19,
+                "local_charge": 0.0006112307371675502,
+                "energy_drift": 1.0926916277896818e-06,
+                "max_mouth": 0.02061988453748423,
+                "max_field_strength": 0.00047366180082828927
+              }
+            ]
+          },
+          {
+            "s_t": -1,
+            "s_f": 1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 1.3010426069826053e-18,
+                "symmetry_defect": 1.3263166564381706e-17,
+                "gauss_max": 4.9365715440691064e-17,
+                "total_charge": 1.0003459107073287e-18,
+                "local_charge": 1.3162216852341495e-05,
+                "energy_drift": 8.65757009571135e-08,
+                "max_mouth": 0.020616533722258645,
+                "max_field_strength": 1.3070729175717098e-05
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 1.734723475976807e-18,
+                "symmetry_defect": 6.517767684784656e-17,
+                "gauss_max": 2.314144833875584e-16,
+                "total_charge": 3.916680348103885e-18,
+                "local_charge": 6.380253849315378e-05,
+                "energy_drift": 3.411977033695995e-07,
+                "max_mouth": 0.020619384647508593,
+                "max_field_strength": 3.623220930543662e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 3.469446951953614e-18,
+                "symmetry_defect": 4.6404696130222995e-17,
+                "gauss_max": 1.172754384923258e-15,
+                "total_charge": 2.5051846447993187e-17,
+                "local_charge": 0.00023862839098048852,
+                "energy_drift": 1.2872503600089265e-06,
+                "max_mouth": 0.020633453686198733,
+                "max_field_strength": 0.00019165962230703644
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 1.0408340855860843e-17,
+                "symmetry_defect": 1.488700122068538e-16,
+                "gauss_max": 1.684850176042474e-16,
+                "total_charge": 3.0357660829594124e-18,
+                "local_charge": 0.0006685420072722378,
+                "energy_drift": 1.0049353686928413e-06,
+                "max_mouth": 0.020665715202241985,
+                "max_field_strength": 0.0004905558515466614
+              }
+            ]
+          },
+          {
+            "s_t": -1,
+            "s_f": -1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 1.734723475976807e-18,
+                "symmetry_defect": 2.2059095617407464e-17,
+                "gauss_max": 2.997543721214562e-17,
+                "total_charge": 1.2992087806517998e-16,
+                "local_charge": 3.29291457053357e-06,
+                "energy_drift": 1.572020158538714e-07,
+                "max_mouth": 0.02061533909799977,
+                "max_field_strength": 2.2603568260345546e-06
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 1.734723475976807e-18,
+                "symmetry_defect": 2.7281941421799886e-17,
+                "gauss_max": 5.047926730479893e-16,
+                "total_charge": 8.017099083126172e-16,
+                "local_charge": 6.298150546482326e-05,
+                "energy_drift": 3.800947828379086e-07,
+                "max_mouth": 0.02062501780921411,
+                "max_field_strength": 4.439693226297631e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 5.204170427930421e-18,
+                "symmetry_defect": 8.769662263340426e-17,
+                "gauss_max": 1.291149262158675e-16,
+                "total_charge": 1.2047519015387365e-16,
+                "local_charge": 7.005072020638405e-05,
+                "energy_drift": 2.3627080728315055e-06,
+                "max_mouth": 0.02061838598605714,
+                "max_field_strength": 5.902970179158402e-05
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 6.938893903907228e-18,
+                "symmetry_defect": 1.1836020680709002e-16,
+                "gauss_max": 1.2819335436925483e-16,
+                "total_charge": 1.2576745200831851e-17,
+                "local_charge": 0.0008379859490263807,
+                "energy_drift": 1.1352938010642013e-06,
+                "max_mouth": 0.020690218738406294,
+                "max_field_strength": 0.0006165475411717187
+              }
+            ]
+          }
+        ],
+        "reversibility_error": 2.0389410439760505e-16,
+        "tangent_dim": 100,
+        "tangent_rank": 100,
+        "tangent_lagrangian_error": 1.1294226593046625e-11,
+        "tangent_frame_scale": 2.829542826929092
+      },
+      "admissibility": {
+        "cycle_dim": 3,
+        "handle_cycle_divergence": 0.0,
+        "handle_cycle_swap_error": 0.0,
+        "cells": [
+          {
+            "s_t": 1,
+            "s_f": 1,
+            "admissible_flux_dim": 2,
+            "max_on_tube_edges": 0.21729042366047122
+          },
+          {
+            "s_t": 1,
+            "s_f": -1,
+            "admissible_flux_dim": 1,
+            "max_on_tube_edges": 4.461317458193115e-16
+          },
+          {
+            "s_t": -1,
+            "s_f": 1,
+            "admissible_flux_dim": 1,
+            "max_on_tube_edges": 4.461317458193115e-16
+          },
+          {
+            "s_t": -1,
+            "s_f": -1,
+            "admissible_flux_dim": 2,
+            "max_on_tube_edges": 0.21729042366047122
+          }
+        ]
+      },
+      "spontaneous": {
+        "klein": {
+          "s_t": -1,
+          "s_f": -1,
+          "rows": [
+            {
+              "amplitude": 0.015625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 3.936772656535939e-06
+            },
+            {
+              "amplitude": 0.03125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 1.5746991404321913e-05
+            },
+            {
+              "amplitude": 0.0625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 6.298637812254315e-05
+            },
+            {
+              "amplitude": 0.125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.00025192011596790784
+            },
+            {
+              "amplitude": 0.5,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.004022613230340518
+            }
+          ]
+        },
+        "ordinary": {
+          "s_t": 1,
+          "s_f": 1,
+          "rows": [
+            {
+              "amplitude": 0.015625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 7.090291261663452e-06
+            },
+            {
+              "amplitude": 0.03125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 2.8360912281283796e-05
+            },
+            {
+              "amplitude": 0.0625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.00011343960507070849
+            },
+            {
+              "amplitude": 0.125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.0004536937276664358
+            },
+            {
+              "amplitude": 0.5,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.007238463672746586
+            }
+          ]
+        }
+      },
+      "flux": {
+        "klein": {
+          "s_t": -1,
+          "s_f": -1,
+          "fluxes": [
+            0.001,
+            0.002,
+            0.004
+          ],
+          "initial_fixed_error": 2.0816681711721685e-17,
+          "imaginary_ratios": [
+            0.003529733279755865,
+            0.007059354160282286,
+            0.014117809176751364
+          ],
+          "imaginary_slopes": [
+            0.9999770295530852,
+            0.9999081196666038
+          ],
+          "odd_error": 0.0,
+          "even_error": 0.0,
+          "imaginary_scale": 0.0017647261470939205,
+          "flux_change_by_flux": [
+            1.1915137865812012e-07,
+            2.3830193285247908e-07,
+            4.76597269345215e-07
+          ],
+          "flux_slopes_in_flux": [
+            0.9999950086526459,
+            0.9999800324713439
+          ],
+          "flux_change_by_amplitude": [
+            7.4435085074819884e-09,
+            2.97746671311383e-08,
+            1.1910879818295e-07,
+            4.76597269345215e-07
+          ],
+          "flux_slopes_in_amplitude": [
+            2.000030676470142,
+            2.0001226998309143,
+            2.0004907012887316
+          ],
+          "flux_change_signed": [
+            7.4435085074819884e-09,
+            2.97746671311383e-08,
+            1.1910879818295e-07,
+            4.76597269345215e-07
+          ],
+          "screening": false,
+          "gauss_identity_error": 1.1977045874175807e-17,
+          "gauss_max": 1.175777021995535e-17,
+          "total_charge": 2.871441691192078e-18,
+          "sheet_charge_max": 6.741838722531123e-07,
+          "sheet_charge_antisymmetry_error": 2.8663594935085523e-18,
+          "seam_relation_defect": 3.838894568946843e-16
+        },
+        "ordinary": {
+          "s_t": 1,
+          "s_f": 1,
+          "fluxes": [
+            0.001,
+            0.002,
+            0.004
+          ],
+          "initial_fixed_error": 1.0408340855860843e-17,
+          "imaginary_ratios": [
+            0.0038102446281144905,
+            0.007620383026746942,
+            0.015239916259011478
+          ],
+          "imaginary_slopes": [
+            0.9999798887171166,
+            0.999919555981504
+          ],
+          "odd_error": 0.0,
+          "even_error": 0.0,
+          "imaginary_scale": 0.0019049895323764348,
+          "flux_change_by_flux": [
+            3.33685705393872e-07,
+            6.673224628621702e-07,
+            1.3342533842445464e-06
+          ],
+          "flux_slopes_in_flux": [
+            0.999894182582369,
+            0.9995766980306866
+          ],
+          "flux_change_by_amplitude": [
+            2.0859212398159632e-08,
+            8.343465882857531e-08,
+            3.337035817700326e-07,
+            1.3342533842445464e-06
+          ],
+          "flux_slopes_in_amplitude": [
+            1.9999621193038901,
+            1.9998484615649594,
+            1.9993935939087641
+          ],
+          "flux_change_signed": [
+            -2.0859212398159632e-08,
+            -8.343465882857531e-08,
+            -3.337035817700326e-07,
+            -1.3342533842445464e-06
+          ],
+          "screening": true,
+          "gauss_identity_error": 2.812149384884277e-19,
+          "gauss_max": 1.5292332829729138e-17,
+          "total_charge": 5.658180087658726e-19,
+          "sheet_charge_max": 2.812149384884277e-19,
+          "sheet_charge_antisymmetry_error": 1.8719428134320037e-19,
+          "seam_relation_defect": null
+        }
+      },
+      "supplementary": {
+        "draws": 12,
+        "flux": 0.004,
+        "amplitude": 0.125,
+        "cells": [
+          {
+            "s_t": -1,
+            "s_f": -1,
+            "screening_at_peak": 4,
+            "screening_at_final_time": 5,
+            "peak_changes": [
+              -8.812919620945769e-07,
+              -4.6096235234091565e-07,
+              -1.7050379437534569e-06,
+              8.905440307283713e-07,
+              6.465147047033173e-07,
+              1.1578277557457856e-06,
+              2.251848817926526e-06,
+              7.818590456150701e-07,
+              2.582552052187055e-06,
+              6.675613591885024e-07,
+              1.9253293385007586e-06,
+              -2.1105594205034564e-06
+            ],
+            "max_sheet_charge": 1.5034222558760933e-05,
+            "min_over_draws_of_max_sheet_charge": 1.4107879560045944e-06
+          },
+          {
+            "s_t": 1,
+            "s_f": 1,
+            "screening_at_peak": 3,
+            "screening_at_final_time": 2,
+            "peak_changes": [
+              1.9534738862304543e-06,
+              7.16678746760617e-07,
+              7.159718533383472e-07,
+              -4.890806823056731e-07,
+              1.105268867472066e-06,
+              1.290303088529246e-06,
+              -1.1301189628059802e-06,
+              2.0994133519925892e-06,
+              2.457870882356661e-06,
+              -9.223800754567732e-07,
+              7.627418133959382e-07,
+              2.6449415058225206e-07
+            ],
+            "max_sheet_charge": 4.633270221481023e-19,
+            "min_over_draws_of_max_sheet_charge": 2.541098841762901e-20
+          }
+        ]
+      },
+      "review": {
+        "matter_phase": {
+          "initial": {
+            "deck_fixed_error": 0.0,
+            "charge_density": 0.0,
+            "field": 0.0,
+            "momentum": 0.0,
+            "link_potential": 0.0,
+            "max_link_current": 0.0008222254013133882
+          },
+          "rows": [
+            {
+              "amplitude": 0.015625,
+              "max_sheet_charge": 2.6393692823520593e-06,
+              "max_handle_flux": 2.117582368135751e-22,
+              "max_loop_holonomy": 9.317362419797304e-21,
+              "max_field": 1.60263853161404e-05,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 3.5457815611601717e-16,
+              "gauss_identity_error": 1.310444672697128e-17,
+              "seam_defect": 0.0
+            },
+            {
+              "amplitude": 0.03125,
+              "max_sheet_charge": 1.055757041611391e-05,
+              "max_handle_flux": 8.470329472543003e-22,
+              "max_loop_holonomy": 3.049318610115481e-20,
+              "max_field": 6.41075512340502e-05,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 1.4183126244640687e-15,
+              "gauss_identity_error": 5.241101064430709e-17,
+              "seam_defect": 0.0
+            },
+            {
+              "amplitude": 0.0625,
+              "max_sheet_charge": 4.223177436644184e-05,
+              "max_handle_flux": 2.8234431575143346e-21,
+              "max_loop_holonomy": 2.168404344971009e-19,
+              "max_field": 0.00025646235351621435,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 1.895456448047783e-15,
+              "gauss_identity_error": 8.548256503690399e-17,
+              "seam_defect": 0.0
+            },
+            {
+              "amplitude": 0.125,
+              "max_sheet_charge": 0.00016895098812772175,
+              "max_handle_flux": 1.1293772630057338e-20,
+              "max_loop_holonomy": 6.505213034913027e-19,
+              "max_field": 0.001026363091447311,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 2.5760643618255585e-16,
+              "gauss_identity_error": 3.0113715340784886e-17,
+              "seam_defect": 0.0
+            }
+          ],
+          "sheet_charge_slopes": [
+            2.0000127477115424,
+            2.0000509936379585,
+            2.0002040199767444
+          ],
+          "conjugate_sum": 0.0,
+          "uncoupled_max_sheet_charge": 0.00016899754032317715,
+          "uncoupled_max_field": 0.0,
+          "step_refinement_change": 0.0014030295687951866,
+          "dop853_max_sheet_charge": 0.0001692671244507975,
+          "midpoint_max_sheet_charge": 0.0001691880313597421,
+          "dop853_disagreement": 0.0004672678838966568,
+          "dop853_gauss_max": 6.028435129562526e-14
+        },
+        "constrained": {
+          "phase_space_dim": 200,
+          "gauss_rank": 32,
+          "ambient_fixed_dim": 100,
+          "ambient_linearized_gauss_violation": 0.7071067811865477,
+          "surface_dim": 168,
+          "presymplectic_nullity": 32,
+          "gauge_in_surface_error": 3.983200061189529e-20,
+          "gauge_in_presymplectic_kernel": 4.579669976578771e-16,
+          "gauge_rank": 32,
+          "constrained_fixed_dim": 84,
+          "constrained_omega": 1.141167500327447e-15,
+          "gauge_directions_in_fixed": 16,
+          "reduced_dim": 136,
+          "reduced_fixed_dim": 68,
+          "propagated_gauss_violation": 1.3548606681013098e-12,
+          "propagated_omega": 4.743939103169206e-12,
+          "propagated_rank": 84
+        },
+        "gauge": {
+          "gauged_deck_fixed_error": 6.938893903907228e-18,
+          "imaginary_before": 0.0,
+          "imaginary_after": 0.03258875305799806,
+          "imaginary_history_difference": 0.033177113316537214,
+          "invariant_differences": {
+            "field": 8.673617379884035e-19,
+            "current": 2.22769665127881e-19,
+            "density": 2.9095581738185217e-19,
+            "sheet": 2.4860417001913715e-19,
+            "holonomy": 1.4432899320127035e-15,
+            "energy": 8.673617379884035e-18
+          },
+          "current_scale": 8.020899288785362e-06,
+          "current_slopes": [
+            0.9999430983180982,
+            0.9997723972115825
+          ],
+          "sheet_charge_slopes": [
+            0.9999919510121378,
+            0.9999677887852152
+          ],
+          "holonomy_slopes": [
+            0.999999997167546,
+            0.9999999886709724
+          ],
+          "current_odd_error": 0.0,
+          "sheet_charge_odd_error": 0.0,
+          "holonomy_odd_error": 0.0,
+          "quiet_current": 0.0,
+          "quiet_density": 0.0,
+          "quiet_field": 0.0
+        }
+      }
+    },
+    "replicate": {
+      "config": {
+        "n_ext": 20,
+        "port_a": 0,
+        "port_b": 7,
+        "n_tube": 6
+      },
+      "sites": 52,
+      "edges": 54,
+      "phase_space_dim": 320,
+      "deck": [
+        {
+          "s_t": 1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 1.1355018024460028e-16,
+          "gauss_covariance_error": 2.220446049250313e-16,
+          "phase_space_dim": 320,
+          "fixed_dim": 160,
+          "omega_on_fixed": 1.0000000000000007,
+          "omega_rank_on_fixed": 160
+        },
+        {
+          "s_t": 1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 1.1355018024460028e-16,
+          "gauss_covariance_error": 2.220446049250313e-16,
+          "phase_space_dim": 320,
+          "fixed_dim": 160,
+          "omega_on_fixed": 1.0000000000000007,
+          "omega_rank_on_fixed": 160
+        },
+        {
+          "s_t": -1,
+          "s_f": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 1.1355018024460028e-16,
+          "gauss_covariance_error": 2.220446049250313e-16,
+          "phase_space_dim": 320,
+          "fixed_dim": 160,
+          "omega_on_fixed": 2.466028102679653e-15,
+          "omega_rank_on_fixed": 0
+        },
+        {
+          "s_t": -1,
+          "s_f": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "energy_invariance_error": 1.1355018024460028e-16,
+          "gauss_covariance_error": 2.220446049250313e-16,
+          "phase_space_dim": 320,
+          "fixed_dim": 160,
+          "omega_on_fixed": 2.466028102679653e-15,
+          "omega_rank_on_fixed": 0
+        }
+      ],
+      "structure": {
+        "cells": [
+          {
+            "s_t": 1,
+            "s_f": 1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 8.673617379884035e-18,
+                "symmetry_defect": 7.498669908360101e-17,
+                "gauss_max": 1.3167211868362824e-16,
+                "total_charge": 1.2105223134919064e-16,
+                "local_charge": 5.934032935529476e-06,
+                "energy_drift": 2.8164836067039515e-07,
+                "max_mouth": 0.020615878428609367,
+                "max_field_strength": 5.918316924645872e-06
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 8.646512325571898e-18,
+                "symmetry_defect": 7.931619933336175e-17,
+                "gauss_max": 2.464269777073384e-16,
+                "total_charge": 5.083963747220827e-16,
+                "local_charge": 1.9438865718467534e-05,
+                "energy_drift": 3.4781337860307784e-07,
+                "max_mouth": 0.020619240335115238,
+                "max_field_strength": 1.8760991848115964e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 1.214306433183765e-17,
+                "symmetry_defect": 1.2082660450412475e-16,
+                "gauss_max": 7.207572754776292e-17,
+                "total_charge": 2.6112863740525565e-16,
+                "local_charge": 4.503269370419158e-06,
+                "energy_drift": 3.293106503336867e-07,
+                "max_mouth": 0.02061554875672124,
+                "max_field_strength": 4.165152414490399e-06
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 5.941427905220564e-17,
+                "symmetry_defect": 3.539716139754995e-16,
+                "gauss_max": 9.147100327069717e-16,
+                "total_charge": 3.0376092266526378e-15,
+                "local_charge": 0.000336432228539309,
+                "energy_drift": 9.54329432026749e-07,
+                "max_mouth": 0.020619350472358394,
+                "max_field_strength": 0.00037912624487186327
+              }
+            ]
+          },
+          {
+            "s_t": 1,
+            "s_f": -1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 2.2768245622195593e-18,
+                "symmetry_defect": 2.4821810696517387e-17,
+                "gauss_max": 1.9378504470578609e-16,
+                "total_charge": 2.6999175193730823e-20,
+                "local_charge": 7.791550552015055e-06,
+                "energy_drift": 2.9998011477174814e-07,
+                "max_mouth": 0.020616405826334703,
+                "max_field_strength": 1.597606884328086e-05
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 1.3660947373317356e-17,
+                "symmetry_defect": 9.364945803224381e-17,
+                "gauss_max": 7.264544190808617e-16,
+                "total_charge": 8.978549240895584e-20,
+                "local_charge": 3.0523949289582054e-05,
+                "energy_drift": 8.295199232475909e-07,
+                "max_mouth": 0.02062330077379523,
+                "max_field_strength": 2.904518024257553e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 1.691355389077387e-17,
+                "symmetry_defect": 1.2953515678768462e-16,
+                "gauss_max": 1.4243807684981985e-15,
+                "total_charge": 3.5575383784680614e-19,
+                "local_charge": 0.00016819913647080778,
+                "energy_drift": 1.1944133454803765e-06,
+                "max_mouth": 0.020632537658805045,
+                "max_field_strength": 0.00020069670162886646
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 2.4936649967166602e-17,
+                "symmetry_defect": 1.8129738183961935e-16,
+                "gauss_max": 8.170954147665443e-16,
+                "total_charge": 9.622294280808852e-19,
+                "local_charge": 0.000596645353743809,
+                "energy_drift": 1.6177203035355315e-06,
+                "max_mouth": 0.02064172198415033,
+                "max_field_strength": 0.0005061988528804769
+              }
+            ]
+          },
+          {
+            "s_t": -1,
+            "s_f": 1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 8.023096076392733e-18,
+                "symmetry_defect": 5.385823319537276e-17,
+                "gauss_max": 4.901451440493575e-17,
+                "total_charge": 4.929731753020028e-19,
+                "local_charge": 8.51513641929068e-06,
+                "energy_drift": 2.6363286076993965e-07,
+                "max_mouth": 0.020617714803772797,
+                "max_field_strength": 7.161528485212122e-06
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 1.2685165418080402e-17,
+                "symmetry_defect": 1.1865897445004974e-16,
+                "gauss_max": 3.54540886666338e-16,
+                "total_charge": 4.076557816898134e-18,
+                "local_charge": 3.0605852516541345e-05,
+                "energy_drift": 1.0825451302409356e-06,
+                "max_mouth": 0.020622827590577188,
+                "max_field_strength": 2.6897116624164505e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 1.4094628242311558e-17,
+                "symmetry_defect": 1.195076152006732e-16,
+                "gauss_max": 8.978278190352462e-16,
+                "total_charge": 6.451002926288751e-18,
+                "local_charge": 0.00022683652137386713,
+                "energy_drift": 1.5861337173349638e-06,
+                "max_mouth": 0.02062181305989748,
+                "max_field_strength": 0.00020874262754879157
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 4.336808689942018e-17,
+                "symmetry_defect": 2.626135050953784e-16,
+                "gauss_max": 7.286380700188833e-16,
+                "total_charge": 6.708500942254059e-18,
+                "local_charge": 0.0007335915767613024,
+                "energy_drift": 1.1707663315334518e-06,
+                "max_mouth": 0.020649380932305908,
+                "max_field_strength": 0.0005005569425917414
+              }
+            ]
+          },
+          {
+            "s_t": -1,
+            "s_f": -1,
+            "amplitudes": [
+              {
+                "amplitude": 0.015625,
+                "initial_fixed_error": 5.773376568485311e-18,
+                "symmetry_defect": 4.079596895121401e-17,
+                "gauss_max": 8.732676752131342e-17,
+                "total_charge": 2.3738246577567537e-16,
+                "local_charge": 5.864474970698622e-06,
+                "energy_drift": 2.1157049902326105e-07,
+                "max_mouth": 0.020615371857860665,
+                "max_field_strength": 6.952604056355099e-06
+              },
+              {
+                "amplitude": 0.03125,
+                "initial_fixed_error": 6.938893903907228e-18,
+                "symmetry_defect": 8.53592158038859e-15,
+                "gauss_max": 2.652009335876379e-16,
+                "total_charge": 4.660104225250039e-16,
+                "local_charge": 1.8689800334740894e-05,
+                "energy_drift": 5.705215363890686e-07,
+                "max_mouth": 0.020621166762466604,
+                "max_field_strength": 1.8694603149498476e-05
+              },
+              {
+                "amplitude": 0.0625,
+                "initial_fixed_error": 1.8214596497756474e-17,
+                "symmetry_defect": 1.0227083947032212e-16,
+                "gauss_max": 1.3589796605747995e-16,
+                "total_charge": 1.4311468676808659e-16,
+                "local_charge": 8.913515658266214e-05,
+                "energy_drift": 1.7731770002075714e-06,
+                "max_mouth": 0.0206289209396758,
+                "max_field_strength": 6.913840923925774e-05
+              },
+              {
+                "amplitude": 0.125,
+                "initial_fixed_error": 2.6020852139652106e-17,
+                "symmetry_defect": 2.235454353641884e-16,
+                "gauss_max": 7.866564387740138e-17,
+                "total_charge": 1.49890950346121e-17,
+                "local_charge": 0.00036363112280958846,
+                "energy_drift": 8.17221768735899e-07,
+                "max_mouth": 0.020644067500561886,
+                "max_field_strength": 0.0003573327981081387
+              }
+            ]
+          }
+        ],
+        "reversibility_error": 1.5087593835392496e-16,
+        "tangent_dim": 160,
+        "tangent_rank": 160,
+        "tangent_lagrangian_error": 1.4515907650156245e-11,
+        "tangent_frame_scale": 2.829428166477993
+      },
+      "admissibility": {
+        "cycle_dim": 3,
+        "handle_cycle_divergence": 0.0,
+        "handle_cycle_swap_error": 0.0,
+        "cells": [
+          {
+            "s_t": 1,
+            "s_f": 1,
+            "admissible_flux_dim": 2,
+            "max_on_tube_edges": 0.20547332689645142
+          },
+          {
+            "s_t": 1,
+            "s_f": -1,
+            "admissible_flux_dim": 1,
+            "max_on_tube_edges": 3.2635870740172245e-16
+          },
+          {
+            "s_t": -1,
+            "s_f": 1,
+            "admissible_flux_dim": 1,
+            "max_on_tube_edges": 3.2635870740172245e-16
+          },
+          {
+            "s_t": -1,
+            "s_f": -1,
+            "admissible_flux_dim": 2,
+            "max_on_tube_edges": 0.20547332689645142
+          }
+        ]
+      },
+      "spontaneous": {
+        "klein": {
+          "s_t": -1,
+          "s_f": -1,
+          "rows": [
+            {
+              "amplitude": 0.015625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 3.7998737091806857e-06
+            },
+            {
+              "amplitude": 0.03125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 1.5199442893840898e-05
+            },
+            {
+              "amplitude": 0.0625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 6.07969404351025e-05
+            },
+            {
+              "amplitude": 0.125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.00024317445999831328
+            },
+            {
+              "amplitude": 0.5,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.003886516166355798
+            }
+          ]
+        },
+        "ordinary": {
+          "s_t": 1,
+          "s_f": 1,
+          "rows": [
+            {
+              "amplitude": 0.015625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 3.368328798005419e-06
+            },
+            {
+              "amplitude": 0.03125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 1.3473258712075503e-05
+            },
+            {
+              "amplitude": 0.0625,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 5.389213119127334e-05
+            },
+            {
+              "amplitude": 0.125,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.00021555406765661145
+            },
+            {
+              "amplitude": 0.5,
+              "imaginary": 0.0,
+              "gauge": 0.0,
+              "max_mouth": 0.00344424634923562
+            }
+          ]
+        }
+      },
+      "flux": {
+        "klein": {
+          "s_t": -1,
+          "s_f": -1,
+          "fluxes": [
+            0.001,
+            0.002,
+            0.004
+          ],
+          "initial_fixed_error": 6.591949208711867e-17,
+          "imaginary_ratios": [
+            0.00421450054535064,
+            0.008428817418662013,
+            0.016856165590498604
+          ],
+          "imaginary_slopes": [
+            0.9999685626298487,
+            0.9998742547512697
+          ],
+          "odd_error": 0.0,
+          "even_error": 0.0,
+          "imaginary_scale": 0.0021070206988123255,
+          "flux_change_by_flux": [
+            2.0822184377470958e-07,
+            4.1644932141648994e-07,
+            8.329437074308665e-07
+          ],
+          "flux_slopes_in_flux": [
+            1.0000195173977848,
+            1.0000780559719786
+          ],
+          "flux_change_by_amplitude": [
+            1.3022218364397431e-08,
+            5.2087449907076144e-08,
+            2.083270233439738e-07,
+            8.329437074308665e-07
+          ],
+          "flux_slopes_in_amplitude": [
+            1.9999605716692586,
+            1.9998422795285218,
+            1.9993690055680802
+          ],
+          "flux_change_signed": [
+            -1.3022218364397431e-08,
+            -5.2087449907076144e-08,
+            -2.083270233439738e-07,
+            -8.329437074308665e-07
+          ],
+          "screening": true,
+          "gauss_identity_error": 1.0207594047361573e-17,
+          "gauss_max": 1.364104209905688e-17,
+          "total_charge": 1.3298417271892515e-19,
+          "sheet_charge_max": 5.198914967587591e-06,
+          "sheet_charge_antisymmetry_error": 1.4230153513872246e-19,
+          "seam_relation_defect": 8.569268908873086e-16
+        },
+        "ordinary": {
+          "s_t": 1,
+          "s_f": 1,
+          "fluxes": [
+            0.001,
+            0.002,
+            0.004
+          ],
+          "initial_fixed_error": 5.551115123125783e-17,
+          "imaginary_ratios": [
+            0.004000829159786095,
+            0.008001517839705295,
+            0.016001911940794415
+          ],
+          "imaginary_slopes": [
+            0.9999746713270787,
+            0.9998986899057787
+          ],
+          "odd_error": 0.0,
+          "even_error": 0.0,
+          "imaginary_scale": 0.002000238992599302,
+          "flux_change_by_flux": [
+            5.532913707937369e-07,
+            1.1065437454226695e-06,
+            2.212775560572061e-06
+          ],
+          "flux_slopes_in_flux": [
+            0.9999491582845239,
+            0.999796640676009
+          ],
+          "flux_change_by_amplitude": [
+            3.458231148147084e-08,
+            1.383277805893507e-07,
+            5.532876767560396e-07,
+            2.212775560572061e-06
+          ],
+          "flux_slopes_in_amplitude": [
+            1.9999847172958116,
+            1.9999388669988627,
+            1.9997554311144736
+          ],
+          "flux_change_signed": [
+            -3.458231148147084e-08,
+            -1.383277805893507e-07,
+            -5.532876767560396e-07,
+            -2.212775560572061e-06
+          ],
+          "screening": true,
+          "gauss_identity_error": 1.8041801776516597e-19,
+          "gauss_max": 1.15276948956574e-17,
+          "total_charge": 3.7354152973914645e-19,
+          "sheet_charge_max": 1.8041801776516597e-19,
+          "sheet_charge_antisymmetry_error": 8.737144850928108e-19,
+          "seam_relation_defect": null
+        }
+      },
+      "supplementary": {
+        "draws": 12,
+        "flux": 0.004,
+        "amplitude": 0.125,
+        "cells": [
+          {
+            "s_t": -1,
+            "s_f": -1,
+            "screening_at_peak": 5,
+            "screening_at_final_time": 4,
+            "peak_changes": [
+              1.4802619267857003e-06,
+              -1.6759039300423897e-06,
+              1.658224419495008e-07,
+              -1.4172096355312414e-06,
+              -4.1166310897709085e-07,
+              9.770340683428608e-07,
+              -4.3419632414672116e-07,
+              -1.8002372221079949e-06,
+              3.1470154882896895e-07,
+              1.6937060726314457e-07,
+              2.2289861213199702e-07,
+              8.598348645531134e-07
+            ],
+            "max_sheet_charge": 5.405250198504025e-06,
+            "min_over_draws_of_max_sheet_charge": 5.189481849954177e-07
+          },
+          {
+            "s_t": 1,
+            "s_f": 1,
+            "screening_at_peak": 7,
+            "screening_at_final_time": 7,
+            "peak_changes": [
+              9.640892290252098e-07,
+              -2.607136453253167e-07,
+              -3.1603902683483356e-06,
+              -4.89146591937592e-07,
+              -1.2638005662786791e-06,
+              1.8499308439886425e-07,
+              -7.592250635766323e-07,
+              8.24624052227392e-07,
+              -2.1018577831604865e-06,
+              -1.1072368319691578e-06,
+              5.615318198846225e-07,
+              5.869176199517143e-07
+            ],
+            "max_sheet_charge": 3.1488449814178615e-19,
+            "min_over_draws_of_max_sheet_charge": 2.7740329022578336e-20
+          }
+        ]
+      },
+      "review": {
+        "matter_phase": {
+          "initial": {
+            "deck_fixed_error": 0.0,
+            "charge_density": 0.0,
+            "field": 0.0,
+            "momentum": 0.0,
+            "link_potential": 0.0,
+            "max_link_current": 0.0004644930762983975
+          },
+          "rows": [
+            {
+              "amplitude": 0.015625,
+              "max_sheet_charge": 4.485875075415516e-06,
+              "max_handle_flux": 6.352747104407252e-23,
+              "max_loop_holonomy": 8.470329472543003e-21,
+              "max_field": 9.271203120146945e-06,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 1.7703877982209494e-16,
+              "gauss_identity_error": 5.75838408531891e-17,
+              "seam_defect": 0.0
+            },
+            {
+              "amplitude": 0.03125,
+              "max_sheet_charge": 1.7943521752302584e-05,
+              "max_handle_flux": 3.3881317890172015e-22,
+              "max_loop_holonomy": 2.710505431213761e-20,
+              "max_field": 3.708504315678088e-05,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 7.081483430248017e-16,
+              "gauss_identity_error": 2.3036924473064657e-16,
+              "seam_defect": 0.0
+            },
+            {
+              "amplitude": 0.0625,
+              "max_sheet_charge": 7.177443011201108e-05,
+              "max_handle_flux": 1.5246593050577406e-21,
+              "max_loop_holonomy": 1.0842021724855044e-19,
+              "max_field": 0.00014834386253002004,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 1.1054186537483301e-15,
+              "gauss_identity_error": 3.622454983545631e-16,
+              "seam_defect": 0.0
+            },
+            {
+              "amplitude": 0.125,
+              "max_sheet_charge": 0.00028710320318467615,
+              "max_handle_flux": 5.4210108624275225e-21,
+              "max_loop_holonomy": 3.2526065174565133e-19,
+              "max_field": 0.0005934344299178143,
+              "field_swap_odd_error": 0.0,
+              "gauss_max": 1.3948260949026015e-16,
+              "gauss_identity_error": 4.7596475372113645e-17,
+              "seam_defect": 0.0
+            }
+          ],
+          "sheet_charge_slopes": [
+            2.000001724675436,
+            2.0000068965213864,
+            2.000027551042236
+          ],
+          "conjugate_sum": 0.0,
+          "uncoupled_max_sheet_charge": 0.00028710483246071955,
+          "uncoupled_max_field": 0.0,
+          "step_refinement_change": 5.428599558011127e-05,
+          "dop853_max_sheet_charge": 0.00028712049868440494,
+          "midpoint_max_sheet_charge": 0.00028711878886789527,
+          "dop853_disagreement": 4.665826924793081e-05,
+          "dop853_gauss_max": 3.0469008392708385e-14
+        },
+        "constrained": {
+          "phase_space_dim": 320,
+          "gauss_rank": 52,
+          "ambient_fixed_dim": 160,
+          "ambient_linearized_gauss_violation": 0.7071067811865477,
+          "surface_dim": 268,
+          "presymplectic_nullity": 52,
+          "gauge_in_surface_error": 2.1786633629631718e-20,
+          "gauge_in_presymplectic_kernel": 6.245004513516506e-16,
+          "gauge_rank": 52,
+          "constrained_fixed_dim": 134,
+          "constrained_omega": 1.3033998439260766e-15,
+          "gauge_directions_in_fixed": 26,
+          "reduced_dim": 216,
+          "reduced_fixed_dim": 108,
+          "propagated_gauss_violation": 7.192146184165082e-13,
+          "propagated_omega": 4.0105309211235275e-12,
+          "propagated_rank": 134
+        },
+        "gauge": {
+          "gauged_deck_fixed_error": 1.1188966420050406e-16,
+          "imaginary_before": 0.0,
+          "imaginary_after": 0.022480219318940228,
+          "imaginary_history_difference": 0.028794186064662785,
+          "invariant_differences": {
+            "field": 8.673617379884035e-19,
+            "current": 4.663048723532932e-19,
+            "density": 3.3108400325802465e-19,
+            "sheet": 1.7284766079908066e-19,
+            "holonomy": 1.8318679906315083e-15,
+            "energy": 8.673617379884035e-18
+          },
+          "current_scale": 1.0837459649500555e-05,
+          "current_slopes": [
+            0.9999753429669779,
+            0.9999013708824698
+          ],
+          "sheet_charge_slopes": [
+            0.999992016348916,
+            0.9999680659141383
+          ],
+          "holonomy_slopes": [
+            1.0000000008849188,
+            1.000000003539062
+          ],
+          "current_odd_error": 0.0,
+          "sheet_charge_odd_error": 0.0,
+          "holonomy_odd_error": 0.0,
+          "quiet_current": 0.0,
+          "quiet_density": 0.0,
+          "quiet_field": 0.0
+        }
+      }
+    }
+  },
+  "checks_by_size": {
+    "primary": {
+      "E1 each deck map is an involution with the predicted symplectic sign": true,
+      "E1 every deck map preserves H and maps the Gauss function covariantly": true,
+      "E1 fixed space is half, Lagrangian iff the seam reverses time": true,
+      "E1 scheme is reversed by the deck map": true,
+      "E1 mirror data are deck fixed and on the Gauss surface": true,
+      "E1 responding histories satisfy the seam relation": true,
+      "E1 time-preserving fixed set is invariant under the flow": true,
+      "E1 tangent space is a Lagrangian half": true,
+      "E1 Gauss law holds and total charge vanishes": true,
+      "E1 energy closes to 1e-5": true,
+      "E1 the histories carried charge, field strength and mouth motion": true,
+      "R2 frozen tangent directions leave the Gauss surface": true,
+      "R2 the presymplectic kernel on the Gauss surface is the gauge directions": true,
+      "R2 constrained fixed space is isotropic": true,
+      "R2 it is half the reduced space after removing its gauge directions": true,
+      "R2 constrained tangents stay on the surface and isotropic along a responding history": true,
+      "R1 the data are admissible with no charge, field, momentum or link potential": true,
+      "R1 the gauge-invariant input is a nonzero link current": true,
+      "R1 sheet charge is generated at second order in amplitude": true,
+      "R1 handle-loop flux and holonomy stay zero throughout": true,
+      "R1 the histories are admissible and obey Gauss's law": true,
+      "R1 charge conjugation reverses the sheet charge": true,
+      "R1 the sheet charge is already there with the coupling off": true,
+      "R1 an independent integrator and a halved step agree": true,
+      "R3 a deck-preserving gauge transformation changes the imaginary part": true,
+      "R3 it leaves field, currents, charge, holonomy and energy unchanged": true,
+      "E2 cover has three independent cycles": true,
+      "E2 handle loop is source free and swap even": true,
+      "E2 admissible flux dimension is 2 in matched cells, 1 in mixed": true,
+      "E2 flux through the tubes is admissible iff the cell is matched": true,
+      "E3 no imaginary part or gauge field from real data": true,
+      "E3 the mouths were responding in those runs": true,
+      "R3 gauge-invariantly: no current, charge or field from real data": true,
+      "E4 imaginary part is first order in the trapped flux": true,
+      "E4 it is exactly odd in the flux, the real part even": true,
+      "E4 the flux histories are admissible": true,
+      "R3 link current, sheet charge and loop holonomy are first order in the flux": true,
+      "R3 they are exactly odd in the flux": true,
+      "E5 flux response is second order in field amplitude": true,
+      "E5 flux response is first order in the flux": true,
+      "E6 sheet charge equals the flux through the seam": true,
+      "E6 total charge vanishes and the sheet charge is odd in time": true,
+      "E6 charge separates across the seam": true,
+      "E7 ordinary handle: flux couples the sectors at first order": true,
+      "E7 ordinary handle: exactly odd in the flux": true
+    },
+    "replicate": {
+      "E1 each deck map is an involution with the predicted symplectic sign": true,
+      "E1 every deck map preserves H and maps the Gauss function covariantly": true,
+      "E1 fixed space is half, Lagrangian iff the seam reverses time": true,
+      "E1 scheme is reversed by the deck map": true,
+      "E1 mirror data are deck fixed and on the Gauss surface": true,
+      "E1 responding histories satisfy the seam relation": true,
+      "E1 time-preserving fixed set is invariant under the flow": true,
+      "E1 tangent space is a Lagrangian half": true,
+      "E1 Gauss law holds and total charge vanishes": true,
+      "E1 energy closes to 1e-5": true,
+      "E1 the histories carried charge, field strength and mouth motion": true,
+      "R2 frozen tangent directions leave the Gauss surface": true,
+      "R2 the presymplectic kernel on the Gauss surface is the gauge directions": true,
+      "R2 constrained fixed space is isotropic": true,
+      "R2 it is half the reduced space after removing its gauge directions": true,
+      "R2 constrained tangents stay on the surface and isotropic along a responding history": true,
+      "R1 the data are admissible with no charge, field, momentum or link potential": true,
+      "R1 the gauge-invariant input is a nonzero link current": true,
+      "R1 sheet charge is generated at second order in amplitude": true,
+      "R1 handle-loop flux and holonomy stay zero throughout": true,
+      "R1 the histories are admissible and obey Gauss's law": true,
+      "R1 charge conjugation reverses the sheet charge": true,
+      "R1 the sheet charge is already there with the coupling off": true,
+      "R1 an independent integrator and a halved step agree": true,
+      "R3 a deck-preserving gauge transformation changes the imaginary part": true,
+      "R3 it leaves field, currents, charge, holonomy and energy unchanged": true,
+      "E2 cover has three independent cycles": true,
+      "E2 handle loop is source free and swap even": true,
+      "E2 admissible flux dimension is 2 in matched cells, 1 in mixed": true,
+      "E2 flux through the tubes is admissible iff the cell is matched": true,
+      "E3 no imaginary part or gauge field from real data": true,
+      "E3 the mouths were responding in those runs": true,
+      "R3 gauge-invariantly: no current, charge or field from real data": true,
+      "E4 imaginary part is first order in the trapped flux": true,
+      "E4 it is exactly odd in the flux, the real part even": true,
+      "E4 the flux histories are admissible": true,
+      "R3 link current, sheet charge and loop holonomy are first order in the flux": true,
+      "R3 they are exactly odd in the flux": true,
+      "E5 flux response is second order in field amplitude": true,
+      "E5 flux response is first order in the flux": true,
+      "E6 sheet charge equals the flux through the seam": true,
+      "E6 total charge vanishes and the sheet charge is odd in time": true,
+      "E6 charge separates across the seam": true,
+      "E7 ordinary handle: flux couples the sectors at first order": true,
+      "E7 ordinary handle: exactly odd in the flux": true
+    }
+  },
+  "checks": {
+    "E1 each deck map is an involution with the predicted symplectic sign": true,
+    "E1 every deck map preserves H and maps the Gauss function covariantly": true,
+    "E1 fixed space is half, Lagrangian iff the seam reverses time": true,
+    "E1 scheme is reversed by the deck map": true,
+    "E1 mirror data are deck fixed and on the Gauss surface": true,
+    "E1 responding histories satisfy the seam relation": true,
+    "E1 time-preserving fixed set is invariant under the flow": true,
+    "E1 tangent space is a Lagrangian half": true,
+    "E1 Gauss law holds and total charge vanishes": true,
+    "E1 energy closes to 1e-5": true,
+    "E1 the histories carried charge, field strength and mouth motion": true,
+    "R2 frozen tangent directions leave the Gauss surface": true,
+    "R2 the presymplectic kernel on the Gauss surface is the gauge directions": true,
+    "R2 constrained fixed space is isotropic": true,
+    "R2 it is half the reduced space after removing its gauge directions": true,
+    "R2 constrained tangents stay on the surface and isotropic along a responding history": true,
+    "R1 the data are admissible with no charge, field, momentum or link potential": true,
+    "R1 the gauge-invariant input is a nonzero link current": true,
+    "R1 sheet charge is generated at second order in amplitude": true,
+    "R1 handle-loop flux and holonomy stay zero throughout": true,
+    "R1 the histories are admissible and obey Gauss's law": true,
+    "R1 charge conjugation reverses the sheet charge": true,
+    "R1 the sheet charge is already there with the coupling off": true,
+    "R1 an independent integrator and a halved step agree": true,
+    "R3 a deck-preserving gauge transformation changes the imaginary part": true,
+    "R3 it leaves field, currents, charge, holonomy and energy unchanged": true,
+    "E2 cover has three independent cycles": true,
+    "E2 handle loop is source free and swap even": true,
+    "E2 admissible flux dimension is 2 in matched cells, 1 in mixed": true,
+    "E2 flux through the tubes is admissible iff the cell is matched": true,
+    "E3 no imaginary part or gauge field from real data": true,
+    "E3 the mouths were responding in those runs": true,
+    "R3 gauge-invariantly: no current, charge or field from real data": true,
+    "E4 imaginary part is first order in the trapped flux": true,
+    "E4 it is exactly odd in the flux, the real part even": true,
+    "E4 the flux histories are admissible": true,
+    "R3 link current, sheet charge and loop holonomy are first order in the flux": true,
+    "R3 they are exactly odd in the flux": true,
+    "E5 flux response is second order in field amplitude": true,
+    "E5 flux response is first order in the flux": true,
+    "E6 sheet charge equals the flux through the seam": true,
+    "E6 total charge vanishes and the sheet charge is odd in time": true,
+    "E6 charge separates across the seam": true,
+    "E7 ordinary handle: flux couples the sectors at first order": true,
+    "E7 ordinary handle: exactly odd in the flux": true
+  },
+  "check_groups": {
+    "structure": [
+      "E1 each deck map is an involution with the predicted symplectic sign",
+      "E1 every deck map preserves H and maps the Gauss function covariantly",
+      "E1 fixed space is half, Lagrangian iff the seam reverses time",
+      "E1 scheme is reversed by the deck map",
+      "E1 mirror data are deck fixed and on the Gauss surface",
+      "E1 responding histories satisfy the seam relation",
+      "E1 time-preserving fixed set is invariant under the flow",
+      "E1 tangent space is a Lagrangian half",
+      "E1 Gauss law holds and total charge vanishes",
+      "E1 energy closes to 1e-5",
+      "E1 the histories carried charge, field strength and mouth motion"
+    ],
+    "constrained_structure": [
+      "R2 frozen tangent directions leave the Gauss surface",
+      "R2 the presymplectic kernel on the Gauss surface is the gauge directions",
+      "R2 constrained fixed space is isotropic",
+      "R2 it is half the reduced space after removing its gauge directions",
+      "R2 constrained tangents stay on the surface and isotropic along a responding history"
+    ],
+    "matter_phase_route": [
+      "R1 the data are admissible with no charge, field, momentum or link potential",
+      "R1 the gauge-invariant input is a nonzero link current",
+      "R1 sheet charge is generated at second order in amplitude",
+      "R1 handle-loop flux and holonomy stay zero throughout",
+      "R1 the histories are admissible and obey Gauss's law",
+      "R1 charge conjugation reverses the sheet charge",
+      "R1 the sheet charge is already there with the coupling off",
+      "R1 an independent integrator and a halved step agree"
+    ],
+    "gauge_dependence": [
+      "R3 a deck-preserving gauge transformation changes the imaginary part",
+      "R3 it leaves field, currents, charge, holonomy and energy unchanged"
+    ],
+    "flux_admissibility": [
+      "E2 cover has three independent cycles",
+      "E2 handle loop is source free and swap even",
+      "E2 admissible flux dimension is 2 in matched cells, 1 in mixed",
+      "E2 flux through the tubes is admissible iff the cell is matched"
+    ],
+    "spontaneous_pairing": [
+      "E3 no imaginary part or gauge field from real data",
+      "E3 the mouths were responding in those runs",
+      "R3 gauge-invariantly: no current, charge or field from real data"
+    ],
+    "flux_pairing": [
+      "E4 imaginary part is first order in the trapped flux",
+      "E4 it is exactly odd in the flux, the real part even",
+      "E4 the flux histories are admissible",
+      "R3 link current, sheet charge and loop holonomy are first order in the flux",
+      "R3 they are exactly odd in the flux"
+    ],
+    "flux_dynamics": [
+      "E5 flux response is second order in field amplitude",
+      "E5 flux response is first order in the flux"
+    ],
+    "pairing_carrier": [
+      "E6 sheet charge equals the flux through the seam",
+      "E6 total charge vanishes and the sheet charge is odd in time",
+      "E6 charge separates across the seam"
+    ],
+    "seam_specificity": [
+      "E7 ordinary handle: flux couples the sectors at first order",
+      "E7 ordinary handle: exactly odd in the flux"
+    ]
+  },
+  "checks_passed": true,
+  "verdict": {
+    "structure": "AMBIENT_LAGRANGIAN_HALF_SURVIVES_ELECTRIC_RESPONSE",
+    "constrained_structure": "LAGRANGIAN_IN_THE_GAUSS_REDUCED_SPACE",
+    "flux_admissibility": "HANDLE_FLUX_ADMISSIBLE_IFF_CHARGE_UNTWISTED",
+    "spontaneous_pairing": "NOT_GENERATED_FROM_REAL_DATA_WITHOUT_FLUX",
+    "matter_phase_route": "MATTER_CURRENT_GENERATES_SHEET_PAIRING_WITHOUT_FLUX",
+    "flux_pairing": "TRAPPED_FLUX_DRIVES_GAUGE_INVARIANT_CURRENT_ODD_IN_FLUX",
+    "gauge_dependence": "IMAGINARY_PART_IS_GAUGE_DEPENDENT",
+    "flux_dynamics": "FLUX_RESPONDS_AT_SECOND_ORDER",
+    "pairing_carrier": "SHEET_PAIRING_IS_THE_SEAM_FLUX_BY_GAUSS",
+    "seam_specificity": "FLUX_COUPLING_ALSO_ON_THE_ORDINARY_HANDLE",
+    "support_dynamics": "EFFECTIVE_SUPPORT_ASSUMED",
+    "electric_dynamics": "LATTICE_GAUGE_FIELD_SOLVED_FROM_THE_ACTION",
+    "orienting_datum": "CONJUGATION_ODD_INITIAL_DATA_FLUX_OR_MATTER_CURRENT_NOT_DERIVED",
+    "positive_response": "NOT_DERIVED",
+    "spinor_matching": "NOT_DERIVED",
+    "event_law": "NOT_DERIVED",
+    "bam_cell": "NOT_ESTABLISHED",
+    "numerical_validity": "PASS",
+    "failed_checks": [],
+    "missing_checks": [],
+    "counterexamples": {}
+  }
+}

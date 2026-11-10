@@ -1,5 +1,9 @@
 """A responding electric field on the Klein handle. Freeze ``4ab8bcd``.
 
+Corrected after review of ``562af71``: trapped flux is sufficient but not
+necessary for sheet pairing, the frozen tangent test left the Gauss surface,
+and the imaginary part of the field is gauge dependent.
+
 Lattice scalar electrodynamics in temporal gauge on the cover network of
 ``klein_handle_response``, with the two waist coordinates of that round:
 
@@ -220,6 +224,25 @@ class Electric:
         """Component of ``E`` along the handle-loop cycle."""
         c = self.handle_cycle
         return self.part(z, "E") @ c / (c @ c)
+
+    def link_current(self, z: np.ndarray) -> np.ndarray:
+        """Gauge-invariant ``J_e = Im(conj(U_e Psi_i) Psi_j)`` on each edge."""
+        z, psi, _, a, *_ = self._fields(z)
+        carried = np.exp(1j * self.coupling * a) * psi[:, self.tail]
+        return np.imag(np.conj(carried) * psi[:, self.head])
+
+    def loop_holonomy(self, z: np.ndarray) -> np.ndarray:
+        """``sum of a_e`` around the handle loop; gauge invariant."""
+        return self.part(z, "a") @ self.handle_cycle
+
+    def gauss_differential(self, z: np.ndarray) -> np.ndarray:
+        """``dG`` at ``z``, shape ``(N, dim)``.
+
+        ``G`` is quadratic in the state, so a central difference is exact.
+        """
+        z = np.asarray(z, dtype=float).ravel()
+        eye = np.eye(self.dim)
+        return (self.gauss(z + eye) - self.gauss(z - eye)).T / 2.0
 
     # ---- bilinear forms and symmetries -----------------------------------
 
@@ -556,28 +579,255 @@ def flux_report(model: Electric, rng: np.random.Generator,
 
 
 # --------------------------------------------------------------------------
+# Review of 562af71
+# --------------------------------------------------------------------------
+
+def matter_phase_state(model: Electric, amplitude: float,
+                       rng: np.random.Generator) -> np.ndarray:
+    """R1. Admissible Klein data with no charge, no field and no flux.
+
+    ``x`` swap even, ``y`` swap odd, ``Pi = a = E = 0``. The field has a
+    phase structure, so the gauge-invariant link currents are not zero.
+    """
+    s, p = model.slices, model.net.swap
+    r1, r2 = (rng.standard_normal(model.n_sites) for _ in range(2))
+    z = np.zeros(model.dim)
+    z[s["x"]] = 0.5 * (r1 + p @ r1)
+    z[s["y"]] = 0.5 * (r2 - p @ r2)
+    z *= amplitude / np.linalg.norm(z)
+    return z
+
+
+def matter_phase_report(model: Electric, rng: np.random.Generator) -> dict:
+    """R1. Sheet pairing generated with no trapped flux at any time."""
+    from scipy.integrate import solve_ivp
+
+    d = model.deck(-1, -1)
+    direction = matter_phase_state(model, 1.0, rng)
+    g = model.coupling
+    start = 0.125 * direction
+    rows = []
+    for amp in AMPLITUDES:
+        hist = flow(model, amp * direction, STEPS)[:, 0]
+        back = flow(model, amp * direction, STEPS, -STEP)[:, 0]
+        e = model.part(hist, "E")
+        rows.append({
+            "amplitude": amp,
+            "max_sheet_charge": float(np.abs(model.sheet_charge(hist)).max()),
+            "max_handle_flux": float(np.abs(model.handle_flux(hist)).max()),
+            "max_loop_holonomy": float(np.abs(model.loop_holonomy(hist)).max()),
+            "max_field": float(np.abs(e).max()),
+            "field_swap_odd_error": float(np.abs(e @ model.edge_swap.T
+                                                 + e).max()),
+            "gauss_max": float(np.abs(model.gauss(hist)).max()),
+            "gauss_identity_error": float(np.abs(
+                g * model.sheet_charge(hist) - model.seam_flux(hist)).max()),
+            "seam_defect": float(np.abs(hist - back @ d.T).max() / amp),
+        })
+    charges = [r["max_sheet_charge"] for r in rows]
+
+    # Charge conjugation reverses the sheet charge: the matter phase orients.
+    hist = flow(model, start, STEPS)[:, 0]
+    conj = flow(model, model.conjugation @ start, STEPS)[:, 0]
+    q1 = model.sheet_charge(hist)
+
+    # With the coupling off there is still charge transport, and no field.
+    free = Electric(model.net, coupling=0.0)
+    free_hist = flow(free, start, STEPS)[:, 0]
+
+    # Step refinement and an independent integrator.
+    fine = flow(model, start, 2 * STEPS, STEP / 2)[:, 0]
+    reference = solve_ivp(
+        lambda t, y: model.vector_field(y)[0], (0.0, STEPS * STEP), start,
+        method="DOP853", rtol=1e-11, atol=1e-13,
+        t_eval=np.linspace(0.0, STEPS * STEP, 2 * STEPS + 1))
+    ref_q1 = model.sheet_charge(reference.y.T)
+    return {
+        "initial": {
+            "deck_fixed_error": float(np.abs(d @ start - start).max()),
+            "charge_density": float(np.abs(model.charge_density(start)).max()),
+            "field": float(np.abs(model.part(start, "E")).max()),
+            "momentum": float(np.abs(start[model.slices["px"].start:
+                                           model.slices["py"].stop]).max()),
+            "link_potential": float(np.abs(model.part(start, "a")).max()),
+            "max_link_current": float(np.abs(model.link_current(start)).max()),
+        },
+        "rows": rows,
+        "sheet_charge_slopes": _log2_slopes(charges),
+        "conjugate_sum": float(np.abs(model.sheet_charge(conj) + q1).max()),
+        "uncoupled_max_sheet_charge": float(np.abs(
+            free.sheet_charge(free_hist)).max()),
+        "uncoupled_max_field": float(np.abs(free.part(free_hist, "E")).max()),
+        "step_refinement_change": float(
+            abs(np.abs(model.sheet_charge(fine)).max() - np.abs(q1).max())
+            / np.abs(q1).max()),
+        "dop853_max_sheet_charge": float(np.abs(ref_q1).max()),
+        "midpoint_max_sheet_charge": float(np.abs(
+            model.sheet_charge(fine)).max()),
+        "dop853_disagreement": float(
+            np.abs(ref_q1 - model.sheet_charge(fine)).max()
+            / np.abs(ref_q1).max()),
+        "dop853_gauss_max": float(np.abs(model.gauss(reference.y.T)).max()),
+    }
+
+
+def constrained_tangent_report(model: Electric, rng: np.random.Generator
+                               ) -> dict:
+    """R2. The tangent test on the Gauss surface and in the reduced space.
+
+    The frozen test perturbed along every deck-fixed direction. Those leave
+    ``G = 0`` at first order. Here the directions satisfy ``dG delta = 0``,
+    the gauge directions are identified, and the count is done in the
+    reduced space ``{G = 0} / gauge``.
+    """
+    d = model.deck(-1, -1)
+    w = model.symplectic
+    z0 = admissible_state(model, -1, -1, 0.125, rng, link_scale=0.05,
+                          mouth=(0.02, 0.01))
+    dg = model.gauss_differential(z0)
+    ambient = kh.null_space(d - np.eye(model.dim))
+    surface = kh.null_space(dg)                     # tangent to {G = 0}
+    gauge = w @ dg.T                                # Hamiltonian fields of G_i
+    fixed = kh.null_space(np.vstack([d - np.eye(model.dim), dg]))
+    n_gauss = kh.rank(dg)
+    restricted = surface.T @ w @ surface
+    fixed_gauge = 2 * 0 + fixed.shape[1] + kh.rank(gauge) - kh.rank(
+        np.hstack([fixed, gauge]))                  # dim(fixed meet gauge)
+    reduced_dim = model.dim - 2 * n_gauss
+
+    eps = 1e-5
+    plus = flow(model, z0 + eps * fixed.T, STEPS)[-1]
+    minus = flow(model, z0 - eps * fixed.T, STEPS)[-1]
+    frame = ((plus - minus) / (2 * eps)).T
+    end = flow(model, z0, STEPS)[-1, 0]
+    dg_end = model.gauss_differential(end)
+    return {
+        "phase_space_dim": model.dim, "gauss_rank": n_gauss,
+        "ambient_fixed_dim": ambient.shape[1],
+        "ambient_linearized_gauss_violation": float(np.abs(dg @ ambient).max()),
+        "surface_dim": surface.shape[1],
+        "presymplectic_nullity": surface.shape[1] - kh.rank(restricted),
+        "gauge_in_surface_error": float(np.abs(dg @ gauge).max()),
+        "gauge_in_presymplectic_kernel": float(np.abs(
+            surface.T @ w @ gauge).max()),
+        "gauge_rank": kh.rank(gauge),
+        "constrained_fixed_dim": fixed.shape[1],
+        "constrained_omega": float(np.abs(fixed.T @ w @ fixed).max()),
+        "gauge_directions_in_fixed": int(fixed_gauge),
+        "reduced_dim": reduced_dim,
+        "reduced_fixed_dim": fixed.shape[1] - int(fixed_gauge),
+        "propagated_gauss_violation": float(np.abs(dg_end @ frame).max()),
+        "propagated_omega": float(np.abs(frame.T @ w @ frame).max()),
+        "propagated_rank": kh.rank(frame),
+    }
+
+
+def gauge_report(model: Electric, rng: np.random.Generator) -> dict:
+    """R3. What is and is not gauge invariant in the flux experiment.
+
+    A time-independent gauge transformation with swap-odd phases preserves
+    the strict Klein deck condition. It changes the imaginary part of the
+    field and leaves every gauge-invariant observable alone.
+    """
+    s, p = model.slices, model.net.swap
+    d = model.deck(-1, -1)
+    cycle = model.handle_cycle
+    direction = admissible_state(model, -1, -1, 1.0, rng, real_only=True)
+    raw = rng.standard_normal(model.n_sites)
+    chi = 0.3 * 0.5 * (raw - p @ raw)
+
+    def start(phi):
+        z = 0.125 * direction
+        z[s["E"]] = phi * cycle
+        return z
+
+    def imag_norm(h):
+        return np.sqrt(np.sum(model.part(h, "y") ** 2, axis=1)
+                       + np.sum(model.part(h, "py") ** 2, axis=1))
+
+    def observables(h):
+        return {"field": model.part(h, "E"), "current": model.link_current(h),
+                "density": model.charge_density(h),
+                "sheet": model.sheet_charge(h)[:, None],
+                "holonomy": model.loop_holonomy(h)[:, None],
+                "energy": model.energy(h)[:, None]}
+
+    phi = FLUXES[-1]
+    z0 = start(phi)
+    moved = model.gauge_transform(z0, chi)[0]
+    plain, gauged = flow(model, z0, STEPS)[:, 0], flow(model, moved, STEPS)[:, 0]
+    a, b = observables(plain), observables(gauged)
+    invariant = {k: float(np.abs(a[k] - b[k]).max()) for k in a}
+
+    # Gauge-invariant version of E4: currents, sheet charge and holonomy.
+    currents, sheets, holonomies = [], [], []
+    for f in FLUXES:
+        h = flow(model, start(f), STEPS)[:, 0]
+        currents.append(float(np.abs(model.link_current(h)).max()))
+        sheets.append(float(np.abs(model.sheet_charge(h)).max()))
+        holonomies.append(float(np.abs(model.loop_holonomy(h)).max()))
+    neg = flow(model, start(-phi), STEPS)[:, 0]
+    na = observables(neg)
+
+    # Gauge-invariant version of E3: real data, no flux.
+    quiet = flow(model, start(0.0), STEPS)[:, 0]
+    return {
+        "gauged_deck_fixed_error": float(np.abs(d @ moved - moved).max()),
+        "imaginary_before": float(imag_norm(z0[None])[0]),
+        "imaginary_after": float(imag_norm(moved[None])[0]),
+        "imaginary_history_difference": float(np.abs(
+            imag_norm(plain) - imag_norm(gauged)).max()),
+        "invariant_differences": invariant,
+        "current_scale": float(np.abs(a["current"]).max()),
+        "current_slopes": _log2_slopes(currents),
+        "sheet_charge_slopes": _log2_slopes(sheets),
+        "holonomy_slopes": _log2_slopes(holonomies),
+        "current_odd_error": float(np.abs(a["current"] + na["current"]).max()),
+        "sheet_charge_odd_error": float(np.abs(a["sheet"] + na["sheet"]).max()),
+        "holonomy_odd_error": float(np.abs(
+            a["holonomy"] + na["holonomy"]).max()),
+        "quiet_current": float(np.abs(model.link_current(quiet)).max()),
+        "quiet_density": float(np.abs(model.charge_density(quiet)).max()),
+        "quiet_field": float(np.abs(model.part(quiet, "E")).max()),
+    }
+
+
+# --------------------------------------------------------------------------
 # Verdict
 # --------------------------------------------------------------------------
 
 VERDICT_FIELDS = ("numerical_validity", "support_dynamics",
-                  "electric_dynamics", "structure", "flux_admissibility",
-                  "spontaneous_pairing", "flux_pairing", "flux_dynamics",
-                  "pairing_carrier", "seam_specificity", "flux_origin",
-                  "positive_response", "spinor_matching", "event_law",
-                  "bam_cell")
+                  "electric_dynamics", "structure", "constrained_structure",
+                  "flux_admissibility", "spontaneous_pairing",
+                  "matter_phase_route", "flux_pairing", "gauge_dependence",
+                  "flux_dynamics", "pairing_carrier", "seam_specificity",
+                  "orienting_datum", "positive_response", "spinor_matching",
+                  "event_law", "bam_cell")
+# Three labels were narrowed and three fields added after review of
+# ``562af71``; see the write-up.
 CONFIRMED = {
-    "structure": "LAGRANGIAN_HALF_SURVIVES_ELECTRIC_RESPONSE",
+    "structure": "AMBIENT_LAGRANGIAN_HALF_SURVIVES_ELECTRIC_RESPONSE",
+    "constrained_structure": "LAGRANGIAN_IN_THE_GAUSS_REDUCED_SPACE",
     "flux_admissibility": "HANDLE_FLUX_ADMISSIBLE_IFF_CHARGE_UNTWISTED",
-    "spontaneous_pairing": "NOT_GENERATED_BY_RESPONSE_WITHOUT_FLUX",
-    "flux_pairing": "TRAPPED_FLUX_COUPLES_SECTORS_AND_SETS_ORIENTATION",
+    "spontaneous_pairing": "NOT_GENERATED_FROM_REAL_DATA_WITHOUT_FLUX",
+    "matter_phase_route": "MATTER_CURRENT_GENERATES_SHEET_PAIRING_WITHOUT_FLUX",
+    "flux_pairing": "TRAPPED_FLUX_DRIVES_GAUGE_INVARIANT_CURRENT_ODD_IN_FLUX",
+    "gauge_dependence": "IMAGINARY_PART_IS_GAUGE_DEPENDENT",
     "flux_dynamics": "FLUX_RESPONDS_AT_SECOND_ORDER",
     "pairing_carrier": "SHEET_PAIRING_IS_THE_SEAM_FLUX_BY_GAUSS",
     "seam_specificity": "FLUX_COUPLING_ALSO_ON_THE_ORDINARY_HANDLE",
 }
+FROZEN_LABELS = {
+    "structure": "LAGRANGIAN_HALF_SURVIVES_ELECTRIC_RESPONSE",
+    "spontaneous_pairing": "NOT_GENERATED_BY_RESPONSE_WITHOUT_FLUX",
+    "flux_pairing": "TRAPPED_FLUX_COUPLES_SECTORS_AND_SETS_ORIENTATION",
+    "flux_origin": "INITIAL_DATA_NOT_DERIVED",
+}
 FIXED = {
     "support_dynamics": "EFFECTIVE_SUPPORT_ASSUMED",
     "electric_dynamics": "LATTICE_GAUGE_FIELD_SOLVED_FROM_THE_ACTION",
-    "flux_origin": "INITIAL_DATA_NOT_DERIVED",
+    "orienting_datum":
+        "CONJUGATION_ODD_INITIAL_DATA_FLUX_OR_MATTER_CURRENT_NOT_DERIVED",
     "positive_response": "NOT_DERIVED",
     "spinor_matching": "NOT_DERIVED",
     "event_law": "NOT_DERIVED",

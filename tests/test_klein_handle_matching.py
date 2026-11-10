@@ -201,6 +201,21 @@ def test_pin_sign_and_flux_sign_are_independent(net):
     assert lab["rotated_seam_defect_same_pin"] > 1e-3
 
 
+def test_quarter_rotation_is_a_constant_gauge_transformation(net):
+    """Added after the round-14 review: the Pin sign is a gauge choice there."""
+    from geometrodynamics.bulk import klein_handle_electric as ke
+    model = ke.Electric(net)
+    n = model.n_sites
+    z = 0.3 * rng(13).standard_normal(model.dim)
+    quarter = np.eye(model.dim)
+    eye, zero = np.eye(n), np.zeros((n, n))
+    rot = np.block([[zero, -eye], [eye, zero]])
+    quarter[:2 * n, :2 * n] = rot
+    quarter[2 * n:4 * n, 2 * n:4 * n] = rot
+    chi = np.full(n, np.pi / (2 * model.coupling))
+    assert np.abs(quarter @ z - model.gauge_transform(z, chi)[0]).max() < 1e-12
+
+
 # ---- verdict and probe ----------------------------------------------------
 
 def test_verdict_statuses():
