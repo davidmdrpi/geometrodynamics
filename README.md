@@ -5529,6 +5529,55 @@ python -m experiments.closure_ledger.klein_handle_electric_probe   # 27/27
 python -m pytest -q tests/test_klein_handle_electric.py             # 24 tests
 ```
 
+## The matching map: the two recorded reversals live on different spheres (round 15)
+
+*Pre-registered in `docs/klein_handle_matching_prereg.md` (`3d3ee38`),
+committed before the module. Module
+`geometrodynamics/bulk/klein_handle_matching.py`; probe
+`klein_handle_matching_probe.py`; tests `tests/test_klein_handle_matching.py`.
+Write-up: [klein_handle_matching.md](docs/klein_handle_matching.md).*
+
+Rounds 13-14 needed a seam that reverses both time and fibre. The repository
+records a time-reversing antipodal map (PR #129) and a fibre-reversing mouth
+transport (PR #279). This round asks whether they act on one fibre-charged
+field as that seam does, using the repository's own maps on the bulk mouth
+`S^3` and letting them act on fibre-charged functions by pullback.
+
+**All seven frozen predictions hold, 30/30 checks. The answer as posed is
+no.**
+
+* **The antipodal map is a Hopf fibre translation.** It fixes the Hopf base
+  and acts on charge-`k` functions as the scalar `(-1)^k`. So PR #129's
+  condition on a bulk scalar is the *fibre-preserving* cell: no charge, no
+  pairing, no admissible handle flux.
+* **The two maps are attached to different spheres.** The antipode is the
+  antipode of the spatial brane mouth and the identity on the Hopf base. The
+  transport is the antipode of the Hopf base and does not preserve the
+  spatial brane mouth.
+* **The transport acts on fibre-charged functions antilinearly, with square
+  `(-1)^k`,** and on the charge-1 doublet as `J = i sigma_y K` up to the Pin
+  sign.
+* **The spinor doublet is admissible on the transport seam only on an
+  antiperiodic doubled loop.** `J^2 = -1` has to be cancelled by the `-1`
+  spin holonomy of the neck for any field to exist there.
+* **With time reversal the charge survives and total spin vanishes; without
+  it, the reverse.** The doubly reversed structure is reached for a
+  spin-frame field under PT.
+* **The trapped-flux sign is not the Pin label.** A quarter rotation flips
+  the Pin sign and leaves the flux; charge conjugation does the opposite. My
+  round-14 guess that they are tied is retracted.
+
+**What it is not.** It does not decide whether BAM's matter is a bulk scalar
+or a spin-frame field, or P against PT; the repository uses a scalar for
+PR #129's kernel and `J` for its spinor structure, and those sit in different
+cells. The doublet identity is representation theory, not an action-derived
+pairing. No norm or probability follows.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_matching_probe   # 30/30
+python -m pytest -q tests/test_klein_handle_matching.py             # 23 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

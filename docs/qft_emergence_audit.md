@@ -1052,6 +1052,31 @@ and PR #279's transport act on a fibre-charged field as the doubly reversed
 seam does, and whether the flux sign is the Pin sector label of PR #279.
 Frozen at `4ab8bcd`. See [klein_handle_electric.md](klein_handle_electric.md).
 
+## The matching map (round 15)
+
+Rounds 13-14 required a seam reversing both time and fibre and pointed at
+PR #129's map and PR #279's transport as the candidates. Acting by pullback
+on fibre-charged functions on the bulk mouth, the two do not combine as
+hoped. The antipodal map of PR #129 is a Hopf fibre translation that fixes
+the Hopf base, so on a bulk scalar its condition is complex-linear: the
+fibre-preserving cell, with no charge and no pairing. The transport of
+PR #279 is the antipode of the Hopf base, does not preserve the spatial brane
+mouth, and acts antilinearly with square `(-1)^k`; on the charge-1 doublet it
+is `J` up to the Pin sign. The doublet is admissible on that seam only on an
+antiperiodic doubled loop, where `J^2 = -1` cancels the neck's spin holonomy,
+and then with PT the charge survives and total spin vanishes. The trapped
+flux sign of round 14 is independent of the Pin label.
+
+Effect on the findings: **F1 gains a sharpening, F9 is unchanged.** The
+statement that the mouth forces the transport class stands; what is new is
+that this transport and PR #129's antipodal condition are attached to two
+different 2-spheres, the Hopf base and the spatial brane mouth, so the
+scalar construction used for the exchange kernel and the spinor structure
+used for matter sit in different seam cells. That is a consistency question
+for the repository, recorded here and not resolved: it depends on the field
+type and on the chosen datum `T`. Frozen at `3d3ee38`. See
+[klein_handle_matching.md](klein_handle_matching.md).
+
 ## Expanding supported TT transport (PR #298)
 
 On the exact expanding four-component FRW family, the homogeneous TT normal

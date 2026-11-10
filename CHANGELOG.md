@@ -31,6 +31,16 @@
   flux by Gauss's law. The flux is initial data. Expected screening was not
   found. 27 checks at two sizes, 24 tests.
 
+- Round 15, the matching map (`bulk/klein_handle_matching.py`, freeze
+  `3d3ee38`): PR #129's antipodal map is a Hopf fibre translation, so on a
+  bulk scalar it gives the fibre-preserving cell with no pairing; PR #279's
+  transport acts on fibre-charged functions antilinearly with square
+  `(-1)^k` and is `J` on the doublet; the two are attached to different
+  spheres. The spinor doublet is admissible on the transport seam only on an
+  antiperiodic doubled loop; with time reversal charge survives and total
+  spin vanishes. The trapped-flux sign is independent of the Pin label,
+  retracting a round-14 guess. 30 checks, 23 tests.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the
