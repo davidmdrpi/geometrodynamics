@@ -5483,6 +5483,52 @@ python -m experiments.closure_ledger.klein_handle_response_probe   # 32/32
 python -m pytest -q tests/test_klein_handle_response.py             # 26 tests
 ```
 
+## A responding electric field on the Klein handle: trapped flux, not response (round 14)
+
+*Pre-registered in `docs/klein_handle_electric_prereg.md` (`4ab8bcd`),
+committed before the module. Module
+`geometrodynamics/bulk/klein_handle_electric.py`; probe
+`klein_handle_electric_probe.py`; tests `tests/test_klein_handle_electric.py`.
+Write-up: [klein_handle_electric.md](docs/klein_handle_electric.md).*
+
+Round 13 located the pairing between the two quadrature sectors in the
+charge, coupled to an electric potential that was prescribed. This round
+makes the electric field dynamical: lattice scalar electrodynamics on the
+handle network, with link potentials, electric fields, the charged field and
+the mouths solved from one Hamiltonian. On a graph the gauge field's free
+content is one mode per cycle; flux around the handle loop is Wheeler's
+charge without charge.
+
+**All seven frozen predictions hold, 27/27 checks at two sizes.** Most are
+symmetry consequences; the numerics confirm the derivation.
+
+* **The structure survives electric response.** Seam relation to `9e-15`,
+  Gauss's law to `2e-15`, tangent space Lagrangian.
+* **Response alone does not couple the sectors.** From a real field with no
+  gauge field, the imaginary part and the gauge field stay exactly zero at
+  every amplitude. Charge conjugation forbids it.
+* **Trapped handle flux does, and its sign sets the orientation.** The
+  imaginary part appears at first order in the flux and is exactly odd in
+  it. Such flux is admissible in exactly the two seam types where round 13
+  found a charge.
+* **The sheet pairing is the flux through the seam**, by Gauss's law.
+
+**Not as expected.** I expected the flux to be screened; over 48 initial
+fields it decreased in 19 and increased in 29, so no screening statement is
+made. And, not predicted: charge separates across the seam **only** when it
+reverses time; on the ordinary handle the sheet charge is exactly zero.
+
+**What it is not.** The trapped flux is an initial datum; nothing derives it
+or its sign. An orientation is not a complex structure, the pairing is
+indefinite and totals zero on a closed network, and there is no norm or
+probability. Flux coupling `Re` to `Im` also occurs on the ordinary handle.
+Which seam BAM has remains `NOT_ESTABLISHED`.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_electric_probe   # 27/27
+python -m pytest -q tests/test_klein_handle_electric.py             # 24 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

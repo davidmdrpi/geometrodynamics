@@ -1030,6 +1030,28 @@ matching map from the Hopf data to a fibre-charged field on a handle exists
 and the cell is recorded as `NOT_ESTABLISHED`. Frozen at `5d15963`. See
 [klein_handle_response.md](klein_handle_response.md).
 
+## Responding electric field on the Klein handle (round 14)
+
+With the electric field solved from the same Hamiltonian as the charged
+field and the mouths, the round-12 structure again survives. The result on
+the pairing is a negative with a located input: electric response to the
+field alone never couples the two quadrature sectors (charge conjugation
+forbids it, exactly); flux trapped around the handle loop does, at first
+order, with its sign fixing the sense of rotation; that flux is admissible
+only in the two seam types where the charge exists; and the pairing's value
+on one sheet is the electric flux through the seam, by Gauss's law. An
+expected screening of the flux was not found, and charge separation across
+the seam was found to require the time reversal.
+
+Effect on the findings: **none of F1-F9 changes status.** The chain of
+rounds 12-14 now rests on three underived inputs: a time-reversing seam, a
+fibre-reversing seam acting on a charged field, and trapped handle flux with
+a sign. It yields no norm, readout or event frequency, so F9 is untouched.
+What it adds is a specific question for the geometry: whether PR #129's map
+and PR #279's transport act on a fibre-charged field as the doubly reversed
+seam does, and whether the flux sign is the Pin sector label of PR #279.
+Frozen at `4ab8bcd`. See [klein_handle_electric.md](klein_handle_electric.md).
+
 ## Expanding supported TT transport (PR #298)
 
 On the exact expanding four-component FRW family, the homogeneous TT normal

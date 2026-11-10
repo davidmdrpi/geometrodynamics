@@ -22,6 +22,15 @@
   and fibre. Indefinite pairing, prescribed potential, no probability rule.
   32 checks at two sizes, 26 tests.
 
+- Round 14, responding electric field on the Klein handle
+  (`bulk/klein_handle_electric.py`, freeze `4ab8bcd`): lattice scalar
+  electrodynamics solved from one Hamiltonian with the charged field and the
+  mouths. Response alone never couples the two quadrature sectors; flux
+  trapped around the handle loop does, with orientation set by its sign, and
+  is admissible only where the charge exists; the sheet pairing is the seam
+  flux by Gauss's law. The flux is initial data. Expected screening was not
+  found. 27 checks at two sizes, 24 tests.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the
