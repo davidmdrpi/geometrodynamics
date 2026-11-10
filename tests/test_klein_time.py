@@ -1,4 +1,4 @@
-"""Klein time-attachment tests. Freeze ``bb6ff2c``."""
+"""Klein time-attachment tests. Freeze ``bb6ff2c``; corrected after review."""
 
 import numpy as np
 import pytest
@@ -151,21 +151,122 @@ def test_resonant_history_fredholm(lat):
         f["kernel_component_norm"], abs=1e-8)
 
 
-def test_verdict_fails_on_a_missing_check():
+# ---- Review of 5b79975 ----------------------------------------------------
+
+def test_fixed_geometry_refinement_finds_survivors_the_cutoff_hid():
+    """R1. Holding tau = 7 pi / 48 fixed, refinement admits homogeneous modes."""
+    rows = {r["n"]: r for r in kt.refinement_report()}
+    assert (rows[24]["untwisted"], rows[24]["twisted"]) == ((), ())
+    assert rows[48]["twisted"] == (24,)
+    assert rows[72]["untwisted"] == (48,)
+    assert rows[96]["twisted"] == (24, 72)
+    for r in rows.values():
+        assert r["untwisted"] == r["continuum_untwisted"]
+        assert r["twisted"] == r["continuum_twisted"]
+
+
+def test_reviewer_counterexample_satisfies_both_caps():
+    """R1. ``sin(48 chi) sin(48 t)`` is admissible at tau = 7 pi / 48."""
+    c = kt.continuum_counterexample(7, 48, twisted=False)
+    assert (c["k"], c["quadrature"]) == (48, "sin")
+    assert c["amplitude"] > 0.5
+    assert c["cap_0_defect"] < 1e-9 and c["cap_tau_defect"] < 1e-9
+
+
+def test_counterexample_check_can_fail():
+    """A mode that should not survive is rejected by the same marching test."""
+    lat = kt.Lattice(96)
+    chi = np.arange(1, 96) * np.pi / 96
+    state = np.concatenate([np.zeros(95), np.sin(47 * chi)
+                            * np.sin(47 * np.pi / 96)])
+    deck = kt.klein_deck(lat, 28, 1)
+    assert np.abs(deck @ state - state).max() > 0.1
+
+
+@pytest.mark.parametrize("p,q", [(1, 3), (2, 5), (3, 7), (5, 11), (7, 48)])
+def test_every_rational_spacing_has_an_untwisted_mode(p, q):
+    c = kt.continuum_counterexample(p, q, twisted=False)
+    assert c["exists"] and c["k"] == q
+    assert c["cap_0_defect"] < 1e-9 and c["cap_tau_defect"] < 1e-9
+
+
+@pytest.mark.parametrize("p,q,exists", [(1, 3, False), (2, 5, False),
+                                        (3, 8, True), (7, 48, True)])
+def test_twisted_modes_need_an_even_denominator(p, q, exists):
+    c = kt.continuum_counterexample(p, q, twisted=True)
+    assert c["exists"] is exists
+    if exists:
+        assert c["k"] == q // 2
+        assert c["cap_0_defect"] < 1e-9 and c["cap_tau_defect"] < 1e-9
+
+
+def test_continuum_modes_agree_with_the_lattice_formula():
+    for n, m in ((24, 7), (24, 12), (24, 24), (48, 14), (96, 28)):
+        for twisted in (False, True):
+            assert kt.continuum_modes(m, 2 * n, n, twisted) == \
+                kt.predicted_modes(n, m, twisted)
+
+
+def test_divisor_diagnostic_separates_spacings():
+    """Diagnostic only: exact zero at 7/48, a floor at the golden ratio."""
+    assert kt.continuum_gap(7 / 48, 1000)["min_gap"] == 0.0
+    golden = kt.continuum_gap((5 ** 0.5 - 1) / 2, 100_000)
+    assert golden["min_gap"] > 1.0
+    assert kt.continuum_gap(float(np.pi - 3), 100_000)["min_gap"] < 0.1
+
+
+@pytest.mark.parametrize("m", sorted(kt.TABLE_P3))
+def test_orientable_closed_time_selects_the_same_harmonics(lat, m):
+    """R2. The resonance condition is temporal closure; the caps halve it."""
+    c = kt.closure_control_report(lat, m)
+    untwisted, twisted = kt.TABLE_P3[m]
+    assert c["orientable_periodic_modes"] == untwisted
+    assert c["orientable_antiperiodic_modes"] == twisted
+    assert c["orientable_periodic_dim"] == 2 * c["klein_untwisted_dim"]
+    assert c["orientable_antiperiodic_dim"] == 2 * c["klein_twisted_dim"]
+
+
+def test_time_symmetric_response_does_not_need_the_attachment(lat):
+    """R2. Unique, reciprocal, time-symmetric with no deck constraint."""
+    r = kt.response_control_report(lat)
+    assert not r["source_is_deck_invariant"]
+    assert r["unrestricted_green_symmetry"] < 1e-9
+    assert r["time_mirror_defect_without_deck"] < 1e-9
+    assert r["conditions_unrestricted"] == 2 * r["conditions_on_invariant_sources"]
+    assert r["deck_invariant_source_dim"] == 81
+
+
+@pytest.mark.parametrize("m", [0, 1, 7, 24])
+@pytest.mark.parametrize("eta", [1, -1])
+def test_complex_structure_leaves_every_twist_sector(lat, m, eta):
+    """R3. ``j`` maps no nonzero admissible field to an admissible field."""
+    assert kt.sector_action_report(lat, m, eta)["dim_plus_meet_j_plus"] == 0
+
+
+def test_verdict_separates_missing_failed_and_counterexample():
+    """R4. A missed tolerance is not a refutation."""
     groups = {"phase_space": ["a"], "complex_structure": ["b"],
-              "phase_closure": ["c"], "field_freedom": ["d"]}
-    v = kt.verdict({"a": True, "b": True, "c": False}, groups)
+              "phase_closure": ["c"], "field_freedom": ["d"],
+              "continuum_free_field": ["e"]}
+    v = kt.verdict({"a": True, "b": True, "c": False, "e": True}, groups,
+                   {"continuum_free_field": "explicit mode"})
     assert v["phase_space"] == kt.CONFIRMED["phase_space"]
-    assert v["phase_closure"] == "REFUTED"
-    assert v["field_freedom"] == "REFUTED"
+    assert v["phase_closure"] == kt.UNRESOLVED_NUMERICALLY
+    assert v["field_freedom"] == kt.INCOMPLETE
+    assert v["continuum_free_field"] == kt.COUNTEREXAMPLE
+    assert v["failed_checks"] == ["c"] and v["missing_checks"] == ["d"]
+    assert "REFUTED" not in v.values()
     assert v["born_rule"] == "NOT_DERIVED"
 
 
 def test_probe_passes_and_claims_nothing_quantum(report):
     assert report["checks_passed"]
-    assert len(report["checks"]) == 20
+    assert len(report["checks"]) == 28
     v = report["verdict"]
     for field, value in kt.CONFIRMED.items():
         assert v[field] == value
     for field, value in kt.NOT_CLAIMED.items():
         assert v[field] == value
+    assert v["continuum_free_field"] == kt.COUNTEREXAMPLE
+    assert v["field_freedom"] != kt.FROZEN_LABELS["field_freedom"]
+    assert set(kt.VERDICT_FIELDS) <= set(v)

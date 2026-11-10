@@ -1,5 +1,8 @@
 """Classical field on a time-nonorientable (Klein) quotient. Freeze ``bb6ff2c``.
 
+Corrected after review of ``5b79975``: the frozen "no free field" reading
+holds only in the frozen truncation, and two verdict labels were narrowed.
+
 Background: Einstein static universe ``R x S^3`` (radius 1), conformally
 coupled real scalar, zonal sector ``phi = u(t, chi) / sin(chi)``, for which
 
@@ -44,19 +47,43 @@ TABLE_P3 = {
 }
 
 VERDICT_FIELDS = ("phase_space", "complex_structure", "phase_closure",
-                  "field_freedom", "hbar", "born_rule", "counting_function",
-                  "lepton_index")
+                  "field_freedom", "continuum_free_field",
+                  "irrational_spacing", "attachment_contribution",
+                  "sector_pairing", "hbar",
+                  "born_rule", "counting_function", "lepton_index")
+# Two labels were narrowed after review of ``5b79975``; see the write-up.
 CONFIRMED = {
     "phase_space": "ADMISSIBLE_FIELDS_ARE_A_LAGRANGIAN_HALF",
-    "complex_structure": "TIME_DECK_IS_A_CONJUGATION_OF_THE_MODE_SPACE",
+    "complex_structure": "TIME_DECK_IS_A_CONJUGATION_OF_THE_COVER_MODE_SPACE",
     "phase_closure": "TWO_CAPS_FORCE_PHASE_0_OR_PI_FIXED_BY_TWIST",
+    "field_freedom": "UNIQUE_SOURCED_SOLUTION_IN_THE_FROZEN_TRUNCATION",
+    "attachment_contribution":
+        "QUADRATURE_SELECTION_NOT_THE_TIME_SYMMETRIC_RESPONSE",
+}
+FROZEN_LABELS = {
+    "complex_structure": "TIME_DECK_IS_A_CONJUGATION_OF_THE_MODE_SPACE",
     "field_freedom": "GENERIC_CLOSED_HISTORY_HAS_NO_FREE_FIELD",
 }
 NOT_CLAIMED = {
+    "irrational_spacing": "OPEN_SMALL_DIVISORS",
+    "sector_pairing": "NOT_SUPPLIED",
     "hbar": "NOT_DERIVED",
     "born_rule": "NOT_DERIVED",
     "counting_function": "NOT_SELECTED",
     "lepton_index": "NOT_IDENTIFIED",
+}
+# Status vocabulary. A failed tolerance is not a mathematical refutation.
+INCOMPLETE = "INCOMPLETE"
+UNRESOLVED_NUMERICALLY = "UNRESOLVED_NUMERICALLY"
+COUNTEREXAMPLE = "COUNTEREXAMPLE"
+
+REFINEMENT_SIZES = (24, 48, 72, 96)
+REFINEMENT_TAU = (7, 48)          # tau / pi = 7 / 48, held fixed
+REFINEMENT_EXPECTED = {
+    24: ((), ()),
+    48: ((), (24,)),
+    72: ((48,), (24,)),
+    96: ((48,), (24, 72)),
 }
 
 
@@ -409,20 +436,250 @@ def fredholm_report(lat: Lattice, m: int, rng: np.random.Generator) -> dict:
 
 
 # --------------------------------------------------------------------------
+# Review round: fixed-geometry refinement and the continuum
+# --------------------------------------------------------------------------
+
+def continuum_modes(p: int, q: int, k_max: int, twisted: bool) -> tuple:
+    """Continuum survivors below ``k_max`` for ``tau / pi = p / q``.
+
+    ``2 k tau = 2 pi k p / q`` must be ``0`` (untwisted) or ``pi`` (twisted)
+    mod ``2 pi``. In lowest terms: untwisted iff ``q | k``; twisted iff ``q``
+    is even and ``k`` is an odd multiple of ``q / 2``.
+    """
+    g = int(np.gcd(p, q))
+    p, q = p // g, q // g
+    if not twisted:
+        return tuple(k for k in range(1, k_max) if k % q == 0)
+    if q % 2:
+        return ()
+    half = q // 2
+    return tuple(k for k in range(1, k_max)
+                 if k % half == 0 and (k // half) % 2 == 1)
+
+
+def refinement_report(sizes=REFINEMENT_SIZES, tau=REFINEMENT_TAU) -> list:
+    """Hold the physical cap separation fixed and refine the lattice."""
+    p, q = tau
+    rows = []
+    for n in sizes:
+        if (2 * n * p) % q:
+            raise ValueError(f"tau = {p} pi / {q} is not on the N = {n} lattice")
+        m = 2 * n * p // q
+        lat = Lattice(n)
+        rows.append({
+            "n": n, "m": m,
+            "untwisted": surviving_modes(lat, two_cap_space(lat, m, 1, 1)),
+            "twisted": surviving_modes(lat, two_cap_space(lat, m, 1, -1)),
+            "continuum_untwisted": continuum_modes(p, q, n, False),
+            "continuum_twisted": continuum_modes(p, q, n, True),
+        })
+    return rows
+
+
+def continuum_counterexample(p: int, q: int, twisted: bool = False) -> dict:
+    """An explicit homogeneous field at ``tau / pi = p / q``.
+
+    The continuum mode ``sin(k chi) cos(k t - alpha)`` with the smallest
+    surviving ``k``, sampled on the smallest lattice that resolves it, where
+    the leapfrog is exact. Both cap conditions are then tested by marching.
+    """
+    g = int(np.gcd(p, q))
+    p, q = p // g, q // g
+    if twisted and q % 2:
+        return {"p": p, "q": q, "twisted": True, "exists": False}
+    k = q // 2 if twisted else q
+    n = 2 * q                      # k < n, and m = 4 p is an integer
+    m = 2 * n * p // q
+    lat = Lattice(n)
+    chi = np.arange(1, n) * np.pi / n
+    dt = np.pi / n
+    even = (k + 1) % 2 == 0        # spatial parity (-1)^(k+1)
+    time = (lambda t: np.cos(k * t)) if even else (lambda t: np.sin(k * t))
+    levels = march(lat, np.concatenate([np.sin(k * chi) * time(0.0),
+                                        np.sin(k * chi) * time(dt)]),
+                   max(m, 2))
+    scale = float(np.abs(levels).max())
+    eta1 = -1 if twisted else 1
+
+    def defect(cap, eta):
+        # (T u)^j = eta F u^{cap - j}; for cap = 0 use the exact period 2n.
+        full = march(lat, np.concatenate([levels[0], levels[1]]), 2 * n)
+        return max(float(np.abs(full[j] - eta * full[(cap - j) % (2 * n)][::-1]
+                                ).max()) for j in range(0, 2 * n)) / scale
+
+    return {"p": p, "q": q, "twisted": twisted, "exists": True, "k": k,
+            "n": n, "m": m, "amplitude": scale,
+            "quadrature": "cos" if even else "sin",
+            "cap_0_defect": defect(0, 1), "cap_tau_defect": defect(m, eta1)}
+
+
+def continuum_gap(alpha: float, k_max: int = 100_000) -> dict:
+    """Diagnostic only. Smallest ``|k^2 - (q / alpha)^2|`` for ``k <= k_max``.
+
+    ``alpha = tau / pi``. The untwisted continuum operator on a closed
+    history of period ``2 tau`` is diagonal with symbol ``nu_q^2 - k^2``,
+    ``nu_q = q / alpha``. A gap bounded away from zero means a bounded
+    inverse on ``L^2``; it is not an existence theory for the lattice limit.
+    """
+    k = np.arange(1, k_max + 1, dtype=float)
+    q = np.rint(k * alpha)
+    gap = np.abs(k * alpha - q) * (k * alpha + q) / alpha ** 2
+    worst = int(np.argmin(gap))
+    return {"alpha": float(alpha), "k_max": k_max,
+            "min_gap": float(gap[worst]), "at_k": int(k[worst]),
+            "min_k_times_distance": float(np.min(k * np.abs(k * alpha - q)))}
+
+
+# --------------------------------------------------------------------------
+# Review round: what the attachment adds to temporal closure
+# --------------------------------------------------------------------------
+
+def antiperiodic_operator(lat: Lattice, m: int) -> np.ndarray:
+    """Time-orientable control with ``u^{j+m} = -u^j``."""
+    cyc = np.roll(np.eye(m), 1, axis=0)
+    cyc[0, m - 1] = -1.0           # the wrap-around link carries the sign
+    return np.kron(cyc + cyc.T, np.eye(lat.dim)) - np.kron(
+        np.eye(m), lat.neighbour_sum)
+
+
+def antiperiodic_deck(lat: Lattice, m: int) -> np.ndarray:
+    """``(T_0 u)^j = F u^{-j}`` with ``u^{-j} = -u^{m-j}`` for ``j != 0``."""
+    reverse = np.zeros((m, m))
+    reverse[0, 0] = 1.0
+    for j in range(1, m):
+        reverse[j, m - j] = -1.0
+    return np.kron(reverse, lat.flip)
+
+
+def _invariant_count(kernel: np.ndarray, deck: np.ndarray) -> int:
+    if not kernel.shape[1]:
+        return 0
+    block = kernel.T @ deck @ kernel
+    return int(np.sum(np.linalg.eigvalsh((block + block.T) / 2) > 0.5))
+
+
+def closure_control_report(lat: Lattice, m: int) -> dict:
+    """Same period, same operator: orientable closed time against the caps.
+
+    The orientable control imposes only ``u^{j+m} = +-u^j``. The Klein
+    history adds invariance under the cap at 0.
+    """
+    periodic = null_space(periodic_operator(lat, m))
+    anti_op = antiperiodic_operator(lat, m)
+    anti = null_space(anti_op)
+    anti_deck = antiperiodic_deck(lat, m)
+    return {
+        "m": m,
+        "orientable_periodic_modes": surviving_time_modes(lat, periodic, m),
+        "orientable_periodic_dim": periodic.shape[1],
+        "klein_untwisted_dim": _invariant_count(periodic,
+                                                periodic_deck(lat, m)),
+        "orientable_antiperiodic_modes": surviving_time_modes(lat, anti, m),
+        "orientable_antiperiodic_dim": anti.shape[1],
+        "klein_twisted_dim": _invariant_count(anti, anti_deck),
+        "antiperiodic_deck_commutator": float(np.abs(
+            anti_deck @ anti_op - anti_op @ anti_deck).max()),
+        "antiperiodic_deck_involution": float(np.abs(
+            anti_deck @ anti_deck - np.eye(anti_deck.shape[0])).max()),
+    }
+
+
+def surviving_time_modes(lat: Lattice, basis: np.ndarray, m: int) -> tuple:
+    """Spatial harmonics present in a space of fields on ``m`` time levels."""
+    if not basis.shape[1]:
+        return ()
+    stacked = basis.reshape(m, lat.dim, -1)
+    return tuple(k for k in range(1, lat.n)
+                 if float(np.linalg.norm(np.einsum("i,jic->jc", lat.mode(k),
+                                                   stacked))) > 0.5)
+
+
+def response_control_report(lat: Lattice, m_generic: int = 7,
+                            m_resonant: int = 24) -> dict:
+    """Which features of the sourced problem need the attachment at all."""
+    d = lat.dim
+    # Generic period: the unrestricted orientable problem is already unique.
+    d_op = periodic_operator(lat, m_generic)
+    green = np.linalg.inv(d_op)
+    t0 = periodic_deck(lat, m_generic)
+    source = np.zeros((m_generic, d))
+    source[2, 6] = 1.0             # one site, off the cap, not deck invariant
+    field = (green @ source.ravel()).reshape(m_generic, d)
+    mirror = max(float(np.abs(field[(2 - s) % m_generic]
+                              - field[(2 + s) % m_generic]).max())
+                 for s in (1, 2, 3))
+    size = d_op.shape[0]
+    invariant_sources = rank(t0 + np.eye(size))
+
+    # Resonant period: count the solvability conditions.
+    r_op = periodic_operator(lat, m_resonant)
+    r_deck = periodic_deck(lat, m_resonant)
+    kernel = null_space(r_op)
+    r_size = r_op.shape[0]
+    projector = (np.eye(r_size) + r_deck) / 2
+    return {
+        "m_generic": m_generic, "m_resonant": m_resonant,
+        "source_is_deck_invariant": bool(np.abs(
+            t0 @ source.ravel() - source.ravel()).max() < 1e-12),
+        "unrestricted_smallest_singular": _smallest_singular(d_op),
+        "unrestricted_green_symmetry": float(np.abs(green - green.T).max()),
+        "time_mirror_defect_without_deck": mirror,
+        "field_scale": float(np.abs(field).max()),
+        "source_space_dim": size,
+        "deck_invariant_source_dim": invariant_sources,
+        "conditions_unrestricted": rank(kernel.T),
+        "conditions_on_invariant_sources": rank(kernel.T @ projector),
+    }
+
+
+def sector_action_report(lat: Lattice, m: int, eta: int = 1) -> dict:
+    """Does the cover's complex structure act inside one twist sector?
+
+    ``j L_+ = L_-``, so the answer is no: ``L_+`` meets ``j L_+`` only in 0.
+    """
+    size = 2 * lat.dim
+    plus = null_space(klein_deck(lat, m, eta) - np.eye(size))
+    j = complex_structure(lat)
+    dim = plus.shape[1]
+    return {
+        "cap": m, "eta": eta, "dim": dim,
+        "dim_plus_meet_j_plus": 2 * dim - rank(np.hstack([plus, j @ plus])),
+    }
+
+
+# --------------------------------------------------------------------------
 # Verdict
 # --------------------------------------------------------------------------
 
-def verdict(checks: dict, groups: dict) -> dict:
-    """Each confirmed field needs every check of its group present and true."""
-    out, failed = {}, []
+def verdict(checks: dict, groups: dict, counterexamples: dict | None = None,
+            extra: dict | None = None) -> dict:
+    """Status per field.
+
+    ``COUNTEREXAMPLE``           an explicit counterexample is recorded
+    ``INCOMPLETE``               a required check was not run
+    ``UNRESOLVED_NUMERICALLY``   a check ran and missed its tolerance
+    confirmed label              every check of the group is present and true
+
+    A missed tolerance is a numerical outcome, not a refutation.
+    """
+    counterexamples = counterexamples or {}
+    out, failed, missing_all = {}, [], []
     for field, names in groups.items():
         missing = [n for n in names if n not in checks]
         bad = [n for n in names if n in checks and not checks[n]]
-        if missing or bad or not names:
-            out[field] = "REFUTED"
-            failed += missing + bad
+        if field in counterexamples:
+            out[field] = COUNTEREXAMPLE
+        elif missing or not names:
+            out[field] = INCOMPLETE
+        elif bad:
+            out[field] = UNRESOLVED_NUMERICALLY
         else:
-            out[field] = CONFIRMED[field]
+            out[field] = CONFIRMED.get(field, "CONFIRMED")
+        failed += bad
+        missing_all += missing
     out.update(NOT_CLAIMED)
+    out.update(extra or {})
     out["failed_checks"] = failed
+    out["missing_checks"] = missing_all
+    out["counterexamples"] = dict(counterexamples)
     return out

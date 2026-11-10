@@ -2,12 +2,16 @@
 
 ## Unreleased
 
-- Round 12, Klein time attachment (`bulk/klein_time.py`, freeze `bb6ff2c`):
-  a classical scalar on the time-nonorientable quotient of the Einstein
-  static universe has a Lagrangian half of the phase space, an antilinear
-  deck map, sharp 0-or-pi phase closure between two caps and no free field
-  in a generic closed history. 20/20 frozen checks, 52 tests. No quantum
-  rule is derived.
+- Round 12, Klein time attachment (`bulk/klein_time.py`, freeze `bb6ff2c`,
+  corrected after review of `5b79975`): a classical scalar on the
+  time-nonorientable quotient of the Einstein static universe keeps one
+  quadrature of every mode, a Lagrangian half of the cover's phase space,
+  and two caps compose to a twist-dependent resonance. The frozen "no free
+  field" reading is withdrawn as a cutoff artefact, with an explicit
+  continuum counterexample; the time-symmetric response is shown to exist
+  without the attachment; the complex structure is the cover's. Verdicts now
+  separate `INCOMPLETE`, `UNRESOLVED_NUMERICALLY` and `COUNTEREXAMPLE`.
+  28 checks, 80 tests. No quantum rule is derived.
 
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
