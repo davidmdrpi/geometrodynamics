@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Round 12, Klein time attachment (`bulk/klein_time.py`, freeze `bb6ff2c`):
+  a classical scalar on the time-nonorientable quotient of the Einstein
+  static universe has a Lagrangian half of the phase space, an antilinear
+  deck map, sharp 0-or-pi phase closure between two caps and no free field
+  in a generic closed history. 20/20 frozen checks, 52 tests. No quantum
+  rule is derived.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the

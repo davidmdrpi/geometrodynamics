@@ -5375,6 +5375,53 @@ python -m experiments.closure_ledger.parity_solvability_probe   # 11 required ch
 python -m pytest -q tests/test_parity_solvability.py             # 61 tests
 ```
 
+## The Klein time attachment: half a phase space, and closure as a theorem (round 12)
+
+*Pre-registered in `docs/klein_time_attachment_prereg.md` (`bb6ff2c`),
+committed before the module. Module `geometrodynamics/bulk/klein_time.py`;
+probe `klein_time_probe.py`; tests `tests/test_klein_time.py`. Write-up:
+[klein_time_attachment.md](docs/klein_time_attachment.md).*
+
+`docs/finite_mouth_bundle_transport.md` records that PR #129's antipodal map
+reverses time orientation (PT-type), that a P-type alternative does not, and
+that "for the static problem the two agree". This round solves the dynamic
+problem for a classical real conformal scalar on `R x S^3`, zonal sector,
+where the leapfrog lattice at unit Courant number is exact. They do not agree.
+
+**All four frozen predictions hold, 20/20 required checks, nothing retuned.**
+
+* **Half a phase space.** The P-type quotient keeps half the modes with both
+  quadratures: a symplectic subspace (dimension 24, Wronskian rank 24). The
+  PT-type quotient keeps *every* mode with *one* quadrature: a **Lagrangian**
+  subspace (dimension 23 of 46, Wronskian zero to `7e-15`), for every cap
+  position and both twists. Its admissible fields have no canonical pairs
+  among themselves; the conjugates are the twisted fields.
+* **The deck map is a conjugation.** `T j = -j T` for the positive-frequency
+  complex structure, and `j` maps admissible onto twisted. The complex mode
+  space is the complexification of the real admissible fields.
+* **Phase closure is a theorem.** Two caps a time `tau` apart make a closed
+  history, and mode `k` survives only if `2 k tau` is `0` (untwisted) or `pi`
+  (twisted) mod `2 pi` - the form `history/closure.py:11` postulates. At
+  `tau = pi/2` the untwisted history carries exactly the even harmonics and
+  the twisted one exactly the odd, the `Z_2` rule of
+  `odd_k_closure_lemma.md`, with the choice relocated into the twist.
+* **No free field.** At generic `tau` nothing homogeneous survives; the field
+  is fixed by its sources through a symmetric kernel whose response is
+  exactly time-symmetric about the source. At resonant `tau` the source must
+  be orthogonal to the kernel modes.
+
+**What it is not.** Classical kinematics that quantum theory also has; no
+`hbar`, no Born rule, no `Phi`. Results 1-2 are the lattice form of known
+theorems (Kay, Friedman, Gibbons). The harmonic index is not shown to be the
+lepton depth, and the mode phase is not the frame holonomy of rounds 5-10.
+The quotient is global and its caps and twist are placed by hand; the
+localized time-reversing handle and the spinor case are open.
+
+```bash
+python -m experiments.closure_ledger.klein_time_probe   # 20/20
+python -m pytest -q tests/test_klein_time.py             # 52 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

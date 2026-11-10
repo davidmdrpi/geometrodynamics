@@ -1,0 +1,659 @@
+{
+  "public_preregistration": "bb6ff2c",
+  "scope": "One linear zonal conformal scalar on the Einstein static universe, global quotients with caps placed by hand. Classical throughout; no hbar, probability rule or counting function is derived.",
+  "seed": 2026111001,
+  "lattice_n": 24,
+  "period_error": 0.0,
+  "halving": [
+    {
+      "cap": 0,
+      "eta": 1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 5.001940567094932e-16,
+      "omega_on_minus": 4.1347080846756373e-16,
+      "pairing_min_singular": 0.7101379205738598
+    },
+    {
+      "cap": 0,
+      "eta": -1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 7.007359772718281e-16,
+      "omega_on_minus": 3.6489088385978305e-16,
+      "pairing_min_singular": 0.7101379205738598
+    },
+    {
+      "cap": 1,
+      "eta": 1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 4.2664215885896434e-17,
+      "omega_on_minus": 4.2664215885896434e-17,
+      "pairing_min_singular": 1.0
+    },
+    {
+      "cap": 1,
+      "eta": -1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 4.2664215885896434e-17,
+      "omega_on_minus": 4.2664215885896434e-17,
+      "pairing_min_singular": 1.0
+    },
+    {
+      "cap": 7,
+      "eta": 1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 5.497294777154546e-15,
+      "omega_on_minus": 9.999375773210026e-16,
+      "pairing_min_singular": 0.18303926852232802
+    },
+    {
+      "cap": 7,
+      "eta": -1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 1.2155670918991514e-15,
+      "omega_on_minus": 6.901012478842699e-15,
+      "pairing_min_singular": 0.18303926852232835
+    },
+    {
+      "cap": 24,
+      "eta": 1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 0.0,
+      "omega_on_minus": 4.462186393173327e-15,
+      "pairing_min_singular": 0.7101379205738598
+    },
+    {
+      "cap": 24,
+      "eta": -1,
+      "involution_error": 0.0,
+      "antisymplectic_error": 0.0,
+      "dim_plus": 23,
+      "dim_minus": 23,
+      "omega_on_plus": 4.462186393173327e-15,
+      "omega_on_minus": 0.0,
+      "pairing_min_singular": 0.7101379205738598
+    }
+  ],
+  "orientable_control": {
+    "symplectic_error": 0.0,
+    "dim_fixed": 24,
+    "restricted_rank": 24,
+    "restricted_min_singular": 1.0
+  },
+  "direct_admissibility": [
+    {
+      "cap": 7,
+      "eta": 1,
+      "admissible_defect": 2.3605083423404063e-14,
+      "generic_defect": 1.1482379414772392
+    },
+    {
+      "cap": 7,
+      "eta": -1,
+      "admissible_defect": 2.455149882943726e-15,
+      "generic_defect": 1.1418743805236464
+    },
+    {
+      "cap": 24,
+      "eta": 1,
+      "admissible_defect": 1.1294492522356282e-15,
+      "generic_defect": 0.40149425466248956
+    },
+    {
+      "cap": 24,
+      "eta": -1,
+      "admissible_defect": 1.0820258452138547e-14,
+      "generic_defect": 1.8354215196773127
+    }
+  ],
+  "conjugation": [
+    {
+      "cap": 0,
+      "eta": 1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 4.61072170379678e-14,
+      "j_plus_in_minus": 7.338574192772285e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 5.001940567094932e-16
+    },
+    {
+      "cap": 0,
+      "eta": -1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 4.61072170379678e-14,
+      "j_plus_in_minus": 3.1530333899354446e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 7.007359772718281e-16
+    },
+    {
+      "cap": 1,
+      "eta": 1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 4.183961557010152e-14,
+      "j_plus_in_minus": 2.525757381022231e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 4.2664215885896434e-17
+    },
+    {
+      "cap": 1,
+      "eta": -1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 4.183961557010152e-14,
+      "j_plus_in_minus": 5.262457136723242e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 4.2664215885896434e-17
+    },
+    {
+      "cap": 7,
+      "eta": 1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 2.4907891432494167e-14,
+      "j_plus_in_minus": 2.2211399386407038e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 5.497294777154546e-15
+    },
+    {
+      "cap": 7,
+      "eta": -1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 2.4907891432494167e-14,
+      "j_plus_in_minus": 1.341982081015658e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 1.2155670918991514e-15
+    },
+    {
+      "cap": 24,
+      "eta": 1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 1.890244061441892e-14,
+      "j_plus_in_minus": 1.3322676295501878e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 0.0
+    },
+    {
+      "cap": 24,
+      "eta": -1,
+      "j_squared_error": 1.3100631690576847e-14,
+      "commutes_with_evolution": 1.9513023796998203e-14,
+      "antilinear_error": 1.890244061441892e-14,
+      "j_plus_in_minus": 2.7055783106197843e-14,
+      "metric_symmetry_error": 3.674838211509268e-14,
+      "metric_definite_min": 0.06554346281523851,
+      "hermitian_imaginary_on_plus": 4.462186393173327e-15
+    }
+  ],
+  "two_caps": [
+    {
+      "m": 48,
+      "tau_over_pi": 1.0,
+      "pp": {
+        "dim": 23,
+        "modes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      "pm": {
+        "dim": 0,
+        "modes": []
+      },
+      "mp": {
+        "dim": 0,
+        "modes": []
+      },
+      "mm": {
+        "dim": 23,
+        "modes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      "predicted_untwisted": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "predicted_twisted": []
+    },
+    {
+      "m": 24,
+      "tau_over_pi": 0.5,
+      "pp": {
+        "dim": 11,
+        "modes": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20,
+          22
+        ]
+      },
+      "pm": {
+        "dim": 12,
+        "modes": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23
+        ]
+      },
+      "mp": {
+        "dim": 12,
+        "modes": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23
+        ]
+      },
+      "mm": {
+        "dim": 11,
+        "modes": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20,
+          22
+        ]
+      },
+      "predicted_untwisted": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20,
+        22
+      ],
+      "predicted_twisted": [
+        1,
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23
+      ]
+    },
+    {
+      "m": 16,
+      "tau_over_pi": 0.3333333333333333,
+      "pp": {
+        "dim": 7,
+        "modes": [
+          3,
+          6,
+          9,
+          12,
+          15,
+          18,
+          21
+        ]
+      },
+      "pm": {
+        "dim": 0,
+        "modes": []
+      },
+      "mp": {
+        "dim": 0,
+        "modes": []
+      },
+      "mm": {
+        "dim": 7,
+        "modes": [
+          3,
+          6,
+          9,
+          12,
+          15,
+          18,
+          21
+        ]
+      },
+      "predicted_untwisted": [
+        3,
+        6,
+        9,
+        12,
+        15,
+        18,
+        21
+      ],
+      "predicted_twisted": []
+    },
+    {
+      "m": 12,
+      "tau_over_pi": 0.25,
+      "pp": {
+        "dim": 5,
+        "modes": [
+          4,
+          8,
+          12,
+          16,
+          20
+        ]
+      },
+      "pm": {
+        "dim": 6,
+        "modes": [
+          2,
+          6,
+          10,
+          14,
+          18,
+          22
+        ]
+      },
+      "mp": {
+        "dim": 6,
+        "modes": [
+          2,
+          6,
+          10,
+          14,
+          18,
+          22
+        ]
+      },
+      "mm": {
+        "dim": 5,
+        "modes": [
+          4,
+          8,
+          12,
+          16,
+          20
+        ]
+      },
+      "predicted_untwisted": [
+        4,
+        8,
+        12,
+        16,
+        20
+      ],
+      "predicted_twisted": [
+        2,
+        6,
+        10,
+        14,
+        18,
+        22
+      ]
+    },
+    {
+      "m": 7,
+      "tau_over_pi": 0.14583333333333334,
+      "pp": {
+        "dim": 0,
+        "modes": []
+      },
+      "pm": {
+        "dim": 0,
+        "modes": []
+      },
+      "mp": {
+        "dim": 0,
+        "modes": []
+      },
+      "mm": {
+        "dim": 0,
+        "modes": []
+      },
+      "predicted_untwisted": [],
+      "predicted_twisted": []
+    }
+  ],
+  "periodic_kernels": [
+    {
+      "m": 48,
+      "nullity": 46,
+      "invariant_nullity": 23,
+      "deck_commutator": 0.0,
+      "operator_symmetry": 0.0
+    },
+    {
+      "m": 24,
+      "nullity": 22,
+      "invariant_nullity": 11,
+      "deck_commutator": 0.0,
+      "operator_symmetry": 0.0
+    },
+    {
+      "m": 16,
+      "nullity": 14,
+      "invariant_nullity": 7,
+      "deck_commutator": 0.0,
+      "operator_symmetry": 0.0
+    },
+    {
+      "m": 12,
+      "nullity": 10,
+      "invariant_nullity": 5,
+      "deck_commutator": 0.0,
+      "operator_symmetry": 0.0
+    },
+    {
+      "m": 7,
+      "nullity": 0,
+      "invariant_nullity": 0,
+      "deck_commutator": 0.0,
+      "operator_symmetry": 0.0
+    }
+  ],
+  "slaved_field": {
+    "m": 7,
+    "smallest_singular_value": 0.01711027725237909,
+    "green_symmetry_error": 4.288236432614667e-15,
+    "green_deck_commutator": 3.9968028886505635e-15,
+    "field_invariance_error": 2.886579864025407e-15,
+    "before_after_ratio_on_cap": 1.0,
+    "before_after_ratio_off_cap": 1.0,
+    "field_before_source_norm": 3.9184393151695818
+  },
+  "fredholm": {
+    "m": 24,
+    "nullity": 22,
+    "residual_orthogonal_source": 4.667503257093855e-13,
+    "residual_generic_source": 4.123025948620152,
+    "kernel_component_norm": 4.123025948620142
+  },
+  "checks": {
+    "lattice propagation is exactly periodic": true,
+    "deck map is an involution and reverses the Wronskian": true,
+    "each eigenspace has half the dimension": true,
+    "Wronskian vanishes on each eigenspace": true,
+    "the two eigenspaces pair nondegenerately": true,
+    "orientable control keeps a symplectic subspace": true,
+    "explicit marching confirms admissibility": true,
+    "j is a complex structure commuting with evolution": true,
+    "deck map anticommutes with j": true,
+    "j maps admissible onto twisted": true,
+    "metric is symmetric definite and h is real on admissible": true,
+    "frozen table equals the closure formula": true,
+    "untwisted two-cap modes are exactly the predicted set": true,
+    "twisted two-cap modes are exactly the predicted set": true,
+    "only the product of twists matters": true,
+    "periodic operator reproduces the two-cap count": true,
+    "generic closed history is uniquely solvable": true,
+    "its Green function is reciprocal and deck invariant": true,
+    "its response is not retarded": true,
+    "resonant history obeys the Fredholm alternative": true
+  },
+  "check_groups": {
+    "phase_space": [
+      "lattice propagation is exactly periodic",
+      "deck map is an involution and reverses the Wronskian",
+      "each eigenspace has half the dimension",
+      "Wronskian vanishes on each eigenspace",
+      "the two eigenspaces pair nondegenerately",
+      "orientable control keeps a symplectic subspace",
+      "explicit marching confirms admissibility"
+    ],
+    "complex_structure": [
+      "j is a complex structure commuting with evolution",
+      "deck map anticommutes with j",
+      "j maps admissible onto twisted",
+      "metric is symmetric definite and h is real on admissible"
+    ],
+    "phase_closure": [
+      "frozen table equals the closure formula",
+      "untwisted two-cap modes are exactly the predicted set",
+      "twisted two-cap modes are exactly the predicted set",
+      "only the product of twists matters"
+    ],
+    "field_freedom": [
+      "periodic operator reproduces the two-cap count",
+      "generic closed history is uniquely solvable",
+      "its Green function is reciprocal and deck invariant",
+      "its response is not retarded",
+      "resonant history obeys the Fredholm alternative"
+    ]
+  },
+  "checks_passed": true,
+  "verdict": {
+    "phase_space": "ADMISSIBLE_FIELDS_ARE_A_LAGRANGIAN_HALF",
+    "complex_structure": "TIME_DECK_IS_A_CONJUGATION_OF_THE_MODE_SPACE",
+    "phase_closure": "TWO_CAPS_FORCE_PHASE_0_OR_PI_FIXED_BY_TWIST",
+    "field_freedom": "GENERIC_CLOSED_HISTORY_HAS_NO_FREE_FIELD",
+    "hbar": "NOT_DERIVED",
+    "born_rule": "NOT_DERIVED",
+    "counting_function": "NOT_SELECTED",
+    "lepton_index": "NOT_IDENTIFIED",
+    "failed_checks": []
+  }
+}

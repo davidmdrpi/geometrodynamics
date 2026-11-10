@@ -983,6 +983,24 @@ bottom line at the top of this document supersedes the original one.
 
 F2–F5, F7 and F8 stand as written.
 
+## Klein time attachment (round 12)
+
+The datum `T` of `finite_mouth_bundle_transport.md` section 4 - PT-type or
+P-type antipodal map - is no longer dynamically inert. For a classical real
+scalar on the PT-type quotient of `R x S^3` the admissible fields form a
+Lagrangian half of the cover's phase space, the deck map is antilinear for
+the positive-frequency complex structure, two caps force sharp phase closure
+`0` or `pi` with the branch set by the field's twist, and a generic closed
+history admits no free field. The P-type control keeps an ordinary
+symplectic subspace. All four predictions were frozen at `bb6ff2c` and hold.
+
+Effect on the findings: F4's global-constraint reading gains a concrete
+classical realization. F6 and F9 are unchanged: the caps and twist are
+placed by hand, and no probability rule, counting function or readout
+follows. Phase closure is derived only for a linear mode phase, which is not
+the frame holonomy the Bell rounds condition on. See
+[klein_time_attachment.md](klein_time_attachment.md).
+
 ## Expanding supported TT transport (PR #298)
 
 On the exact expanding four-component FRW family, the homogeneous TT normal
