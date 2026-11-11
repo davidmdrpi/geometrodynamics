@@ -1,0 +1,1211 @@
+{
+  "public_preregistration": "fd78693",
+  "scope": "Round 14's lattice electrodynamics on the doubly reversed seam. Trapped flux and a matter current compared at matched total energy, over 12 draws at each of two sizes, with gauge-invariant observables only. Classical throughout; lattice units; no norm, detector law or statement about which route BAM uses.",
+  "seed": 2026111101,
+  "long_window": 200.0,
+  "measurements": {
+    "primary": {
+      "config": {
+        "n_ext": 12,
+        "port_a": 0,
+        "port_b": 5,
+        "n_tube": 4
+      },
+      "sites": 32,
+      "draws": 12,
+      "loop_edges": 24,
+      "P1": {
+        "max_sheet_charge_at_rest": 1.0133055148003195e-17,
+        "min_sheet_charge_moving": 9.267632792021998e-09,
+        "min_flux_change_at_rest": 5.233490044109779e-09,
+        "deck_fixed_error": 0.0,
+        "ct0_fixed_error": 0.0
+      },
+      "P2_P3": {
+        "energies": [
+          0.00025,
+          0.001,
+          0.004,
+          0.016
+        ],
+        "M": {
+          "median_peak": [
+            3.7074928929235405e-06,
+            1.4830028526609797e-05,
+            5.932102539452652e-05,
+            0.0002372986821000649
+          ],
+          "slope_of_median": 1.000018560766397,
+          "per_draw_slopes": [
+            0.9999392269598201,
+            0.9999906080607075,
+            0.9999819443018554,
+            1.0003462604132165,
+            0.9999783474414945,
+            0.9999679658935666,
+            0.9999830009068063,
+            1.0001396586514204,
+            1.0000511043354234,
+            0.9998318838513022,
+            1.0000361381760046,
+            0.9999021390426085
+          ]
+        },
+        "M0": {
+          "median_peak": [
+            5.668157983535436e-06,
+            2.2672744014805968e-05,
+            9.069276889448876e-05,
+            0.00036279973164381424
+          ],
+          "slope_of_median": 1.0000238673001498,
+          "per_draw_slopes": [
+            0.9999370048391549,
+            1.0000009508775445,
+            0.9999621000728907,
+            0.9999628551501646,
+            1.0000550502242254,
+            1.0000095421714061,
+            1.0000218319102834,
+            1.0001302722233099,
+            1.0000550570596047,
+            1.00001304346014,
+            1.0000344313758387,
+            1.000088932581985
+          ]
+        },
+        "F": {
+          "median_peak": [
+            3.579309868147561e-08,
+            2.863293085397082e-07,
+            2.2902005714303403e-06,
+            1.8308013045983058e-05
+          ],
+          "slope_of_median": 1.499773044318089,
+          "per_draw_slopes": [
+            1.498019165298592,
+            1.4992251475275336,
+            1.498183159320858,
+            1.4994953386171948,
+            1.4996459489359244,
+            1.498989448822674,
+            1.499805779382136,
+            1.4993298230778875,
+            1.5006014118973798,
+            1.5000552461213839,
+            1.496329256307592,
+            1.4983393001556504
+          ]
+        },
+        "ratio": {
+          "median": [
+            0.00538735590868839,
+            0.010768586636310033,
+            0.021488217358101004,
+            0.042586242143891916
+          ],
+          "min": [
+            0.002261476405471942,
+            0.004523394484139017,
+            0.009050297789549766,
+            0.018135532223554043
+          ],
+          "max": [
+            0.03290890551961074,
+            0.06579165227435285,
+            0.13137427539651,
+            0.26108400727395176
+          ],
+          "slope_of_median": 0.49724656673573275,
+          "draws_above_one": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "crossover_energy": 9.092223247844018
+        }
+      },
+      "P4": {
+        "fractions": [
+          0.1,
+          0.3333333333333333,
+          0.5,
+          0.9
+        ],
+        "median_ratio": [
+          0.7394951377566406,
+          1.0,
+          0.9184968205166096,
+          0.2464187401527199
+        ],
+        "predicted_ratio": [
+          0.7394254526319743,
+          1.0,
+          0.9185586535436917,
+          0.24647515087732472
+        ],
+        "best_fraction_by_draw": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ]
+      },
+      "P5": {
+        "couplings": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "M0": [
+          2.267257316320763e-05,
+          2.2672744014805968e-05,
+          2.2673427375057793e-05
+        ],
+        "F": [
+          1.431724169834454e-07,
+          2.863293085397082e-07,
+          5.72549729838594e-07
+        ],
+        "gauss_identity_error": 8.097973788930013e-17,
+        "M0_slopes": [
+          1.0871541715436233e-05,
+          4.348241169248924e-05
+        ],
+        "F_slopes": [
+          0.9999217759100786,
+          0.9997256550159684
+        ]
+      },
+      "P6": {
+        "M0": {
+          "handle_flux": 9.176190261921586e-22,
+          "loop_holonomy": 6.098637220230962e-20,
+          "loop_current": 4.743384504624082e-20,
+          "swap_even_field": 0.0,
+          "swap_odd_field": 6.0427899289027755e-05,
+          "sheet_charge": 5.7395286456639e-05
+        },
+        "M": {
+          "handle_flux": 5.955788020434903e-06,
+          "loop_holonomy": 0.00020906794324144706,
+          "loop_current": 0.00011361821286729205,
+          "swap_even_field": 3.31548736508008e-05,
+          "swap_odd_field": 5.383181425952499e-05,
+          "sheet_charge": 4.7381114484957355e-05
+        },
+        "F": {
+          "handle_flux": 0.006455074088905117,
+          "loop_holonomy": 0.6196810200057196,
+          "loop_current": 3.624455965043482e-06,
+          "swap_even_field": 0.006455582487269571,
+          "swap_odd_field": 8.770992985518422e-07,
+          "sheet_charge": 5.550977297498572e-07
+        }
+      },
+      "P7": {
+        "fluxes": [
+          0.001,
+          0.002,
+          0.004
+        ],
+        "median_defect": [
+          1.3579094422788477e-10,
+          5.476724993250827e-10,
+          2.1995415439692132e-09
+        ],
+        "defect_slopes": [
+          2.011926168300165,
+          2.0058175062827424
+        ],
+        "median_flux_reversal_difference": [
+          1.3390676389283178e-07,
+          2.678067004059104e-07,
+          5.355587846313733e-07
+        ],
+        "reversal_slopes": [
+          0.9999632208553965,
+          0.9998528817424069
+        ],
+        "joint_reversal_error": 0.0,
+        "matter_scale": 4.7381114484957355e-05
+      },
+      "P8": {
+        "time": 0.1,
+        "rows": [
+          {
+            "bond_order": 0.3422214951261427,
+            "measured": -1.4760612350450675e-10,
+            "predicted": -1.4908425300410673e-10,
+            "ratio": 0.990085274133149,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": 0.20161425701215485,
+            "measured": -7.786831162509555e-11,
+            "predicted": -7.751185474473214e-11,
+            "ratio": 1.0045987401738394,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": 0.22990640529849957,
+            "measured": -1.1000558363533086e-10,
+            "predicted": -1.1002955087120754e-10,
+            "ratio": 0.9997821745550454,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.12751896800141532,
+            "measured": 4.27747039177806e-11,
+            "predicted": 4.453167195329164e-11,
+            "ratio": 0.9605456530499487,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": -0.09143156797747112,
+            "measured": 3.0111715204617084e-11,
+            "predicted": 3.000273824014334e-11,
+            "ratio": 1.0036322339514978,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.2072495914868814,
+            "measured": 6.520430809869859e-11,
+            "predicted": 6.653539923458591e-11,
+            "ratio": 0.9799942413933033,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": 0.5237779643003585,
+            "measured": -1.9548592519041952e-10,
+            "predicted": -1.9881777392745707e-10,
+            "ratio": 0.9832416957939925,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.24698073341824747,
+            "measured": 6.999056889611666e-11,
+            "predicted": 7.235740459865653e-11,
+            "ratio": 0.9672896545188712,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.0887928894532514,
+            "measured": 3.1280495554897314e-11,
+            "predicted": 3.179896258039485e-11,
+            "ratio": 0.9836954735807266,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": 0.004702071128935699,
+            "measured": -1.2274166058534597e-12,
+            "predicted": -1.6191101204238707e-12,
+            "ratio": 0.7580809917562193,
+            "sign_agrees": true,
+            "resolved": false,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.2506552322264408,
+            "measured": 7.060190800045607e-11,
+            "predicted": 7.21362103516145e-11,
+            "ratio": 0.9787304830170623,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.29267255772448947,
+            "measured": 8.49292650095812e-11,
+            "predicted": 8.728339146822347e-11,
+            "ratio": 0.9730289300284657,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          }
+        ],
+        "resolved_draws": 11,
+        "worst_ratio_error": 0.039454346950051344,
+        "sign_agreement": 11,
+        "positive_bond_orders": 5,
+        "peak_sign_matches_early": 10
+      },
+      "P8_leading_order": {
+        "times": [
+          0.04,
+          0.1,
+          0.2
+        ],
+        "resolved_draws": 11,
+        "median_error": [
+          0.0026437863427745123,
+          0.016758304206007546,
+          0.06642397286922119
+        ],
+        "max_error": [
+          0.005742617636475655,
+          0.039454346950051344,
+          0.15633697409528013
+        ],
+        "error_slope": 2.0037312588747738,
+        "bond_rate_over_bond": 2.526504667284978e-16,
+        "sign_agreement_all_times": 11
+      },
+      "P9": {
+        "rest_data_fixed_by_alice_deck": 0.0,
+        "rest_data_fixed_by_klein_deck": 0.0,
+        "alice_fixed_set_invariance": 0.0,
+        "rest_sheet_charge": 5.7395286456639e-05,
+        "general_matter_not_alice_fixed": 0.016006581663840905,
+        "ordinary_fixed_error": 8.673617379884035e-19,
+        "ordinary_gauss": 1.0367683274392636e-18,
+        "ordinary_sheet_charge": 1.645276796746753e-17,
+        "ordinary_local_charge": 0.0007800534284026491
+      },
+      "long_window": {
+        "window": 200.0,
+        "energies": [
+          0.00025,
+          0.001,
+          0.004,
+          0.016
+        ],
+        "rows": [
+          {
+            "energy": 0.00025,
+            "median_rms": {
+              "M": 7.21297357096782e-06,
+              "M0": 9.78217488366564e-06,
+              "F": 2.428992278990175e-06,
+              "B": 3.860881211154637e-06
+            },
+            "median_dc_fraction": {
+              "M": 0.3529117864421209,
+              "M0": 0.43188153814390695,
+              "F": 0.2744661695626587,
+              "B": 0.33073508201822854
+            },
+            "ratio_long_rms": 0.3184824098472251,
+            "ratio_short_peak": 0.00538735590868839,
+            "ratio_short_rms": 0.003916846452343297,
+            "draws_flux_route_larger_long": 0,
+            "flux_retention_min": 0.9997350996689678,
+            "flux_retention_final": 1.0005184770707456,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.46,
+            "final_gauss": 1.1113111655008468e-14
+          },
+          {
+            "energy": 0.001,
+            "median_rms": {
+              "M": 2.9685954970853004e-05,
+              "M0": 3.986859976336769e-05,
+              "F": 1.0432238226271837e-05,
+              "B": 1.510477901639739e-05
+            },
+            "median_dc_fraction": {
+              "M": 0.33829828755089075,
+              "M0": 0.43419895939082453,
+              "F": 0.3031601913031913,
+              "B": 0.15488562586793803
+            },
+            "ratio_long_rms": 0.28236041247791877,
+            "ratio_short_peak": 0.010768586636310033,
+            "ratio_short_rms": 0.00783158352230334,
+            "draws_flux_route_larger_long": 0,
+            "flux_retention_min": 0.9973598614090518,
+            "flux_retention_final": 1.0013514568325244,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.46,
+            "final_gauss": 4.441453342531477e-14
+          },
+          {
+            "energy": 0.004,
+            "median_rms": {
+              "M": 0.00012462084794683274,
+              "M0": 0.00015968026758063765,
+              "F": 5.357293874255577e-05,
+              "B": 6.023627922202503e-05
+            },
+            "median_dc_fraction": {
+              "M": 0.3743969786521981,
+              "M0": 0.3839813850556893,
+              "F": 0.36844476105663104,
+              "B": 0.3666381554909125
+            },
+            "ratio_long_rms": 0.4216522055420114,
+            "ratio_short_peak": 0.021488217358101004,
+            "ratio_short_rms": 0.015646305549744048,
+            "draws_flux_route_larger_long": 0,
+            "flux_retention_min": 0.9985865958764624,
+            "flux_retention_final": 1.008124462749747,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.46,
+            "final_gauss": 2.605447426546042e-14
+          },
+          {
+            "energy": 0.016,
+            "median_rms": {
+              "M": 0.00046560626803955705,
+              "M0": 0.0005641519418329431,
+              "F": 0.00022651583327286916,
+              "B": 0.0002774348834394723
+            },
+            "median_dc_fraction": {
+              "M": 0.2963806296353912,
+              "M0": 0.3515689626233691,
+              "F": 0.5249521067732048,
+              "B": 0.4276364226963645
+            },
+            "ratio_long_rms": 0.48459291586862413,
+            "ratio_short_peak": 0.042586242143891916,
+            "ratio_short_rms": 0.031158152924975896,
+            "draws_flux_route_larger_long": 0,
+            "flux_retention_min": 0.9901290474863973,
+            "flux_retention_final": 1.0147470409316313,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.46,
+            "final_gauss": 5.87759550231548e-16
+          }
+        ]
+      },
+      "numerics": {
+        "M": {
+          "rms": 3.2074539828223055e-05,
+          "rms_halved_step": 3.208105693842291e-05,
+          "rms_dop853": 3.208389105011189e-05,
+          "rms_change_halved_step": 0.00020314512119608212,
+          "rms_change_dop853": 8.833441319666637e-05,
+          "pointwise_dop853_vs_halved": 0.004179215297710896,
+          "dop853_gauss": 3.1954755004169264e-14
+        },
+        "F": {
+          "rms": 8.503181300466728e-06,
+          "rms_halved_step": 8.507512025734322e-06,
+          "rms_dop853": 8.508955735067212e-06,
+          "rms_change_halved_step": 0.0005090472108053998,
+          "rms_change_dop853": 0.00016966939044477886,
+          "pointwise_dop853_vs_halved": 0.004377263737749907,
+          "dop853_gauss": 9.147715272989423e-15
+        }
+      }
+    },
+    "replicate": {
+      "config": {
+        "n_ext": 20,
+        "port_a": 0,
+        "port_b": 7,
+        "n_tube": 6
+      },
+      "sites": 52,
+      "draws": 12,
+      "loop_edges": 40,
+      "P1": {
+        "max_sheet_charge_at_rest": 9.37797821508519e-18,
+        "min_sheet_charge_moving": 3.0115208359013167e-09,
+        "min_flux_change_at_rest": 5.525894997658598e-10,
+        "deck_fixed_error": 0.0,
+        "ct0_fixed_error": 0.0
+      },
+      "P2_P3": {
+        "energies": [
+          0.00025,
+          0.001,
+          0.004,
+          0.016
+        ],
+        "M": {
+          "median_peak": [
+            4.4083200045494185e-06,
+            1.763353161340005e-05,
+            7.0538151639343e-05,
+            0.00028221698755271057
+          ],
+          "slope_of_median": 1.0000689263644045,
+          "per_draw_slopes": [
+            1.0000196640723396,
+            1.0000851698142057,
+            1.0001042359510859,
+            0.9998049483266327,
+            0.9999037251446481,
+            1.0000294881658616,
+            0.9999679418921292,
+            0.9999700114187288,
+            0.9999749794142916,
+            1.0000030914041385,
+            1.0000270554204165,
+            0.9999809631555576
+          ]
+        },
+        "M0": {
+          "median_peak": [
+            5.240007762868099e-06,
+            2.0959903822027265e-05,
+            8.383757958525458e-05,
+            0.00033531774509946104
+          ],
+          "slope_of_median": 0.9999706595282563,
+          "per_draw_slopes": [
+            1.000073284983974,
+            1.0000343568387062,
+            1.0001153411730535,
+            0.9999842974760578,
+            0.9999592889838437,
+            1.0000144730987248,
+            0.9999805244392826,
+            0.9999969522586005,
+            0.9999355675498272,
+            1.0000426852483566,
+            1.0000699121272807,
+            0.999946638262095
+          ]
+        },
+        "F": {
+          "median_peak": [
+            7.808830816423793e-09,
+            6.24710162367496e-08,
+            4.997798750124444e-07,
+            3.99860392106963e-06
+          ],
+          "slope_of_median": 1.5000278120122859,
+          "per_draw_slopes": [
+            1.5001238105426955,
+            1.4991018954046136,
+            1.4998006267394177,
+            1.499079145909881,
+            1.499212458831205,
+            1.4974431265438617,
+            1.4999220629920818,
+            1.4997706966295217,
+            1.4999016950565045,
+            1.498339972681778,
+            1.4954434102027512,
+            1.4999750794922089
+          ]
+        },
+        "ratio": {
+          "median": [
+            0.0023462158003613063,
+            0.004692246993448938,
+            0.009383017850875645,
+            0.01875424970255795
+          ],
+          "min": [
+            0.0005980570356830095,
+            0.001196112615898945,
+            0.0023922135867122498,
+            0.004784333969224363
+          ],
+          "max": [
+            0.00987717910011167,
+            0.0197513933085673,
+            0.03947907323819358,
+            0.07876862329500178
+          ],
+          "slope_of_median": 0.4998101415087355,
+          "draws_above_one": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "crossover_energy": 45.61306926317416
+        }
+      },
+      "P4": {
+        "fractions": [
+          0.1,
+          0.3333333333333333,
+          0.5,
+          0.9
+        ],
+        "median_ratio": [
+          0.7394785845113963,
+          1.0,
+          0.9185115097099978,
+          0.24643214227642607
+        ],
+        "predicted_ratio": [
+          0.7394254526319743,
+          1.0,
+          0.9185586535436917,
+          0.24647515087732472
+        ],
+        "best_fraction_by_draw": [
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333,
+          0.3333333333333333
+        ]
+      },
+      "P5": {
+        "couplings": [
+          0.5,
+          1.0,
+          2.0
+        ],
+        "M0": [
+          2.0960058010555885e-05,
+          2.0959903822027265e-05,
+          2.095928705006283e-05
+        ],
+        "F": [
+          3.1235282402879103e-08,
+          6.24710162367496e-08,
+          1.249456213205588e-07
+        ],
+        "gauss_identity_error": 8.813166057944181e-18,
+        "M0_slopes": [
+          -1.0612940273681645e-05,
+          -4.245377050462146e-05
+        ],
+        "F_slopes": [
+          1.0000104253083266,
+          1.0000414395171364
+        ]
+      },
+      "P6": {
+        "M0": {
+          "handle_flux": 5.532183936754649e-22,
+          "loop_holonomy": 5.759824041329242e-20,
+          "loop_current": 3.6845933205562065e-20,
+          "swap_even_field": 0.0,
+          "swap_odd_field": 3.58901299038356e-05,
+          "sheet_charge": 3.222872029551671e-05
+        },
+        "M": {
+          "handle_flux": 1.5764992418059738e-06,
+          "loop_holonomy": 0.00016442619710883526,
+          "loop_current": 6.591222432888636e-05,
+          "swap_even_field": 2.5089678941349495e-05,
+          "swap_odd_field": 2.8067625275588963e-05,
+          "sheet_charge": 2.0824299899574466e-05
+        },
+        "F": {
+          "handle_flux": 0.0050000497523132745,
+          "loop_holonomy": 0.800001954513273,
+          "loop_current": 1.7144140541775072e-06,
+          "swap_even_field": 0.005000319391869007,
+          "swap_odd_field": 3.239876679378764e-07,
+          "sheet_charge": 2.2872587076013876e-07
+        }
+      },
+      "P7": {
+        "fluxes": [
+          0.001,
+          0.002,
+          0.004
+        ],
+        "median_defect": [
+          1.0402407235911616e-10,
+          4.141653112144062e-10,
+          1.6531827367172027e-09
+        ],
+        "defect_slopes": [
+          1.9932893012858308,
+          1.9969675741095614
+        ],
+        "median_flux_reversal_difference": [
+          4.3948199086862115e-08,
+          8.789417151641965e-08,
+          1.7577053275378004e-07
+        ],
+        "reversal_slopes": [
+          0.9999634521071646,
+          0.999853823623482
+        ],
+        "joint_reversal_error": 0.0,
+        "matter_scale": 2.0824299899574466e-05
+      },
+      "P8": {
+        "time": 0.1,
+        "rows": [
+          {
+            "bond_order": -0.10202063042678428,
+            "measured": 1.5802550240584523e-11,
+            "predicted": 1.659650547746993e-11,
+            "ratio": 0.9521613005844383,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.11811448522481215,
+            "measured": 1.7039210320479725e-11,
+            "predicted": 1.7404262481908773e-11,
+            "ratio": 0.9790251289413436,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": 0.1113228709732594,
+            "measured": -1.8894495343313444e-11,
+            "predicted": -1.892033769559002e-11,
+            "ratio": 0.9986341495224687,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": -0.04202116032381917,
+            "measured": 6.741463290382832e-12,
+            "predicted": 7.198872542945162e-12,
+            "ratio": 0.9364609874902442,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": -0.19486050384362372,
+            "measured": 2.90684152096099e-11,
+            "predicted": 2.9787409425659736e-11,
+            "ratio": 0.9758624791509908,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": 0.12515473032667557,
+            "measured": -2.0795806916773518e-11,
+            "predicted": -2.0956528770765748e-11,
+            "ratio": 0.9923307024865475,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": 0.2830999282685777,
+            "measured": -6.331947379617509e-11,
+            "predicted": -6.35622598985815e-11,
+            "ratio": 0.9961803418759213,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.14002307623419455,
+            "measured": 1.9400063153152125e-11,
+            "predicted": 1.9772719845350797e-11,
+            "ratio": 0.9811529877976652,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": 0.006997182254826838,
+            "measured": -1.2151755296452293e-12,
+            "predicted": -1.1169095388278202e-12,
+            "ratio": 1.0879802592791334,
+            "sign_agrees": true,
+            "resolved": false,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.2777807187882991,
+            "measured": 3.635845704369478e-11,
+            "predicted": 3.722292272069651e-11,
+            "ratio": 0.9767759860371987,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": true
+          },
+          {
+            "bond_order": -0.11137355072515917,
+            "measured": 1.5010693209249748e-11,
+            "predicted": 1.5760643542984236e-11,
+            "ratio": 0.9524162619572522,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          },
+          {
+            "bond_order": 0.08360166668685955,
+            "measured": -1.3474756900555551e-11,
+            "predicted": -1.3500378719382423e-11,
+            "ratio": 0.9981021407354975,
+            "sign_agrees": true,
+            "resolved": true,
+            "peak_change_sign_matches_early": false
+          }
+        ],
+        "resolved_draws": 11,
+        "worst_ratio_error": 0.0635390125097558,
+        "sign_agreement": 11,
+        "positive_bond_orders": 5,
+        "peak_sign_matches_early": 5
+      },
+      "P8_leading_order": {
+        "times": [
+          0.04,
+          0.1,
+          0.2
+        ],
+        "resolved_draws": 11,
+        "median_error": [
+          0.0024285033396986844,
+          0.020974871058656364,
+          0.08520099503410372
+        ],
+        "max_error": [
+          0.0073838904646239545,
+          0.0635390125097558,
+          0.261350901345181
+        ],
+        "error_slope": 2.217996520448946,
+        "bond_rate_over_bond": 5.883094485985769e-16,
+        "sign_agreement_all_times": 11
+      },
+      "P9": {
+        "rest_data_fixed_by_alice_deck": 0.0,
+        "rest_data_fixed_by_klein_deck": 0.0,
+        "alice_fixed_set_invariance": 0.0,
+        "rest_sheet_charge": 3.222872029551671e-05,
+        "general_matter_not_alice_fixed": 0.014445319652398344,
+        "ordinary_fixed_error": 1.734723475976807e-18,
+        "ordinary_gauss": 1.4501204056993622e-18,
+        "ordinary_sheet_charge": 1.1021592709672956e-17,
+        "ordinary_local_charge": 0.0004628001473385621
+      },
+      "long_window": {
+        "window": 200.0,
+        "energies": [
+          0.00025,
+          0.001,
+          0.004,
+          0.016
+        ],
+        "rows": [
+          {
+            "energy": 0.00025,
+            "median_rms": {
+              "M": 6.228536187215716e-06,
+              "M0": 8.237726880628605e-06,
+              "F": 1.6268136570128488e-06,
+              "B": 2.79984028104959e-06
+            },
+            "median_dc_fraction": {
+              "M": 0.5397840071569519,
+              "M0": 0.5220723057578286,
+              "F": 0.25411710508894947,
+              "B": 0.3805582704016246
+            },
+            "ratio_long_rms": 0.3201167998039287,
+            "ratio_short_peak": 0.0023462158003613063,
+            "ratio_short_rms": 0.0016527617473032045,
+            "draws_flux_route_larger_long": 0,
+            "flux_retention_min": 0.9998077634462141,
+            "flux_retention_final": 1.0017153137850983,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.48,
+            "final_gauss": 5.600805463943509e-15
+          },
+          {
+            "energy": 0.001,
+            "median_rms": {
+              "M": 2.5090169475921976e-05,
+              "M0": 3.2653094798732395e-05,
+              "F": 8.001185105845467e-06,
+              "B": 1.1884796971995854e-05
+            },
+            "median_dc_fraction": {
+              "M": 0.5472690060323046,
+              "M0": 0.5299155296156128,
+              "F": 0.3324904755395566,
+              "B": 0.33343190530570144
+            },
+            "ratio_long_rms": 0.3405068830871838,
+            "ratio_short_peak": 0.004692246993448938,
+            "ratio_short_rms": 0.0033054455456934867,
+            "draws_flux_route_larger_long": 0,
+            "flux_retention_min": 0.9995805108312291,
+            "flux_retention_final": 1.0020667319461274,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.48,
+            "final_gauss": 2.18949580417082e-14
+          },
+          {
+            "energy": 0.004,
+            "median_rms": {
+              "M": 0.00010108331634125199,
+              "M0": 0.000140269601944177,
+              "F": 3.463415880427735e-05,
+              "B": 4.492116326596726e-05
+            },
+            "median_dc_fraction": {
+              "M": 0.497792198032061,
+              "M0": 0.5380949366187381,
+              "F": 0.5414919193505761,
+              "B": 0.30916306647355607
+            },
+            "ratio_long_rms": 0.3467279210866302,
+            "ratio_short_peak": 0.009383017850875645,
+            "ratio_short_rms": 0.006610267491884911,
+            "draws_flux_route_larger_long": 0,
+            "flux_retention_min": 0.9991721293956015,
+            "flux_retention_final": 1.007967556642864,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.48,
+            "final_gauss": 1.6570241272856334e-14
+          },
+          {
+            "energy": 0.016,
+            "median_rms": {
+              "M": 0.0003574607755846269,
+              "M0": 0.0005242711061882747,
+              "F": 0.00013877240315066168,
+              "B": 0.0002045921449205546
+            },
+            "median_dc_fraction": {
+              "M": 0.4870350120083108,
+              "M0": 0.44931750137044973,
+              "F": 0.4973830195232296,
+              "B": 0.5351785406407821
+            },
+            "ratio_long_rms": 0.3519060551699129,
+            "ratio_short_peak": 0.01875424970255795,
+            "ratio_short_rms": 0.013215545946471296,
+            "draws_flux_route_larger_long": 1,
+            "flux_retention_min": 0.9928111067691272,
+            "flux_retention_final": 0.99677129601534,
+            "draws_flux_changes_sign": 0,
+            "median_current_half_life": 0.48,
+            "final_gauss": 5.309744614476197e-16
+          }
+        ]
+      },
+      "numerics": {
+        "M": {
+          "rms": 2.961029137069933e-05,
+          "rms_halved_step": 2.9606600268765362e-05,
+          "rms_dop853": 2.960469431501163e-05,
+          "rms_change_halved_step": 0.00012467159013396378,
+          "rms_change_dop853": 6.438011936392414e-05,
+          "pointwise_dop853_vs_halved": 0.004188796692982309,
+          "dop853_gauss": 2.4400220613538665e-14
+        },
+        "F": {
+          "rms": 7.734864483076669e-06,
+          "rms_halved_step": 7.736946142921617e-06,
+          "rms_dop853": 7.737386838422027e-06,
+          "rms_change_halved_step": 0.000269054457210211,
+          "rms_change_dop853": 5.69566327253647e-05,
+          "pointwise_dop853_vs_halved": 0.0043621120704938595,
+          "dop853_gauss": 9.453617833758525e-15
+        }
+      }
+    }
+  },
+  "checks_by_size": {
+    "primary": {
+      "P1 flux with the field at rest gives no sheet charge": true,
+      "P1 the flux still evolves, and a moving field does give one": true,
+      "P2 matter-current sheet charge is linear in energy": true,
+      "P2 flux-route sheet charge goes as energy to the three halves": true,
+      "P3 the ratio grows as the square root of energy": true,
+      "P3 the median ratio is below one at all four energies": true,
+      "P4 ratios to the one-third value are within 10 %": true,
+      "P5 matter route does not depend on the coupling": true,
+      "P5 flux route is first order in the coupling": true,
+      "P5 seam flux is g times the sheet charge": true,
+      "P6 matter current at rest has no loop flux, holonomy, loop current or swap-even field": true,
+      "P6 it does have sheet charge, and the flux route has loop flux": true,
+      "P7 additivity defect is second order in the flux": true,
+      "P7 reversing the flux alone changes the history": true,
+      "P7 reversing both orienting data is a symmetry": true,
+      "P8 sign of the early flux change is minus the sign of the bond order": true,
+      "P8 early flux change within 5 % of the formula (frozen tolerance)": true,
+      "post-freeze: the formula's error falls as t squared": true,
+      "post-freeze: the error is below 1 % at t = 0.04": true,
+      "post-freeze: the rate of the bond order vanishes by parity": true,
+      "post-freeze: the sign rule holds at all three times": true,
+      "P9 matter current at rest is fixed by the time-preserving fibre-reversing deck": true,
+      "P9 its history stays in that fixed set and separates charge": true,
+      "P9 ordinary handle keeps the sheet charge at zero": true,
+      "P10 the long-window ratio exceeds the short-window ratio at every energy": true,
+      "long-window Gauss law holds": true,
+      "rms sheet charge is stable under a halved step": true,
+      "rms sheet charge agrees with DOP853": true
+    },
+    "replicate": {
+      "P1 flux with the field at rest gives no sheet charge": true,
+      "P1 the flux still evolves, and a moving field does give one": true,
+      "P2 matter-current sheet charge is linear in energy": true,
+      "P2 flux-route sheet charge goes as energy to the three halves": true,
+      "P3 the ratio grows as the square root of energy": true,
+      "P3 the median ratio is below one at all four energies": true,
+      "P4 ratios to the one-third value are within 10 %": true,
+      "P5 matter route does not depend on the coupling": true,
+      "P5 flux route is first order in the coupling": true,
+      "P5 seam flux is g times the sheet charge": true,
+      "P6 matter current at rest has no loop flux, holonomy, loop current or swap-even field": true,
+      "P6 it does have sheet charge, and the flux route has loop flux": true,
+      "P7 additivity defect is second order in the flux": true,
+      "P7 reversing the flux alone changes the history": true,
+      "P7 reversing both orienting data is a symmetry": true,
+      "P8 sign of the early flux change is minus the sign of the bond order": true,
+      "P8 early flux change within 5 % of the formula (frozen tolerance)": false,
+      "post-freeze: the formula's error falls as t squared": true,
+      "post-freeze: the error is below 1 % at t = 0.04": true,
+      "post-freeze: the rate of the bond order vanishes by parity": true,
+      "post-freeze: the sign rule holds at all three times": true,
+      "P9 matter current at rest is fixed by the time-preserving fibre-reversing deck": true,
+      "P9 its history stays in that fixed set and separates charge": true,
+      "P9 ordinary handle keeps the sheet charge at zero": true,
+      "P10 the long-window ratio exceeds the short-window ratio at every energy": true,
+      "long-window Gauss law holds": true,
+      "rms sheet charge is stable under a halved step": true,
+      "rms sheet charge agrees with DOP853": true
+    }
+  },
+  "checks": {
+    "P1 flux with the field at rest gives no sheet charge": true,
+    "P1 the flux still evolves, and a moving field does give one": true,
+    "P2 matter-current sheet charge is linear in energy": true,
+    "P2 flux-route sheet charge goes as energy to the three halves": true,
+    "P3 the ratio grows as the square root of energy": true,
+    "P3 the median ratio is below one at all four energies": true,
+    "P4 ratios to the one-third value are within 10 %": true,
+    "P5 matter route does not depend on the coupling": true,
+    "P5 flux route is first order in the coupling": true,
+    "P5 seam flux is g times the sheet charge": true,
+    "P6 matter current at rest has no loop flux, holonomy, loop current or swap-even field": true,
+    "P6 it does have sheet charge, and the flux route has loop flux": true,
+    "P7 additivity defect is second order in the flux": true,
+    "P7 reversing the flux alone changes the history": true,
+    "P7 reversing both orienting data is a symmetry": true,
+    "P8 sign of the early flux change is minus the sign of the bond order": true,
+    "P8 early flux change within 5 % of the formula (frozen tolerance)": false,
+    "post-freeze: the formula's error falls as t squared": true,
+    "post-freeze: the error is below 1 % at t = 0.04": true,
+    "post-freeze: the rate of the bond order vanishes by parity": true,
+    "post-freeze: the sign rule holds at all three times": true,
+    "P9 matter current at rest is fixed by the time-preserving fibre-reversing deck": true,
+    "P9 its history stays in that fixed set and separates charge": true,
+    "P9 ordinary handle keeps the sheet charge at zero": true,
+    "P10 the long-window ratio exceeds the short-window ratio at every energy": true,
+    "long-window Gauss law holds": true,
+    "rms sheet charge is stable under a halved step": true,
+    "rms sheet charge agrees with DOP853": true
+  },
+  "check_groups": {
+    "flux_route_requirement": [
+      "P1 flux with the field at rest gives no sheet charge",
+      "P1 the flux still evolves, and a moving field does give one"
+    ],
+    "energy_scaling": [
+      "P2 matter-current sheet charge is linear in energy",
+      "P2 flux-route sheet charge goes as energy to the three halves"
+    ],
+    "short_time_ranking": [
+      "P3 the ratio grows as the square root of energy",
+      "P3 the median ratio is below one at all four energies"
+    ],
+    "flux_fraction": [
+      "P4 ratios to the one-third value are within 10 %"
+    ],
+    "coupling_dependence": [
+      "P5 matter route does not depend on the coupling",
+      "P5 flux route is first order in the coupling",
+      "P5 seam flux is g times the sheet charge"
+    ],
+    "electric_sectors": [
+      "P6 matter current at rest has no loop flux, holonomy, loop current or swap-even field",
+      "P6 it does have sheet charge, and the flux route has loop flux"
+    ],
+    "interference": [
+      "P7 additivity defect is second order in the flux",
+      "P7 reversing the flux alone changes the history",
+      "P7 reversing both orienting data is a symmetry"
+    ],
+    "screening_rule": [
+      "P8 sign of the early flux change is minus the sign of the bond order",
+      "P8 early flux change within 5 % of the formula (frozen tolerance)"
+    ],
+    "screening_leading_order": [
+      "post-freeze: the formula's error falls as t squared",
+      "post-freeze: the error is below 1 % at t = 0.04",
+      "post-freeze: the rate of the bond order vanishes by parity",
+      "post-freeze: the sign rule holds at all three times"
+    ],
+    "reversal_requirements": [
+      "P9 matter current at rest is fixed by the time-preserving fibre-reversing deck",
+      "P9 its history stays in that fixed set and separates charge",
+      "P9 ordinary handle keeps the sheet charge at zero"
+    ],
+    "long_time_ranking": [
+      "P10 the long-window ratio exceeds the short-window ratio at every energy"
+    ],
+    "long_window_numerics": [
+      "long-window Gauss law holds",
+      "rms sheet charge is stable under a halved step",
+      "rms sheet charge agrees with DOP853"
+    ]
+  },
+  "contradicted_predictions": {
+    "screening_rule": "Frozen P8 required the early flux change to match -1/2 g^2 Phi (B_0/|C|) t^2 within 5 % at t = 0.1 for every resolved draw. One replicate draw misses by 6.4 %. The sign rule holds in every resolved draw. The formula is the leading order: its error falls as t^2 and is below 1 % at t = 0.04. The tolerance was mis-set, and so was my first explanation of the miss."
+  },
+  "checks_passed": true,
+  "verdict": {
+    "flux_route_requirement": "FLUX_ROUTE_NEEDS_FIELD_MOMENTUM",
+    "energy_scaling": "MATTER_LINEAR_FLUX_THREE_HALVES",
+    "short_time_ranking": "MATTER_CURRENT_DOMINATES_BY_INVERSE_SQRT_ENERGY",
+    "flux_fraction": "OPTIMUM_AT_ONE_THIRD_IN_THE_FLUX",
+    "coupling_dependence": "MATTER_ROUTE_IS_TRANSPORT_FLUX_ROUTE_IS_ELECTRIC",
+    "electric_sectors": "ROUTES_OCCUPY_DIFFERENT_ELECTRIC_SECTORS",
+    "interference": "NO_FIRST_ORDER_INTERFERENCE_RELATIVE_SIGN_PHYSICAL",
+    "screening_rule": "COUNTEREXAMPLE",
+    "screening_leading_order": "BOND_ORDER_FIXES_THE_SIGN_AND_LEADING_ORDER_OF_EARLY_FLUX_CHANGE",
+    "long_window_numerics": "STATISTICS_STABLE_UNDER_STEP_AND_INTEGRATOR",
+    "reversal_requirements": "MATTER_ROUTE_NEEDS_ONLY_FIBRE_REVERSAL",
+    "long_time_ranking": "FLUX_ROUTE_GAINS_AT_LONG_TIMES",
+    "support_dynamics": "EFFECTIVE_SUPPORT_ASSUMED",
+    "orienting_datum": "NOT_DERIVED",
+    "positive_response": "NOT_DERIVED",
+    "event_law": "NOT_DERIVED",
+    "numerical_validity": "PASS",
+    "failed_checks": [],
+    "missing_checks": [],
+    "contradicted_checks": [
+      "P8 early flux change within 5 % of the formula (frozen tolerance)"
+    ],
+    "counterexamples": {
+      "screening_rule": "Frozen P8 required the early flux change to match -1/2 g^2 Phi (B_0/|C|) t^2 within 5 % at t = 0.1 for every resolved draw. One replicate draw misses by 6.4 %. The sign rule holds in every resolved draw. The formula is the leading order: its error falls as t^2 and is below 1 % at t = 0.04. The tolerance was mis-set, and so was my first explanation of the miss."
+    }
+  }
+}

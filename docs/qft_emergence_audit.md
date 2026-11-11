@@ -1079,6 +1079,31 @@ for the repository, recorded here and not resolved: it depends on the field
 type and on the chosen datum `T`. Frozen at `3d3ee38`. See
 [klein_handle_matching.md](klein_handle_matching.md).
 
+## The two routes on equal terms (round 16)
+
+At matched total energy the matter current drives a larger sheet pairing
+than trapped flux at every energy and time scale tested, while the trapped
+flux is the more durable input. The two add without first-order
+interference, with a physical relative sign.
+
+The consequence for this audit is structural. The stronger route needs only
+the fibre reversal: the matter-current preparation at rest is admissible on
+the time-preserving fibre-reversing seam and separates charge there. So two
+things that rounds 12-13 presented together come apart. The **pairing**
+between the two sectors needs a fibre-reversing seam and a matter current.
+The **Lagrangian halving** needs the time reversal. Round 15 found that the
+recorded transport of PR #279 supplies the fibre reversal for a spin-frame
+field and that PR #129's time-reversing map does not combine with it; after
+this round that is less of an obstacle to the pairing and more of a question
+about what the time reversal is for.
+
+One frozen prediction, a 5 % tolerance on a leading-order formula for the
+early flux change, was contradicted and is recorded as such.
+
+Effect on the findings: **none of F1-F9 changes status.** No norm, readout
+or event frequency follows. Frozen at `fd78693`. See
+[klein_handle_routes.md](klein_handle_routes.md).
+
 ## Expanding supported TT transport (PR #298)
 
 On the exact expanding four-component FRW family, the homogeneous TT normal

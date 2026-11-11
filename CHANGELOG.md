@@ -42,6 +42,15 @@
   spin vanishes. The trapped-flux sign is independent of the Pin label,
   retracting a round-14 guess. 30 checks, 23 tests.
 
+- Round 16, the two routes on equal terms (`bulk/klein_handle_routes.py`,
+  freeze `fd78693`): at matched total energy a matter current drives a
+  larger sheet pairing than trapped flux, by a factor shrinking as the square
+  root of energy at short times and about three over a long window, while
+  the flux is the longer-lived input. The stronger route needs only the
+  fibre reversal, so the pairing and the Lagrangian halving come apart. No
+  first-order interference. One frozen prediction, a tolerance on the early
+  flux change, is contradicted and recorded as such. 22 tests.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the
