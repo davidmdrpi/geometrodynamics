@@ -522,12 +522,21 @@ def continuum_gap(alpha: float, k_max: int = 100_000) -> dict:
     inverse on ``L^2``; it is not an existence theory for the lattice limit.
     """
     k = np.arange(1, k_max + 1, dtype=float)
-    q = np.rint(k * alpha)
-    gap = np.abs(k * alpha - q) * (k * alpha + q) / alpha ** 2
+    # The objective is a difference of squares, so the nearest integer to
+    # k alpha is not always the minimiser. Try floor and ceiling, q = 0
+    # included (corrected after review of c433f91).
+    lower = np.floor(k * alpha)
+    candidates = np.stack([lower, lower + 1.0])
+    gaps = np.abs(k ** 2 - (candidates / alpha) ** 2)
+    pick = np.argmin(gaps, axis=0)
+    gap = gaps[pick, np.arange(k.size)]
+    q = candidates[pick, np.arange(k.size)]
     worst = int(np.argmin(gap))
     return {"alpha": float(alpha), "k_max": k_max,
             "min_gap": float(gap[worst]), "at_k": int(k[worst]),
-            "min_k_times_distance": float(np.min(k * np.abs(k * alpha - q)))}
+            "at_q": int(q[worst]),
+            "min_k_times_distance": float(np.min(
+                k * np.abs(k * alpha - np.rint(k * alpha))))}
 
 
 # --------------------------------------------------------------------------

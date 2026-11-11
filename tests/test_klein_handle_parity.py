@@ -61,8 +61,26 @@ def test_classifier_can_fail():
     t = np.linspace(0, 1, 50)
     odd = kp.classify(np.sin(t), -np.sin(t), 0.0, 1.0)
     row = {"predicted": "even", "max_odd_part": odd["odd_part"],
-           "min_even_part": odd["even_part"], "max_abs_total": 0.0}
+           "min_even_part": odd["even_part"], "max_abs_total": 0.0,
+           "min_variation": odd["variation"]}
     assert not kp.satisfies(row)["rule"]
+
+
+def test_constant_history_is_not_exchange():
+    """Review of c433f91: N_1 = 1 with N_tot = 0 transfers nothing."""
+    ones = np.ones(50)
+    c = kp.classify(ones, ones, 0.0, 1.0)
+    row = {"predicted": "even", "max_odd_part": c["odd_part"],
+           "min_even_part": c["even_part"], "max_abs_total": 0.0,
+           "min_variation": c["variation"]}
+    ok = kp.satisfies(row)
+    assert ok["rule"] and not ok["live"]
+
+
+def test_every_allowed_exchange_actually_varies(rows):
+    for r in rows:
+        if r["predicted"] != "constant":
+            assert r["min_variation"] > 1e-6, (r["internal"], r["generator"])
 
 
 def test_verdict_and_probe():

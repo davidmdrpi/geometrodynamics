@@ -1061,7 +1061,9 @@ PR #129's map and PR #279's transport as the candidates. Acting by pullback
 on fibre-charged functions on the bulk mouth, the two do not combine as
 hoped. The antipodal map of PR #129 is a Hopf fibre translation that fixes
 the Hopf base, so on a bulk scalar its condition is complex-linear: the
-fibre-preserving cell, with no charge and no pairing. The transport of
+fibre-preserving cell, with zero total charge. *Corrected after review of
+`c433f91`:* the first version said "no pairing". The sheets still exchange
+charge, evenly in time. The transport of
 PR #279 is the antipode of the Hopf base, does not preserve the spatial brane
 mouth, and acts antilinearly with square `(-1)^k`; on the charge-1 doublet it
 is `J` up to the Pin sign. The doublet is admissible on that seam only on an

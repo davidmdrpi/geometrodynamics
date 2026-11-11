@@ -31,7 +31,9 @@ def measure_sphere() -> dict:
     rng = np.random.default_rng(km.SEED)
     return {"antipode": km.antipode_report(rng),
             "two_spheres": km.two_spheres_report(rng),
-            "transport": km.transport_report(rng)}
+            "transport": km.transport_report(rng),
+            "exceptional_fibre": km.exceptional_fibre_report(
+                np.random.default_rng(km.SEED + 31))}
 
 
 def measure_lattice(config: dict) -> dict:
@@ -39,6 +41,8 @@ def measure_lattice(config: dict) -> dict:
     rng = np.random.default_rng(km.SEED + 1)
     return {"config": config, "sites": net.size,
             "pr129": km.pr129_cell_report(net),
+            "pr129_sheet": km.pr129_sheet_exchange_report(
+                net, np.random.default_rng(km.SEED + 32)),
             "consistency": km.consistency_report(net, rng),
             "seam_charges": km.seam_charge_report(net),
             "dynamics": km.transport_seam_dynamics(net, rng),
@@ -47,6 +51,7 @@ def measure_lattice(config: dict) -> dict:
 
 def evaluate_sphere(m: dict) -> dict:
     a, t, x = m["antipode"], m["two_spheres"], m["transport"]
+    ex = m["exceptional_fibre"]
     minus_i_sigma_y = np.array([[0.0, -1.0], [1.0, 0.0]])
     return {
         "antipodal_map": {
@@ -62,9 +67,17 @@ def evaluate_sphere(m: dict) -> dict:
             "M2 antipode preserves the spatial brane mouth": (
                 t["equator_real_part"] < EXACT
                 and t["antipode_leaves_equator"] < EXACT),
-            "M2 Hopf map is two-to-one on the spatial brane mouth": (
+            "M2 Hopf map identifies antipodes of the spatial brane mouth": (
                 t["hopf_two_to_one_error"] < EXACT
                 and t["hopf_formula_error"] < EXACT),
+            "review: it is two-to-one where p.i is nonzero": (
+                ex["generic_points"] > 50
+                and ex["generic_preimage_recovered_up_to_sign"] < 1e-9
+                and ex["unrelated_points_differ"] > 1e-6),
+            "review: the whole circle p.i = 0 maps to -i": (
+                ex["circle_on_equator"] < EXACT
+                and ex["circle_maps_to_minus_i"] < EXACT
+                and ex["circle_spread"] > 1.0),
             "M2 transport does not preserve the spatial brane mouth": (
                 t["sigma_leaves_equator"] > 0.5),
             "M2 transport covers the Hopf-base antipode and reverses the "
@@ -105,7 +118,15 @@ def evaluate_lattice(m: dict) -> dict:
     spin = NAMES[1:]
     return {
         "pr129_cell": {
-            "M4 charge is deck odd and vanishes for both twists": all(
+            "review: neutral sheets still exchange charge, evenly in time, "
+            "with zero total": (
+                m["pr129_sheet"]["deck_fixed_error"] < EXACT
+                and m["pr129_sheet"]["initial_sheet_charge"] < EXACT
+                and m["pr129_sheet"]["min_peak_sheet_charge"] > 1e-7
+                and m["pr129_sheet"]["min_even_part"] > 1e-7
+                and m["pr129_sheet"]["max_odd_part"] < ZERO
+                and m["pr129_sheet"]["max_total_charge"] < EXACT),
+            "M4 total charge is deck odd and vanishes for both twists": all(
                 t["charge_on_fixed"] < EXACT and t["charge_parity_error"] < ZERO
                 and 2 * t["fixed_dim"] == t["field_dim"]
                 and t["omega_on_fixed"] < ZERO for t in m["pr129"]["twists"])
@@ -199,7 +220,9 @@ def run_probe(progress=lambda s: None):
         for check in names:
             checks[check] = all(bool(per_size[s][field][check]) for s in SIZES)
     return {
-        "public_preregistration": PREREG, "scope": SCOPE, "seed": km.SEED,
+        "public_preregistration": PREREG, "reviewed_commit": "c433f91",
+        "frozen_labels_changed": dict(km.FROZEN_LABELS),
+        "scope": SCOPE, "seed": km.SEED,
         "sphere": sphere, "lattice": lattice,
         "checks": checks, "check_groups": groups,
         "checks_passed": all(checks.values()),

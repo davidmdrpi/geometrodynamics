@@ -62,6 +62,13 @@
   charge exchange is odd and spin exchange even. The field type and the time
   extension select it, not the geometry alone. 33 checks, 6 tests.
 
+- Review of PR #352 at `c433f91`: round 15 no longer equates zero total
+  charge with no sheet pairing (the fibre-preserving cell exchanges charge
+  evenly in time); the Hopf map on the spatial brane mouth is generically
+  two-to-one with a circle fibre over `-i`; round 17's exchange gate now
+  requires variation; the continuum-gap diagnostic minimises over both
+  neighbouring integers.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the

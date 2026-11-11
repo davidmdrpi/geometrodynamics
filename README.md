@@ -5557,8 +5557,9 @@ no.**
 
 * **The antipodal map is a Hopf fibre translation.** It fixes the Hopf base
   and acts on charge-`k` functions as the scalar `(-1)^k`. So PR #129's
-  condition on a bulk scalar is the *fibre-preserving* cell: no charge, no
-  pairing, no admissible handle flux.
+  condition on a bulk scalar is the *fibre-preserving* cell: zero total
+  charge and no admissible handle flux, but the sheets still exchange
+  charge, evenly in time (corrected after review of `c433f91`).
 * **The two maps are attached to different spheres.** The antipode is the
   antipode of the spatial brane mouth and the identity on the Hopf base. The
   transport is the antipode of the Hopf base and does not preserve the
@@ -5583,8 +5584,8 @@ cells. The doublet identity is representation theory, not an action-derived
 pairing. No norm or probability follows.
 
 ```bash
-python -m experiments.closure_ledger.klein_handle_matching_probe   # 30/30
-python -m pytest -q tests/test_klein_handle_matching.py             # 24 tests
+python -m experiments.closure_ledger.klein_handle_matching_probe   # 33/33
+python -m pytest -q tests/test_klein_handle_matching.py             # 26 tests
 ```
 
 ## The two routes on equal terms: the matter current wins, the flux lasts (round 16)
@@ -5668,12 +5669,12 @@ Write-up: [klein_handle_parity.md](docs/klein_handle_parity.md).*
   under PR #279's transport with PT exchanges it oddly.
 
 **What it is not.** A symmetry consequence, verified numerically. The
-reading for BAM rests on round 15's matching, which is unreviewed. No norm
-or probability follows.
+reading for BAM rests on round 15's matching. No norm or probability
+follows.
 
 ```bash
 python -m experiments.closure_ledger.klein_handle_parity_probe   # 33/33
-python -m pytest -q tests/test_klein_handle_parity.py             # 6 tests
+python -m pytest -q tests/test_klein_handle_parity.py             # 8 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

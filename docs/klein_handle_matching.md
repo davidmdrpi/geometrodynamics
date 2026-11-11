@@ -8,8 +8,10 @@ the doubly reversed seam of rounds 13–14.
 
 * The antipodal map is a **Hopf fibre translation**. On the fibre-charged
   components of a bulk scalar it is complex-linear, so PR #129's condition is
-  the *fibre-preserving* cell. By rounds 13–14 that cell has no charge, no
-  pairing and no admissible handle flux.
+  the *fibre-preserving* cell. In that cell the conserved **total** charge
+  vanishes and trapped handle flux is inadmissible. It does **not** follow
+  that there is no pairing: the charge on one sheet is exchanged, evenly in
+  time (R1 below).
 * The fibre reversal belongs to a **different map on a different sphere**.
   The antipodal map is the antipode of the spatial brane mouth and the
   identity on the Hopf base; the transport is the antipode of the Hopf base
@@ -29,15 +31,23 @@ and it is not resolved.
 Part I is representation theory on `S³` and Part III is symmetry algebra; the
 numerics confirm derivations. Only Part II integrates anything.
 
+**Corrected after review of `c433f91`** (R1, R2 below): this write-up said the
+fibre-preserving cell has "no pairing", which conflated a vanishing total
+with a vanishing sheet value; and it called the Hopf map "two-to-one" on the
+spatial brane mouth without qualification.
+
 *Pre-registered in [klein_handle_matching_prereg.md](klein_handle_matching_prereg.md)
-(`3d3ee38`), committed before the module and unchanged. Module
+(`3d3ee38`), committed before the module and unchanged; reviewed at
+`c433f91`. Module
 `geometrodynamics/bulk/klein_handle_matching.py`; probe
 `klein_handle_matching_probe.py`; tests `tests/test_klein_handle_matching.py`
-(24, one added after the round-14 review). Archive `experiments/closure_ledger/runs/20261110_klein_handle_matching/`.*
+(26, three added after reviews). Archives: the run as first written in
+`experiments/closure_ledger/runs/20261110_klein_handle_matching/`, the
+corrected run in `runs/20261111_klein_handle_matching_review/`.*
 
 ```bash
-python -m experiments.closure_ledger.klein_handle_matching_probe   # 30/30
-python -m pytest -q tests/test_klein_handle_matching.py             # 24 tests
+python -m experiments.closure_ledger.klein_handle_matching_probe   # 33/33
+python -m pytest -q tests/test_klein_handle_matching.py             # 26 tests
 ```
 
 | verdict field | value |
@@ -46,7 +56,7 @@ python -m pytest -q tests/test_klein_handle_matching.py             # 24 tests
 | antipodal_map | `FIBRE_TRANSLATION_FIXING_THE_HOPF_BASE` |
 | two_spheres | `SPATIAL_BRANE_MOUTH_IS_NOT_THE_HOPF_BASE` |
 | transport_on_fibre_modes | `ANTILINEAR_SQUARE_MINUS_ONE_ON_ODD_CHARGE_J_ON_THE_DOUBLET` |
-| pr129_cell | `FIBRE_PRESERVING_NO_PAIRING` |
+| pr129_cell | `FIBRE_PRESERVING_TOTAL_CHARGE_ZERO_SHEET_EXCHANGE_EVEN` (narrowed) |
 | spinor_seam_consistency | `TRANSPORT_SEAM_NEEDS_ANTIPERIODIC_DOUBLED_LOOP` |
 | transport_seam_charges | `CHARGE_SURVIVES_SPIN_VANISHES_WITH_TIME_REVERSAL` |
 | flux_sign_vs_pin_label | `INDEPENDENT_LABELS` |
@@ -79,6 +89,7 @@ pullback. Whether that action is linear or antilinear is then a computation.
 | on the fibre | translation by `π` | reversal |
 | on the Hopf base | identity | antipode |
 | on the spatial brane mouth | antipode | does not preserve it |
+| Hopf map restricted to it | generically two-to-one | |
 | on charge-`k` functions | the scalar `(−1)^k`, linear | antilinear, square `(−1)^k` |
 
 **M1.** `−q = e^{iπ} q` (`1.6e-16`). The antipode commutes with the fibre
@@ -86,7 +97,13 @@ rotation, fixes every point of the Hopf base, and acts on all 15 bidegrees
 with `p + r ≤ 4` as `(−1)^k` (`4.1e-15`).
 
 **M2.** On the spatial brane mouth the antipode is the antipode, and the
-Hopf map is two-to-one there, `h(p) = h(−p) = 2(p·i)p − i` (`5.6e-16`). So
+Hopf map identifies antipodal points there, `h(p) = h(−p) = 2(p·i)p − i`
+(`5.6e-16`). It is **generically** two-to-one: where `p·i ≠ 0` the point is
+recovered from its image up to sign (`1.3e-15` over 188 sampled points). It
+is not two-to-one everywhere: the whole circle `p·i = 0` maps to the single
+point `−i` (`2.2e-16` over 200 points of that circle). The freeze asserted
+"two-to-one" without that exception; the frozen gate tested antipodal
+equality and the formula, which do not establish it. So
 the same map is the antipode of one sphere and the identity on the other.
 The transport covers the antipode of the Hopf base (`3.3e-16`) and reverses
 the fibre, but moves the spatial brane mouth off itself: `Re(σp)` reaches
@@ -110,7 +127,23 @@ of a bulk scalar is
     Ψ_k(−t, −s, q) = η (−1)^k Ψ_k(t, s, q),
 
 complex-linear and time-reversing. On the round-13 lattice, for both twists,
-the charge is deck-odd and vanishes on the fixed space (`1.1e-15`).
+the charge density is deck-odd and the **total** charge vanishes on the
+fixed space (`1.1e-15`).
+
+**R1, added after review.** A vanishing total is not a vanishing sheet
+value. In round 13's ungauged model, on this seam, data with neutral sheets
+at the mirror time:
+
+| size | peak sheet charge over 8 draws | even part | odd part | total charge |
+|---|---|---:|---:|---:|
+| primary | `2.0e-04` to `5.5e-04` | `≥ 2.0e-04` | `≤ 1.2e-18` | `≤ 2.2e-18` |
+| replicate | `6.3e-05` to `2.6e-04` | `≥ 6.3e-05` | `≤ 8.7e-19` | `≤ 1.7e-18` |
+
+Charge is exchanged between the sheets in every draw, evenly in time, with
+the total held at zero. That is round 17's rule for a generator that
+commutes with a time-reversing deck map. So PR #129's condition on a bulk
+scalar does give a sheet pairing; what it lacks is a nonzero conserved
+total and admissible trapped flux.
 
 ## Part II. When the transport seam admits a field
 
@@ -211,7 +244,8 @@ Round 14's chain entry also changed: the orienting datum is trapped flux
 
 Shown: how each recorded map acts on fibre-charged functions; that they are
 attached to different spheres; that PR #129's condition on a bulk scalar is
-the fibre-preserving cell; that the transport seam needs the antiperiodic
+the fibre-preserving cell, with zero total charge and an even sheet
+exchange; that the transport seam needs the antiperiodic
 loop for the doublet; which charges survive in each cell; and that the Pin
 sign and the flux sign are independent.
 
@@ -247,9 +281,9 @@ Not shown:
 Round 15 removes one free input and names two. The fibre reversal no longer
 has to be assumed for a spin-frame field: it is how the recorded transport
 acts. In exchange, the chain now visibly requires that matter be a
-spin-frame field and that the time extension be PT, and it shows that the
-scalar construction the repository actually uses for PR #129 does not
-supply the pairing.
+spin-frame field and that the time extension be PT for the *odd* exchange
+with a nonzero total. The scalar construction the repository uses for
+PR #129 supplies a different one: an even exchange with zero total.
 
 ## Next
 

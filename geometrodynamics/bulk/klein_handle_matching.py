@@ -190,6 +190,82 @@ def transport_report(rng: np.random.Generator) -> dict:
     }
 
 
+def exceptional_fibre_report(rng: np.random.Generator, n: int = 200) -> dict:
+    """M2, corrected. The Hopf map on the spatial brane mouth.
+
+    ``h(p) = 2 (p.i) p - i`` is two-to-one where ``p.i != 0`` and sends the
+    whole circle ``p.i = 0`` to ``-i``.
+    """
+    angle = rng.uniform(0, 2 * np.pi, n)
+    circle = np.stack([np.zeros(n, dtype=complex),
+                       np.cos(angle) + 1j * np.sin(angle)], axis=1)
+    target = np.array([-1.0, 0.0, 0.0])
+    e = random_equator(n, rng)
+    p = as_quaternion(e)[:, 1:]
+    generic = np.abs(p[:, 0]) > 0.05
+    base = hopf_base(e)[generic]
+    lifted = base + np.array([1.0, 0.0, 0.0])
+    lifted /= np.linalg.norm(lifted, axis=1, keepdims=True)
+    pg = p[generic]
+    recovered = np.minimum(np.abs(lifted - pg).max(axis=1),
+                           np.abs(lifted + pg).max(axis=1))
+    other = random_equator(int(generic.sum()), rng)
+    return {
+        "circle_points": n,
+        "circle_on_equator": float(np.abs(circle[:, 0].real).max()),
+        "circle_maps_to_minus_i": float(np.abs(hopf_base(circle)
+                                               - target).max()),
+        "circle_spread": float(np.abs(as_quaternion(circle)
+                                      - as_quaternion(circle[:1])).max()),
+        "generic_points": int(generic.sum()),
+        "generic_preimage_recovered_up_to_sign": float(recovered.max()),
+        "unrelated_points_differ": float(np.abs(
+            hopf_base(other) - base).max(axis=1).min()),
+    }
+
+
+def pr129_sheet_exchange_report(net: kh.Network, rng: np.random.Generator,
+                                draws: int = 8) -> dict:
+    """M4, corrected. Zero total charge is not zero sheet pairing.
+
+    Round 13's ungauged model, seam with time reversed and fibre kept, data
+    with neutral sheets at the mirror time.
+    """
+    model = kh.Model(net, components=2)
+    n, size, p = net.n, net.size, net.swap
+    deck = kh.deck(model, -1, 1, 1)
+    sheet = np.arange(n)
+    peaks, even, odd, totals, fixed, start = [], [], [], [], [], []
+    for _ in range(draws):
+        def part(sign):
+            r = rng.standard_normal(size)
+            return 0.5 * (r + sign * p @ r)
+        x, y, px, py = part(1), part(1), part(-1), part(-1)
+        u = np.zeros(size)
+        u[:n] = x[:n]
+        u = u - p @ u
+        q1 = float(np.sum(x[:n] * py[:n] - y[:n] * px[:n]))
+        py = py - q1 / float(np.sum(x[:n] * u[:n])) * u
+        z = np.zeros(model.dim)
+        z[:4 * size] = np.concatenate([x, y, px, py])
+        z[:4 * size] *= 0.125 / np.linalg.norm(z[:4 * size])
+        fwd = kh.flow(model, z, kh.STEPS)[:, 0]
+        bwd = kh.flow(model, z, kh.STEPS, -kh.STEP)[:, 0]
+        qf, qb = model.charge(fwd, sheet), model.charge(bwd, sheet)
+        fixed.append(float(np.abs(deck @ z - z).max()))
+        start.append(abs(float(qf[0])))
+        peaks.append(float(np.abs(qf).max()))
+        even.append(float(np.abs(qf + qb).max() / 2))
+        odd.append(float(np.abs(qf - qb).max() / 2))
+        totals.append(float(np.abs(model.charge(fwd)).max()))
+    return {"draws": draws, "deck_fixed_error": max(fixed),
+            "initial_sheet_charge": max(start),
+            "min_peak_sheet_charge": min(peaks),
+            "max_peak_sheet_charge": max(peaks),
+            "min_even_part": min(even), "max_odd_part": max(odd),
+            "max_total_charge": max(totals)}
+
+
 def pr129_cell_report(net: kh.Network) -> dict:
     """M4. Time reversed, fibre kept, both twists: the charge vanishes."""
     model = kh.Model(net, components=2)
@@ -589,13 +665,16 @@ CONFIRMED = {
     "two_spheres": "SPATIAL_BRANE_MOUTH_IS_NOT_THE_HOPF_BASE",
     "transport_on_fibre_modes":
         "ANTILINEAR_SQUARE_MINUS_ONE_ON_ODD_CHARGE_J_ON_THE_DOUBLET",
-    "pr129_cell": "FIBRE_PRESERVING_NO_PAIRING",
+    # Narrowed after review of c433f91: the conserved total vanishes; the
+    # sheet value does not.
+    "pr129_cell": "FIBRE_PRESERVING_TOTAL_CHARGE_ZERO_SHEET_EXCHANGE_EVEN",
     "spinor_seam_consistency":
         "TRANSPORT_SEAM_NEEDS_ANTIPERIODIC_DOUBLED_LOOP",
     "transport_seam_charges":
         "CHARGE_SURVIVES_SPIN_VANISHES_WITH_TIME_REVERSAL",
     "flux_sign_vs_pin_label": "INDEPENDENT_LABELS",
 }
+FROZEN_LABELS = {"pr129_cell": "FIBRE_PRESERVING_NO_PAIRING"}
 FIXED = {
     "bam_cell": "DEPENDS_ON_FIELD_TYPE_AND_TIME_EXTENSION",
     "support_dynamics": "EFFECTIVE_SUPPORT_ASSUMED",

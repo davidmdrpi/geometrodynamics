@@ -88,10 +88,28 @@ def test_doublet_matrix_is_j_up_to_sign():
     assert np.allclose(m @ np.conj(m), -np.eye(2))
 
 
-def test_pr129_cell_has_no_charge(net):
+def test_pr129_cell_has_zero_total_charge(net):
     for twist in km.pr129_cell_report(net)["twists"]:
         assert twist["charge_on_fixed"] < 1e-12
         assert twist["omega_on_fixed"] < 1e-9
+
+
+def test_pr129_cell_still_exchanges_sheet_charge(net):
+    """Review of c433f91: zero total charge is not zero sheet pairing."""
+    r = km.pr129_sheet_exchange_report(net, rng(40), 4)
+    assert r["initial_sheet_charge"] < 1e-12
+    assert r["max_total_charge"] < 1e-12
+    assert r["min_peak_sheet_charge"] > 1e-7
+    assert r["max_odd_part"] < 1e-9 < r["min_even_part"]
+
+
+def test_hopf_map_has_a_circle_fibre_over_minus_i():
+    """Review of c433f91: not two-to-one everywhere."""
+    ex = km.exceptional_fibre_report(rng(41))
+    assert ex["circle_maps_to_minus_i"] < 1e-12
+    assert ex["circle_spread"] > 1.0
+    assert ex["generic_preimage_recovered_up_to_sign"] < 1e-9
+    assert ex["unrelated_points_differ"] > 1e-6
 
 
 # ---- Part II: the multiplet ----------------------------------------------
@@ -235,7 +253,7 @@ def test_verdict_statuses():
 
 def test_probe_passes(report):
     assert report["checks_passed"]
-    assert len(report["checks"]) == 30
+    assert len(report["checks"]) == 33
     v = report["verdict"]
     assert v["numerical_validity"] == "PASS"
     for name, value in {**km.CONFIRMED, **km.FIXED}.items():

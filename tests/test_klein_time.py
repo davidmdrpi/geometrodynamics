@@ -211,7 +211,9 @@ def test_divisor_diagnostic_separates_spacings():
     """Diagnostic only: exact zero at 7/48, a floor at the golden ratio."""
     assert kt.continuum_gap(7 / 48, 1000)["min_gap"] == 0.0
     golden = kt.continuum_gap((5 ** 0.5 - 1) / 2, 100_000)
-    assert golden["min_gap"] > 1.0
+    # Corrected after review of c433f91: k = 1, q = 0 gives exactly 1.
+    assert golden["min_gap"] == pytest.approx(1.0)
+    assert (golden["at_k"], golden["at_q"]) == (1, 0)
     assert kt.continuum_gap(float(np.pi - 3), 100_000)["min_gap"] < 0.1
 
 
@@ -270,3 +272,12 @@ def test_probe_passes_and_claims_nothing_quantum(report):
     assert v["continuum_free_field"] == kt.COUNTEREXAMPLE
     assert v["field_freedom"] != kt.FROZEN_LABELS["field_freedom"]
     assert set(kt.VERDICT_FIELDS) <= set(v)
+
+
+def test_continuum_gap_is_the_true_minimum_over_both_candidates():
+    """The nearest integer to k alpha is not always the minimiser."""
+    for alpha in ((5 ** 0.5 - 1) / 2, 2 ** 0.5 - 1, 0.3, 7 / 48):
+        got = kt.continuum_gap(alpha, 400)["min_gap"]
+        brute = min(abs(k * k - (q / alpha) ** 2)
+                    for k in range(1, 401) for q in range(0, 400))
+        assert got == pytest.approx(brute, abs=1e-9)

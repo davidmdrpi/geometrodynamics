@@ -14,19 +14,27 @@ The answer to the question has two halves.
   records, that gives four different answers. This round turns that
   dependence into an observable; it does not remove it.
 
+The verified relation, in one line, is
+`N_1(s_t t) = s_t κ_X [N_tot − N_1(t)]`.
+
 The rule is a symmetry consequence, and the numerics confirm that derivation
-and implementation agree. The reading for BAM rests on round 15's matching,
+and implementation agree. **Corrected after review of `c433f91`:** the gate
+for "exchange occurs" tested a nonzero even part, which a constant sheet
+value also has. It now requires the value to vary; the archived runs already
+did (smallest variation `4.5e-03` of the field scale), so no result changes. The reading for BAM rests on round 15's matching,
 which has not been reviewed.
 
 *Pre-registered in [klein_handle_parity_prereg.md](klein_handle_parity_prereg.md)
 (`95d7a80`), committed before the module and unchanged. Module
 `geometrodynamics/bulk/klein_handle_parity.py`; probe
-`klein_handle_parity_probe.py`; tests `tests/test_klein_handle_parity.py` (6).
-Archive `experiments/closure_ledger/runs/20261111_klein_handle_parity/`.*
+`klein_handle_parity_probe.py`; tests `tests/test_klein_handle_parity.py` (8).
+Archives: `experiments/closure_ledger/runs/20261111_klein_handle_parity/`
+as first written, `runs/20261111_klein_handle_parity_review/` with the
+corrected gate.*
 
 ```bash
 python -m experiments.closure_ledger.klein_handle_parity_probe   # 33/33
-python -m pytest -q tests/test_klein_handle_parity.py             # 6 tests
+python -m pytest -q tests/test_klein_handle_parity.py             # 8 tests
 ```
 
 ## The rule
@@ -103,7 +111,7 @@ Not shown:
 * **A selection by geometry.** Recorded in the verdict as
   `BY_FIELD_TYPE_AND_TIME_EXTENSION_NOT_BY_GEOMETRY_ALONE`.
 * **That either attachment acts as tabulated.** That is round 15's matching,
-  unreviewed. Rounds 12, 14 and 16 each had conclusions that outran their
+  reviewed once at `c433f91` and corrected in two places. Rounds 12, 14 and 16 each had conclusions that outran their
   tests; this table should be read with that in mind.
 * **Anything for data that are not deck-compatible**, a gauged doublet, or
   higher fibre harmonics.
@@ -111,7 +119,6 @@ Not shown:
 
 ## Next
 
-1. Have round 15 reviewed. Two rounds now rest on it.
 2. Find something in the repository's pair-creation picture that fixes the
    time extension: for instance, whether creation and annihilation of a
    mouth pair require charge exchange to be odd about the mirror time.

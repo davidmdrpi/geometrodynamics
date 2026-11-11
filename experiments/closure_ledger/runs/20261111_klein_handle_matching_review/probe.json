@@ -1,0 +1,1010 @@
+{
+  "public_preregistration": "3d3ee38",
+  "reviewed_commit": "c433f91",
+  "frozen_labels_changed": {
+    "pr129_cell": "FIBRE_PRESERVING_NO_PAIRING"
+  },
+  "scope": "Part I: the repository's recorded maps on the bulk mouth S^3 acting on fibre-charged functions. Part II: a lattice multiplet on the handle cover with a sign around the doubled loop. Part III: the Pin sign against the trapped-flux sign in round 14's model. Classical throughout. Which field BAM's matter is, and P against PT, are not decided here.",
+  "seed": 2026111004,
+  "sphere": {
+    "antipode": {
+      "bidegrees": 15,
+      "rows": [
+        {
+          "p": 0,
+          "r": 0,
+          "charge": 0,
+          "scalar_error": 2.3314683517128287e-15
+        },
+        {
+          "p": 0,
+          "r": 1,
+          "charge": -1,
+          "scalar_error": 6.667118051786499e-16
+        },
+        {
+          "p": 0,
+          "r": 2,
+          "charge": -2,
+          "scalar_error": 4.088368965901676e-15
+        },
+        {
+          "p": 0,
+          "r": 3,
+          "charge": -3,
+          "scalar_error": 1.3323990365229357e-15
+        },
+        {
+          "p": 0,
+          "r": 4,
+          "charge": -4,
+          "scalar_error": 6.936204561358351e-16
+        },
+        {
+          "p": 1,
+          "r": 0,
+          "charge": 1,
+          "scalar_error": 6.667118051786499e-16
+        },
+        {
+          "p": 1,
+          "r": 1,
+          "charge": 0,
+          "scalar_error": 6.661338147750939e-16
+        },
+        {
+          "p": 1,
+          "r": 2,
+          "charge": -1,
+          "scalar_error": 2.112343365827712e-15
+        },
+        {
+          "p": 1,
+          "r": 3,
+          "charge": -2,
+          "scalar_error": 1.3342039759651273e-15
+        },
+        {
+          "p": 2,
+          "r": 0,
+          "charge": 2,
+          "scalar_error": 4.088368965901676e-15
+        },
+        {
+          "p": 2,
+          "r": 1,
+          "charge": 1,
+          "scalar_error": 2.0122792321330962e-15
+        },
+        {
+          "p": 2,
+          "r": 2,
+          "charge": 0,
+          "scalar_error": 1.1966373513784628e-15
+        },
+        {
+          "p": 3,
+          "r": 0,
+          "charge": 3,
+          "scalar_error": 1.3323990365229357e-15
+        },
+        {
+          "p": 3,
+          "r": 1,
+          "charge": 2,
+          "scalar_error": 1.1115450238671699e-15
+        },
+        {
+          "p": 4,
+          "r": 0,
+          "charge": 4,
+          "scalar_error": 6.936204561358351e-16
+        }
+      ],
+      "scalar_error": 4.088368965901676e-15,
+      "fit_residual": 2.7876319051984675e-15,
+      "is_fibre_translation_by_pi": 1.5700924586837752e-16,
+      "fibre_commutator": 0.0,
+      "hopf_base_moved": 0.0
+    },
+    "two_spheres": {
+      "equator_real_part": 0.0,
+      "antipode_leaves_equator": 0.0,
+      "hopf_two_to_one_error": 0.0,
+      "hopf_formula_error": 5.551115123125783e-16,
+      "sigma_leaves_equator": 0.9979368203380377,
+      "sigma_covers_base_antipode": 3.3306690738754696e-16,
+      "sigma_reverses_fibre": 0.0,
+      "sigma_squared_is_antipode": 0.0,
+      "sigma_matches_recorded_matrix": 0.0,
+      "sigma_determinant": 1.0
+    },
+    "transport": {
+      "bidegrees": 15,
+      "rows": [
+        {
+          "p": 0,
+          "r": 0,
+          "charge": 0,
+          "square_error": 4.6629367034256575e-15,
+          "lands_in_opposite_charge": 2.3314683517128287e-15
+        },
+        {
+          "p": 0,
+          "r": 1,
+          "charge": -1,
+          "square_error": 5.584948837430883e-16,
+          "lands_in_opposite_charge": 4.083933452745636e-16,
+          "stays_in_same_charge": 0.9991192099827126
+        },
+        {
+          "p": 0,
+          "r": 2,
+          "charge": -2,
+          "square_error": 1.3322676295501878e-15,
+          "lands_in_opposite_charge": 4.3471742384686774e-16,
+          "stays_in_same_charge": 0.9948285348773905
+        },
+        {
+          "p": 0,
+          "r": 3,
+          "charge": -3,
+          "square_error": 4.511278042664725e-16,
+          "lands_in_opposite_charge": 3.1713912778489443e-16,
+          "stays_in_same_charge": 0.992520972776483
+        },
+        {
+          "p": 0,
+          "r": 4,
+          "charge": -4,
+          "square_error": 9.114614191360963e-16,
+          "lands_in_opposite_charge": 6.298796613254974e-16,
+          "stays_in_same_charge": 0.9957496834500636
+        },
+        {
+          "p": 1,
+          "r": 0,
+          "charge": 1,
+          "square_error": 5.584948837430883e-16,
+          "lands_in_opposite_charge": 4.083933452745636e-16,
+          "stays_in_same_charge": 0.9991192099827126
+        },
+        {
+          "p": 1,
+          "r": 1,
+          "charge": 0,
+          "square_error": 1.1102232152075534e-15,
+          "lands_in_opposite_charge": 6.15791484587632e-16
+        },
+        {
+          "p": 1,
+          "r": 2,
+          "charge": -1,
+          "square_error": 2.2206166720368444e-15,
+          "lands_in_opposite_charge": 8.404473876054227e-16,
+          "stays_in_same_charge": 0.9934541914811247
+        },
+        {
+          "p": 1,
+          "r": 3,
+          "charge": -2,
+          "square_error": 1.5286467525823012e-15,
+          "lands_in_opposite_charge": 1.1829055934876485e-15,
+          "stays_in_same_charge": 0.9902380926221875
+        },
+        {
+          "p": 2,
+          "r": 0,
+          "charge": 2,
+          "square_error": 1.3322676295501878e-15,
+          "lands_in_opposite_charge": 4.3471742384686774e-16,
+          "stays_in_same_charge": 0.9948285348773905
+        },
+        {
+          "p": 2,
+          "r": 1,
+          "charge": 1,
+          "square_error": 1.170045888826637e-15,
+          "lands_in_opposite_charge": 1.1677898954250663e-15,
+          "stays_in_same_charge": 0.9934541914811245
+        },
+        {
+          "p": 2,
+          "r": 2,
+          "charge": 0,
+          "square_error": 1.4204174826467131e-15,
+          "lands_in_opposite_charge": 9.085682076743162e-16
+        },
+        {
+          "p": 3,
+          "r": 0,
+          "charge": 3,
+          "square_error": 4.511278042664725e-16,
+          "lands_in_opposite_charge": 3.1713912778489443e-16,
+          "stays_in_same_charge": 0.992520972776483
+        },
+        {
+          "p": 3,
+          "r": 1,
+          "charge": 2,
+          "square_error": 2.005385426971836e-15,
+          "lands_in_opposite_charge": 7.687572920696345e-16,
+          "stays_in_same_charge": 0.9902380926221878
+        },
+        {
+          "p": 4,
+          "r": 0,
+          "charge": 4,
+          "square_error": 9.114614191360963e-16,
+          "lands_in_opposite_charge": 6.298796613254974e-16,
+          "stays_in_same_charge": 0.9957496834500636
+        }
+      ],
+      "square_error": 4.6629367034256575e-15,
+      "fit_residual": 2.3314683517128287e-15,
+      "smallest_same_charge_residual": 0.9902380926221875,
+      "doublet_basis": [
+        "z1",
+        "z2"
+      ],
+      "doublet_matrix": [
+        [
+          -1.3660433929430146e-17,
+          -0.9999999999999999
+        ],
+        [
+          1.0000000000000007,
+          4.7451415501202324e-17
+        ]
+      ],
+      "doublet_imaginary_part": 6.341174774382676e-17,
+      "doublet_is_minus_i_sigma_y": 6.684427777288334e-16,
+      "doublet_is_plus_i_sigma_y": 2.000000000000001
+    },
+    "exceptional_fibre": {
+      "circle_points": 200,
+      "circle_on_equator": 0.0,
+      "circle_maps_to_minus_i": 2.220446049250313e-16,
+      "circle_spread": 1.9588110085055748,
+      "generic_points": 188,
+      "generic_preimage_recovered_up_to_sign": 1.3322676295501878e-15,
+      "unrelated_points_differ": 0.12478542188888297
+    }
+  },
+  "lattice": {
+    "primary": {
+      "config": {
+        "n_ext": 12,
+        "port_a": 0,
+        "port_b": 5,
+        "n_tube": 4
+      },
+      "sites": 32,
+      "pr129": {
+        "twists": [
+          {
+            "eta": 1,
+            "fixed_dim": 64,
+            "field_dim": 128,
+            "charge_on_fixed": 1.553478821083948e-16,
+            "charge_parity_error": 0.0,
+            "omega_on_fixed": 3.106957642167896e-16
+          },
+          {
+            "eta": -1,
+            "fixed_dim": 64,
+            "field_dim": 128,
+            "charge_on_fixed": 1.553478821083948e-16,
+            "charge_parity_error": 0.0,
+            "omega_on_fixed": 3.106957642167896e-16
+          }
+        ]
+      },
+      "pr129_sheet": {
+        "draws": 8,
+        "deck_fixed_error": 0.0,
+        "initial_sheet_charge": 4.1928130889087867e-19,
+        "min_peak_sheet_charge": 0.0002013704585606489,
+        "max_peak_sheet_charge": 0.0005476034698888685,
+        "min_even_part": 0.00020137045856064942,
+        "max_odd_part": 1.1655173354219173e-18,
+        "max_total_charge": 2.222614453595284e-18
+      },
+      "consistency": [
+        {
+          "components": 1,
+          "internal": "conjugate",
+          "loop_sign": 1,
+          "predicted_square": 1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 0.0,
+          "field_dim": 128,
+          "fixed_dim": 64
+        },
+        {
+          "components": 1,
+          "internal": "conjugate",
+          "loop_sign": -1,
+          "predicted_square": -1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 0.0,
+          "field_dim": 128,
+          "fixed_dim": 0
+        },
+        {
+          "components": 2,
+          "internal": "J",
+          "loop_sign": 1,
+          "predicted_square": -1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 0.0,
+          "field_dim": 256,
+          "fixed_dim": 0
+        },
+        {
+          "components": 2,
+          "internal": "J",
+          "loop_sign": -1,
+          "predicted_square": 1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 0.0,
+          "field_dim": 256,
+          "fixed_dim": 128
+        }
+      ],
+      "seam_charges": [
+        {
+          "internal": "J",
+          "loop_sign": -1,
+          "s_t": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 256,
+          "fixed_dim": 128,
+          "omega_on_fixed": 3.5118167353214586e-15,
+          "i": {
+            "max": 0.5000000000000016,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 6.352487940681222e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 6.352487940681228e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 6.405646760382758e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          }
+        },
+        {
+          "internal": "J",
+          "loop_sign": -1,
+          "s_t": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 256,
+          "fixed_dim": 128,
+          "omega_on_fixed": 0.7491881237745194,
+          "i": {
+            "max": 6.405646760382758e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 0.5000000000000016,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 0.5000000000000013,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 0.5000000000000016,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          }
+        },
+        {
+          "internal": "identity",
+          "loop_sign": 1,
+          "s_t": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 256,
+          "fixed_dim": 128,
+          "omega_on_fixed": 2.5473041632379165e-15,
+          "i": {
+            "max": 2.9667196976037513e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 2.9667196976037524e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 2.9667196976037493e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 2.9667196976037513e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          }
+        },
+        {
+          "internal": "identity",
+          "loop_sign": 1,
+          "s_t": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 256,
+          "fixed_dim": 128,
+          "omega_on_fixed": 0.7574337648340687,
+          "i": {
+            "max": 0.5000000000000013,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 0.5000000000000016,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 0.500000000000001,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 0.5000000000000013,
+            "positive": 64,
+            "negative": 64,
+            "parity_error": 0.0
+          }
+        }
+      ],
+      "dynamics": {
+        "rows": [
+          {
+            "amplitude": 0.015625,
+            "initial_fixed_error": 1.8810907692623502e-17,
+            "seam_defect": 1.106567824774898e-15,
+            "energy_drift": 1.8912583190534896e-07,
+            "drift": {
+              "i": 1.4886980537198724e-12,
+              "sigma_x": 4.920543139608213e-15,
+              "sigma_y": 9.963384284272792e-15,
+              "sigma_z": 3.2378613679107104e-15
+            },
+            "total_spin": 9.854964067024241e-15,
+            "charge": 0.12110902604985979,
+            "sheet_relation_error": 1.488656420356449e-12,
+            "sheet_charge_variation": 0.031670298310669226,
+            "max_mouth": 0.02061827048328494
+          },
+          {
+            "amplitude": 0.03125,
+            "initial_fixed_error": 3.7621815385247004e-17,
+            "seam_defect": 1.7948692273641132e-15,
+            "energy_drift": 5.433713620888774e-07,
+            "drift": {
+              "i": 1.4993145613928505e-12,
+              "sigma_x": 4.747070792010533e-15,
+              "sigma_y": 9.815065427076775e-15,
+              "sigma_z": 3.1762786845135338e-15
+            },
+            "total_spin": 9.706645209828224e-15,
+            "charge": 0.12110902604985979,
+            "sheet_relation_error": 1.499272928029427e-12,
+            "sheet_charge_variation": 0.03167042166260618,
+            "max_mouth": 0.020626527647891458
+          },
+          {
+            "amplitude": 0.0625,
+            "initial_fixed_error": 7.524363077049401e-17,
+            "seam_defect": 2.25370366579265e-15,
+            "energy_drift": 1.0208174144258031e-06,
+            "drift": {
+              "i": 7.316369732279782e-13,
+              "sigma_x": 2.8106857119514217e-15,
+              "sigma_y": 6.142655828433874e-15,
+              "sigma_z": 1.8067145002298446e-15
+            },
+            "total_spin": 6.0342356111853235e-15,
+            "charge": 0.12110902604985979,
+            "sheet_relation_error": 7.316092176523625e-13,
+            "sheet_charge_variation": 0.031670915011406404,
+            "max_mouth": 0.02065955480573011
+          },
+          {
+            "amplitude": 0.125,
+            "initial_fixed_error": 1.5048726154098802e-16,
+            "seam_defect": 2.4452532700819234e-15,
+            "energy_drift": 1.301262919042458e-06,
+            "drift": {
+              "i": 1.27675647831893e-15,
+              "sigma_x": 1.2923689896027213e-16,
+              "sigma_y": 1.1188966420050406e-16,
+              "sigma_z": 6.765421556309548e-17
+            },
+            "total_spin": 2.203098814490545e-16,
+            "charge": 0.12110902604985979,
+            "sheet_relation_error": 1.1657341758564144e-15,
+            "sheet_charge_variation": 0.03167288746363187,
+            "max_mouth": 0.020791639455398234
+          }
+        ],
+        "phase_space_dim": 260,
+        "fixed_dim": 130,
+        "omega_on_fixed": 4.296843113574892e-15,
+        "minus_j_is_quarter_rotated_j": 0.0
+      },
+      "labels": {
+        "quarter_preserves_energy": 0.0,
+        "quarter_preserves_flux": 0.0,
+        "quarter_flips_pin_sign": 0.0,
+        "quarter_commutes_with_deck": 2.0,
+        "conjugation_preserves_energy": 0.0,
+        "conjugation_flips_flux": 0.0,
+        "conjugation_commutes_with_deck": 0.0,
+        "initial_flux": 0.004,
+        "base_seam_defect": 1.0896564513881819e-16,
+        "rotated_seam_defect_opposite_pin": 1.0896564513881819e-16,
+        "rotated_seam_defect_same_pin": 0.30017951217983385,
+        "rotated_flux_change": 0.0,
+        "conjugated_seam_defect": 1.0896564513881819e-16,
+        "conjugated_flux_sum": 0.0,
+        "flux_scale": 0.004026689950861366
+      }
+    },
+    "replicate": {
+      "config": {
+        "n_ext": 20,
+        "port_a": 0,
+        "port_b": 7,
+        "n_tube": 6
+      },
+      "sites": 52,
+      "pr129": {
+        "twists": [
+          {
+            "eta": 1,
+            "fixed_dim": 104,
+            "field_dim": 208,
+            "charge_on_fixed": 1.1412468670091573e-15,
+            "charge_parity_error": 0.0,
+            "omega_on_fixed": 2.2824937340183145e-15
+          },
+          {
+            "eta": -1,
+            "fixed_dim": 104,
+            "field_dim": 208,
+            "charge_on_fixed": 1.1412468670091573e-15,
+            "charge_parity_error": 0.0,
+            "omega_on_fixed": 2.2824937340183145e-15
+          }
+        ]
+      },
+      "pr129_sheet": {
+        "draws": 8,
+        "deck_fixed_error": 0.0,
+        "initial_sheet_charge": 2.439454888092385e-19,
+        "min_peak_sheet_charge": 6.349050039294534e-05,
+        "max_peak_sheet_charge": 0.0002578886313421429,
+        "min_even_part": 6.349050039294532e-05,
+        "max_odd_part": 8.74138001566438e-19,
+        "max_total_charge": 1.6534083130403943e-18
+      },
+      "consistency": [
+        {
+          "components": 1,
+          "internal": "conjugate",
+          "loop_sign": 1,
+          "predicted_square": 1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 1.758860482738727e-16,
+          "field_dim": 208,
+          "fixed_dim": 104
+        },
+        {
+          "components": 1,
+          "internal": "conjugate",
+          "loop_sign": -1,
+          "predicted_square": -1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 1.5616410986164295e-16,
+          "field_dim": 208,
+          "fixed_dim": 0
+        },
+        {
+          "components": 2,
+          "internal": "J",
+          "loop_sign": 1,
+          "predicted_square": -1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 1.8456083450017697e-16,
+          "field_dim": 416,
+          "fixed_dim": 0
+        },
+        {
+          "components": 2,
+          "internal": "J",
+          "loop_sign": -1,
+          "predicted_square": 1,
+          "square_error": 0.0,
+          "mouth_square_error": 0.0,
+          "energy_invariance_error": 1.8580183501497613e-16,
+          "field_dim": 416,
+          "fixed_dim": 208
+        }
+      ],
+      "seam_charges": [
+        {
+          "internal": "J",
+          "loop_sign": -1,
+          "s_t": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 416,
+          "fixed_dim": 208,
+          "omega_on_fixed": 3.915906711844327e-15,
+          "i": {
+            "max": 0.5000000000000017,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 4.832521959396093e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 5.5047714796685075e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 4.94224902268825e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          }
+        },
+        {
+          "internal": "J",
+          "loop_sign": -1,
+          "s_t": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 416,
+          "fixed_dim": 208,
+          "omega_on_fixed": 0.9802965908101868,
+          "i": {
+            "max": 4.942249022688261e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 0.5000000000000016,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 0.5000000000000031,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 0.500000000000002,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          }
+        },
+        {
+          "internal": "identity",
+          "loop_sign": 1,
+          "s_t": -1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 416,
+          "fixed_dim": 208,
+          "omega_on_fixed": 3.3709748247505093e-15,
+          "i": {
+            "max": 4.032019653548286e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 3.961382634669152e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 3.822973415406574e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 4.032019653548286e-15,
+            "positive": 0,
+            "negative": 0,
+            "parity_error": 0.0
+          }
+        },
+        {
+          "internal": "identity",
+          "loop_sign": 1,
+          "s_t": 1,
+          "involution_error": 0.0,
+          "symplectic_sign_error": 0.0,
+          "field_dim": 416,
+          "fixed_dim": 208,
+          "omega_on_fixed": 0.9858292262597562,
+          "i": {
+            "max": 0.5000000000000017,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          },
+          "sigma_x": {
+            "max": 0.5000000000000014,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          },
+          "sigma_y": {
+            "max": 0.5000000000000014,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          },
+          "sigma_z": {
+            "max": 0.5000000000000016,
+            "positive": 104,
+            "negative": 104,
+            "parity_error": 0.0
+          }
+        }
+      ],
+      "dynamics": {
+        "rows": [
+          {
+            "amplitude": 0.015625,
+            "initial_fixed_error": 1.1058862159352145e-17,
+            "seam_defect": 3.135275503528878e-16,
+            "energy_drift": 1.6665294740982945e-07,
+            "drift": {
+              "i": 3.1641009257121766e-13,
+              "sigma_x": 2.883001996856205e-15,
+              "sigma_y": 2.8080836267374565e-15,
+              "sigma_z": 6.525596035755754e-15
+            },
+            "total_spin": 6.542075908777534e-15,
+            "charge": -0.010369362296564797,
+            "sheet_relation_error": 3.1640488840078973e-13,
+            "sheet_charge_variation": 0.006584077557250252,
+            "max_mouth": 0.02061584552616398
+          },
+          {
+            "amplitude": 0.03125,
+            "initial_fixed_error": 2.211772431870429e-17,
+            "seam_defect": 4.974909271498357e-16,
+            "energy_drift": 4.909916200343922e-07,
+            "drift": {
+              "i": 3.162557021818557e-13,
+              "sigma_x": 2.9333089776595322e-15,
+              "sigma_y": 2.8774725657765288e-15,
+              "sigma_z": 6.404599073306372e-15
+            },
+            "total_spin": 6.4210789463281515e-15,
+            "charge": -0.010369362296564797,
+            "sheet_relation_error": 3.1631468278003894e-13,
+            "sheet_charge_variation": 0.00658410299585562,
+            "max_mouth": 0.020616827876198316
+          },
+          {
+            "amplitude": 0.0625,
+            "initial_fixed_error": 4.423544863740858e-17,
+            "seam_defect": 6.315323459089294e-16,
+            "energy_drift": 9.556149096476109e-07,
+            "drift": {
+              "i": 3.209689458660847e-13,
+              "sigma_x": 2.993156937580732e-15,
+              "sigma_y": 2.927779546579856e-15,
+              "sigma_z": 6.22071838485283e-15
+            },
+            "total_spin": 6.23719825787461e-15,
+            "charge": -0.010369362296564797,
+            "sheet_relation_error": 3.2101057922950815e-13,
+            "sheet_charge_variation": 0.006584204744359147,
+            "max_mouth": 0.020620756627218326
+          },
+          {
+            "amplitude": 0.125,
+            "initial_fixed_error": 8.847089727481716e-17,
+            "seam_defect": 6.928778179324296e-16,
+            "energy_drift": 1.247501639696573e-06,
+            "drift": {
+              "i": 3.191891195797325e-16,
+              "sigma_x": 1.0505919051384538e-16,
+              "sigma_y": 5.941427905220564e-17,
+              "sigma_z": 6.310056643865636e-17
+            },
+            "total_spin": 1.9168694409543718e-16,
+            "charge": -0.010369362296564797,
+            "sheet_relation_error": 3.8337388819087437e-16,
+            "sheet_charge_variation": 0.006584611643983024,
+            "max_mouth": 0.020636461253722885
+          }
+        ],
+        "phase_space_dim": 420,
+        "fixed_dim": 210,
+        "omega_on_fixed": 3.4114783497597334e-15,
+        "minus_j_is_quarter_rotated_j": 0.0
+      },
+      "labels": {
+        "quarter_preserves_energy": 0.0,
+        "quarter_preserves_flux": 0.0,
+        "quarter_flips_pin_sign": 0.0,
+        "quarter_commutes_with_deck": 2.0,
+        "conjugation_preserves_energy": 0.0,
+        "conjugation_flips_flux": 0.0,
+        "conjugation_commutes_with_deck": 0.0,
+        "initial_flux": 0.004000000000000001,
+        "base_seam_defect": 4.697930036234727e-16,
+        "rotated_seam_defect_opposite_pin": 4.697930036234727e-16,
+        "rotated_seam_defect_same_pin": 0.40748592818751134,
+        "rotated_flux_change": 1.734723475976807e-18,
+        "conjugated_seam_defect": 4.697930036234727e-16,
+        "conjugated_flux_sum": 0.0,
+        "flux_scale": 0.004002281629092783
+      }
+    }
+  },
+  "checks": {
+    "M1 antipode is the fibre translation by pi": true,
+    "M1 it fixes the Hopf base": true,
+    "M1 it acts on charge k as the scalar (-1)^k": true,
+    "M2 antipode preserves the spatial brane mouth": true,
+    "M2 Hopf map identifies antipodes of the spatial brane mouth": true,
+    "review: it is two-to-one where p.i is nonzero": true,
+    "review: the whole circle p.i = 0 maps to -i": true,
+    "M2 transport does not preserve the spatial brane mouth": true,
+    "M2 transport covers the Hopf-base antipode and reverses the fibre": true,
+    "M2 transport is the recorded rotation with square -I": true,
+    "M3 pullback sends charge k to charge -k": true,
+    "M3 A squares to (-1)^k": true,
+    "M3 on the doublet A is J up to the Pin sign": true,
+    "review: neutral sheets still exchange charge, evenly in time, with zero total": true,
+    "M4 total charge is deck odd and vanishes for both twists": true,
+    "M5 D squares to B^2 W in all four cases": true,
+    "M5 H is invariant under D in all four cases": true,
+    "M5 singlet is admissible only on the periodic loop": true,
+    "M5 doublet with J is admissible only on the antiperiodic loop": true,
+    "M6 every seam is an involution with the predicted symplectic sign": true,
+    "M6 J seam, time reversed: charge survives, spin vanishes": true,
+    "M6 J seam, time kept: charge vanishes, spin survives": true,
+    "M6 linear seam, time reversed: both vanish": true,
+    "M6 linear seam, time kept: both survive": true,
+    "M6 responding histories satisfy the seam relation": true,
+    "M6 fixed space is a Lagrangian half": true,
+    "M6 charge and spin are conserved and total spin is zero": true,
+    "M6 sheet charge obeys Q1(t) + Q1(-t) = Q": true,
+    "M7 quarter rotation is a symmetry that leaves the flux alone": true,
+    "M7 quarter rotation flips the Pin sign": true,
+    "M7 conjugation is a symmetry that flips the flux and keeps the Pin sign": true,
+    "M7 both map admissible histories to admissible histories": true,
+    "M7 the rotated history is not admissible for the original Pin sign": true
+  },
+  "check_groups": {
+    "antipodal_map": [
+      "M1 antipode is the fibre translation by pi",
+      "M1 it fixes the Hopf base",
+      "M1 it acts on charge k as the scalar (-1)^k"
+    ],
+    "two_spheres": [
+      "M2 antipode preserves the spatial brane mouth",
+      "M2 Hopf map identifies antipodes of the spatial brane mouth",
+      "review: it is two-to-one where p.i is nonzero",
+      "review: the whole circle p.i = 0 maps to -i",
+      "M2 transport does not preserve the spatial brane mouth",
+      "M2 transport covers the Hopf-base antipode and reverses the fibre",
+      "M2 transport is the recorded rotation with square -I"
+    ],
+    "transport_on_fibre_modes": [
+      "M3 pullback sends charge k to charge -k",
+      "M3 A squares to (-1)^k",
+      "M3 on the doublet A is J up to the Pin sign"
+    ],
+    "pr129_cell": [
+      "review: neutral sheets still exchange charge, evenly in time, with zero total",
+      "M4 total charge is deck odd and vanishes for both twists"
+    ],
+    "spinor_seam_consistency": [
+      "M5 D squares to B^2 W in all four cases",
+      "M5 H is invariant under D in all four cases",
+      "M5 singlet is admissible only on the periodic loop",
+      "M5 doublet with J is admissible only on the antiperiodic loop"
+    ],
+    "transport_seam_charges": [
+      "M6 every seam is an involution with the predicted symplectic sign",
+      "M6 J seam, time reversed: charge survives, spin vanishes",
+      "M6 J seam, time kept: charge vanishes, spin survives",
+      "M6 linear seam, time reversed: both vanish",
+      "M6 linear seam, time kept: both survive",
+      "M6 responding histories satisfy the seam relation",
+      "M6 fixed space is a Lagrangian half",
+      "M6 charge and spin are conserved and total spin is zero",
+      "M6 sheet charge obeys Q1(t) + Q1(-t) = Q"
+    ],
+    "flux_sign_vs_pin_label": [
+      "M7 quarter rotation is a symmetry that leaves the flux alone",
+      "M7 quarter rotation flips the Pin sign",
+      "M7 conjugation is a symmetry that flips the flux and keeps the Pin sign",
+      "M7 both map admissible histories to admissible histories",
+      "M7 the rotated history is not admissible for the original Pin sign"
+    ]
+  },
+  "checks_passed": true,
+  "verdict": {
+    "antipodal_map": "FIBRE_TRANSLATION_FIXING_THE_HOPF_BASE",
+    "two_spheres": "SPATIAL_BRANE_MOUTH_IS_NOT_THE_HOPF_BASE",
+    "transport_on_fibre_modes": "ANTILINEAR_SQUARE_MINUS_ONE_ON_ODD_CHARGE_J_ON_THE_DOUBLET",
+    "pr129_cell": "FIBRE_PRESERVING_TOTAL_CHARGE_ZERO_SHEET_EXCHANGE_EVEN",
+    "spinor_seam_consistency": "TRANSPORT_SEAM_NEEDS_ANTIPERIODIC_DOUBLED_LOOP",
+    "transport_seam_charges": "CHARGE_SURVIVES_SPIN_VANISHES_WITH_TIME_REVERSAL",
+    "flux_sign_vs_pin_label": "INDEPENDENT_LABELS",
+    "bam_cell": "DEPENDS_ON_FIELD_TYPE_AND_TIME_EXTENSION",
+    "support_dynamics": "EFFECTIVE_SUPPORT_ASSUMED",
+    "positive_response": "NOT_DERIVED",
+    "event_law": "NOT_DERIVED",
+    "numerical_validity": "PASS",
+    "failed_checks": [],
+    "missing_checks": [],
+    "counterexamples": {}
+  }
+}

@@ -120,16 +120,21 @@ def satisfies(row: dict, zero: float = 1e-9, present: float = 1e-6) -> dict:
     p = row["predicted"]
     if p == "odd":
         rule = row["max_even_part"] < zero
-        live = row["min_odd_part"] > present
+        live = (row["min_odd_part"] > present
+                and row["min_variation"] > present)
     elif p == "even":
         rule = row["max_odd_part"] < zero and row["max_abs_total"] < zero
-        live = row["min_even_part"] > present
+        # A nonzero even part is not exchange: a constant sheet value has
+        # one. Exchange means the value varies (corrected after review).
+        live = (row["min_even_part"] > present
+                and row["min_variation"] > present)
     elif p == "constant":
         rule = row["max_variation"] < zero
         live = True
     else:                                   # unconstrained
         rule = row["max_abs_total"] < zero
-        live = row["min_even_part"] > 1e-7 and row["min_odd_part"] > 1e-7
+        live = (row["min_even_part"] > 1e-7 and row["min_odd_part"] > 1e-7
+                and row["min_variation"] > present)
     return {"rule": bool(rule), "live": bool(live)}
 
 

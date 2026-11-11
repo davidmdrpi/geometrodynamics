@@ -161,9 +161,16 @@ question. The continuum operator is diagonal with symbol `(q/α)² − k²`,
 | `τ/π` | smallest gap | at `k` |
 |---|---:|---:|
 | `7/48` | 0 | 48 |
-| golden ratio conjugate | 1.3820 | 2 |
+| golden ratio conjugate | 1.0000 | 1 |
 | `√2 − 1` | 1.0000 | 1 |
 | `π − 3` | 0.0481 | 113 |
+
+*Corrected after review of `c433f91`:* the diagnostic first rounded `kα` to
+the nearest integer, which is not the minimiser of a difference of squares.
+It now tries both neighbouring integers, zero included. The golden-ratio
+entry was `1.3820` at `k = 2`; the true minimum is `1` at `k = 1`, `q = 0`.
+The other entries are unchanged. Corrected run:
+`runs/20261111_klein_time_review2/`.
 
 The gap stays bounded away from zero exactly when `α` is badly
 approximable, which is a set of measure zero; for almost every spacing it is
