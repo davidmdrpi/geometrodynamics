@@ -5590,7 +5590,7 @@ python -m pytest -q tests/test_klein_handle_matching.py             # 24 tests
 ## The two routes on equal terms: the matter current wins, the flux lasts (round 16)
 
 *Pre-registered in `docs/klein_handle_routes_prereg.md` (`fd78693`),
-committed before the module. Module
+committed before the module; corrected after review of `76c2067`. Module
 `geometrodynamics/bulk/klein_handle_routes.py`; probe
 `klein_handle_routes_probe.py`; tests `tests/test_klein_handle_routes.py`.
 Write-up: [klein_handle_routes.md](docs/klein_handle_routes.md).*
@@ -5600,34 +5600,40 @@ pairing: flux trapped around the handle loop, and a matter current. This
 round compares them at matched total energy, over 12 draws at each of two
 sizes, with gauge-invariant observables only.
 
-**Nine of ten frozen predictions hold; one is contradicted as frozen.**
+**Nine of ten frozen predictions hold as frozen; one is contradicted; three
+conclusions were too strong and are corrected.**
 
 * **The matter current gives the larger sheet charge.** At short times by
   a median factor of 23 to 430, with the ratio growing as the square
   root of energy (slopes `0.497`, `0.500`); over a window of 200 time units
   by about a factor of three. The flux route led in 1 of 96 long-window
   comparisons.
-* **The trapped flux is the longer-lived input.** It never changes sign and
-  stays within 1.5 % of its initial value, while the matter current's
-  pattern loses half its self-overlap in half a time unit.
+* **The trapped flux is the longer-lived input.** It keeps its sign in all
+  96 histories. Its median excursion is about 1 %; individual histories move
+  by up to 6.3 %. The matter current's pattern loses half its self-overlap
+  in half a time unit.
 * **A flux with the field at rest gives no sheet charge at all**, by
   symmetry. The flux route needs field momentum.
-* **The stronger route needs only the fibre reversal.** The matter current
-  at rest is equally admissible on the time-preserving fibre-reversing seam
-  and separates charge there. So the pairing and round 12's Lagrangian
-  halving come apart: the pairing needs fibre reversal and a matter current,
-  the halving needs time reversal.
-* **No first-order interference.** The two contributions add, and their
+* **A matter current separates charge on every seam except the ordinary
+  handle**, at comparable strength, and the seam fixes the parity in time:
+  `Q_1(s_t t) = -s_t s_f Q_1(t)`. Time reversal alone gives a sheet charge
+  even in time; both reversals give one odd in time.
+* **The pairing and round 12's Lagrangian halving are distinct properties.**
+  The halving needs the time reversal; a matter-driven pairing needs at
+  least one reversal of either kind.
+* **The two routes add at leading order in the matter amplitude**, and their
   relative sign is a gauge-invariant, conjugation-invariant label.
-* Sheet charge scales as energy for the matter route and as energy to the
-  three halves for the flux route; one third of the energy in the flux is
-  optimal; the matter route is independent of the coupling.
 
-**Contradicted.** I froze a formula for the early change of the trapped flux
-with a 5 % tolerance; one draw misses by 6.4 %. Its sign rule holds in all
-22 resolved draws and it is the correct leading order, with error falling as
-`t^2`; the tolerance was mis-set. My first explanation of the miss was also
-wrong. The formula does not explain round 14's screening result.
+**Withdrawn after review.** That the matter route needs the fibre reversal:
+it is sufficient, not necessary, and I had not tested the fourth cell. That
+there is no first-order interference: the part of the additivity defect odd
+in the flux is nonzero and quartic in the field. That the flux never moves by
+more than 1.5 %: that was a bound on medians.
+
+**Contradicted as frozen.** A 5 % tolerance on a leading-order formula for
+the early change of the trapped flux; one draw misses by 6.4 %. Its sign rule
+holds in all 22 resolved draws and its error falls as `t^2`. It does not
+explain round 14's screening result.
 
 **What it is not.** Matched total energy is one definition of equal terms.
 Neither datum is derived, no preparation gives a sheet charge of stable
@@ -5635,8 +5641,8 @@ sign, a lattice without dissipation has no lifetimes, and nothing here is a
 probability.
 
 ```bash
-python -m experiments.closure_ledger.klein_handle_routes_probe   # about 7 minutes
-python -m pytest -q tests/test_klein_handle_routes.py             # 22 tests
+python -m experiments.closure_ledger.klein_handle_routes_probe   # about 10 minutes
+python -m pytest -q tests/test_klein_handle_routes.py             # 32 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

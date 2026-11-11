@@ -600,6 +600,170 @@ def numerical_report(model, d: Draw, steps: int = LONG_STEPS) -> dict:
 
 
 # --------------------------------------------------------------------------
+# Review of 76c2067
+# --------------------------------------------------------------------------
+
+def cell_matter_state(model, s_t: int, s_f: int, energy: float,
+                      rng: np.random.Generator) -> np.ndarray:
+    """R1. Deck-fixed complex matter data in any seam cell.
+
+    Zero total charge, zero sheet charge at the mirror time, loop-free Gauss
+    field, no trapped flux, total energy ``energy``.
+    """
+    s, n = model.slices, model.net.n
+    p = model.net.swap
+
+    def part(sign):
+        r = rng.standard_normal(model.n_sites)
+        return 0.5 * (r + sign * p @ r)
+
+    x, y = part(1), part(s_f)
+    px, py = part(s_t), part(s_t * s_f)
+    # Zero sheet-1 charge: adjust p_y along a vector of its own parity.
+    u = np.zeros(model.n_sites)
+    u[:n] = x[:n]
+    u = 0.5 * (u + s_t * s_f * p @ u) * 2.0
+    q1 = float(np.sum(x[:n] * py[:n] - y[:n] * px[:n]))
+    denom = float(np.sum(x[:n] * u[:n]))
+    py = py - (q1 / denom) * u
+    if s_t * s_f == 1:                       # total charge is not automatic
+        total = float(x @ py - y @ px)
+        assert abs(total) < 1e-9 * (np.linalg.norm(x) * np.linalg.norm(py))
+    return _scale_to_energy(model, lambda lam: _state(
+        model, lam * x, lam * y, lam * px, lam * py), energy)
+
+
+def seam_cell_matter_report(model, rng: np.random.Generator,
+                            count: int = DRAWS) -> list:
+    """R1. Matter-driven sheet charge in all four cells, and its time parity.
+
+    For zero-total-charge deck-compatible histories
+    ``Q_1(s_t t) = -s_t s_f Q_1(t)``.
+    """
+    from scipy.integrate import solve_ivp
+
+    rows = []
+    for s_t, s_f in ke.CELLS:
+        deck = model.deck(s_t, s_f)
+        starts = np.array([cell_matter_state(model, s_t, s_f,
+                                             REFERENCE_ENERGY, rng)
+                           for _ in range(count)])
+        fwd = ke.flow(model, starts, SHORT_STEPS)
+        bwd = ke.flow(model, starts, SHORT_STEPS, -STEP)
+        t, b = fwd.shape[:2]
+        qf = model.sheet_charge(fwd.reshape(t * b, -1)).reshape(t, b)
+        qb = model.sheet_charge(bwd.reshape(t * b, -1)).reshape(t, b)
+        other = qb if s_t == -1 else qf
+        peak = np.abs(qf).max(axis=0)
+        ref = solve_ivp(lambda tt, yy: model.vector_field(yy)[0],
+                        (0.0, SHORT_STEPS * STEP), starts[0], method="DOP853",
+                        rtol=1e-11, atol=1e-14,
+                        t_eval=np.linspace(0, SHORT_STEPS * STEP,
+                                           SHORT_STEPS + 1))
+        ref_q = model.sheet_charge(ref.y.T)
+        flat = fwd.reshape(t * b, -1)
+        rows.append({
+            "s_t": s_t, "s_f": s_f,
+            "deck_fixed_error": float(np.abs(starts @ deck.T - starts).max()),
+            "gauss": float(np.abs(model.gauss(flat)).max()),
+            "initial_sheet_charge": float(np.abs(qf[0]).max()),
+            "initial_handle_flux": float(np.abs(
+                model.handle_flux(starts)).max()),
+            "total_charge": float(np.abs(
+                model.charge_density(flat).sum(axis=1)).max()),
+            "median_peak_sheet_charge": float(np.median(peak)),
+            "min_peak_sheet_charge": float(peak.min()),
+            "max_peak_sheet_charge": float(peak.max()),
+            "time_parity_error": float(np.abs(
+                other + s_t * s_f * qf).max()),
+            "predicted_parity": ("zero" if (s_t, s_f) == (1, 1) else
+                                 "unconstrained" if s_t == 1 else
+                                 "even" if s_f == 1 else "odd"),
+            "dop853_peak": float(np.abs(ref_q).max()),
+            "dop853_disagreement": float(np.abs(ref_q - qf[:, 0]).max()
+                                         / max(np.abs(ref_q).max(), 1e-300)),
+            "dop853_gauss": float(np.abs(model.gauss(ref.y.T)).max()),
+        })
+    return rows
+
+
+def odd_defect_report(model, ds: list, energies=(REFERENCE_ENERGY, 1.6e-2),
+                      fluxes=(4e-3, 2e-3)) -> dict:
+    """R2. The part of the additivity defect that is odd in the flux.
+
+    Charge conjugation forbids ``x y Phi`` and allows ``x^2 y^2 Phi``. So
+    additivity holds at leading order in the matter amplitude only, and
+    ``(D(Phi) - D(-Phi)) / (2 Phi)`` should be nonzero, independent of the
+    flux, and quartic in the field.
+    """
+    s, cycle = model.slices, model.handle_cycle
+
+    def defect(m, phi):
+        def with_flux(z):
+            out = z.copy()
+            out[s["E"]] += phi * cycle
+            return out
+
+        real, imag = np.zeros(model.dim), np.zeros(model.dim)
+        for name in ("x", "px"):
+            real[s[name]] = m[s[name]]
+        for name in ("y", "py"):
+            imag[s[name]] = m[s[name]]
+        starts = np.array([m, with_flux(m), with_flux(real), with_flux(imag)])
+        hist = ke.flow(model, starts, SHORT_STEPS)
+        t, b = hist.shape[:2]
+        q = model.sheet_charge(hist.reshape(t * b, -1)).reshape(t, b)
+        return q[:, 1] - q[:, 0] - q[:, 2] - q[:, 3]
+
+    out = {"energies": list(energies), "fluxes": list(fluxes), "rows": []}
+    for energy in energies:
+        end, peak, even, agree = [], [], [], []
+        for d in ds:
+            m = matter(model, d, energy)
+            odd = []
+            for phi in fluxes:
+                dp, dm = defect(m, phi), defect(m, -phi)
+                odd.append((dp - dm) / (2 * phi))
+                if phi == fluxes[0]:
+                    even.append(float(np.abs(dp + dm).max() / 2))
+            end.append(float(odd[0][-1]))
+            peak.append(float(np.abs(odd[0]).max()))
+            agree.append(float(np.abs(odd[0] - odd[1]).max()
+                               / np.abs(odd[0]).max()))
+        out["rows"].append({
+            "energy": energy, "endpoint_first_draw": end[0],
+            "median_peak_odd_defect": float(np.median(peak)),
+            "min_peak_odd_defect": float(np.min(peak)),
+            "median_even_defect": float(np.median(even)),
+            "worst_change_on_halving_flux": float(np.max(agree)),
+        })
+    peaks = [r["median_peak_odd_defect"] for r in out["rows"]]
+    out["slope_in_energy"] = _slope(list(energies), peaks)
+    return out
+
+
+def flux_retention_report(model, ds: list, steps: int = LONG_STEPS) -> dict:
+    """R3. Per-draw extrema of the handle-loop flux, not medians."""
+    rows = []
+    for energy in ENERGIES:
+        starts = np.array([flux_route(model, d, energy) for d in ds])
+        flux = long_observables(model, starts, steps)["flux"]
+        ratio = flux / flux[0]
+        lo, hi = ratio.min(axis=0), ratio.max(axis=0)
+        rows.append({
+            "energy": energy,
+            "median_min": float(np.median(lo)),
+            "median_max": float(np.median(hi)),
+            "worst_min": float(lo.min()), "worst_draw": int(lo.argmin()),
+            "worst_max": float(hi.max()),
+            "largest_excursion": float(max(1 - lo.min(), hi.max() - 1)),
+            "draws_changing_sign": int(np.sum(lo < 0)),
+            "per_draw_min": lo.tolist(), "per_draw_max": hi.tolist(),
+        })
+    return {"window": steps * STEP, "rows": rows}
+
+
+# --------------------------------------------------------------------------
 # Verdict
 # --------------------------------------------------------------------------
 
@@ -607,7 +771,8 @@ VERDICT_FIELDS = ("numerical_validity", "flux_route_requirement",
                   "energy_scaling", "short_time_ranking", "flux_fraction",
                   "coupling_dependence", "electric_sectors", "interference",
                   "screening_rule", "screening_leading_order",
-                  "reversal_requirements", "long_time_ranking",
+                  "reversal_requirements", "seam_cells", "temporal_symmetry",
+                  "long_time_ranking", "flux_retention",
                   "long_window_numerics", "support_dynamics",
                   "orienting_datum", "positive_response", "event_law")
 CONFIRMED = {
@@ -617,14 +782,23 @@ CONFIRMED = {
     "flux_fraction": "OPTIMUM_AT_ONE_THIRD_IN_THE_FLUX",
     "coupling_dependence": "MATTER_ROUTE_IS_TRANSPORT_FLUX_ROUTE_IS_ELECTRIC",
     "electric_sectors": "ROUTES_OCCUPY_DIFFERENT_ELECTRIC_SECTORS",
-    "interference": "NO_FIRST_ORDER_INTERFERENCE_RELATIVE_SIGN_PHYSICAL",
+    "interference":
+        "ADDITIVE_AT_LEADING_ORDER_IN_MATTER_AMPLITUDE_RELATIVE_SIGN_PHYSICAL",
     "screening_rule": "EARLY_FLUX_CHANGE_SET_BY_LOOP_BOND_ORDER",
     # Added after the frozen tolerance was missed; not a frozen prediction.
     "screening_leading_order":
         "BOND_ORDER_FIXES_THE_SIGN_AND_LEADING_ORDER_OF_EARLY_FLUX_CHANGE",
     "long_window_numerics": "STATISTICS_STABLE_UNDER_STEP_AND_INTEGRATOR",
-    "reversal_requirements": "MATTER_ROUTE_NEEDS_ONLY_FIBRE_REVERSAL",
+    "reversal_requirements": "AT_REST_MATTER_ROUTE_DOES_NOT_NEED_TIME_REVERSAL",
+    # Added after review of 76c2067.
+    "seam_cells": "MATTER_PAIRING_IN_EVERY_CELL_EXCEPT_THE_ORDINARY_HANDLE",
+    "temporal_symmetry": "TIME_PARITY_OF_SHEET_CHARGE_IS_SET_BY_THE_SEAM",
+    "flux_retention": "SIGN_RETAINED_IN_EVERY_DRAW_EXCURSIONS_UP_TO_SEVEN_PERCENT",
     "long_time_ranking": "FLUX_ROUTE_GAINS_AT_LONG_TIMES",
+}
+FROZEN_LABELS = {
+    "interference": "NO_FIRST_ORDER_INTERFERENCE_RELATIVE_SIGN_PHYSICAL",
+    "reversal_requirements": "MATTER_ROUTE_NEEDS_ONLY_FIBRE_REVERSAL",
 }
 FIXED = {
     "support_dynamics": "EFFECTIVE_SUPPORT_ASSUMED",

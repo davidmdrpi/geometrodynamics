@@ -1083,22 +1083,23 @@ type and on the chosen datum `T`. Frozen at `3d3ee38`. See
 
 At matched total energy the matter current drives a larger sheet pairing
 than trapped flux at every energy and time scale tested, while the trapped
-flux is the more durable input. The two add without first-order
-interference, with a physical relative sign.
+flux is the more durable input, keeping its sign in every history. The two
+add at leading order in the matter amplitude, with a physical relative sign.
 
-The consequence for this audit is structural. The stronger route needs only
-the fibre reversal: the matter-current preparation at rest is admissible on
-the time-preserving fibre-reversing seam and separates charge there. So two
-things that rounds 12-13 presented together come apart. The **pairing**
-between the two sectors needs a fibre-reversing seam and a matter current.
-The **Lagrangian halving** needs the time reversal. Round 15 found that the
-recorded transport of PR #279 supplies the fibre reversal for a spin-frame
-field and that PR #129's time-reversing map does not combine with it; after
-this round that is less of an obstacle to the pairing and more of a question
-about what the time reversal is for.
+The consequence for this audit is structural. Two things that rounds 12-13
+presented together are distinct properties. The **Lagrangian halving** needs
+the time reversal. A matter-driven **pairing** needs at least one reversal
+of either kind: it appears on every seam except the ordinary handle. And the
+seam fixes the parity in time of the sheet charge, `Q_1(s_t t) = -s_t s_f
+Q_1(t)`: even when only time is reversed, odd when both are.
 
-One frozen prediction, a 5 % tolerance on a leading-order formula for the
-early flux change, was contradicted and is recorded as such.
+*Corrected after review of `76c2067`.* The first version of this note said
+the pairing needs the fibre reversal. That generalised from two tested
+seams; the time-reversing, fibre-preserving seam also separates charge. It
+also follows that the existence of a pairing does not discriminate between
+the cells round 15 left open; its temporal symmetry does. One frozen
+prediction, a tolerance on the early flux change, was contradicted and is
+recorded as such.
 
 Effect on the findings: **none of F1-F9 changes status.** No norm, readout
 or event frequency follows. Frozen at `fd78693`. See

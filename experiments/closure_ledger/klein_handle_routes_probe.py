@@ -18,6 +18,21 @@ from geometrodynamics.bulk import klein_handle_response as kh
 from geometrodynamics.bulk import klein_handle_routes as kr
 
 PREREG = "fd78693"
+REVIEWED = "76c2067"
+WITHDRAWN = {
+    "the matter route needs the fibre reversal":
+        "Fibre reversal is sufficient, not necessary. Admissible matter data "
+        "on the time-reversing, fibre-preserving seam, with zero initial "
+        "sheet charge and zero trapped flux, also develop sheet charge. Only "
+        "the ordinary handle forbids it.",
+    "no first-order interference":
+        "Charge conjugation forbids x y Phi and allows x^2 y^2 Phi. The part "
+        "of the additivity defect odd in the flux is nonzero and quartic in "
+        "the field. Additivity holds at leading order in matter amplitude.",
+    "the flux never moves by more than 1.5 percent":
+        "That bound was on medians. Individual histories move by up to 6.3 "
+        "percent. No history changes sign.",
+}
 SCOPE = ("Round 14's lattice electrodynamics on the doubly reversed seam. "
          "Trapped flux and a matter current compared at matched total "
          "energy, over 12 draws at each of two sizes, with gauge-invariant "
@@ -57,7 +72,66 @@ def measure(config: dict, long_steps: int, numerics: bool) -> dict:
     }
     if numerics:
         out["numerics"] = kr.numerical_report(model, ds[0], long_steps)
+    out["review"] = review(model, ds, long_steps)
     return out
+
+
+def review(model, ds, long_steps=kr.LONG_STEPS) -> dict:
+    """Measurements added after review of ``76c2067``; not frozen."""
+    return {
+        "seam_cells": kr.seam_cell_matter_report(
+            model, np.random.default_rng(kr.SEED + 21), len(ds)),
+        "odd_defect": kr.odd_defect_report(model, ds),
+        "flux_retention": kr.flux_retention_report(model, ds, long_steps),
+    }
+
+
+def evaluate_review(rv: dict) -> dict:
+    cells = {(c["s_t"], c["s_f"]): c for c in rv["seam_cells"]}
+    odd, ret = rv["odd_defect"], rv["flux_retention"]
+    others = [c for k, c in cells.items() if k != (1, 1)]
+    return {
+        "seam_cells": {
+            "R1 data in all four cells are admissible with no initial sheet "
+            "charge or flux": len(cells) == 4 and all(
+                c["deck_fixed_error"] < EXACT and c["gauss"] < ZERO
+                and c["initial_sheet_charge"] < EXACT
+                and c["initial_handle_flux"] < EXACT
+                and c["total_charge"] < ZERO for c in cells.values()),
+            "R1 the ordinary handle develops no sheet charge": (
+                cells[(1, 1)]["max_peak_sheet_charge"] < EXACT),
+            "R1 the other three cells all do, in every draw": all(
+                c["min_peak_sheet_charge"] > 1e-7 for c in others),
+            "R1 an independent integrator agrees": all(
+                c["dop853_disagreement"] < 1e-2 and c["dop853_gauss"] < ZERO
+                for c in others),
+        },
+        "temporal_symmetry": {
+            "R1 Q1(s_t t) = -s_t s_f Q1(t) in all four cells": all(
+                c["time_parity_error"] < ZERO for c in cells.values()),
+        },
+        "interference_review": {
+            "R2 the odd part of the additivity defect is nonzero in every "
+            "draw": all(r["min_peak_odd_defect"] > 1e-12
+                        for r in odd["rows"]),
+            "R2 it does not depend on the flux": all(
+                r["worst_change_on_halving_flux"] < 1e-2
+                for r in odd["rows"]),
+            "R2 it is quartic in the field": (
+                abs(odd["slope_in_energy"] - 2) < 0.2),
+        },
+        "flux_retention": {
+            "R3 no history changes the sign of the flux": all(
+                r["draws_changing_sign"] == 0 and r["worst_min"] > 0
+                for r in ret["rows"]),
+            "R3 the largest excursion of any history is below 7 %": all(
+                r["largest_excursion"] < 0.07 for r in ret["rows"]),
+            # A statement about the full 200-unit window only.
+            "R3 it exceeds the withdrawn 1.5 % bound": (
+                ret["window"] < kr.LONG_STEPS * kr.STEP or max(
+                    r["largest_excursion"] for r in ret["rows"]) > 0.015),
+        },
+    }
 
 
 def evaluate(m: dict) -> dict:
@@ -173,6 +247,10 @@ def evaluate(m: dict) -> dict:
             num[k]["rms_change_dop853"] < 1e-2
             and num[k]["dop853_gauss"] < ZERO for k in num)
     out["long_window_numerics"] = numerics
+    if "review" in m:
+        extra = evaluate_review(m["review"])
+        out["interference"].update(extra.pop("interference_review"))
+        out.update(extra)
     return out
 
 
@@ -192,7 +270,10 @@ def run_probe(progress=lambda s: None, sizes=None, long_steps=kr.LONG_STEPS,
                if not all(checks[c] for c in groups[k])}
     v = kr.verdict(checks, groups, counter)
     return {
-        "public_preregistration": PREREG, "scope": SCOPE, "seed": kr.SEED,
+        "public_preregistration": PREREG, "reviewed_commit": REVIEWED,
+        "scope": SCOPE, "seed": kr.SEED,
+        "withdrawn_claims": WITHDRAWN,
+        "frozen_labels_changed": dict(kr.FROZEN_LABELS),
         "long_window": long_steps * kr.STEP,
         "measurements": measured,
         "checks_by_size": {s: {c: bool(val) for g in per_size[s].values()
@@ -221,6 +302,41 @@ def render(report):
                   + ", ".join(f"`{c}`" for c in v["failed_checks"]),
                   "", "**Not run:** "
                   + ", ".join(f"`{c}`" for c in v["missing_checks"])]
+    lines += ["", f"Corrected after review of `{report['reviewed_commit']}`. "
+              "Withdrawn:", ""]
+    lines += [f"- *{claim}.* {why}"
+              for claim, why in report["withdrawn_claims"].items()]
+    lines += ["", "## Review: matter-driven sheet charge in every seam cell",
+              "", "| size | time | fibre | median peak | range | parity in "
+              "time | parity error |", "|---|---|---|---:|---|---|---:|"]
+    for size in sizes:
+        for c in report["measurements"][size]["review"]["seam_cells"]:
+            lines.append(
+                f"| {size} | {'reversed' if c['s_t'] == -1 else 'kept'} | "
+                f"{'reversed' if c['s_f'] == -1 else 'kept'} | "
+                f"{c['median_peak_sheet_charge']:.2e} | "
+                f"{c['min_peak_sheet_charge']:.1e} to "
+                f"{c['max_peak_sheet_charge']:.1e} | {c['predicted_parity']} "
+                f"| {c['time_parity_error']:.1e} |")
+    lines += ["", "## Review: the odd part of the additivity defect", "",
+              "| size | energy | endpoint, first draw | median peak | change "
+              "on halving the flux |", "|---|---:|---:|---:|---:|"]
+    for size in sizes:
+        for r in report["measurements"][size]["review"]["odd_defect"]["rows"]:
+            lines.append(
+                f"| {size} | {r['energy']:g} | {r['endpoint_first_draw']:.5e} "
+                f"| {r['median_peak_odd_defect']:.3e} | "
+                f"{r['worst_change_on_halving_flux']:.1e} |")
+    lines += ["", "## Review: flux retention per draw", "",
+              "| size | energy | median min | worst min | worst max | sign "
+              "changes |", "|---|---:|---:|---:|---:|---:|"]
+    for size in sizes:
+        fr = report["measurements"][size]["review"]["flux_retention"]
+        for r in fr["rows"]:
+            lines.append(
+                f"| {size} | {r['energy']:g} | {r['median_min']:.4f} | "
+                f"{r['worst_min']:.4f} | {r['worst_max']:.4f} | "
+                f"{r['draws_changing_sign']} |")
     lines += ["", "## Short window: sheet charge at matched energy", "",
               "| size | energy | matter current | at rest | flux route | "
               "ratio F/M (median, range) |", "|---|---:|---:|---:|---:|---|"]

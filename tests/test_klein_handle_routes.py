@@ -1,4 +1,7 @@
-"""Two routes to the sheet pairing, on equal terms. Freeze ``fd78693``."""
+"""Two routes to the sheet pairing, on equal terms. Freeze ``fd78693``.
+
+Corrected after review of ``76c2067``.
+"""
 
 import json
 from pathlib import Path
@@ -15,6 +18,8 @@ SMALL = dict(n_ext=7, port_a=0, port_b=3, n_tube=3)
 ARCHIVE = (Path(__file__).resolve().parents[1] / "experiments"
            / "closure_ledger" / "runs" / "20261111_klein_handle_routes"
            / "probe.json")
+REVIEW_ARCHIVE = ARCHIVE.parents[1] / "20261111_klein_handle_routes_review" \
+    / "probe.json"
 
 
 @pytest.fixture(scope="module")
@@ -188,7 +193,8 @@ def test_small_probe_confirms_the_symmetry_predictions(small_report):
     v = small_report["verdict"]
     for name in ("flux_route_requirement", "energy_scaling", "flux_fraction",
                  "coupling_dependence", "electric_sectors", "interference",
-                 "reversal_requirements", "screening_leading_order"):
+                 "reversal_requirements", "screening_leading_order",
+                 "seam_cells", "temporal_symmetry"):
         assert v[name] == kr.CONFIRMED[name], name
 
 
@@ -200,9 +206,13 @@ def test_archived_probe_records_the_contradicted_prediction():
     assert v["screening_rule"] == kr.COUNTEREXAMPLE
     assert "screening_rule" in report["contradicted_predictions"]
     assert len(v["contradicted_checks"]) == 1
+    # The first archive is kept as written: it predates the review, so two
+    # labels are the frozen ones and three fields do not exist yet.
+    added = {"seam_cells", "temporal_symmetry", "flux_retention"}
     for name, value in kr.CONFIRMED.items():
-        if name != "screening_rule":
-            assert v[name] == value, name
+        if name == "screening_rule" or name in added:
+            continue
+        assert v[name] == kr.FROZEN_LABELS.get(name, value), name
     assert set(report["measurements"]) == {"primary", "replicate"}
     assert report["long_window"] == pytest.approx(200.0)
 
@@ -213,3 +223,78 @@ def test_archived_probe_never_ranks_the_flux_route_first_at_short_times():
         ratio = report["measurements"][size]["P2_P3"]["ratio"]
         assert all(r < 1 for r in ratio["median"])
         assert ratio["draws_above_one"] == [0, 0, 0, 0]
+
+
+# ---- Review of 76c2067 ----------------------------------------------------
+
+@pytest.mark.parametrize("cell", ke.CELLS)
+def test_cell_matter_state_is_admissible_with_no_sheet_charge(model, cell):
+    z = kr.cell_matter_state(model, *cell, 1e-3, np.random.default_rng(5))
+    assert np.abs(model.deck(*cell) @ z - z).max() < 1e-12
+    assert np.abs(model.gauss(z)).max() < 1e-12
+    assert abs(model.sheet_charge(z)[0]) < 1e-12
+    assert abs(model.handle_flux(z)[0]) < 1e-12
+    assert abs(model.charge_density(z).sum()) < 1e-12
+    assert model.energy(z)[0] == pytest.approx(1e-3, rel=1e-10)
+
+
+def test_matter_pairing_exists_in_every_cell_but_the_ordinary_handle(model):
+    """R1. Fibre reversal is sufficient, not necessary."""
+    rows = {(r["s_t"], r["s_f"]): r for r in kr.seam_cell_matter_report(
+        model, np.random.default_rng(6), 6)}
+    assert rows[(1, 1)]["max_peak_sheet_charge"] < 1e-12
+    for cell in ((1, -1), (-1, 1), (-1, -1)):
+        assert rows[cell]["min_peak_sheet_charge"] > 1e-7, cell
+        assert rows[cell]["dop853_disagreement"] < 1e-2
+
+
+def test_time_parity_of_sheet_charge_is_set_by_the_seam(model):
+    """R1. ``Q_1(s_t t) = -s_t s_f Q_1(t)``."""
+    rows = kr.seam_cell_matter_report(model, np.random.default_rng(7), 6)
+    assert all(r["time_parity_error"] < 1e-9 for r in rows)
+    parity = {(r["s_t"], r["s_f"]): r["predicted_parity"] for r in rows}
+    assert parity[(-1, 1)] == "even" and parity[(-1, -1)] == "odd"
+
+
+def test_even_parity_is_not_odd_parity(model):
+    """The time-reversing fibre-preserving cell is even, and visibly not odd."""
+    z = kr.cell_matter_state(model, -1, 1, 1e-3, np.random.default_rng(8))
+    fwd = model.sheet_charge(ke.flow(model, z, 100)[:, 0])
+    bwd = model.sheet_charge(ke.flow(model, z, 100, -kr.STEP)[:, 0])
+    assert np.abs(fwd - bwd).max() < 1e-12
+    assert np.abs(fwd + bwd).max() > 1e-7
+
+
+def test_additivity_defect_has_an_odd_part(model, ds):
+    """R2. Additive only at leading order in the matter amplitude."""
+    r = kr.odd_defect_report(model, ds[:4])
+    for row in r["rows"]:
+        assert row["min_peak_odd_defect"] > 1e-12
+        assert row["worst_change_on_halving_flux"] < 1e-2
+    assert abs(r["slope_in_energy"] - 2) < 0.2
+
+
+def test_flux_retention_is_reported_per_draw(model, ds):
+    """R3. Extrema over draws, not medians."""
+    r = kr.flux_retention_report(model, ds, steps=400)
+    for row in r["rows"]:
+        assert len(row["per_draw_min"]) == len(ds)
+        assert row["worst_min"] <= row["median_min"]
+        assert row["worst_max"] >= row["median_max"]
+        assert row["draws_changing_sign"] == 0
+
+
+def test_review_archive_records_the_corrections():
+    report = json.loads(REVIEW_ARCHIVE.read_text())
+    v = report["verdict"]
+    assert v["numerical_validity"] == "PASS"
+    assert v["screening_rule"] == kr.COUNTEREXAMPLE
+    for name, value in kr.CONFIRMED.items():
+        if name != "screening_rule":
+            assert v[name] == value, name
+    assert len(report["withdrawn_claims"]) == 3
+    assert report["frozen_labels_changed"] == kr.FROZEN_LABELS
+    worst = max(r["largest_excursion"] for size in ("primary", "replicate")
+                for r in report["measurements"][size]["review"]
+                ["flux_retention"]["rows"])
+    assert 0.015 < worst < 0.07
