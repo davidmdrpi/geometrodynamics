@@ -1105,6 +1105,18 @@ Effect on the findings: **none of F1-F9 changes status.** No norm, readout
 or event frequency follows. Frozen at `fd78693`. See
 [klein_handle_routes.md](klein_handle_routes.md).
 
+## Temporal symmetry of exchange (round 17)
+
+For any conserved quantity, the parity in time of its value on one sheet of
+the handle is fixed by whether the seam reverses time and whether the
+generating symmetry commutes with the deck map. On the transport seam with
+time reversal, charge exchange is odd in time and spin exchange even. The
+attachment alone does not select this: the field type and the datum `T` do.
+That dependence, which round 15 identified, now has an observable signature.
+
+Effect on the findings: **none of F1-F9 changes status.** Frozen at
+`95d7a80`. See [klein_handle_parity.md](klein_handle_parity.md).
+
 ## Expanding supported TT transport (PR #298)
 
 On the exact expanding four-component FRW family, the homogeneous TT normal

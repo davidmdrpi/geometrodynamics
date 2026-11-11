@@ -55,6 +55,13 @@
   per-draw extrema. One frozen tolerance is contradicted and recorded.
   32 tests.
 
+- Round 17, temporal symmetry of exchange (`bulk/klein_handle_parity.py`,
+  freeze `95d7a80`): the parity in time of a conserved quantity's sheet
+  value is fixed by whether the seam reverses time and whether its generator
+  commutes with the deck map. On the transport seam with time reversal
+  charge exchange is odd and spin exchange even. The field type and the time
+  extension select it, not the geometry alone. 33 checks, 6 tests.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the

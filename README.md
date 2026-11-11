@@ -5645,6 +5645,37 @@ python -m experiments.closure_ledger.klein_handle_routes_probe   # about 10 minu
 python -m pytest -q tests/test_klein_handle_routes.py             # 32 tests
 ```
 
+## How the attachment selects the temporal symmetry of exchange (round 17)
+
+*Pre-registered in `docs/klein_handle_parity_prereg.md` (`95d7a80`),
+committed before the module. Module
+`geometrodynamics/bulk/klein_handle_parity.py`; probe
+`klein_handle_parity_probe.py`; tests `tests/test_klein_handle_parity.py`.
+Write-up: [klein_handle_parity.md](docs/klein_handle_parity.md).*
+
+**The frozen predictions hold, 33/33 checks at two sizes.**
+
+* **There is a rule.** For any conserved quantity, the parity in time of
+  its value on one sheet is fixed by whether the seam reverses time and
+  whether the generating symmetry commutes with the deck map: odd,
+  even, constant or unconstrained.
+* **On the transport seam with time reversal, charge exchange is odd in
+  time and spin exchange is even.** Without time reversal the charge is
+  unconstrained and the spin is not exchanged at all.
+* **The attachment alone does not select the parity.** The field type and
+  the time extension do. For the two recorded attachments: a bulk scalar
+  under PR #129's map with PT exchanges charge evenly; a spin-frame doublet
+  under PR #279's transport with PT exchanges it oddly.
+
+**What it is not.** A symmetry consequence, verified numerically. The
+reading for BAM rests on round 15's matching, which is unreviewed. No norm
+or probability follows.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_parity_probe   # 33/33
+python -m pytest -q tests/test_klein_handle_parity.py             # 6 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
