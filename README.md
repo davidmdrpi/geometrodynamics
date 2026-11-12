@@ -5677,6 +5677,37 @@ python -m experiments.closure_ledger.klein_handle_parity_probe   # 33/33
 python -m pytest -q tests/test_klein_handle_parity.py             # 8 tests
 ```
 
+## Normal reversal with a circulating real wave (follow-up to PR #352)
+
+A spatial antipodal shift with normal reversal,
+`(phi,theta,u) -> (phi+pi,theta+pi,-u)`, preserves uniform angular flow
+although the three-dimensional throat reverses orientation. A reflective
+twist reverses that angular generator. A real angular harmonic on a
+two-normal-sample lattice retains nonzero angular momentum while its waist
+responds from the same Hamiltonian.
+
+[Write-up](docs/antipodal_normal_throat.md), [public freeze](docs/antipodal_normal_throat_prereg.md)
+(`533f925`). **11 checks and 25 tests pass.** Across 32 trajectories the
+largest opening is 0.0615, relative angular momentum drift is below
+6.1e-15 and energy excursion below 1.6e-6. An independent integrator
+confirms the evolution with second-order timestep convergence.
+
+The selection rule is `(-1)^(m+n) epsilon_u = eta`: angular modes select
+the even or odd normal response channel. This is angular momentum of a
+real scalar wave, not electric charge or spin-1/2.
+
+A post-freeze transfer calculation identifies a boundary: local normal
+angular flux can be nonzero, but its integral cancels on compatible
+histories. Circulation is not net transfer between the faces. The quotient
+slab has one boundary component; its two cover faces are not yet two
+independent exterior mouths. Adding those ports and deriving their
+response is the next geometric task.
+
+```bash
+OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_antipodal_normal_throat.py
+OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.antipodal_normal_throat_probe
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
