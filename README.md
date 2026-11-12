@@ -5375,6 +5375,308 @@ python -m experiments.closure_ledger.parity_solvability_probe   # 11 required ch
 python -m pytest -q tests/test_parity_solvability.py             # 61 tests
 ```
 
+## The Klein time attachment: complementary quadratures, a twist-dependent resonance (round 12)
+
+*Pre-registered in `docs/klein_time_attachment_prereg.md` (`bb6ff2c`),
+committed before the module; corrected after review of `5b79975`. Module
+`geometrodynamics/bulk/klein_time.py`; probe `klein_time_probe.py`; tests
+`tests/test_klein_time.py`. Write-up:
+[klein_time_attachment.md](docs/klein_time_attachment.md).*
+
+`docs/finite_mouth_bundle_transport.md` records that PR #129's antipodal map
+reverses time orientation (PT-type), that a P-type alternative does not, and
+that "for the static problem the two agree". This round solves the dynamic
+problem for a classical real conformal scalar on `R x S^3`, zonal sector,
+where the leapfrog lattice at unit Courant number is exact. They do not agree.
+
+**Two results stand; one frozen interpretation is withdrawn.**
+
+* **Complementary quadratures.** The P-type quotient keeps half the modes
+  with both quadratures: a symplectic subspace (dimension 24, Wronskian rank
+  24). The PT-type quotient keeps *every* mode with *one* quadrature: a
+  **Lagrangian** subspace (dimension 23 of 46, Wronskian zero to `7e-15`),
+  for every cap position and both twists. The untwisted and twisted sectors
+  are conjugate to each other. Both quotients carry the same data on their
+  own spatial section; the PT quotient lacks a bracket, not data.
+* **A twist-dependent resonance.** Two caps a time `tau` apart compose to a
+  closed history, and mode `k` survives only if `2 k tau` is `0`
+  (untwisted) or `pi` (twisted) mod `2 pi`, the form
+  `history/closure.py:11` postulates. At `tau = pi/2` the split is exactly
+  even against odd harmonics, the `Z_2` rule of `odd_k_closure_lemma.md`,
+  with the choice relocated into the twist. A time-orientable closed time of
+  the same period selects the same harmonics with both quadratures, so the
+  resonance belongs to temporal closure and the caps contribute the halving.
+* **Withdrawn: "a generic closed history has no free field".** That was a
+  property of the `N = 24` cutoff. At the frozen `tau = 7 pi/48` the
+  continuum mode `sin(48 chi) sin(48 t)` satisfies both caps, and every
+  rational spacing `p/q` admits the mode `k = q`. Irrational spacing is a
+  small-divisor problem and is open. The verdict is now
+  `UNIQUE_SOURCED_SOLUTION_IN_THE_FROZEN_TRUNCATION`.
+* **Withdrawn: the Wheeler-Feynman attribution.** A unique, reciprocal,
+  time-symmetric response already exists on orientable closed time with no
+  cap constraint. The attachment only halves the homogeneous space, the
+  admissible sources (81 of 161) and the solvability conditions (11 of 22).
+* **Narrowed: the complex structure.** `T j = -j T` holds, but `j` maps no
+  admissible field of a fixed twist to another. The two sectors together
+  reconstruct the cover's complex mode space; neither carries one, and
+  their physical combination is unjustified. Friedman and Higuchi's
+  obstruction to global states on such spacetimes is a problem to solve.
+
+**What it is not.** No `hbar`, no Born rule, no `Phi`, and no pairing
+between the sectors. The harmonic index is not shown to be the lepton depth,
+and the mode phase is not the frame holonomy of rounds 5-10. The quotient is
+global and its caps and twist are placed by hand. Whether a localized,
+responding mouth pair keeps the complementary-quadrature structure, and
+whether its response pairs the sectors, is the question for
+`docs/conjugate_boundary_pairing_protocol.md`.
+
+```bash
+python -m experiments.closure_ledger.klein_time_probe   # 28/28
+python -m pytest -q tests/test_klein_time.py             # 80 tests
+```
+
+## A localized, responding Klein handle: the pairing is the charge (round 13)
+
+*Pre-registered in `docs/klein_handle_response_prereg.md` (`5d15963`),
+committed before the module. Module
+`geometrodynamics/bulk/klein_handle_response.py`; probe
+`klein_handle_response_probe.py`; tests `tests/test_klein_handle_response.py`.
+Write-up: [klein_handle_response.md](docs/klein_handle_response.md).*
+
+Round 12's surviving result was for a global quotient of a linear field.
+This round takes a lattice ring with one handle whose seam reverses time,
+gives each tube a waist coordinate solved from the same Hamiltonian as the
+field (effective oscillator support, the protocol's `q|psi|^2` coupling),
+and asks whether the structure survives and whether the response pairs the
+two sectors. It is not Stage 1 of the boundary-pairing protocol.
+
+**All eight frozen predictions hold, 32/32 checks at two network sizes.**
+Most are consequences of one reversing symmetry; the numerics confirm the
+derivation, they are not independent evidence.
+
+* **The structure survives, exactly.** Admissible nonlinear histories obey
+  `z(t) = D z(-t)` to `7e-16` at every amplitude, including a supplementary
+  run with the tube barrier more than halved, and form a Lagrangian
+  submanifold. The two sectors are time-even solutions on the ordinary
+  handle and time-odd solutions on the handle with one sign-twisted edge.
+* **Locally nothing is halved.** One sheet's Cauchy data are free. What
+  changes is conservation: the sheet Wronskian is symmetric in time but not
+  constant. Symplectic flux crosses the seam.
+* **The waist response supplies no pairing.** With the mouths moving, a
+  purely real admissible field stays real, exactly.
+* **A pairing exists only for a charged field on a seam that reverses both
+  time and fibre.** Either reversal alone makes the total charge vanish
+  identically. With both, the real and imaginary parts are the two sectors
+  and the conserved charge is their Wronskian pairing; the variable coupled
+  to it is the electric potential.
+
+**What it is not.** The pairing is indefinite, signature `(32, 32)`, and
+multiplication by `i` preserves no admissible field: not a norm, not a
+complex structure, no probability. The potential is prescribed, so no
+*response* is shown to supply the pairing. The repository records both a
+time-reversing map (PR #129) and a fibre-reversing transport (PR #279), but
+no matching map to this field exists, so which seam BAM has is
+`NOT_ESTABLISHED`.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_response_probe   # 32/32
+python -m pytest -q tests/test_klein_handle_response.py             # 26 tests
+```
+
+## A responding electric field on the Klein handle: the sheet pairing is an electric flux (round 14)
+
+*Pre-registered in `docs/klein_handle_electric_prereg.md` (`4ab8bcd`),
+committed before the module; corrected after review of `562af71`. Module
+`geometrodynamics/bulk/klein_handle_electric.py`; probe
+`klein_handle_electric_probe.py`; tests `tests/test_klein_handle_electric.py`.
+Write-up: [klein_handle_electric.md](docs/klein_handle_electric.md).*
+
+Round 13 located the pairing between the two quadrature sectors in the
+charge, coupled to an electric potential that was prescribed. This round
+makes the electric field dynamical: lattice scalar electrodynamics on the
+handle network, with link potentials, electric fields, the charged field and
+the mouths solved from one Hamiltonian. On a graph the gauge field's free
+content is one mode per cycle; flux around the handle loop is Wheeler's
+charge without charge.
+
+**The seven frozen predictions hold; three conclusions drawn from them were
+too strong and are corrected.** 45/45 checks at two sizes.
+
+* **The sheet pairing is the flux through the seam**, by Gauss's law. Every
+  quantity in that identity is gauge invariant. This is the result that
+  stands.
+* **Two inputs can drive it.** Flux trapped around the handle loop, with a
+  real field; or a matter current, with no charge, no field and no flux.
+  In the second the handle-loop flux stays zero throughout while the sheet
+  charge grows at second order in amplitude. Both are charge-conjugation-odd
+  initial data, and conjugation reverses the result exactly.
+* **The structure survives in the Gauss-reduced space.** On the constraint
+  surface the deck-fixed tangent space has dimension 84 (134), of which 16
+  (26) are gauge directions; the remaining 68 (108) are exactly half the
+  reduced space.
+* **Trapped flux is admissible in exactly the two seam types where round 13
+  found a charge.**
+
+**Withdrawn after review.** That the pairing "becomes active only through
+trapped flux": false, trapped flux is sufficient and not necessary. That the
+tangent test was done with Gauss's law imposed: its perturbations left the
+constraint surface by `0.7071`. That the generated imaginary part is a
+physical orientation: a gauge transformation preserving the deck condition
+changes it from `0` to `0.033`; the gauge-invariant statements are about
+link currents, sheet charge and loop holonomy.
+
+**Also not as expected.** The flux is not reliably screened (19 of 48
+fields). With trapped flux, charge separates across the seam only when it
+reverses time.
+
+**What it is not.** Neither orienting datum is derived. The pairing is
+indefinite and totals zero on a closed network; there is no norm or
+probability. Which seam BAM has remains open.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_electric_probe   # 45/45
+python -m pytest -q tests/test_klein_handle_electric.py             # 34 tests
+```
+
+## The matching map: the two recorded reversals live on different spheres (round 15)
+
+*Pre-registered in `docs/klein_handle_matching_prereg.md` (`3d3ee38`),
+committed before the module. Module
+`geometrodynamics/bulk/klein_handle_matching.py`; probe
+`klein_handle_matching_probe.py`; tests `tests/test_klein_handle_matching.py`.
+Write-up: [klein_handle_matching.md](docs/klein_handle_matching.md).*
+
+Rounds 13-14 needed a seam that reverses both time and fibre. The repository
+records a time-reversing antipodal map (PR #129) and a fibre-reversing mouth
+transport (PR #279). This round asks whether they act on one fibre-charged
+field as that seam does, using the repository's own maps on the bulk mouth
+`S^3` and letting them act on fibre-charged functions by pullback.
+
+**All seven frozen predictions hold, 30/30 checks. The answer as posed is
+no.**
+
+* **The antipodal map is a Hopf fibre translation.** It fixes the Hopf base
+  and acts on charge-`k` functions as the scalar `(-1)^k`. So PR #129's
+  condition on a bulk scalar is the *fibre-preserving* cell: zero total
+  charge and no admissible handle flux, but the sheets still exchange
+  charge, evenly in time (corrected after review of `c433f91`).
+* **The two maps are attached to different spheres.** The antipode is the
+  antipode of the spatial brane mouth and the identity on the Hopf base. The
+  transport is the antipode of the Hopf base and does not preserve the
+  spatial brane mouth.
+* **The transport acts on fibre-charged functions antilinearly, with square
+  `(-1)^k`,** and on the charge-1 doublet as `J = i sigma_y K` up to the Pin
+  sign.
+* **The spinor doublet is admissible on the transport seam only on an
+  antiperiodic doubled loop.** `J^2 = -1` has to be cancelled by the `-1`
+  spin holonomy of the neck for any field to exist there.
+* **With time reversal the charge survives and total spin vanishes; without
+  it, the reverse.** The doubly reversed structure is reached for a
+  spin-frame field under PT.
+* **The trapped-flux sign is not the Pin label.** A quarter rotation flips
+  the Pin sign and leaves the flux; charge conjugation does the opposite. My
+  round-14 guess that they are tied is retracted.
+
+**What it is not.** It does not decide whether BAM's matter is a bulk scalar
+or a spin-frame field, or P against PT; the repository uses a scalar for
+PR #129's kernel and `J` for its spinor structure, and those sit in different
+cells. The doublet identity is representation theory, not an action-derived
+pairing. No norm or probability follows.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_matching_probe   # 33/33
+python -m pytest -q tests/test_klein_handle_matching.py             # 26 tests
+```
+
+## The two routes on equal terms: the matter current wins, the flux lasts (round 16)
+
+*Pre-registered in `docs/klein_handle_routes_prereg.md` (`fd78693`),
+committed before the module; corrected after review of `76c2067`. Module
+`geometrodynamics/bulk/klein_handle_routes.py`; probe
+`klein_handle_routes_probe.py`; tests `tests/test_klein_handle_routes.py`.
+Write-up: [klein_handle_routes.md](docs/klein_handle_routes.md).*
+
+The round-14 review showed two kinds of initial data drive the sheet
+pairing: flux trapped around the handle loop, and a matter current. This
+round compares them at matched total energy, over 12 draws at each of two
+sizes, with gauge-invariant observables only.
+
+**Nine of ten frozen predictions hold as frozen; one is contradicted; three
+conclusions were too strong and are corrected.**
+
+* **The matter current gives the larger sheet charge.** At short times by
+  a median factor of 23 to 430, with the ratio growing as the square
+  root of energy (slopes `0.497`, `0.500`); over a window of 200 time units
+  by about a factor of three. The flux route led in 1 of 96 long-window
+  comparisons.
+* **The trapped flux is the longer-lived input.** It keeps its sign in all
+  96 histories. Its median excursion is about 1 %; individual histories move
+  by up to 6.3 %. The matter current's pattern loses half its self-overlap
+  in half a time unit.
+* **A flux with the field at rest gives no sheet charge at all**, by
+  symmetry. The flux route needs field momentum.
+* **A matter current separates charge on every seam except the ordinary
+  handle**, at comparable strength, and the seam fixes the parity in time:
+  `Q_1(s_t t) = -s_t s_f Q_1(t)`. Time reversal alone gives a sheet charge
+  even in time; both reversals give one odd in time.
+* **The pairing and round 12's Lagrangian halving are distinct properties.**
+  The halving needs the time reversal; a matter-driven pairing needs at
+  least one reversal of either kind.
+* **The two routes add at leading order in the matter amplitude**, and their
+  relative sign is a gauge-invariant, conjugation-invariant label.
+
+**Withdrawn after review.** That the matter route needs the fibre reversal:
+it is sufficient, not necessary, and I had not tested the fourth cell. That
+there is no first-order interference: the part of the additivity defect odd
+in the flux is nonzero and quartic in the field. That the flux never moves by
+more than 1.5 %: that was a bound on medians.
+
+**Contradicted as frozen.** A 5 % tolerance on a leading-order formula for
+the early change of the trapped flux; one draw misses by 6.4 %. Its sign rule
+holds in all 22 resolved draws and its error falls as `t^2`. It does not
+explain round 14's screening result.
+
+**What it is not.** Matched total energy is one definition of equal terms.
+Neither datum is derived, no preparation gives a sheet charge of stable
+sign, a lattice without dissipation has no lifetimes, and nothing here is a
+probability.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_routes_probe   # about 10 minutes
+python -m pytest -q tests/test_klein_handle_routes.py             # 32 tests
+```
+
+## How the attachment selects the temporal symmetry of exchange (round 17)
+
+*Pre-registered in `docs/klein_handle_parity_prereg.md` (`95d7a80`),
+committed before the module. Module
+`geometrodynamics/bulk/klein_handle_parity.py`; probe
+`klein_handle_parity_probe.py`; tests `tests/test_klein_handle_parity.py`.
+Write-up: [klein_handle_parity.md](docs/klein_handle_parity.md).*
+
+**The frozen predictions hold, 33/33 checks at two sizes.**
+
+* **There is a rule.** For any conserved quantity, the parity in time of
+  its value on one sheet is fixed by whether the seam reverses time and
+  whether the generating symmetry commutes with the deck map: odd,
+  even, constant or unconstrained.
+* **On the transport seam with time reversal, charge exchange is odd in
+  time and spin exchange is even.** Without time reversal the charge is
+  unconstrained and the spin is not exchanged at all.
+* **The attachment alone does not select the parity.** The field type and
+  the time extension do. For the two recorded attachments: a bulk scalar
+  under PR #129's map with PT exchanges charge evenly; a spin-frame doublet
+  under PR #279's transport with PT exchanges it oddly.
+
+**What it is not.** A symmetry consequence, verified numerically. The
+reading for BAM rests on round 15's matching. No norm or probability
+follows.
+
+```bash
+python -m experiments.closure_ledger.klein_handle_parity_probe   # 33/33
+python -m pytest -q tests/test_klein_handle_parity.py             # 8 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

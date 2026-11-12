@@ -983,6 +983,142 @@ bottom line at the top of this document supersedes the original one.
 
 F2–F5, F7 and F8 stand as written.
 
+## Klein time attachment (round 12)
+
+The datum `T` of `finite_mouth_bundle_transport.md` section 4 - PT-type or
+P-type antipodal map - is no longer dynamically inert. For a classical real
+scalar on the PT-type quotient of `R x S^3` the admissible fields keep one
+quadrature of every mode, a Lagrangian half of the cover's phase space,
+where the P-type control keeps an ordinary symplectic subspace. Two caps
+compose to a closed history with phase closure `0` or `pi`, the branch set
+by the field's twist. Frozen at `bb6ff2c`; corrected after review of
+`5b79975`.
+
+Effect on the findings: **none of F1-F9 changes status.** The first version
+of this note said F4's global-constraint reading gained a classical
+realization. That is withdrawn. The frozen "no free field" claim was a
+cutoff artefact (the continuum mode `sin(48 chi) sin(48 t)` satisfies both
+caps at the frozen spacing), and the time-symmetric response exists on
+orientable closed time without any cap. The resonance condition itself
+belongs to temporal closure; the attachment contributes the halving. The
+deck map is a conjugation of the cover's mode space only, and no pairing
+between the two twist sectors is supplied. The caps and twist are placed by
+hand, and the mode phase is not the frame holonomy the Bell rounds condition
+on. See [klein_time_attachment.md](klein_time_attachment.md).
+
+## Localized responding Klein handle (round 13)
+
+Round 12's structure survives localization and nonlinear mouth response,
+exactly: on a lattice handle with a time-reversing seam and a waist
+coordinate solved from the field's own Hamiltonian, admissible histories
+form a Lagrangian submanifold at every amplitude tested. Locally one sheet's
+data are free; the sheet Wronskian is time-symmetric but not conserved.
+
+On the pairing question the result is mostly negative and locates one
+candidate. The mechanical response supplies no coupling between the two
+quadrature sectors. For a charged field, the total charge vanishes
+identically when the seam reverses time or fibre alone, and is a
+nondegenerate, conserved, **indefinite** pairing of the two sectors when it
+reverses both; the variable coupled to it is the electric potential, which
+was prescribed and did not respond.
+
+Effect on the findings: **none of F1-F9 changes status.** F9's missing
+inputs are untouched: an indefinite pairing is not a readout. The datum `T`
+(PR #129) and the fibre-reversing transport (PR #279) now matter jointly,
+because together they would select the one seam type with a pairing, but no
+matching map from the Hopf data to a fibre-charged field on a handle exists
+and the cell is recorded as `NOT_ESTABLISHED`. Frozen at `5d15963`. See
+[klein_handle_response.md](klein_handle_response.md).
+
+## Responding electric field on the Klein handle (round 14)
+
+With the electric field solved from the same Hamiltonian as the charged
+field and the mouths, the round-12 structure survives, in the ambient phase
+space and in the Gauss-reduced one. The result on the pairing: by Gauss's
+law its value on one sheet is the electric flux through the seam, a
+gauge-invariant identification. It is driven by charge-conjugation-odd
+initial data of two kinds, flux trapped around the handle loop or a matter
+current with no flux; neither is derived.
+
+*Corrected after review of `562af71`.* The first version of this note said
+flux trapped around the handle was what coupled the sectors and that
+response alone never did. That generalised a result for real initial data.
+Admissible data with a matter current and no flux generate sheet charge with
+the handle-loop flux zero throughout. The first version's tangent test left
+the Gauss surface, and its "sense of rotation" was gauge dependent.
+
+Effect on the findings: **none of F1-F9 changes status.** The chain of
+rounds 12-14 rests on three underived inputs: a time-reversing seam, a
+fibre-reversing seam acting on a charged field, and a conjugation-odd
+initial datum. It yields no norm, readout or event frequency, so F9 is
+untouched. Frozen at `4ab8bcd`. See
+[klein_handle_electric.md](klein_handle_electric.md).
+
+## The matching map (round 15)
+
+Rounds 13-14 required a seam reversing both time and fibre and pointed at
+PR #129's map and PR #279's transport as the candidates. Acting by pullback
+on fibre-charged functions on the bulk mouth, the two do not combine as
+hoped. The antipodal map of PR #129 is a Hopf fibre translation that fixes
+the Hopf base, so on a bulk scalar its condition is complex-linear: the
+fibre-preserving cell, with zero total charge. *Corrected after review of
+`c433f91`:* the first version said "no pairing". The sheets still exchange
+charge, evenly in time. The transport of
+PR #279 is the antipode of the Hopf base, does not preserve the spatial brane
+mouth, and acts antilinearly with square `(-1)^k`; on the charge-1 doublet it
+is `J` up to the Pin sign. The doublet is admissible on that seam only on an
+antiperiodic doubled loop, where `J^2 = -1` cancels the neck's spin holonomy,
+and then with PT the charge survives and total spin vanishes. The trapped
+flux sign of round 14 is independent of the Pin label.
+
+Effect on the findings: **F1 gains a sharpening, F9 is unchanged.** The
+statement that the mouth forces the transport class stands; what is new is
+that this transport and PR #129's antipodal condition are attached to two
+different 2-spheres, the Hopf base and the spatial brane mouth, so the
+scalar construction used for the exchange kernel and the spinor structure
+used for matter sit in different seam cells. That is a consistency question
+for the repository, recorded here and not resolved: it depends on the field
+type and on the chosen datum `T`. Frozen at `3d3ee38`. See
+[klein_handle_matching.md](klein_handle_matching.md).
+
+## The two routes on equal terms (round 16)
+
+At matched total energy the matter current drives a larger sheet pairing
+than trapped flux at every energy and time scale tested, while the trapped
+flux is the more durable input, keeping its sign in every history. The two
+add at leading order in the matter amplitude, with a physical relative sign.
+
+The consequence for this audit is structural. Two things that rounds 12-13
+presented together are distinct properties. The **Lagrangian halving** needs
+the time reversal. A matter-driven **pairing** needs at least one reversal
+of either kind: it appears on every seam except the ordinary handle. And the
+seam fixes the parity in time of the sheet charge, `Q_1(s_t t) = -s_t s_f
+Q_1(t)`: even when only time is reversed, odd when both are.
+
+*Corrected after review of `76c2067`.* The first version of this note said
+the pairing needs the fibre reversal. That generalised from two tested
+seams; the time-reversing, fibre-preserving seam also separates charge. It
+also follows that the existence of a pairing does not discriminate between
+the cells round 15 left open; its temporal symmetry does. One frozen
+prediction, a tolerance on the early flux change, was contradicted and is
+recorded as such.
+
+Effect on the findings: **none of F1-F9 changes status.** No norm, readout
+or event frequency follows. Frozen at `fd78693`. See
+[klein_handle_routes.md](klein_handle_routes.md).
+
+## Temporal symmetry of exchange (round 17)
+
+For any conserved quantity, the parity in time of its value on one sheet of
+the handle is fixed by whether the seam reverses time and whether the
+generating symmetry commutes with the deck map. On the transport seam with
+time reversal, charge exchange is odd in time and spin exchange even. The
+attachment alone does not select this: the field type and the datum `T` do.
+That dependence, which round 15 identified, now has an observable signature.
+
+Effect on the findings: **none of F1-F9 changes status.** Frozen at
+`95d7a80`. See [klein_handle_parity.md](klein_handle_parity.md).
+
 ## Expanding supported TT transport (PR #298)
 
 On the exact expanding four-component FRW family, the homogeneous TT normal
