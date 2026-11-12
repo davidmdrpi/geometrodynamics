@@ -22,7 +22,7 @@ def test_vector_field_comes_from_full_hamiltonian(model):
     assert np.max(abs(model.loads(z))) > 1e-3
 
 
-@pytest.mark.parametrize("kind", ["antipodal", "reflective"])
+@pytest.mark.parametrize("kind", ant.CELLS)
 def test_coordinate_identification_and_real_field_pullback(model, kind):
     rng = np.random.default_rng(19)
     points = rng.uniform(.1, 6., (10, 3))
@@ -49,7 +49,7 @@ def test_fixed_space_remains_symplectic_when_time_is_kept(model):
     assert np.linalg.matrix_rank(restricted) == fixed.shape[1]
 
 
-@pytest.mark.parametrize("kind", ["antipodal", "reflective"])
+@pytest.mark.parametrize("kind", ant.CELLS)
 @pytest.mark.parametrize("eta", [-1, 1])
 def test_decks_are_canonical_symmetries_at_nonzero_mouth_displacement(model, kind, eta):
     z = np.random.default_rng(3).normal(size=(3, model.dim))*.2

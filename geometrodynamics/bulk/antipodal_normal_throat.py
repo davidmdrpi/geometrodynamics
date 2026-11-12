@@ -14,6 +14,8 @@ import numpy as np
 PREREG = "533f9257fcb28f015740b9f08557959bc3c1a83b"
 SEED = 2026111201
 AMPLITUDES = (0.05, 0.1, 0.2, 0.4)
+CELLS = {"shift_kept": (1, 1), "antipodal": (1, -1),
+         "reflective": (-1, 1), "reflect_reversed": (-1, -1)}
 
 
 def normal_parity(m, n, eta=1):
@@ -24,24 +26,20 @@ def normal_parity(m, n, eta=1):
 
 
 def jacobian(kind):
-    if kind == "antipodal":
-        return np.diag([1., 1., -1.])
-    if kind == "reflective":
-        return np.diag([1., -1., 1.])
-    raise ValueError(kind)
+    c, r = CELLS[kind]
+    return np.diag([1., float(c), float(r)])
 
 
 def identify(points, kind="antipodal"):
     """The actual coordinate identification, angles modulo 2 pi."""
     out = np.asarray(points, dtype=float).copy()
     out[..., 0] += np.pi
-    if kind == "antipodal":
+    c, r = CELLS[kind]
+    if c == 1:
         out[..., 1] += np.pi
-        out[..., 2] *= -1
-    elif kind == "reflective":
-        out[..., 1] *= -1
     else:
-        raise ValueError(kind)
+        out[..., 1] *= -1
+    out[..., 2] *= r
     out[..., :2] %= 2*np.pi
     return out
 
@@ -147,15 +145,15 @@ class Throat:
         x, p, q, pq = self.unpack(z)
         xx = np.roll(x, self.sites//2, axis=-1)
         pp = np.roll(p, self.sites//2, axis=-1)
-        if kind == "antipodal":
-            xx = (-1)**self.n * xx[:, :, ::-1]
-            pp = (-1)**self.n * pp[:, :, ::-1]
-            q, pq = q[:, ::-1], pq[:, ::-1]
-        elif kind == "reflective":
+        c, r = CELLS[kind]
+        if c == 1:
+            xx, pp = (-1)**self.n * xx, (-1)**self.n * pp
+        else:
             sign = np.array([1., -1.])[None, :, None, None]
             xx, pp = xx*sign, pp*sign
-        else:
-            raise ValueError(kind)
+        if r == -1:
+            xx, pp = xx[:, :, ::-1], pp[:, :, ::-1]
+            q, pq = q[:, ::-1], pq[:, ::-1]
         return self.pack(eta*xx, eta*pp, q, pq)
 
     def project(self, z, kind="antipodal", eta=1):

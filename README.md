@@ -5677,35 +5677,47 @@ python -m experiments.closure_ledger.klein_handle_parity_probe   # 33/33
 python -m pytest -q tests/test_klein_handle_parity.py             # 8 tests
 ```
 
-## Normal reversal with a circulating real wave (follow-up to PR #352)
+## Four-cell throat comparison: normal reversal blocks net face transfer (PR #353)
 
-A spatial antipodal shift with normal reversal,
-`(phi,theta,u) -> (phi+pi,theta+pi,-u)`, preserves uniform angular flow
-although the three-dimensional throat reverses orientation. A reflective
-twist reverses that angular generator. A real angular harmonic on a
-two-normal-sample lattice retains nonzero angular momentum while its waist
-responds from the same Hamiltonian.
+At fixed angular shift, normal reversal **blocks net face-to-face angular
+momentum transfer**. Circulation is allowed with either normal action;
+it depends on the theta action. The four controls use the same real-wave
+Hamiltonian and preserve time:
 
-[Write-up](docs/antipodal_normal_throat.md), [public freeze](docs/antipodal_normal_throat_prereg.md)
-(`533f925`). **11 checks and 25 tests pass.** Across 32 trajectories the
-largest opening is 0.0615, relative angular momentum drift is below
-6.1e-15 and energy excursion below 1.6e-6. An independent integrator
-confirms the evolution with second-order timestep convergence.
+| theta action | normal action | 3D orientation | total circulation | net face transfer |
+|---|---|---|---|---|
+| shift | kept | orientable | allowed | allowed |
+| shift | reversed (A) | non-orientable | allowed | forbidden |
+| reflect | kept (R) | non-orientable | zero | forbidden |
+| reflect | reversed | orientable | zero | allowed |
 
-The selection rule is `(-1)^(m+n) epsilon_u = eta`: angular modes select
-the even or odd normal response channel. This is angular momentum of a
-real scalar wave, not electric charge or spin-1/2.
+This corrects the original attribution to normal reversal. The
+[write-up](docs/antipodal_normal_throat.md) derives the four cases from
+generator parity, face permutation and total conservation. The
+[review amendment](docs/antipodal_normal_throat_review_amendment.md)
+(`31cfc67`) records the reviewer's already-known results before the
+additional runs; the [original freeze](docs/antipodal_normal_throat_prereg.md)
+(`533f925`) and first archive remain unchanged.
 
-A post-freeze transfer calculation identifies a boundary: local normal
-angular flux can be nonzero, but its integral cancels on compatible
-histories. Circulation is not net transfer between the faces. The quotient
-slab has one boundary component; its two cover faces are not yet two
-independent exterior mouths. Adding those ports and deriving their
-response is the next geometric task.
+**20 amended checks and 45 tests pass.** In addition to the original 32
+trajectories, 64 generic compatible trajectories include nonzero opening
+positions and momenta. Every orientable control exhibits transfer; both
+non-orientable cells forbid it in this Hamiltonian family. A strong A run
+reaches an opening of 1.065 with relative angular momentum drift below
+3.2e-15 and energy excursion below 1.1e-5. DOP853 confirms second-order
+timestep convergence.
+
+A has **one independent opening coordinate** and one quotient boundary
+component. Its two cover faces are not two independent exterior mouths.
+The parity rule `(-1)^(m+n) epsilon_u = eta` selects normal response
+channels, but does not derive electric charge, action quanta or spin.
+The transfer/orientation correspondence is specific to this four-cell
+family. Attaching distinct exterior ports and deriving their balance
+remains the next geometric task.
 
 ```bash
-OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_antipodal_normal_throat.py
-OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.antipodal_normal_throat_probe
+OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_antipodal_normal_throat.py tests/test_antipodal_normal_throat_review.py
+OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.antipodal_normal_throat_review_probe
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

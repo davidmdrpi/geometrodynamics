@@ -2,13 +2,17 @@
 
 ## Unreleased
 
-- Antipodal normal reversal (freeze `533f925`): a real angular harmonic
-  retains circulation while paired cover mouths respond. The parity rule
-  selects even/odd normal susceptibility channels; 11 checks and 25 tests
-  pass. A post-freeze calculation shows exact deck symmetry cancels net
-  normal angular transfer despite local currents. Cover faces are not yet
-  distinct exterior mouths; electric charge and Einstein dynamics are not
-  derived. See `docs/antipodal_normal_throat.md`.
+- Four-cell throat comparison (PR #353; original freeze `533f925`,
+  review amendment `31cfc67`): the angular action selects circulation;
+  at fixed shift, normal reversal blocks net face transfer. The two
+  orientable controls admit transfer and the two non-orientable controls
+  forbid it in this Hamiltonian family. 20 amended checks and 45 tests
+  pass, including 64 generic trajectories and a strong A response reaching
+  opening 1.065. A has one independent opening coordinate, not two
+  independent exterior mouths. Actual coordinate-map, one-face-source
+  and tighter energy checks supplement the unchanged original archive.
+  Charge and Einstein dynamics remain underived.
+  See `docs/antipodal_normal_throat.md`.
 
 - Round 12, Klein time attachment (`bulk/klein_time.py`, freeze `bb6ff2c`,
   corrected after review of `5b79975`): a classical scalar on the
