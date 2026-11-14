@@ -69,6 +69,13 @@
   requires variation; the continuum-gap diagnostic minimises over both
   neighbouring integers.
 
+- Visualization (`viz/wave_mouth_network.py`): a figure integrated from one
+  Hamiltonian in which a real wave moves relativistic mouths, triggers the
+  collapse of a loaded throat into a larger wave, and an energy ledger
+  closes to `2.8e-05`. Comparator model; the metastable support is assumed.
+  Follows PR #340, whose drawing has no propagating wave, collapse or
+  ledger. 12 tests.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the

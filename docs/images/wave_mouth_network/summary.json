@@ -1,0 +1,158 @@
+{
+  "wave_mouth_network": {
+    "amplitude": 0.35,
+    "stored": [
+      4.0,
+      0.0,
+      0.0
+    ],
+    "title": "A wave moves mouths, collapses a loaded throat into a larger wave, and the ledger closes",
+    "energy_initial": 4.572022808412598,
+    "energy_max_relative_error": 2.783646785571022e-05,
+    "momentum_initial": 0.5551675815282084,
+    "momentum_max_drift": 0.004003910563298407,
+    "wave_energy_initial": 0.5720228084098997,
+    "wave_energy_final": 3.8562665811043297,
+    "wave_energy_max": 4.013925290403644,
+    "wave_gain": 6.741455977645228,
+    "collapse_times": [
+      18.400000000000002,
+      null,
+      null
+    ],
+    "final_openings": [
+      0.05169319486429246,
+      1.0754933418326105,
+      0.9488528444268925
+    ],
+    "displacements": [
+      11.335801475021583,
+      2.4940194497168306,
+      -1.4274633887388575
+    ],
+    "final_velocities": [
+      0.23120218501860756,
+      0.09256016124690167,
+      -0.24691295263125598
+    ],
+    "max_speed": 0.2493768160271127,
+    "stored_released": 3.9062695436951467
+  },
+  "wave_mouth_network_subthreshold": {
+    "amplitude": 0.2,
+    "stored": [
+      4.0,
+      0.0,
+      0.0
+    ],
+    "title": "Control: a weaker wave still moves the mouths; the throat stays open",
+    "energy_initial": 4.186782957849012,
+    "energy_max_relative_error": 1.5786794674004992e-07,
+    "momentum_initial": 0.1812792102949253,
+    "momentum_max_drift": 0.0010367038322515731,
+    "wave_energy_initial": 0.1867829578481306,
+    "wave_energy_final": 0.16366011811171963,
+    "wave_energy_max": 0.18678299783161192,
+    "wave_gain": 0.8762047672721208,
+    "collapse_times": [
+      null,
+      null,
+      null
+    ],
+    "final_openings": [
+      1.0197404988966103,
+      0.9992545995521117,
+      1.0173023824616667
+    ],
+    "displacements": [
+      1.8798958838604918,
+      0.6233211896745203,
+      -0.2332224412766024
+    ],
+    "final_velocities": [
+      0.027722787029858368,
+      0.02109041496690143,
+      -0.02626705505987758
+    ],
+    "max_speed": 0.03672163559458305,
+    "stored_released": -0.003642375994502861
+  },
+  "wave_mouth_network_unloaded": {
+    "amplitude": 0.35,
+    "stored": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "title": "Control: same wave, no stored energy; nothing to release",
+    "energy_initial": 0.5720228084125981,
+    "energy_max_relative_error": 5.050276189800271e-06,
+    "momentum_initial": 0.5551675815282084,
+    "momentum_max_drift": 0.0027864057475877058,
+    "wave_energy_initial": 0.5720228084098997,
+    "wave_energy_final": 0.420974236333696,
+    "wave_energy_max": 0.5720229308567739,
+    "wave_gain": 0.7359395991637357,
+    "collapse_times": [
+      null,
+      null,
+      null
+    ],
+    "final_openings": [
+      1.0074065157751628,
+      1.0064833642352344,
+      0.9809247714230528
+    ],
+    "displacements": [
+      8.402875069258045,
+      0.3652686398997247,
+      -1.0985840982611492
+    ],
+    "final_velocities": [
+      0.14834228675936453,
+      0.013876315114345965,
+      -0.11244362581640259
+    ],
+    "max_speed": 0.15784452744946814,
+    "stored_released": -0.0009215096659944727
+  },
+  "wave_mouth_network_no_wave": {
+    "amplitude": 0.0,
+    "stored": [
+      4.0,
+      0.0,
+      0.0
+    ],
+    "title": "Control: no wave; nothing moves and nothing collapses",
+    "energy_initial": 4.0,
+    "energy_max_relative_error": 0.0,
+    "momentum_initial": 0.0,
+    "momentum_max_drift": 0.0,
+    "wave_energy_initial": 0.0,
+    "wave_energy_final": 0.0,
+    "wave_energy_max": 0.0,
+    "wave_gain": null,
+    "collapse_times": [
+      null,
+      null,
+      null
+    ],
+    "final_openings": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "displacements": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "final_velocities": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "max_speed": 0.0,
+    "stored_released": 0.0
+  }
+}
