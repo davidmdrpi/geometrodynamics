@@ -5677,6 +5677,49 @@ python -m experiments.closure_ledger.klein_handle_parity_probe   # 33/33
 python -m pytest -q tests/test_klein_handle_parity.py             # 8 tests
 ```
 
+## Four-cell throat comparison: normal reversal blocks net face transfer (PR #353)
+
+At fixed angular shift, normal reversal **blocks net face-to-face angular
+momentum transfer**. Circulation is allowed with either normal action;
+it depends on the theta action. The four controls use the same real-wave
+Hamiltonian and preserve time:
+
+| theta action | normal action | 3D orientation | total circulation | net face transfer |
+|---|---|---|---|---|
+| shift | kept | orientable | allowed | allowed |
+| shift | reversed (A) | non-orientable | allowed | forbidden |
+| reflect | kept (R) | non-orientable | zero | forbidden |
+| reflect | reversed | orientable | zero | allowed |
+
+This corrects the original attribution to normal reversal. The
+[write-up](docs/antipodal_normal_throat.md) derives the four cases from
+generator parity, face permutation and total conservation. The
+[review amendment](docs/antipodal_normal_throat_review_amendment.md)
+(`31cfc67`) records the reviewer's already-known results before the
+additional runs; the [original freeze](docs/antipodal_normal_throat_prereg.md)
+(`533f925`) and first archive remain unchanged.
+
+**20 amended checks and 45 tests pass.** In addition to the original 32
+trajectories, 64 generic compatible trajectories include nonzero opening
+positions and momenta. Every orientable control exhibits transfer; both
+non-orientable cells forbid it in this Hamiltonian family. A strong A run
+reaches an opening of 1.065 with relative angular momentum drift below
+3.2e-15 and energy excursion below 1.1e-5. DOP853 confirms second-order
+timestep convergence.
+
+A has **one independent opening coordinate** and one quotient boundary
+component. Its two cover faces are not two independent exterior mouths.
+The parity rule `(-1)^(m+n) epsilon_u = eta` selects normal response
+channels, but does not derive electric charge, action quanta or spin.
+The transfer/orientation correspondence is specific to this four-cell
+family. Attaching distinct exterior ports and deriving their balance
+remains the next geometric task.
+
+```bash
+OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_antipodal_normal_throat.py tests/test_antipodal_normal_throat_review.py
+OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.antipodal_normal_throat_review_probe
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced
