@@ -1,4 +1,4 @@
-"""A wave that moves mouths, collapses a throat and is booked in a ledger.
+"""A wave that moves mouths, tips a loaded throat and is booked in a ledger.
 
 A comparator for the visualization of PR #340, whose drawing is moved by a
 solved rotor model but propagates no wave along the handle, has no collapse
@@ -6,19 +6,20 @@ and keeps no ledger. Everything drawn here is integrated from ONE Hamiltonian:
 
     H = sum_i dx [ p_i^2/2 + (psi_{i+1}-psi_i)^2/(2 dx^2) + m^2 psi_i^2/2 ]
         + sum_k [ sqrt(M^2 + P_k^2) - M            relativistic mouth
-                  + pq_k^2/(2 mu) + S(q_k)         throat opening and support
+                  + pq_k^2/(2 mu) + S(q_k)         throat coordinate, support 
                   + kappa/2 (q_k - q0_k - <psi>_k)^2 ]   reciprocal coupling
 
     <psi>_k = sum_i dx g(x_i - X_k) psi_i,    g a normalised Gaussian.
 
-``psi`` is a real wave on a ring, ``X_k`` a mouth position, ``q_k`` its
-throat opening. The coupling has the mismatch form of
+``psi`` is a real wave on a ring, ``X_k`` a mouth position, ``q_k`` a signed
+reaction coordinate of its throat (``1`` open, ``0`` collapsed; it overshoots
+below zero, so it is not a nonnegative opening). The coupling has the mismatch form of
 ``waves/moving_mouth_pairs.py``. ``S`` is a support potential with a
 metastable open state at ``q = 1`` holding energy ``E_s`` above the collapsed
 state ``q = 0``.
 
 What is solved: the wave's force on each mouth, the trigger of a collapse,
-the wave the collapse emits, and every term of the energy ledger.
+the field energy the transition releases, and every term of the energy ledger.
 What is assumed: this Hamiltonian. The metastable support in particular is
 put in by hand; no GR support dynamics, no Einstein solution, no S^3.
 """
@@ -222,15 +223,67 @@ def evolve(model: Network, z0, duration=DURATION, h=STEP, sample=20) -> History:
     return History(model, np.array(times), np.array(states), ledger)
 
 
+def barrier_top(model: Network) -> float:
+    """Location of the support barrier between the open and collapsed wells."""
+    grid = np.linspace(0.0, 1.0, 2001)
+    h = model.barrier
+    well = 16 * h * grid ** 2 * (1 - grid) ** 2 + grid ** 2 * (3 - 2 * grid)
+    inner = well[1:-1]
+    peak = (inner > well[:-2]) & (inner > well[2:])
+    return float(grid[1:-1][peak][0]) if peak.any() else 1.0
+
+
+def transitions(hist: History) -> list:
+    """Time each LOADED throat enters its collapsed well and stays there.
+
+    A transition needs a collapsed well to exist (stored energy > 0) and the
+    coordinate to remain below the barrier top until the end of the run. A
+    stable throat swinging below a threshold is not one; ``summary`` reports
+    those separately as ``threshold_crossings``.
+    """
+    m, q = hist.model, hist.part("q")
+    top = barrier_top(m)
+    out = []
+    for k in range(m.mouths):
+        below = q[:, k] < top
+        if m.stored[k] <= 0 or not below[-1]:
+            out.append(None)
+            continue
+        above = np.flatnonzero(~below)
+        start = above[-1] + 1 if above.size else 0
+        out.append(float(hist.time[start]))
+    return out
+
+
+def far_field_energy(hist: History, index: int, radius: float | None = None
+                     ) -> float:
+    """Scalar-field energy at sites farther than ``radius`` from every mouth.
+
+    Not an outgoing flux: on a ring it includes waves that have gone round.
+    It separates field energy away from the mouths from energy held in the
+    field around them.
+    """
+    m = hist.model
+    radius = 5 * m.width if radius is None else radius
+    psi, p = hist.part("psi")[index], hist.part("p")[index]
+    pos = hist.part("X")[index]
+    d = np.abs((m.x[None, :] - pos[:, None] + m.length / 2) % m.length
+               - m.length / 2)
+    mask = d.min(axis=0) > radius
+    grad = (np.roll(psi, -1) - psi) / m.dx
+    density = 0.5 * p ** 2 + 0.5 * grad ** 2 + 0.5 * m.field_mass ** 2 * psi ** 2
+    return float(m.dx * np.sum(density[mask]))
+
+
 def summary(hist: History) -> dict:
     """Numbers every caption is allowed to quote."""
     m = hist.model
     total = hist.total
     q, pos, mom = hist.part("q"), hist.part("X"), hist.part("P")
-    wave = hist.ledger["wave"][:, 0]
-    collapsed = q < 0.5
-    events = [float(hist.time[c.argmax()]) if c.any() else None
-              for c in collapsed.T]
+    field_energy = hist.ledger["wave"][:, 0]
+    crossed = q < 0.5
+    crossings = [float(hist.time[c.argmax()]) if c.any() else None
+                 for c in crossed.T]
     momentum = np.array([m.momentum(z) for z in hist.states])
     return {
         "energy_initial": float(total[0]),
@@ -238,12 +291,19 @@ def summary(hist: History) -> dict:
                                            / abs(total[0])),
         "momentum_initial": float(momentum[0]),
         "momentum_max_drift": float(np.abs(momentum - momentum[0]).max()),
-        "wave_energy_initial": float(wave[0]),
-        "wave_energy_final": float(wave[-1]),
-        "wave_energy_max": float(wave.max()),
-        "wave_gain": float(wave[-1] / wave[0]) if wave[0] > 0 else None,
-        "collapse_times": events,
-        "final_openings": q[-1].tolist(),
+        # Total scalar-field energy over the whole ring, mouths included.
+        "field_energy_initial": float(field_energy[0]),
+        "field_energy_final": float(field_energy[-1]),
+        "field_energy_max": float(field_energy.max()),
+        "field_energy_gain": float(field_energy[-1] / field_energy[0])
+        if field_energy[0] > 0 else None,
+        "far_field_energy_initial": far_field_energy(hist, 0),
+        "far_field_energy_final": far_field_energy(hist, -1),
+        "barrier_top": barrier_top(m),
+        "transition_times": transitions(hist),
+        "threshold_crossings": crossings,
+        "min_coordinate": q.min(axis=0).tolist(),
+        "final_coordinates": q[-1].tolist(),
         "displacements": (pos[-1] - pos[0]).tolist(),
         "final_velocities": m.velocity(mom[-1]).tolist(),
         "max_speed": float(np.abs(m.velocity(mom)).max()),
@@ -251,8 +311,28 @@ def summary(hist: History) -> dict:
     }
 
 
+def validate(duration=DURATION, steps=(STEP, STEP / 2)) -> dict:
+    """The documented run against an independent integrator, full window."""
+    from scipy.integrate import solve_ivp
+
+    m = Network()
+    z0 = m.start(amplitude=AMPLITUDE)
+    ref = solve_ivp(lambda t, z: m.rhs(z), (0.0, duration), z0,
+                    method="DOP853", rtol=1e-10, atol=1e-12).y[:, -1]
+    errors = []
+    for h in steps:
+        z = evolve(m, z0, duration, h=h, sample=int(round(duration / h))
+                   ).states[-1]
+        errors.append(float(np.linalg.norm(z - ref) / np.linalg.norm(ref)))
+    e0 = m.energy(z0)
+    return {"duration": duration, "steps": list(steps),
+            "relative_final_state_error": errors,
+            "improvement": errors[0] / errors[1],
+            "dop853_energy_error": float(abs(m.energy(ref) - e0) / e0)}
+
+
 def render(hist: History, path, title=None):
-    """Three rows: spacetime diagram, throat openings, energy ledger."""
+    """Three rows: spacetime diagram, throat coordinates, energy ledger."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -273,14 +353,14 @@ def render(hist: History, path, title=None):
         wrapped = pos[:, k] % m.length
         ax.plot(wrapped, t, color=colours[k % 5], lw=2.2,
                 label=f"mouth {k + 1} worldline")
-        if s["collapse_times"][k] is not None:
-            tc = s["collapse_times"][k]
+        if s["transition_times"][k] is not None:
+            tc = s["transition_times"][k]
             ax.plot(np.interp(tc, t, wrapped), tc, marker="*", ms=16,
                     color="k", zorder=5)
     ax.set_xlabel("position on the ring")
     ax.set_ylabel("time")
-    ax.set_title("Solved wave (colour) and mouth worldlines; star = throat "
-                 "collapse", fontsize=11)
+    ax.set_title("Solved wave (colour) and mouth worldlines; star = loaded "
+                 "throat enters its collapsed well", fontsize=11)
     ax.legend(loc="upper right", fontsize=8, framealpha=0.9)
 
     ax = axes[1]
@@ -289,7 +369,8 @@ def render(hist: History, path, title=None):
                 label=f"throat {k + 1} (stored {m.stored[k]:g})")
     ax.axhline(1.0, color="0.6", lw=0.8, ls=":")
     ax.axhline(0.0, color="0.6", lw=0.8, ls=":")
-    ax.set_ylabel("throat opening q")
+    ax.axhline(s["barrier_top"], color="0.4", lw=0.8, ls="--")
+    ax.set_ylabel("throat coordinate q (signed)")
     ax.set_xlabel("time")
     ax.legend(loc="center right", fontsize=8)
 
@@ -299,7 +380,7 @@ def render(hist: History, path, title=None):
     throat = hist.ledger["throat"].sum(axis=1)
     coupling = hist.ledger["coupling"].sum(axis=1)
     ax.stackplot(t, wave, throat, coupling, kinetic,
-                 labels=["wave", "throat support and motion", "coupling",
+                 labels=["scalar field (whole ring)", "throat support and motion", "coupling",
                          "mouth kinetic"],
                  colors=["#4f83cc", "#c98f2b", "#9e9e9e", "#b3261e"],
                  alpha=0.9)
@@ -311,8 +392,8 @@ def render(hist: History, path, title=None):
     ax.set_title(f"Ledger: total conserved to "
                  f"{s['energy_max_relative_error']:.1e} relative", fontsize=11)
 
-    fig.suptitle(title or "One Hamiltonian: a wave moves mouths, a throat "
-                 "collapses into a larger wave, the ledger closes",
+    fig.suptitle(title or "One Hamiltonian: a wave moves mouths and releases a "
+                 "throat's stored energy into the field; the ledger closes",
                  fontsize=12, y=0.995)
     fig.text(0.5, 0.005, "Comparator model on a ring. The metastable support "
              "is assumed, not derived; this is not a GR solution.",

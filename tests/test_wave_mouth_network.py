@@ -61,40 +61,40 @@ def test_wave_moves_every_mouth(main_run):
     assert 0.1 < s["max_speed"] < 1.0                          # subluminal
 
 
-def test_collapse_emits_a_larger_wave(main_run):
+def test_transition_releases_stored_energy_into_the_field(main_run):
     s = w.summary(main_run)
-    assert s["collapse_times"][0] is not None
-    assert s["collapse_times"][1:] == [None, None]
-    assert s["final_openings"][0] < 0.3
-    assert s["wave_energy_final"] > 5 * s["wave_energy_initial"]
+    assert s["transition_times"][0] is not None
+    assert s["transition_times"][1:] == [None, None]
+    assert s["final_coordinates"][0] < 0.3
+    assert s["field_energy_final"] > 5 * s["field_energy_initial"]
     # The gain is paid for by the stored support energy, not created.
-    gain = s["wave_energy_final"] - s["wave_energy_initial"]
+    gain = s["field_energy_final"] - s["field_energy_initial"]
     assert gain < s["stored_released"] < 4.0 + 1e-9
 
 
 def test_collapse_follows_the_arrival_of_the_wave(main_run):
     """Causal order: the packet starts 15 away and travels below unit speed."""
-    assert w.summary(main_run)["collapse_times"][0] > 15.0
+    assert w.summary(main_run)["transition_times"][0] > 15.0
 
 
 def test_no_wave_no_motion():
     s = w.summary(w.scenario(0.0, duration=20.0))
     assert s["displacements"] == [0.0, 0.0, 0.0]
-    assert s["collapse_times"] == [None, None, None]
+    assert s["transition_times"] == [None, None, None]
     assert s["energy_max_relative_error"] == 0.0
 
 
 def test_below_threshold_moves_mouths_without_collapse():
     s = w.summary(w.scenario(w.SUBTHRESHOLD))
-    assert s["collapse_times"] == [None, None, None]
+    assert s["transition_times"] == [None, None, None]
     assert abs(s["displacements"][0]) > 0.5
-    assert s["wave_energy_final"] < s["wave_energy_initial"]
+    assert s["field_energy_final"] < s["field_energy_initial"]
 
 
 def test_without_stored_energy_the_wave_cannot_grow():
     s = w.summary(w.scenario(stored=(0.0, 0.0, 0.0)))
-    assert s["collapse_times"] == [None, None, None]
-    assert s["wave_energy_max"] <= s["wave_energy_initial"] * (1 + 1e-6)
+    assert s["transition_times"] == [None, None, None]
+    assert s["field_energy_max"] <= s["field_energy_initial"] * (1 + 1e-6)
 
 
 def test_weak_push_is_second_order_in_amplitude():
@@ -121,3 +121,44 @@ def test_render_writes_a_figure(tmp_path, small):
     summary = w.render(hist, out)
     assert out.stat().st_size > 10_000
     assert summary["energy_max_relative_error"] < 1e-4
+
+
+def test_stable_throat_swinging_low_is_not_a_transition():
+    """Review of 89ceeed: q < 0.5 alone is not a collapse."""
+    s = w.summary(w.scenario(1.0, (0.0, 0.0, 0.0), duration=40.0))
+    assert s["threshold_crossings"][0] is not None       # it does dip
+    assert s["min_coordinate"][0] < 0.5
+    assert s["final_coordinates"][0] > 0.9               # and comes back
+    assert s["transition_times"] == [None, None, None]
+
+
+def test_transition_requires_staying_below_the_barrier(main_run):
+    s = w.summary(main_run)
+    top = s["barrier_top"]
+    assert 0.5 < top < 1.0
+    t = s["transition_times"][0]
+    after = main_run.part("q")[main_run.time >= t, 0]
+    assert after.max() < top
+
+
+def test_coordinate_is_signed(main_run):
+    """It overshoots below zero, so it is not a nonnegative opening."""
+    assert w.summary(main_run)["min_coordinate"][0] < 0
+
+
+def test_far_field_energy_is_part_of_the_field_energy(main_run):
+    s = w.summary(main_run)
+    assert 0 < s["far_field_energy_final"] < s["field_energy_final"]
+    assert s["far_field_energy_final"] > s["far_field_energy_initial"]
+
+
+def test_archived_full_window_validation():
+    """The documented run, whole window, against DOP853."""
+    import json
+    from pathlib import Path
+    path = (Path(__file__).resolve().parents[1] / "docs" / "images"
+            / "wave_mouth_network" / "validation.json")
+    v = json.loads(path.read_text())
+    assert v["duration"] == w.DURATION
+    assert v["relative_final_state_error"][0] < 1e-3
+    assert v["improvement"] == pytest.approx(4.0, rel=0.05)

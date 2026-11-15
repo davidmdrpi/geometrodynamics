@@ -6,21 +6,34 @@
       0.0,
       0.0
     ],
-    "title": "A wave moves mouths, collapses a loaded throat into a larger wave, and the ledger closes",
+    "title": "A wave moves mouths and releases a loaded throat's stored energy into the field; the ledger closes",
     "energy_initial": 4.572022808412598,
     "energy_max_relative_error": 2.783646785571022e-05,
     "momentum_initial": 0.5551675815282084,
     "momentum_max_drift": 0.004003910563298407,
-    "wave_energy_initial": 0.5720228084098997,
-    "wave_energy_final": 3.8562665811043297,
-    "wave_energy_max": 4.013925290403644,
-    "wave_gain": 6.741455977645228,
-    "collapse_times": [
+    "field_energy_initial": 0.5720228084098997,
+    "field_energy_final": 3.8562665811043297,
+    "field_energy_max": 4.013925290403644,
+    "field_energy_gain": 6.741455977645228,
+    "far_field_energy_initial": 0.5720228078961157,
+    "far_field_energy_final": 3.11009677791443,
+    "barrier_top": 0.8125,
+    "transition_times": [
+      17.2,
+      null,
+      null
+    ],
+    "threshold_crossings": [
       18.400000000000002,
       null,
       null
     ],
-    "final_openings": [
+    "min_coordinate": [
+      -0.24911579625510946,
+      0.8836712754238442,
+      0.7570810469984292
+    ],
+    "final_coordinates": [
       0.05169319486429246,
       1.0754933418326105,
       0.9488528444268925
@@ -50,16 +63,29 @@
     "energy_max_relative_error": 1.5786794674004992e-07,
     "momentum_initial": 0.1812792102949253,
     "momentum_max_drift": 0.0010367038322515731,
-    "wave_energy_initial": 0.1867829578481306,
-    "wave_energy_final": 0.16366011811171963,
-    "wave_energy_max": 0.18678299783161192,
-    "wave_gain": 0.8762047672721208,
-    "collapse_times": [
+    "field_energy_initial": 0.1867829578481306,
+    "field_energy_final": 0.16366011811171963,
+    "field_energy_max": 0.18678299783161192,
+    "field_energy_gain": 0.8762047672721208,
+    "far_field_energy_initial": 0.18678295768036438,
+    "far_field_energy_final": 0.1514188705339519,
+    "barrier_top": 0.8125,
+    "transition_times": [
       null,
       null,
       null
     ],
-    "final_openings": [
+    "threshold_crossings": [
+      null,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      0.8667003377108944,
+      0.9606035009730737,
+      0.970054690487857
+    ],
+    "final_coordinates": [
       1.0197404988966103,
       0.9992545995521117,
       1.0173023824616667
@@ -89,16 +115,29 @@
     "energy_max_relative_error": 5.050276189800271e-06,
     "momentum_initial": 0.5551675815282084,
     "momentum_max_drift": 0.0027864057475877058,
-    "wave_energy_initial": 0.5720228084098997,
-    "wave_energy_final": 0.420974236333696,
-    "wave_energy_max": 0.5720229308567739,
-    "wave_gain": 0.7359395991637357,
-    "collapse_times": [
+    "field_energy_initial": 0.5720228084098997,
+    "field_energy_final": 0.420974236333696,
+    "field_energy_max": 0.5720229308567739,
+    "field_energy_gain": 0.7359395991637357,
+    "far_field_energy_initial": 0.5720228078961157,
+    "far_field_energy_final": 0.3994532643220231,
+    "barrier_top": 0.8125,
+    "transition_times": [
       null,
       null,
       null
     ],
-    "final_openings": [
+    "threshold_crossings": [
+      null,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      0.8634008689731935,
+      0.957645025239251,
+      0.8484338497591319
+    ],
+    "final_coordinates": [
       1.0074065157751628,
       1.0064833642352344,
       0.9809247714230528
@@ -123,21 +162,34 @@
       0.0,
       0.0
     ],
-    "title": "Control: no wave; nothing moves and nothing collapses",
+    "title": "Control: no wave; nothing moves and no transition",
     "energy_initial": 4.0,
     "energy_max_relative_error": 0.0,
     "momentum_initial": 0.0,
     "momentum_max_drift": 0.0,
-    "wave_energy_initial": 0.0,
-    "wave_energy_final": 0.0,
-    "wave_energy_max": 0.0,
-    "wave_gain": null,
-    "collapse_times": [
+    "field_energy_initial": 0.0,
+    "field_energy_final": 0.0,
+    "field_energy_max": 0.0,
+    "field_energy_gain": null,
+    "far_field_energy_initial": 0.0,
+    "far_field_energy_final": 0.0,
+    "barrier_top": 0.8125,
+    "transition_times": [
       null,
       null,
       null
     ],
-    "final_openings": [
+    "threshold_crossings": [
+      null,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "final_coordinates": [
       1.0,
       1.0,
       1.0
@@ -154,5 +206,34 @@
     ],
     "max_speed": 0.0,
     "stored_released": 0.0
+  },
+  "detector_control": {
+    "amplitude": 1.0,
+    "stored": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "duration": 40.0,
+    "transition_times": [
+      null,
+      null,
+      null
+    ],
+    "threshold_crossings": [
+      20.0,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      0.4550626473544016,
+      0.8041114425466229,
+      0.9543677049181324
+    ],
+    "final_coordinates": [
+      0.9508387215377806,
+      1.0672532779575419,
+      1.0209455025929384
+    ]
   }
 }

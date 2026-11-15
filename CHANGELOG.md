@@ -71,10 +71,13 @@
 
 - Visualization (`viz/wave_mouth_network.py`): a figure integrated from one
   Hamiltonian in which a real wave moves relativistic mouths, triggers the
-  collapse of a loaded throat into a larger wave, and an energy ledger
-  closes to `2.8e-05`. Comparator model; the metastable support is assumed.
+  transition of a loaded throat that releases its stored energy into the
+  scalar field, and an energy ledger closes to `2.8e-05`. Comparator model; the metastable support is assumed.
   Follows PR #340, whose drawing has no propagating wave, collapse or
-  ledger. 12 tests.
+  ledger. Review of `89ceeed`: the collapse detector no longer fires on a
+  stable throat, the 6.7x figure is named total field energy rather than
+  emitted radiation, and the full-window DOP853 check (`7.8e-05`) is
+  archived. 17 tests.
 
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
