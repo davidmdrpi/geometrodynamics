@@ -150,6 +150,78 @@ includes field energy at the mouths. The earlier text called it the energy
 of "the outgoing wave"; the flux above is the measurement that phrase
 needed.
 
+## The same interaction on the sphere with Alice handles
+
+![solved wave on the sphere with two Klein handles, over its energy ledger](images/wave_mouth_sphere/wave_mouth_sphere.png)
+
+Animation: [wave_mouth_sphere.gif](images/wave_mouth_sphere/wave_mouth_sphere.gif).
+
+The 3D object is the one of #338 and #340: a unit sphere carrying two
+antipodal mouth pairs joined by Klein-type handles (`χ = −2`,
+non-orientable). The ring model above cannot be drawn on it, because its
+three mouths are not antipodal pairs. So this drawing has its own solved
+model, `waves/wave_mouth_sphere.py`: #340's Hamiltonian (a real scalar on
+the round sphere, two antipodal rotors, a throat coordinate per mouth,
+the same reciprocal coupling) with relativistic pair kinetic energy
+`sqrt(M² + |L|²) − M`, the metastable support on one mouth, and a ledger.
+
+What each part of the drawing is:
+
+| drawn | from |
+|---|---|
+| sphere colour and radial relief | the solved scalar at the drawn sphere vertices |
+| where the handles sit | the solved pair axes; the surface is rebuilt at them, so rims are exact |
+| thick rim, red once tipped | the loaded mouth's solved coordinate against its support barrier |
+| strip below | the solved ledger |
+| grey necks | nothing: no field is solved on them |
+
+A packet released `0.3` rad from the antipode of the loaded mouth spreads
+round the sphere and refocuses beside that mouth near `t = π`.
+
+| | value |
+|---|---:|
+| loaded throat enters its collapsed well | `t = 3.6` |
+| its coordinate, minimum and final (open `0`, collapsed `−1`) | `−1.17`, `−0.90` |
+| scalar-field energy, start → end | `0.600` → `2.258` |
+| of the final field energy, in the uniform `l = 0` mode | `0.206` |
+| support energy released | `1.840` of `2` |
+| displacement of pair 1, pair 2 | `1.29` rad, `0.76` rad |
+| largest mouth speed | `0.118` of the wave speed |
+| closest approach of the two pairs | `0.748` rad (mouth radius `0.3`) |
+| energy conservation, step `0.005` → `0.0025` | `8.3e-05` → `2.1e-05` |
+| total angular momentum drift | `8e-14` |
+
+Controls, each with its own figure in `docs/images/wave_mouth_sphere/`:
+
+| run | transition | field energy | pair 1 displacement |
+|---|---|---|---:|
+| no wave | none | `0` → `0` | `0` |
+| weaker wave (amplitude `0.6`) | none | `0.216` → `0.224` | `0.25` |
+| same wave, no stored energy | none | `0.600` → `0.641` | `0.50` |
+| documented run | `t = 3.6` | `0.600` → `2.258` | `1.29` |
+
+Limits specific to this drawing:
+
+* **The scalar lives on the round sphere**, as in #340. Nothing passes
+  through a handle, so this is not a picture of a wave using the wormhole.
+* **The handle shape does not respond.** A tipped throat changes its rim
+  colour only; the neck is drawn at fixed radius.
+* **No flux is measured here.** The field-energy rise is a whole-sphere
+  total. Most of it is in `l = 5`, the degree resonant with the throat's
+  ringing, so it is wave energy and not a uniform offset, but an outward
+  flux through a boundary on the sphere has not been computed.
+* In the two controls without a transition the field energy still rises a
+  little (`+0.008`, `+0.041`). That is the initial coupling energy of the
+  packet with the mouth beside it, not stored support energy.
+* #340's moving-mesh map (`MovingPairGeometry.coordinates`) is valid only
+  for small displacements and tears at `1.29` rad, so the surface is
+  rebuilt at the solved axes for each frame. Its radial-relief routine is
+  reused.
+* The renderer is matplotlib with painter sorting, because the PyVista
+  viewer of #338 needs GL. Where a Klein handle passes through the sphere
+  wall the depth order is approximate; that crossing is a drawing artifact
+  in any case.
+
 ## Controls
 
 | run | transition | total field energy | mouth 1 displacement |

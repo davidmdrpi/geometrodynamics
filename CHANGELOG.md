@@ -91,7 +91,10 @@
   emitted radiation, and the full-window DOP853 check (`7.8e-05`) is
   archived. Outward energy flux through fixed boundaries around the
   throat is measured from the exact lattice flux: net `3.315` by `t = 70`,
-  balancing the energy lost inside to `1.2e-04`. 23 tests.
+  balancing the energy lost inside to `1.2e-04`. The interaction is also
+  drawn on the sphere with two Klein handles of #338/#340, from its own
+  solved S² model (`waves/wave_mouth_sphere.py`, `viz/wave_mouth_sphere.py`).
+  33 tests.
 
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 

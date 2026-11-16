@@ -5747,13 +5747,27 @@ a transition; with no stored energy the field only loses energy; a stable
 throat that swings below `q = 0.5` and returns is not counted as a collapse.
 Against DOP853 over the full run the final state agrees to `7.8e-05`.
 
+**On the sphere with Alice handles.** The same interaction drawn on the 3D
+object of #338 and #340, from its own solved model
+(`waves/wave_mouth_sphere.py`: #340's Hamiltonian with relativistic pairs, a
+loaded throat and a ledger).
+
+![solved wave on the sphere with two Klein handles](docs/images/wave_mouth_sphere/wave_mouth_sphere.png)
+
+A packet refocuses beside the loaded mouth; the throat tips at `t = 3.6`,
+field energy goes from `0.600` to `2.258`, and the two pairs move `1.29` and
+`0.76` rad. The scalar lives on the round sphere: nothing is solved on the
+necks and no flux is measured there.
+[Animation](docs/images/wave_mouth_sphere/wave_mouth_sphere.gif).
+
 **What it is not.** A comparator, not a GR solution. The metastable support
 that makes collapse possible is assumed, and the repository's own record is
 that collapse was not derived. No handle connects the mouths.
 
 ```bash
 python scripts/render_wave_mouth_network.py
-python -m pytest -q tests/test_wave_mouth_network.py   # 23 tests
+python scripts/render_wave_mouth_sphere.py
+python -m pytest -q tests/test_wave_mouth_network.py tests/test_wave_mouth_sphere.py   # 33 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

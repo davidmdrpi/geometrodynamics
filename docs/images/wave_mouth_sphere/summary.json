@@ -1,0 +1,232 @@
+{
+  "wave_mouth_sphere": {
+    "amplitude": 1.0,
+    "stored": [
+      [
+        2.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "energy_initial": 2.6735774001892785,
+    "energy_max_relative_error": 8.331880828149484e-05,
+    "angular_momentum_drift": 8.442332272118646e-14,
+    "field_energy_initial": 0.5999999999999999,
+    "field_energy_final": 2.2581573178227217,
+    "barrier_top": -0.07399999999999995,
+    "transition_times": [
+      3.6,
+      null,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      -1.1745642275521004,
+      -0.2786232509507378,
+      -0.20288440620574733,
+      -0.16118762803679484
+    ],
+    "final_coordinates": [
+      -0.8991969447914266,
+      -0.07765929235392696,
+      -0.05840699661272788,
+      -0.11556378222607139
+    ],
+    "pair_displacements": [
+      1.287073687373982,
+      0.7643093259847227
+    ],
+    "max_speed": 0.11819379216614993,
+    "min_pair_separation": 0.7477233766106834,
+    "stored_released": 1.8396947576739504,
+    "field_energy_final_l0": 0.20630932357792126,
+    "frame_times": [
+      0.0,
+      3.0,
+      4.4,
+      6.0,
+      12.0,
+      30.0
+    ],
+    "field_scale": 0.3899885554644046
+  },
+  "wave_mouth_sphere_subthreshold": {
+    "amplitude": 0.6,
+    "stored": [
+      [
+        2.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "energy_initial": 2.2424878640681403,
+    "energy_max_relative_error": 2.1166436550918093e-06,
+    "angular_momentum_drift": 1.7527692378106458e-15,
+    "field_energy_initial": 0.21599999999999991,
+    "field_energy_final": 0.2238509850761739,
+    "barrier_top": -0.07399999999999995,
+    "transition_times": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      -0.1120246102270508,
+      -0.053068037870217924,
+      -0.0418151310351437,
+      -0.04429865424458923
+    ],
+    "final_coordinates": [
+      -0.034414448292001465,
+      0.025137627835386814,
+      0.0009005089699749801,
+      -0.0331875025966749
+    ],
+    "pair_displacements": [
+      0.24652450202641146,
+      0.2188020071758329
+    ],
+    "max_speed": 0.01494674641108825,
+    "min_pair_separation": 1.1058889478888694,
+    "stored_released": -0.004298996857199547,
+    "field_energy_final_l0": 0.0013552976575552543,
+    "frame_times": [
+      0.0,
+      3.0,
+      4.4,
+      6.0,
+      12.0,
+      30.0
+    ],
+    "field_scale": 0.3899885554644046
+  },
+  "wave_mouth_sphere_unloaded": {
+    "amplitude": 1.0,
+    "stored": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "energy_initial": 0.6735774001892787,
+    "energy_max_relative_error": 1.9443151376215555e-05,
+    "angular_momentum_drift": 3.5921845281431e-15,
+    "field_energy_initial": 0.5999999999999999,
+    "field_energy_final": 0.6411000773973383,
+    "barrier_top": -0.07399999999999995,
+    "transition_times": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      -0.10498577036406583,
+      -0.08869801503049209,
+      -0.07351591890801394,
+      -0.06572118956369719
+    ],
+    "final_coordinates": [
+      0.04148338395649746,
+      0.012507834612511334,
+      -0.022712543638084753,
+      -0.03166616843353698
+    ],
+    "pair_displacements": [
+      0.4977317277729608,
+      0.2987004093903337
+    ],
+    "max_speed": 0.03384640363636411,
+    "min_pair_separation": 0.7828212979183052,
+    "stored_released": -0.00679184586589833,
+    "field_energy_final_l0": 0.00028153637100719077,
+    "frame_times": [
+      0.0,
+      3.0,
+      4.4,
+      6.0,
+      12.0,
+      30.0
+    ],
+    "field_scale": 0.3899885554644046
+  },
+  "wave_mouth_sphere_no_wave": {
+    "amplitude": 0.0,
+    "stored": [
+      [
+        2.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "energy_initial": 2.0,
+    "energy_max_relative_error": 0.0,
+    "angular_momentum_drift": 0.0,
+    "field_energy_initial": 0.0,
+    "field_energy_final": 0.0,
+    "barrier_top": -0.07399999999999995,
+    "transition_times": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "min_coordinate": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "final_coordinates": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "pair_displacements": [
+      0.0,
+      0.0
+    ],
+    "max_speed": 0.0,
+    "min_pair_separation": 1.5707963267948966,
+    "stored_released": 0.0,
+    "field_energy_final_l0": 0.0,
+    "frame_times": [
+      0.0,
+      3.0,
+      4.4,
+      6.0,
+      12.0,
+      30.0
+    ],
+    "field_scale": 0.3899885554644046
+  },
+  "half_step": {
+    "energy_max_relative_error": 2.082952488091883e-05,
+    "field_energy_final": 2.2583776039790067,
+    "transition_times": [
+      3.6,
+      null,
+      null,
+      null
+    ],
+    "pair_displacements": [
+      1.2876503711164426,
+      0.764568256319432
+    ]
+  }
+}
