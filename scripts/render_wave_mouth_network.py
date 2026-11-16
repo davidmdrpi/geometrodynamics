@@ -52,6 +52,26 @@ def main(argv=None):
                                  "min_coordinate", "final_coordinates")}}
     (args.output_dir / "summary.json").write_text(
         json.dumps(report, indent=2, default=float) + "\n")
+    # Energy flux through fixed boundaries around mouth 1, every run.
+    scalars = ("box", "step", "duration", "net_outward_final",
+               "net_outward_left_final", "net_outward_right_final",
+               "gross_outward", "gross_inward", "inside_initial",
+               "inside_final", "box_field_energy_final",
+               "balance_max_residual", "mouth_margin")
+    fluxes = {}
+    for name, cfg in RUNS.items():
+        flux = w.flux_ledger(cfg["amplitude"], cfg["stored"])
+        fluxes[name] = {k: flux[k] for k in scalars}
+        if name == "wave_mouth_network":
+            fluxes[name]["net_outward_minimum"] = float(flux["net_outward"].min())
+            w.render_flux(flux, args.output_dir / "wave_mouth_network_flux.png",
+                          report[name]["transition_times"][0])
+    half = w.flux_ledger(h=w.STEP / 2, sample=40)
+    fluxes["wave_mouth_network_half_step"] = {k: half[k] for k in scalars}
+    (args.output_dir / "flux.json").write_text(
+        json.dumps(fluxes, indent=2, default=float) + "\n")
+    print("flux", json.dumps({k: v["net_outward_final"]
+                              for k, v in fluxes.items()}))
     validation = w.validate()
     (args.output_dir / "validation.json").write_text(
         json.dumps(validation, indent=2) + "\n")

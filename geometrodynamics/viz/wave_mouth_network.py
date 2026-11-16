@@ -331,6 +331,91 @@ def validate(duration=DURATION, steps=(STEP, STEP / 2)) -> dict:
             "dop853_energy_error": float(abs(m.energy(ref) - e0) / e0)}
 
 
+BOX = (20.0, 40.0)          # fixed boundaries enclosing mouth 1 all run long
+
+
+def bond_flux(model: Network, z, bonds) -> np.ndarray:
+    """Rightward field-energy flux through the bonds (i-1, i), exact on the lattice.
+
+    With site density ``e_i = p_i^2/2 + (psi_{i+1}-psi_i)^2/(2 dx^2) + m^2
+    psi_i^2/2`` the free field obeys ``d(dx e_i)/dt = J_i - J_{i+1}`` with
+    ``J_i = -p_i (psi_i - psi_{i-1}) / dx``. Sources act only where a mouth
+    kernel is nonzero.
+    """
+    psi, p = model.unpack(z)[:2]
+    bonds = np.asarray(bonds)
+    return -p[bonds] * (psi[bonds] - psi[bonds - 1]) / model.dx
+
+
+def box_energy(model: Network, z, bonds, inside=(0,)) -> tuple:
+    """(field energy on sites a..b-1, energy of the mouths inside the box)."""
+    psi, p = model.unpack(z)[:2]
+    a, b = bonds
+    grad = (np.roll(psi, -1) - psi) / model.dx
+    density = 0.5 * p ** 2 + 0.5 * grad ** 2 + 0.5 * model.field_mass ** 2 * psi ** 2
+    c = model.components(z)
+    local = sum(float(c[n][k]) for n in ("mouth_kinetic", "throat", "coupling")
+                for k in inside)
+    return float(model.dx * density[a:b].sum()), local
+
+
+def flux_ledger(amplitude=AMPLITUDE, stored=(4.0, 0.0, 0.0), box=BOX,
+                duration=DURATION, h=STEP, sample=20, model=None) -> dict:
+    """Time-integrated energy flux through two fixed boundaries around mouth 1.
+
+    The flux is sampled at EVERY step and integrated by the trapezoid rule.
+    ``net_outward`` is what left the box minus what entered; ``gross_*``
+    split each boundary's instantaneous flux by sign. The balance
+
+        net_outward(t) = E_inside(0) - E_inside(t)
+
+    with ``E_inside`` the box field energy plus mouth 1's kinetic, throat
+    and coupling energy is the check that the flux is the right one.
+    """
+    m = model or Network(stored=tuple(stored))
+    a, b = (int(round(v / m.dx)) for v in box)
+    bonds = np.array([a, b])
+    z = m.start(amplitude=amplitude)
+    steps = int(round(duration / h))
+    out_sign = np.array([-1.0, 1.0])               # outward normal at a, b
+    j = out_sign * bond_flux(m, z, bonds)
+    cum = np.zeros(2)
+    gross_out, gross_in = np.zeros(2), np.zeros(2)
+    field0, local0 = box_energy(m, z, (a, b))
+    rows = [(0.0, 0.0, 0.0, field0, local0, float(m.unpack(z)[2][0]))]
+    for n in range(steps):
+        z = m.step(z, h)
+        j_new = out_sign * bond_flux(m, z, bonds)
+        inc = 0.5 * h * (j + j_new)
+        cum += inc
+        gross_out += np.clip(inc, 0, None)
+        gross_in += np.clip(-inc, 0, None)
+        j = j_new
+        if (n + 1) % sample == 0:
+            f, loc = box_energy(m, z, (a, b))
+            rows.append(((n + 1) * h, cum[0], cum[1], f, loc,
+                         float(m.unpack(z)[2][0])))
+    r = np.array(rows)
+    inside = r[:, 3] + r[:, 4]
+    net = r[:, 1] + r[:, 2]
+    residual = net - (inside[0] - inside)
+    return {
+        "box": list(box), "step": h, "duration": duration,
+        "time": r[:, 0], "outward_left": r[:, 1], "outward_right": r[:, 2],
+        "net_outward": net, "box_field_energy": r[:, 3],
+        "mouth_energy_inside": r[:, 4], "mouth_position": r[:, 5],
+        "net_outward_final": float(net[-1]),
+        "net_outward_left_final": float(cum[0]),
+        "net_outward_right_final": float(cum[1]),
+        "gross_outward": gross_out.tolist(), "gross_inward": gross_in.tolist(),
+        "inside_initial": float(inside[0]), "inside_final": float(inside[-1]),
+        "box_field_energy_final": float(r[-1, 3]),
+        "balance_max_residual": float(np.abs(residual).max()),
+        "mouth_margin": float(min((r[:, 5] - box[0]).min(),
+                                  (box[1] - r[:, 5]).min())),
+    }
+
+
 def render(hist: History, path, title=None):
     """Three rows: spacetime diagram, throat coordinates, energy ledger."""
     import matplotlib
@@ -402,6 +487,49 @@ def render(hist: History, path, title=None):
     fig.savefig(path, dpi=130)
     plt.close(fig)
     return s
+
+
+def render_flux(flux: dict, path, transition=None):
+    """Cumulative outward energy flux through the two fixed boundaries."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    t = flux["time"]
+    ink, muted = "#0b0b0b", "#52514e"
+    series = [("outward_left", "through x = %g" % flux["box"][0], "#2a78d6", 2.0),
+              ("outward_right", "through x = %g" % flux["box"][1], "#eb6834", 2.0),
+              ("net_outward", "net, both boundaries", ink, 2.4)]
+    fig, ax = plt.subplots(figsize=(9.5, 5.2), facecolor="#fcfcfb")
+    ax.set_facecolor("#fcfcfb")
+    ax.axhline(0.0, color=muted, lw=0.8)
+    for key, label, colour, lw in series:
+        ax.plot(t, flux[key], color=colour, lw=lw, label=label)
+        ax.annotate(f"{flux[key][-1]:+.2f}", (t[-1], flux[key][-1]),
+                    xytext=(6, 0), textcoords="offset points", va="center",
+                    fontsize=9, color=ink)
+    if transition is not None:
+        ax.axvline(transition, color=muted, lw=0.8, ls="--")
+        ax.annotate("throat 1 enters\nits collapsed well",
+                    (transition, 0.82 * flux["net_outward"].max()),
+                    xytext=(6, 0), textcoords="offset points", fontsize=9,
+                    color=muted, va="center")
+    ax.set_xlabel("time")
+    ax.set_ylabel("cumulative outward energy flux")
+    ax.set_xlim(0, t[-1] * 1.07)
+    ax.grid(axis="y", color="#e6e5e0", lw=0.6)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    ax.legend(loc="upper left", fontsize=9, frameon=False)
+    ax.set_title("Energy leaving the box around mouth 1, integrated from the "
+                 "lattice flux", fontsize=11, loc="left", color=ink)
+    fig.text(0.01, 0.01, "Negative = energy entering (the trigger packet). "
+             "Balance against the energy inside the box closes to "
+             f"{flux['balance_max_residual']:.1e}. Comparator model; ring, so "
+             "late inflow includes reflections.", fontsize=8, color=muted)
+    fig.tight_layout(rect=(0, 0.035, 1, 1))
+    fig.savefig(path, dpi=160)
+    plt.close(fig)
 
 
 def scenario(amplitude=AMPLITUDE, stored=(4.0, 0.0, 0.0), duration=DURATION,

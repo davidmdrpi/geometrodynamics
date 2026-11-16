@@ -162,3 +162,67 @@ def test_archived_full_window_validation():
     assert v["duration"] == w.DURATION
     assert v["relative_final_state_error"][0] < 1e-3
     assert v["improvement"] == pytest.approx(4.0, rel=0.05)
+
+
+# ---- outward energy flux through fixed boundaries --------------------------
+
+@pytest.fixture(scope="module")
+def flux():
+    return w.flux_ledger()
+
+
+def test_lattice_flux_obeys_the_continuity_equation():
+    """Away from mouths, d(dx e_i)/dt = J_i - J_{i+1} for the vector field."""
+    m = w.Network()
+    rng = np.random.default_rng(0)
+    z = m.start(amplitude=0.3)
+    z[:2 * m.sites] += 0.05 * rng.standard_normal(2 * m.sites)
+    a, b = 300, 380                       # x in [30, 38]: no mouth kernel there
+    eps = 1e-6
+    rate = (w.box_energy(m, z + eps * m.rhs(z), (a, b))[0]
+            - w.box_energy(m, z - eps * m.rhs(z), (a, b))[0]) / (2 * eps)
+    j = w.bond_flux(m, z, [a, b])
+    assert rate == pytest.approx(j[0] - j[1], rel=1e-6, abs=1e-9)
+
+
+def test_flux_balances_the_energy_inside_the_box(flux):
+    assert flux["balance_max_residual"] < 5e-4
+    assert flux["net_outward_final"] == pytest.approx(
+        flux["inside_initial"] - flux["inside_final"], abs=5e-4)
+    assert flux["mouth_margin"] > 3.0     # mouth 1 never nears a boundary
+
+
+def test_packet_enters_then_more_energy_leaves(flux):
+    net = flux["net_outward"]
+    assert net.min() < -0.5                         # the trigger goes in
+    assert flux["time"][net.argmin()] < 20.0
+    assert flux["net_outward_final"] > 3.0          # and far more comes out
+    assert flux["net_outward_left_final"] > 1.0
+    assert flux["net_outward_right_final"] > 1.0    # through both boundaries
+
+
+def test_no_net_outward_flux_without_a_transition():
+    for kw in (dict(amplitude=w.SUBTHRESHOLD), dict(stored=(0.0, 0.0, 0.0))):
+        f = w.flux_ledger(**kw)
+        assert f["net_outward_final"] < 0           # the box absorbs
+        assert f["balance_max_residual"] < 1e-4
+    assert w.flux_ledger(amplitude=0.0, duration=10.0)["net_outward_final"] == 0
+
+
+def test_archived_flux_matches_and_converges():
+    import json
+    from pathlib import Path
+    path = (Path(__file__).resolve().parents[1] / "docs" / "images"
+            / "wave_mouth_network" / "flux.json")
+    f = json.loads(path.read_text())
+    full, half = f["wave_mouth_network"], f["wave_mouth_network_half_step"]
+    assert full["net_outward_final"] == pytest.approx(
+        half["net_outward_final"], abs=2e-4)
+    assert (full["balance_max_residual"] / half["balance_max_residual"]
+            == pytest.approx(4.0, rel=0.1))
+
+
+def test_flux_figure_renders(flux, tmp_path):
+    out = tmp_path / "flux.png"
+    w.render_flux(flux, out, transition=17.2)
+    assert out.stat().st_size > 10_000

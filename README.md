@@ -5735,8 +5735,11 @@ signed throat coordinates with #340's reciprocal coupling, and a support potenti
   wave speed.
 * **A wave tips a loaded throat and its stored energy goes into the field.**
   Total scalar-field energy on the ring goes from `0.572` to `3.856`;
-  `3.906` of the throat's stored `4` is released. This is a whole-ring
-  total, not a measured outgoing flux.
+  `3.906` of the throat's stored `4` is released. Measured through fixed
+  boundaries at `x = 20` and `x = 40`, a net `3.315` flows out of the box
+  around the throat by `t = 70`, `5.8` times the packet's energy, through
+  both sides; it balances the energy lost inside the box to `1.2e-04`.
+  In every control the box is a net absorber.
 * **The ledger closes** to `2.8e-05`, term by term.
 
 Controls: no wave, nothing happens; a weaker wave moves the mouths without
@@ -5750,7 +5753,7 @@ that collapse was not derived. No handle connects the mouths.
 
 ```bash
 python scripts/render_wave_mouth_network.py
-python -m pytest -q tests/test_wave_mouth_network.py   # 17 tests
+python -m pytest -q tests/test_wave_mouth_network.py   # 23 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

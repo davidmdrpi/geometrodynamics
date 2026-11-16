@@ -10,8 +10,9 @@ Nothing is posed or animated by hand. It shows three things:
 2. **A wave releases a throat's stored energy into the field.** The packet
    tips a loaded throat over its support barrier into its collapsed well,
    where it rings down. The **total scalar-field energy** on the ring ends
-   6.7 times what the packet started with. That is a whole-ring total, not
-   a measured outgoing flux; see "What the field-energy number is" below.
+   6.7 times what the packet started with, and a **net `3.315` flows out**
+   through fixed boundaries around the throat, `5.8` times the packet's
+   energy; see "Outward energy flux through fixed boundaries" below.
 3. **A ledger closes.** Wave, mouth motion, throat and coupling energies are
    booked at every step, and their sum is conserved to `2.8e-05`.
 
@@ -101,16 +102,53 @@ at `t = 20` and returns to `0.951`. There is no collapsed well for it to
 enter. That case is now a test and is archived in `summary.json` as
 `detector_control`; it reports a threshold crossing and no transition.
 
-### What the field-energy number is
+### Outward energy flux through fixed boundaries
 
-`3.856` is the scalar-field term of the ledger summed over the whole ring.
-It includes field energy sitting at the mouths and, on a ring, waves that
-have travelled round. It is **not** an outward flux through a boundary, so
-"the emitted wave carries 6.7 times the trigger's energy" would overstate
-it, and the earlier text said that. As a rougher separation, the field
-energy farther than `2` (five mouth widths) from every mouth goes from
-`0.572` to `3.110`, a factor `5.4`. That is still a region total, not a
-flux.
+![cumulative outward energy flux through the two boundaries](images/wave_mouth_network/wave_mouth_network_flux.png)
+
+The emission is measured directly. Two fixed boundaries at `x = 20` and
+`x = 40` enclose mouth 1 for the whole run (it moves from `25` to `36.3` and
+never comes within `3.6` of either). No other mouth is inside. The lattice
+field has an exact energy flux through each bond,
+
+    J_i = −p_i (ψ_i − ψ_{i−1}) / dx,      d(dx e_i)/dt = J_i − J_{i+1},
+
+which is sampled at every time step and integrated.
+
+| | value |
+|---|---:|
+| trigger packet entering (largest net inflow, at `t ≈ 16`) | `0.563` |
+| **net outward flux by `t = 70`** | **`3.315`** |
+| of which through `x = 20`, `x = 40` | `1.998`, `1.317` |
+| gross outward, gross inward | `3.963`, `0.648` |
+| energy still inside the box at `t = 70` | `0.685` of `4.000` |
+| balance residual, step `0.005` → `0.0025` | `1.2e-04` → `3.1e-05` |
+
+So `3.315` units of energy net left the box, `5.8` times the packet's
+`0.572`, and it left through **both** boundaries, while the trigger entered
+through one. The check is the balance: net outward flux equals the drop in
+energy inside the box (box field energy plus mouth 1's kinetic, throat and
+coupling energy) to `1.2e-04`, and the residual falls by four when the step
+is halved.
+
+Limits of this number:
+
+* It is the outflow by `t = 70`, not a total. The curve is still rising and
+  `0.685` remains inside.
+* The space is a ring. Gross inflow after the packet has entered (`0.085`)
+  is energy coming back, from reflection off mouth 2 or from round the
+  ring. The net figure already subtracts it.
+* Outflow starts near `t = 24`, some seven time units after the transition:
+  the throat first rings, then the field carries the energy five units to a
+  boundary.
+
+In the controls the box is a net absorber: `−0.043` for the weaker wave,
+`−0.074` with no stored energy, exactly `0` with no wave.
+
+`3.856`, the whole-ring scalar-field total, is a different quantity. It
+includes field energy at the mouths. The earlier text called it the energy
+of "the outgoing wave"; the flux above is the measurement that phrase
+needed.
 
 ## Controls
 
@@ -162,7 +200,8 @@ it needs the throat's ring-down frequency to match the mouth's size.
 Shown, for this Hamiltonian: a real wave transfers momentum to mouths; it
 can tip a loaded throat into its collapsed well; the total scalar-field
 energy then grows well beyond the trigger's, paid for by the support; and
-the energy is accounted for term by term. Not measured: an outgoing flux.
+the energy is accounted for term by term. The outgoing flux through fixed
+boundaries is measured and balances the energy lost inside them.
 
 Not shown:
 

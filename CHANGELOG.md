@@ -89,7 +89,9 @@
   ledger. Review of `89ceeed`: the collapse detector no longer fires on a
   stable throat, the 6.7x figure is named total field energy rather than
   emitted radiation, and the full-window DOP853 check (`7.8e-05`) is
-  archived. 17 tests.
+  archived. Outward energy flux through fixed boundaries around the
+  throat is measured from the exact lattice flux: net `3.315` by `t = 70`,
+  balancing the energy lost inside to `1.2e-04`. 23 tests.
 
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
