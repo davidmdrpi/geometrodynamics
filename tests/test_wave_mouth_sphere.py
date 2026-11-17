@@ -155,3 +155,79 @@ def test_figure_and_animation_render(main_run, tmp_path):
     gif = tmp_path / "sphere.gif"
     assert v.animate(model, d, gif, frames=3, scene=scene) == 3
     assert gif.stat().st_size > 5_000
+
+
+# ---- outward energy flux through a fixed circle on the sphere ---------------
+
+@pytest.fixture(scope="module")
+def cap_flux():
+    return m.cap_flux_ledger()
+
+
+def test_cap_quadrature_is_exact_on_the_whole_sphere():
+    model = m.WaveMouthSphere()
+    s = model.start()
+    model.drift(s, 1.7)
+    whole = m.CapFlux(model, radius=np.pi - 1e-9)
+    assert whole.energy(s.a, s.p) == pytest.approx(model.wave_energy(s.a, s.p),
+                                                   rel=1e-12)
+
+
+def test_free_field_obeys_the_continuity_equation_through_the_cap_edge():
+    model = m.WaveMouthSphere()
+    s = model.start()
+    model.drift(s, 1.7)
+    cap = m.CapFlux(model)
+    plus, minus = s.copy(), s.copy()
+    model.drift(plus, 1e-5)
+    model.drift(minus, -1e-5)
+    rate = (cap.energy(plus.a, plus.p) - cap.energy(minus.a, minus.p)) / 2e-5
+    assert abs(rate) > 0.1
+    assert rate == pytest.approx(-cap.flux(s.a, s.p), rel=1e-7)
+
+
+def test_cap_flux_balances_the_energy_inside(cap_flux):
+    f = cap_flux
+    assert f["balance_max_residual"] < 5e-4
+    assert f["net_outward_final"] == pytest.approx(
+        f["inside_initial"] - f["inside_final"], abs=5e-4)
+    assert f["loaded_mouth_margin"] > 0.44       # three footprint widths
+    assert f["other_mouth_margin"] > 0.44
+
+
+def test_packet_enters_the_cap_then_more_energy_leaves(cap_flux):
+    f = cap_flux
+    assert f["net_outward_minimum"] < -0.5
+    assert f["time"][f["net_outward"].argmin()] < 5.0
+    assert f["net_outward_final"] > 1.0
+    # A closed sphere returns what it emits: the curve is not monotonic.
+    assert f["gross_inward"] > 1.0
+    assert np.diff(f["net_outward"]).min() < 0 < np.diff(f["net_outward"]).max()
+
+
+def test_cap_absorbs_when_there_is_no_transition():
+    for kw in (dict(amplitude=m.SUBTHRESHOLD),
+               dict(stored=((0.0, 0.0), (0.0, 0.0)))):
+        f = m.cap_flux_ledger(**kw)
+        assert f["net_outward_final"] < 0
+        assert f["balance_max_residual"] < 1e-4
+    assert m.cap_flux_ledger(amplitude=0.0, duration=2.0)["net_outward_final"] == 0
+
+
+def test_archived_sphere_flux():
+    import json
+    from pathlib import Path
+    path = (Path(__file__).resolve().parents[1] / "docs" / "images"
+            / "wave_mouth_sphere" / "flux.json")
+    f = json.loads(path.read_text())
+    full, half = f["wave_mouth_sphere"], f["half_step"]
+    assert full["duration"] == m.CAP_WINDOW
+    assert full["net_outward_final"] == pytest.approx(
+        half["net_outward_final"], abs=5e-4)
+    assert half["balance_max_residual"] < full["balance_max_residual"]
+
+
+def test_sphere_flux_figure_renders(cap_flux, tmp_path):
+    out = tmp_path / "flux.png"
+    v.render_flux(cap_flux, out, transition=3.6)
+    assert out.stat().st_size > 10_000

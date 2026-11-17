@@ -5757,7 +5757,10 @@ loaded throat and a ledger).
 A packet refocuses beside the loaded mouth; the throat tips at `t = 3.6`,
 field energy goes from `0.600` to `2.258`, and the two pairs move `1.29` and
 `0.76` rad. The scalar lives on the round sphere: nothing is solved on the
-necks and no flux is measured there.
+necks. Through a fixed circle around the loaded mouth, a net `1.167` has
+left by `t = 15` (`0.586` entered), balancing the energy inside to
+`2.0e-04`; the sphere is closed, so emitted waves return and that curve is
+not monotonic.
 [Animation](docs/images/wave_mouth_sphere/wave_mouth_sphere.gif).
 
 **What it is not.** A comparator, not a GR solution. The metastable support
@@ -5767,7 +5770,7 @@ that collapse was not derived. No handle connects the mouths.
 ```bash
 python scripts/render_wave_mouth_network.py
 python scripts/render_wave_mouth_sphere.py
-python -m pytest -q tests/test_wave_mouth_network.py tests/test_wave_mouth_sphere.py   # 33 tests
+python -m pytest -q tests/test_wave_mouth_network.py tests/test_wave_mouth_sphere.py   # 40 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

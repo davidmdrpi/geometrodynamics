@@ -1,0 +1,108 @@
+{
+  "wave_mouth_sphere": {
+    "centre": [
+      0.15002813291262898,
+      0.2900543902977494,
+      0.9451772373495626
+    ],
+    "radius": 0.85,
+    "duration": 15.0,
+    "step": 0.005,
+    "net_outward_final": 1.1665698518039291,
+    "net_outward_minimum": -0.5864003449675799,
+    "gross_outward": 2.6895223335341956,
+    "gross_inward": 1.522952481730266,
+    "inside_initial": 2.000390770912094,
+    "inside_final": 0.8338547991433374,
+    "cap_field_energy_final": 0.5898571389466272,
+    "rotor_work_final": 0.0015655742282863502,
+    "balance_max_residual": 0.000201651684940872,
+    "loaded_mouth_margin": 0.4561815164687917,
+    "other_mouth_margin": 0.44866980270140167,
+    "net_outward_maximum": 1.2456123611480923
+  },
+  "wave_mouth_sphere_subthreshold": {
+    "centre": [
+      0.15002813291262898,
+      0.2900543902977494,
+      0.9451772373495626
+    ],
+    "radius": 0.85,
+    "duration": 15.0,
+    "step": 0.005,
+    "net_outward_final": -0.08741870097650455,
+    "net_outward_minimum": -0.2115699169091125,
+    "gross_outward": 0.3718394562621913,
+    "gross_inward": 0.4592581572386956,
+    "inside_initial": 2.000140677528354,
+    "inside_final": 2.0875765670973023,
+    "cap_field_energy_final": 0.08358748321423577,
+    "rotor_work_final": 0.0003166959674016365,
+    "balance_max_residual": 2.30792623061582e-05,
+    "loaded_mouth_margin": 0.5173405945860143,
+    "other_mouth_margin": 0.5021669183280374
+  },
+  "wave_mouth_sphere_unloaded": {
+    "centre": [
+      0.15002813291262898,
+      0.2900543902977494,
+      0.9451772373495626
+    ],
+    "radius": 0.85,
+    "duration": 15.0,
+    "step": 0.005,
+    "net_outward_final": -0.2488781539729244,
+    "net_outward_minimum": -0.586421611664425,
+    "gross_outward": 1.0618458742926598,
+    "gross_inward": 1.310724028265583,
+    "inside_initial": 0.00039077091209417533,
+    "inside_final": 0.24929591815048296,
+    "cap_field_energy_final": 0.24647293499063128,
+    "rotor_work_final": 0.0013393613022645576,
+    "balance_max_residual": 5.1429071244807334e-05,
+    "loaded_mouth_margin": 0.5173405945860143,
+    "other_mouth_margin": 0.40732373365071617
+  },
+  "wave_mouth_sphere_no_wave": {
+    "centre": [
+      0.15002813291262898,
+      0.2900543902977494,
+      0.9451772373495626
+    ],
+    "radius": 0.85,
+    "duration": 15.0,
+    "step": 0.005,
+    "net_outward_final": 0.0,
+    "net_outward_minimum": 0.0,
+    "gross_outward": 0.0,
+    "gross_inward": 0.0,
+    "inside_initial": 2.0,
+    "inside_final": 2.0,
+    "cap_field_energy_final": 0.0,
+    "rotor_work_final": 0.0,
+    "balance_max_residual": 0.0,
+    "loaded_mouth_margin": 0.5173405945860143,
+    "other_mouth_margin": 0.5701995991058787
+  },
+  "half_step": {
+    "centre": [
+      0.15002813291262898,
+      0.2900543902977494,
+      0.9451772373495626
+    ],
+    "radius": 0.85,
+    "duration": 15.0,
+    "step": 0.0025,
+    "net_outward_final": 1.1667470503431818,
+    "net_outward_minimum": -0.5864128873233494,
+    "gross_outward": 2.6897667943617596,
+    "gross_inward": 1.5230197440185782,
+    "inside_initial": 2.000390770912094,
+    "inside_final": 0.8336904949136411,
+    "cap_field_energy_final": 0.589912634146603,
+    "rotor_work_final": 0.0015902447394772017,
+    "balance_max_residual": 9.16919659668114e-05,
+    "loaded_mouth_margin": 0.4561003658158839,
+    "other_mouth_margin": 0.44868159789882134
+  }
+}

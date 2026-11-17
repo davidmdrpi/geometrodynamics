@@ -48,6 +48,26 @@ def main(argv=None):
     report["half_step"] = {k: v.summary(model, half)[k] for k in (
         "energy_max_relative_error", "field_energy_final", "transition_times",
         "pair_displacements")}
+    # Energy flux through a fixed circle around the loaded mouth, every run.
+    scalars = ("centre", "radius", "duration", "step", "net_outward_final",
+               "net_outward_minimum", "gross_outward", "gross_inward",
+               "inside_initial", "inside_final", "cap_field_energy_final",
+               "rotor_work_final", "balance_max_residual",
+               "loaded_mouth_margin", "other_mouth_margin")
+    fluxes = {}
+    for name, cfg in RUNS.items():
+        flux = m.cap_flux_ledger(cfg["amplitude"], cfg["stored"])
+        fluxes[name] = {k: flux[k] for k in scalars}
+        if name == "wave_mouth_sphere":
+            fluxes[name]["net_outward_maximum"] = float(flux["net_outward"].max())
+            v.render_flux(flux, args.output_dir / "wave_mouth_sphere_flux.png",
+                          report[name]["transition_times"][0])
+    half_flux = m.cap_flux_ledger(h=m.STEP / 2, sample=40)
+    fluxes["half_step"] = {k: half_flux[k] for k in scalars}
+    (args.output_dir / "flux.json").write_text(
+        json.dumps(fluxes, indent=2, default=float) + "\n")
+    print("flux", json.dumps({k: f["net_outward_final"]
+                              for k, f in fluxes.items()}))
     (args.output_dir / "summary.json").write_text(
         json.dumps(report, indent=2, default=float) + "\n")
     return 0

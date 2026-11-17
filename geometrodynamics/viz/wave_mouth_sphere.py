@@ -257,3 +257,40 @@ def animate(model, data, path, frames=72, fps=12, scene=None):
     anim.save(path, writer=PillowWriter(fps=fps), dpi=80)
     plt.close(fig)
     return len(idx)
+
+
+def render_flux(flux, path, transition=None):
+    """Cumulative net energy flux out of the fixed cap around the loaded mouth."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    t, net = flux["time"], flux["net_outward"]
+    fig, ax = plt.subplots(figsize=(9.5, 5.0), facecolor=SURFACE)
+    ax.set_facecolor(SURFACE)
+    ax.axhline(0.0, color=MUTED, lw=0.8)
+    ax.plot(t, net, color="#2a78d6", lw=2.2)
+    ax.annotate(f"{net[-1]:+.2f}", (t[-1], net[-1]), xytext=(6, 0),
+                textcoords="offset points", va="center", fontsize=9, color=INK)
+    if transition is not None:
+        ax.axvline(transition, color=MUTED, lw=0.8, ls="--")
+        ax.annotate("loaded throat enters\nits collapsed well",
+                    (transition, 0.9 * net.max()), xytext=(6, 0),
+                    textcoords="offset points", fontsize=9, color=MUTED,
+                    va="center")
+    ax.set_xlabel("time")
+    ax.set_ylabel("cumulative net outward energy flux")
+    ax.set_xlim(0, t[-1] * 1.06)
+    ax.grid(axis="y", color="#e6e5e0", lw=0.6)
+    for side in ("top", "right"):
+        ax.spines[side].set_visible(False)
+    ax.set_title("Energy leaving a fixed cap of radius %.2f rad around the "
+                 "loaded mouth" % flux["radius"], fontsize=11, loc="left",
+                 color=INK)
+    fig.text(0.01, 0.01, "Negative = energy entering. The sphere is closed, so "
+             "emitted waves come back and the curve is not monotonic. Balance "
+             f"against the energy inside closes to {flux['balance_max_residual']:.1e}.",
+             fontsize=8, color=MUTED)
+    fig.tight_layout(rect=(0, 0.035, 1, 1))
+    fig.savefig(path, dpi=160)
+    plt.close(fig)

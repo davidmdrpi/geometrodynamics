@@ -206,10 +206,9 @@ Limits specific to this drawing:
   through a handle, so this is not a picture of a wave using the wormhole.
 * **The handle shape does not respond.** A tipped throat changes its rim
   colour only; the neck is drawn at fixed radius.
-* **No flux is measured here.** The field-energy rise is a whole-sphere
-  total. Most of it is in `l = 5`, the degree resonant with the throat's
-  ringing, so it is wave energy and not a uniform offset, but an outward
-  flux through a boundary on the sphere has not been computed.
+* The field-energy rise is a whole-sphere total. Most of it is in `l = 5`,
+  the degree resonant with the throat's ringing, so it is wave energy and
+  not a uniform offset. The outward flux is measured separately, below.
 * In the two controls without a transition the field energy still rises a
   little (`+0.008`, `+0.041`). That is the initial coupling energy of the
   packet with the mouth beside it, not stored support energy.
@@ -221,6 +220,53 @@ Limits specific to this drawing:
   viewer of #338 needs GL. Where a Klein handle passes through the sphere
   wall the depth order is approximate; that crossing is a drawing artifact
   in any case.
+
+### Outward energy flux on the sphere
+
+![cumulative net energy flux out of a fixed cap](images/wave_mouth_sphere/wave_mouth_sphere_flux.png)
+
+The boundary is a fixed circle of radius `0.85` rad about the fixed point
+`(0.15, 0.29, 0.945)`. For this field, `u_tt = (Δ − ¼)u + f`, the density
+`e = ½(u_t² + |∇u|² + ¼u²)` obeys `e_t + div S = u_t f` with `S = −u_t ∇u`.
+The field is band-limited, so the flux through the circle and the energy in
+the cap are both computed by exact quadrature; the flux is sampled at every
+time step.
+
+**The window is `t ≤ 15`, not the whole run.** The mouths travel so far
+that no fixed circle holds the loaded mouth alone for longer: up to
+`t = 15` the loaded mouth stays `0.456` rad inside the circle and every
+other mouth `0.449` rad outside, three footprint widths each way. The cap
+was chosen to make that window as long as possible.
+
+| | value |
+|---|---:|
+| trigger entering (largest net inflow, `t ≈ 3.1`) | `0.586` |
+| **net outward flux at `t = 15`** | **`1.167`** |
+| largest value in the window | `1.246` |
+| gross outward, gross inward | `2.690`, `1.523` |
+| energy still inside at `t = 15` | `0.834` of `2.000`, `0.590` of it field energy in the cap |
+| balance residual, step `0.005` → `0.0025` | `2.0e-04` → `9.2e-05` |
+
+So energy does leave the neighbourhood of the tipped throat: a net `1.167`
+by `t = 15`, about twice the `0.586` that entered. But the sphere is closed
+and this differs from the ring in an important way:
+
+* **The curve is not monotonic.** What is emitted comes back. Net outflow
+  reaches `1.06` at `t = 8`, falls to `0.78` at `t = 12`, and is `1.17` at
+  `t = 15`. Gross inflow is `1.52`, more than half the gross outflow. There
+  is no "far away" on a sphere of this size, so a net-flux number depends
+  on when it is read, and none of these should be quoted as the emitted
+  energy.
+* The balance is `net outward = inside(0) − inside(t)`, where "inside" is
+  the cap's field energy, the loaded mouth's throat and coupling energy,
+  and the work that mouth has done on its pair's rotor (`0.0016`; the rotor
+  is shared with the antipodal mouth, which is outside the cap).
+* The residual halves, not quarters, when the step is halved. The remaining
+  `~1e-4` is consistent with the tail of the mouth footprint and of the
+  band limit crossing the circle; it is not a time-stepping error alone.
+
+In the controls the cap is a net absorber over the same window: `−0.087`
+for the weaker wave, `−0.249` with no stored energy, `0` with no wave.
 
 ## Controls
 
