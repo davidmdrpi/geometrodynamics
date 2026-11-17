@@ -53,6 +53,8 @@ def main(argv=None):
                "net_outward_minimum", "gross_outward", "gross_inward",
                "inside_initial", "inside_final", "cap_field_energy_final",
                "rotor_work_final", "balance_max_residual",
+               "balance_max_residual_with_tails", "tail_work_final",
+               "net_flux_rise", "net_flux_fall", "edge_points",
                "loaded_mouth_margin", "other_mouth_margin")
     fluxes = {}
     for name, cfg in RUNS.items():
@@ -64,6 +66,10 @@ def main(argv=None):
                           report[name]["transition_times"][0])
     half_flux = m.cap_flux_ledger(h=m.STEP / 2, sample=40)
     fluxes["half_step"] = {k: half_flux[k] for k in scalars}
+    quarter = m.cap_flux_ledger(h=m.STEP / 4, sample=80)
+    fluxes["quarter_step"] = {k: quarter[k] for k in scalars}
+    fine_edge = m.cap_flux_ledger(edge_points=416)
+    fluxes["edge_416"] = {k: fine_edge[k] for k in scalars}
     (args.output_dir / "flux.json").write_text(
         json.dumps(fluxes, indent=2, default=float) + "\n")
     print("flux", json.dumps({k: f["net_outward_final"]

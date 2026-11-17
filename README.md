@@ -5718,6 +5718,7 @@ remains the next geometric task.
 ```bash
 OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_antipodal_normal_throat.py tests/test_antipodal_normal_throat_review.py
 OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.antipodal_normal_throat_review_probe
+```
 
 ## A visualization drawn from a solved model: wave, mouths, throat transition, ledger
 
@@ -5770,7 +5771,7 @@ that collapse was not derived. No handle connects the mouths.
 ```bash
 python scripts/render_wave_mouth_network.py
 python scripts/render_wave_mouth_sphere.py
-python -m pytest -q tests/test_wave_mouth_network.py tests/test_wave_mouth_sphere.py   # 40 tests
+python -m pytest -q tests/test_wave_mouth_network.py tests/test_wave_mouth_sphere.py   # 44 tests
 ```
 
 ## The traversable throat PR #216 assumed, wired into it (PR #276)

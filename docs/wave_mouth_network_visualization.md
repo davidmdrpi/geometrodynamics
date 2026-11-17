@@ -243,9 +243,10 @@ was chosen to make that window as long as possible.
 | trigger entering (largest net inflow, `t ≈ 3.1`) | `0.586` |
 | **net outward flux at `t = 15`** | **`1.167`** |
 | largest value in the window | `1.246` |
-| gross outward, gross inward | `2.690`, `1.523` |
+| gross outward, gross inward (split at each point of the circle) | `3.318`, `2.152` |
+| rise, fall of the net flux curve | `2.690`, `1.523` |
 | energy still inside at `t = 15` | `0.834` of `2.000`, `0.590` of it field energy in the cap |
-| balance residual, step `0.005` → `0.0025` | `2.0e-04` → `9.2e-05` |
+| balance residual with footprint tails, step `0.005` → `0.0025` → `0.00125` | `2.1e-04` → `5.3e-05` → `1.3e-05` |
 
 So energy does leave the neighbourhood of the tipped throat: a net `1.167`
 by `t = 15`, about twice the `0.586` that entered. But the sphere is closed
@@ -253,7 +254,8 @@ and this differs from the ring in an important way:
 
 * **The curve is not monotonic.** What is emitted comes back. Net outflow
   reaches `1.06` at `t = 8`, falls to `0.78` at `t = 12`, and is `1.17` at
-  `t = 15`. Gross inflow is `1.52`, more than half the gross outflow. There
+  `t = 15`. Gross inflow is `2.15`, about two thirds of the gross outflow
+  `3.32`. There
   is no "far away" on a sphere of this size, so a net-flux number depends
   on when it is read, and none of these should be quoted as the emitted
   energy.
@@ -261,9 +263,21 @@ and this differs from the ring in an important way:
   the cap's field energy, the loaded mouth's throat and coupling energy,
   and the work that mouth has done on its pair's rotor (`0.0016`; the rotor
   is shared with the antipodal mouth, which is outside the cap).
-* The residual halves, not quarters, when the step is halved. The remaining
-  `~1e-4` is consistent with the tail of the mouth footprint and of the
-  band limit crossing the circle; it is not a time-stepping error alone.
+* **Footprint tails** (review of `324c2e4`). The mouth footprints are not
+  compactly supported, so a little source work crosses the circle. With
+  `W_tails`, the time integral of the source power of all mouths inside the
+  cap minus the loaded mouth's source power over the whole sphere, the
+  balance is `net outward = inside(0) − inside(t) + W_tails`. `W_tails` is
+  `5.1e-05` at `t = 15`, and with it the residual converges at clean second
+  order (table above). Without it the residual stalls near `9e-05`, which
+  the earlier text guessed was a tail effect; this confirms it.
+* **Gross flows are split pointwise** (same review). The first version
+  integrated the flux round the whole circle and then split by sign, so
+  inflow on one arc cancelled outflow on another; it reported `2.690` and
+  `1.523`. Those are the rise and fall of the net curve, and are now
+  labelled as such. Splitting the flux density at each point of the circle
+  gives `3.318` and `2.152`; refining the circle from 208 to 416 points
+  changes them by less than `1e-06`. The net flux is unchanged.
 
 In the controls the cap is a net absorber over the same window: `−0.087`
 for the weaker wave, `−0.249` with no stored energy, `0` with no wave.

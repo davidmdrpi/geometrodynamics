@@ -200,7 +200,8 @@ class CapFlux:
     ``∇u`` comes from the rotation generators, ``n × ∇u = (D_i a)_i``.
     """
 
-    def __init__(self, model, centre=CAP_CENTRE, radius=CAP_RADIUS):
+    def __init__(self, model, centre=CAP_CENTRE, radius=CAP_RADIUS,
+                 edge_points=None):
         self.model, self.radius = model, float(radius)
         c, e1, e2 = _frame(centre)
         self.centre = c
@@ -208,10 +209,15 @@ class CapFlux:
         n_phi = 4 * band + 8
         phi = 2 * np.pi * np.arange(n_phi) / n_phi
         ring = np.cos(phi)[:, None] * e1 + np.sin(phi)[:, None] * e2
-        edge = np.cos(radius) * c + np.sin(radius) * ring
+        # The net flux is exact at 4L+8 points; the sign-split gross flows are
+        # not band-limited, so the edge can be refined independently.
+        n_edge = edge_points or 2 * n_phi
+        psi = 2 * np.pi * np.arange(n_edge) / n_edge
+        edge = np.cos(radius) * c + np.sin(radius) * (
+            np.cos(psi)[:, None] * e1 + np.sin(psi)[:, None] * e2)
         self.edge = edge
         self.normal = (edge * np.cos(radius) - c) / np.sin(radius)
-        self.edge_weight = np.sin(radius) * 2 * np.pi / n_phi
+        self.edge_weight = np.sin(radius) * 2 * np.pi / n_edge
         self.edge_y = harmonics(model.ell, model.order, edge)
         nodes, weights = np.polynomial.legendre.leggauss(band + 4)
         lo = np.cos(radius)
@@ -227,12 +233,20 @@ class CapFlux:
         g = np.stack([(y @ (d @ a)).real for d in self.model.generators], axis=1)
         return (y @ a).real, (y @ p).real, g
 
-    def flux(self, a, p):
-        """Outward energy flux through the edge, ``−∮ u_t (ν·∇u) dl``."""
+    def flux_density(self, a, p):
+        """Outward flux ``−u_t (ν·∇u) dl`` at each edge point (weights included)."""
         _, ut, g = self._fields(self.edge_y, self.edge, a, p)
         grad = np.cross(g, self.edge)
-        return float(-self.edge_weight * np.sum(
-            ut * np.einsum("ij,ij->i", self.normal, grad)))
+        return -self.edge_weight * ut * np.einsum("ij,ij->i", self.normal, grad)
+
+    def flux(self, a, p):
+        """Net outward energy flux through the edge, ``−∮ u_t (ν·∇u) dl``."""
+        return float(self.flux_density(a, p).sum())
+
+    def source_power(self, p, coefficients):
+        """``∫_cap u_t f dA`` for a source with harmonic ``coefficients``."""
+        return float(self.cap_weight @ ((self.cap_y @ p).real
+                                        * (self.cap_y @ coefficients).real))
 
     def energy(self, a, p):
         u, ut, g = self._fields(self.cap_y, self.cap, a, p)
@@ -242,17 +256,28 @@ class CapFlux:
 
 def cap_flux_ledger(amplitude=AMPLITUDE, stored=((2.0, 0.0), (0.0, 0.0)),
                     duration=CAP_WINDOW, h=STEP, sample=20, centre=CAP_CENTRE,
-                    radius=CAP_RADIUS, parameters=PARAMETERS):
+                    radius=CAP_RADIUS, parameters=PARAMETERS, edge_points=None):
     """Time-integrated flux out of a fixed cap around the loaded mouth.
 
     ``inside`` is the cap's field energy, plus mouth 1's throat and coupling
     energy, plus the work mouth 1 has done on its pair's rotor (the rotor is
     shared with the antipodal mouth, which is outside). The check is
 
-        net_outward(t) = inside(0) − inside(t).
+        net_outward(t) = inside(0) − inside(t) + W_tails(t),
+
+    where ``W_tails`` is the time integral of the source power of ALL mouths
+    inside the cap minus the loaded mouth's source power over the whole
+    sphere: the footprint tails that cross the circle (review of 324c2e4).
+    ``balance_max_residual`` omits it; ``balance_max_residual_with_tails``
+    includes it.
+
+    ``gross_outward`` and ``gross_inward`` split the flux density by sign AT
+    EACH EDGE POINT before integrating round the circle, so simultaneous
+    inflow on one arc and outflow on another do not cancel. The sign-split of
+    the already-integrated net flux is kept as ``net_flux_rise`` / ``_fall``.
     """
     model = WaveMouthSphere(parameters, Support(stored=stored))
-    cap = CapFlux(model, centre, radius)
+    cap = CapFlux(model, centre, radius, edge_points)
     s = model.start(amplitude)
     steps = int(round(duration / h))
     mass = model.par.mass
@@ -271,35 +296,51 @@ def cap_flux_ledger(amplitude=AMPLITUDE, stored=((2.0, 0.0), (0.0, 0.0)),
         mouths = np.array([s.x[0], -s.x[0], s.x[1], -s.x[1]])
         return np.arccos(np.clip(mouths @ cap.centre, -1, 1))
 
-    flux, power = cap.flux(s.a, s.p), rotor_power()
-    net = work = gross_out = gross_in = 0.0
-    rows = [(0.0, 0.0, *inside(0.0), *distances())]
+    def tail_power():
+        w, _, mismatch, _ = model.interaction(s)
+        every = model.par.coupling * np.einsum("hs,hsn->n", mismatch, w)
+        loaded = model.par.coupling * mismatch[0, 0] * w[0, 0]
+        return cap.source_power(s.p, every) - float(np.vdot(loaded, s.p).real)
+
+    density, power, tail = cap.flux_density(s.a, s.p), rotor_power(), tail_power()
+    net = work = tails = gross_out = gross_in = rise = fall = 0.0
+    rows = [(0.0, 0.0, *inside(0.0), 0.0, *distances())]
     for n in range(steps):
         model.step(s, h)
-        new_flux, new_power = cap.flux(s.a, s.p), rotor_power()
-        inc = 0.5 * h * (flux + new_flux)
+        new_density, new_power = cap.flux_density(s.a, s.p), rotor_power()
+        new_tail = tail_power()
+        local = 0.5 * h * (density + new_density)
+        inc = float(local.sum())
         net += inc
-        gross_out += max(inc, 0.0)
-        gross_in += max(-inc, 0.0)
+        gross_out += float(np.clip(local, 0, None).sum())
+        gross_in += float(np.clip(-local, 0, None).sum())
+        rise += max(inc, 0.0)
+        fall += max(-inc, 0.0)
         work += 0.5 * h * (power + new_power)
-        flux, power = new_flux, new_power
+        tails += 0.5 * h * (tail + new_tail)
+        density, power, tail = new_density, new_power, new_tail
         if (n + 1) % sample == 0:
-            rows.append(((n + 1) * h, net, *inside(work), *distances()))
+            rows.append(((n + 1) * h, net, *inside(work), tails, *distances()))
     r = np.array(rows)
     total_inside = r[:, 2] + r[:, 3] + r[:, 4]
     residual = r[:, 1] - (total_inside[0] - total_inside)
+    corrected = residual - r[:, 5]
     return {
         "centre": cap.centre.tolist(), "radius": radius, "duration": duration,
         "step": h, "time": r[:, 0], "net_outward": r[:, 1],
         "cap_field_energy": r[:, 2], "mouth_energy": r[:, 3],
-        "rotor_work": r[:, 4], "mouth_distance": r[:, 5:],
+        "rotor_work": r[:, 4], "tail_work": r[:, 5],
+        "mouth_distance": r[:, 6:],
         "net_outward_final": float(net), "net_outward_minimum": float(r[:, 1].min()),
         "gross_outward": gross_out, "gross_inward": gross_in,
+        "net_flux_rise": rise, "net_flux_fall": fall,
+        "edge_points": len(cap.edge), "tail_work_final": float(tails),
+        "balance_max_residual_with_tails": float(np.abs(corrected).max()),
         "inside_initial": float(total_inside[0]),
         "inside_final": float(total_inside[-1]),
         "cap_field_energy_final": float(r[-1, 2]),
         "rotor_work_final": float(work),
         "balance_max_residual": float(np.abs(residual).max()),
-        "loaded_mouth_margin": float((radius - r[:, 5]).min()),
-        "other_mouth_margin": float((r[:, 6:] - radius).min()),
+        "loaded_mouth_margin": float((radius - r[:, 6]).min()),
+        "other_mouth_margin": float((r[:, 7:] - radius).min()),
     }

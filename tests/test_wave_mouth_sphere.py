@@ -201,7 +201,7 @@ def test_packet_enters_the_cap_then_more_energy_leaves(cap_flux):
     assert f["time"][f["net_outward"].argmin()] < 5.0
     assert f["net_outward_final"] > 1.0
     # A closed sphere returns what it emits: the curve is not monotonic.
-    assert f["gross_inward"] > 1.0
+    assert f["net_flux_fall"] > 1.0
     assert np.diff(f["net_outward"]).min() < 0 < np.diff(f["net_outward"]).max()
 
 
@@ -231,3 +231,57 @@ def test_sphere_flux_figure_renders(cap_flux, tmp_path):
     out = tmp_path / "flux.png"
     v.render_flux(cap_flux, out, transition=3.6)
     assert out.stat().st_size > 10_000
+
+
+def test_gross_flows_are_split_pointwise_on_the_circle(cap_flux):
+    """Review of 324c2e4: inflow on one arc must not cancel outflow on another."""
+    f = cap_flux
+    assert f["gross_outward"] - f["gross_inward"] == pytest.approx(
+        f["net_outward_final"], abs=1e-12)
+    assert f["gross_outward"] == pytest.approx(3.319, abs=2e-3)
+    assert f["gross_inward"] == pytest.approx(2.152, abs=2e-3)
+    # The sign-split of the integrated net flux is smaller: it cancels.
+    assert f["net_flux_rise"] < f["gross_outward"] - 0.5
+    assert f["net_flux_fall"] < f["gross_inward"] - 0.5
+
+
+def test_simultaneous_inflow_and_outflow_do_not_cancel():
+    """A free wave crossing the cap enters on one arc and leaves on another."""
+    model = m.WaveMouthSphere(m.replace(m.PARAMETERS, coupling=0.0))
+    cap = m.CapFlux(model, centre=(1.0, 0.0, 0.0), radius=0.6)
+    s = model.start()
+    model.drift(s, 1.2)                  # the front is sweeping across this cap
+    density = cap.flux_density(s.a, s.p)
+    out, back = np.clip(density, 0, None).sum(), np.clip(-density, 0, None).sum()
+    assert out > 0.01 and back > 0.01
+    assert abs(density.sum()) < out + back - 0.02
+    assert density.sum() == pytest.approx(cap.flux(s.a, s.p))
+    # The net flux is band-limited and so independent of the edge resolution.
+    fine = m.CapFlux(model, centre=(1.0, 0.0, 0.0), radius=0.6, edge_points=416)
+    assert fine.flux(s.a, s.p) == pytest.approx(cap.flux(s.a, s.p), rel=1e-11)
+
+
+def test_footprint_tail_work_restores_second_order_balance():
+    import json
+    from pathlib import Path
+    path = (Path(__file__).resolve().parents[1] / "docs" / "images"
+            / "wave_mouth_sphere" / "flux.json")
+    f = json.loads(path.read_text())
+    res = [f[k]["balance_max_residual_with_tails"]
+           for k in ("wave_mouth_sphere", "half_step", "quarter_step")]
+    assert res[0] / res[1] == pytest.approx(4.0, rel=0.02)
+    assert res[1] / res[2] == pytest.approx(4.0, rel=0.02)
+    assert f["wave_mouth_sphere"]["tail_work_final"] == pytest.approx(5.11e-5, rel=0.02)
+    # Gross flows do not depend on the edge resolution.
+    for key in ("gross_outward", "gross_inward"):
+        assert f["edge_416"][key] == pytest.approx(f["wave_mouth_sphere"][key],
+                                                   abs=1e-5)
+
+
+def test_readme_code_fences_are_paired():
+    from pathlib import Path
+    text = (Path(__file__).resolve().parents[1] / "README.md").read_text()
+    fences = [line for line in text.splitlines() if line.startswith("```")]
+    assert len(fences) % 2 == 0
+    start = text.index("## A visualization drawn from a solved model")
+    assert sum(l.startswith("```") for l in text[:start].splitlines()) % 2 == 0
