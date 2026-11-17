@@ -1,0 +1,123 @@
+{
+  "wave_mouth_network": {
+    "box": [
+      20.0,
+      40.0
+    ],
+    "step": 0.005,
+    "duration": 70.0,
+    "net_outward_final": 3.3145684650552636,
+    "net_outward_left_final": 1.9978112172613585,
+    "net_outward_right_final": 1.3167572477939051,
+    "gross_outward": [
+      2.562445404104981,
+      1.4004629083846682
+    ],
+    "gross_inward": [
+      0.5646341868436099,
+      0.08370566059076442
+    ],
+    "inside_initial": 4.000001385009414,
+    "inside_final": 0.6853508889824486,
+    "box_field_energy_final": 0.28231227594771086,
+    "balance_max_residual": 0.00012427593550123905,
+    "mouth_margin": 3.664198524978417,
+    "net_outward_minimum": -0.5627379066766112
+  },
+  "wave_mouth_network_subthreshold": {
+    "box": [
+      20.0,
+      40.0
+    ],
+    "step": 0.005,
+    "duration": 70.0,
+    "net_outward_final": -0.04300355775544242,
+    "net_outward_left_final": -0.060300188927757244,
+    "net_outward_right_final": 0.017296631172314822,
+    "gross_outward": [
+      0.12356263647438227,
+      0.06823140091506094
+    ],
+    "gross_inward": [
+      0.18386282540213955,
+      0.05093476974274586
+    ],
+    "inside_initial": 4.0000004522479715,
+    "inside_final": 4.043004157003293,
+    "box_field_energy_final": 0.02932146962301323,
+    "balance_max_residual": 1.6670565385346059e-06,
+    "mouth_margin": 5.0
+  },
+  "wave_mouth_network_unloaded": {
+    "box": [
+      20.0,
+      40.0
+    ],
+    "step": 0.005,
+    "duration": 70.0,
+    "net_outward_final": -0.07390557566615877,
+    "net_outward_left_final": -0.11467732998457823,
+    "net_outward_right_final": 0.04077175431841946,
+    "gross_outward": [
+      0.44812965049641623,
+      0.06710761489181387
+    ],
+    "gross_inward": [
+      0.5628069804809941,
+      0.026335860573394414
+    ],
+    "inside_initial": 1.3850094137240078e-06,
+    "inside_final": 0.07390825489547953,
+    "box_field_energy_final": 0.006457966525114711,
+    "balance_max_residual": 6.2822205307844214e-06,
+    "mouth_margin": 5.0
+  },
+  "wave_mouth_network_no_wave": {
+    "box": [
+      20.0,
+      40.0
+    ],
+    "step": 0.005,
+    "duration": 70.0,
+    "net_outward_final": 0.0,
+    "net_outward_left_final": 0.0,
+    "net_outward_right_final": 0.0,
+    "gross_outward": [
+      0.0,
+      0.0
+    ],
+    "gross_inward": [
+      0.0,
+      0.0
+    ],
+    "inside_initial": 4.0,
+    "inside_final": 4.0,
+    "box_field_energy_final": 0.0,
+    "balance_max_residual": 0.0,
+    "mouth_margin": 5.0
+  },
+  "wave_mouth_network_half_step": {
+    "box": [
+      20.0,
+      40.0
+    ],
+    "step": 0.0025,
+    "duration": 70.0,
+    "net_outward_final": 3.3146326481927533,
+    "net_outward_left_final": 1.997873943804271,
+    "net_outward_right_final": 1.3167587043884823,
+    "gross_outward": [
+      2.5625152706799974,
+      1.4004788135921762
+    ],
+    "gross_inward": [
+      0.5646413268757204,
+      0.08372010920369787
+    ],
+    "inside_initial": 4.000001385009414,
+    "inside_final": 0.6853482314298318,
+    "box_field_energy_final": 0.2823113902049998,
+    "balance_max_residual": 3.106579263006948e-05,
+    "mouth_margin": 3.6639906766492416
+  }
+}

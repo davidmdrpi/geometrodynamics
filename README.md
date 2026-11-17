@@ -5720,6 +5720,60 @@ OPENBLAS_NUM_THREADS=1 python -m pytest -q tests/test_antipodal_normal_throat.py
 OPENBLAS_NUM_THREADS=1 python -m experiments.closure_ledger.antipodal_normal_throat_review_probe
 ```
 
+## A visualization drawn from a solved model: wave, mouths, throat transition, ledger
+
+![wave, mouth worldlines, throat coordinates and energy ledger](docs/images/wave_mouth_network/wave_mouth_network.png)
+
+Write-up: [wave_mouth_network_visualization.md](docs/wave_mouth_network_visualization.md).
+Module `geometrodynamics/viz/wave_mouth_network.py`.
+
+PR #340's drawing moves mouths with axes from a rotor model, but no wave
+propagates in it, nothing collapses and no energy is shown. This figure is
+integrated from one Hamiltonian: a real wave on a ring, relativistic mouths,
+signed throat coordinates with #340's reciprocal coupling, and a support potential.
+
+* **A wave moves mouths.** All three are displaced, at up to `0.25` of the
+  wave speed.
+* **A wave tips a loaded throat and its stored energy goes into the field.**
+  Total scalar-field energy on the ring goes from `0.572` to `3.856`;
+  `3.906` of the throat's stored `4` is released. Measured through fixed
+  boundaries at `x = 20` and `x = 40`, a net `3.315` flows out of the box
+  around the throat by `t = 70`, `5.8` times the packet's energy, through
+  both sides; it balances the energy lost inside the box to `1.2e-04`.
+  In every control the box is a net absorber.
+* **The ledger closes** to `2.8e-05`, term by term.
+
+Controls: no wave, nothing happens; a weaker wave moves the mouths without
+a transition; with no stored energy the field only loses energy; a stable
+throat that swings below `q = 0.5` and returns is not counted as a collapse.
+Against DOP853 over the full run the final state agrees to `7.8e-05`.
+
+**On the sphere with Alice handles.** The same interaction drawn on the 3D
+object of #338 and #340, from its own solved model
+(`waves/wave_mouth_sphere.py`: #340's Hamiltonian with relativistic pairs, a
+loaded throat and a ledger).
+
+![solved wave on the sphere with two Klein handles](docs/images/wave_mouth_sphere/wave_mouth_sphere.png)
+
+A packet refocuses beside the loaded mouth; the throat tips at `t = 3.6`,
+field energy goes from `0.600` to `2.258`, and the two pairs move `1.29` and
+`0.76` rad. The scalar lives on the round sphere: nothing is solved on the
+necks. Through a fixed circle around the loaded mouth, a net `1.167` has
+left by `t = 15` (`0.586` entered), balancing the energy inside to
+`2.0e-04`; the sphere is closed, so emitted waves return and that curve is
+not monotonic.
+[Animation](docs/images/wave_mouth_sphere/wave_mouth_sphere.gif).
+
+**What it is not.** A comparator, not a GR solution. The metastable support
+that makes collapse possible is assumed, and the repository's own record is
+that collapse was not derived. No handle connects the mouths.
+
+```bash
+python scripts/render_wave_mouth_network.py
+python scripts/render_wave_mouth_sphere.py
+python -m pytest -q tests/test_wave_mouth_network.py tests/test_wave_mouth_sphere.py   # 44 tests
+```
+
 ## The traversable throat PR #216 assumed, wired into it (PR #276)
 
 `transaction/network.py` (PR #216) replaced `handshake.py`'s advanced

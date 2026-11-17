@@ -81,6 +81,25 @@
   requires variation; the continuum-gap diagnostic minimises over both
   neighbouring integers.
 
+- Visualization (`viz/wave_mouth_network.py`): a figure integrated from one
+  Hamiltonian in which a real wave moves relativistic mouths, triggers the
+  transition of a loaded throat that releases its stored energy into the
+  scalar field, and an energy ledger closes to `2.8e-05`. Comparator model; the metastable support is assumed.
+  Follows PR #340, whose drawing has no propagating wave, collapse or
+  ledger. Review of `89ceeed`: the collapse detector no longer fires on a
+  stable throat, the 6.7x figure is named total field energy rather than
+  emitted radiation, and the full-window DOP853 check (`7.8e-05`) is
+  archived. Outward energy flux through fixed boundaries around the
+  throat is measured from the exact lattice flux: net `3.315` by `t = 70`,
+  balancing the energy lost inside to `1.2e-04`. The interaction is also
+  drawn on the sphere with two Klein handles of #338/#340, from its own
+  solved S² model (`waves/wave_mouth_sphere.py`, `viz/wave_mouth_sphere.py`),
+  with the net flux out of a fixed cap around the loaded mouth measured by
+  exact quadrature (`+1.167` at `t = 15`, non-monotonic on a closed sphere).
+  Review of `324c2e4`: gross flows are split at each point of the circle
+  (`3.318` out, `2.152` in), footprint-tail work closes the balance at
+  second order, and an unclosed README code fence is fixed. 44 tests.
+
 ## 1.3.5 — release candidate (prepared 2026-10-29)
 
 Capstone of PR #301–#350 since v1.3.0. See the
