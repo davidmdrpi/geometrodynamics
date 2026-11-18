@@ -209,3 +209,12 @@ def test_archived_probe():
         for key in ("P1", "P2 degeneracy", "P2 conservation", "P3", "P4 timing",
                     "P5 non-vacuous", "P6 sign", "P6 tolerance"):
             assert g[key], (n, key)
+        # what the archive records as missed, at both resolutions
+        assert not g["P4 split"] and not g["P5 identity"], n
+    assert rep["verdict"] == "COUNTEREXAMPLE" and rep["reasons"] == ["P4 split"]
+    assert rep["notes"] == ["also missed: P5 identity (not shrinking)"]
+    assert rep["P7"]["spectrum"] is True
+    # the recorded verdict is what the frozen rules give for the recorded numbers
+    per_size = {int(n): v for n, v in rep["per_size"].items()}
+    assert list(_probe().verdict(per_size, rep["P7"])) == [
+        rep["verdict"], rep["reasons"], rep["notes"]]

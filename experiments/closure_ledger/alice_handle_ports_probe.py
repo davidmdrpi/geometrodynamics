@@ -205,6 +205,7 @@ def run_probe(progress=lambda s: None, sizes=SIZES, mesh=True, cache=None):
     v, why, notes = verdict(per_size, p7)
     return jsonable(dict(prereg=PREREG, scope=SCOPE, verdict=v, reasons=why, notes=notes,
                          sizes=list(sizes), per_size=per_size, P7=p7,
+                         from_cache=cache is not None,
                          seconds=time.time() - started))
 
 
@@ -237,7 +238,11 @@ def markdown(rep):
         lines.append(f"* a = {r['a']}, m = {r['m']}: "
                      + ", ".join(f"{p['split']:.3g}" for p in r["pairs"])
                      + f"  (expectation {r['expected_split']:.2g})")
-    lines += ["", f"Run time {rep['seconds']:.0f} s.", ""]
+    if rep.get("from_cache"):
+        lines += ["", f"Assembled in {rep['seconds']:.0f} s from stages cached by "
+                  "earlier runs; their run times are not recorded here.", ""]
+    else:
+        lines += ["", f"Run time {rep['seconds']:.0f} s.", ""]
     return "\n".join(lines)
 
 
