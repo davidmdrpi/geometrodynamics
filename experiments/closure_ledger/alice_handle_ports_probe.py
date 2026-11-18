@@ -120,16 +120,30 @@ def verdict(per_size, p7):
     return "UNRESOLVED_NUMERICALLY", missed
 
 
-def run_probe(progress=lambda s: None, sizes=SIZES, mesh=True):
+def cached(cache, name, compute):
+    """Reuse a finished stage from ``cache`` (a directory) so an interrupted
+    run resumes where it stopped; the numbers are those of the stage's run."""
+    if cache is None:
+        return compute()
+    path = Path(cache) / f"{name}.json"
+    if path.exists():
+        return json.loads(path.read_text())
+    out = jsonable(compute())
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(out))
+    return out
+
+
+def run_probe(progress=lambda s: None, sizes=SIZES, mesh=True, cache=None):
     started = time.time()
     per_size = {}
     for n in sizes:
-        meas = measure(n, progress)
+        meas = cached(cache, f"measure_{n}", lambda: measure(n, progress))
         per_size[n] = dict(measured=meas, gates=gates(meas), worst=worst(meas))
     p7 = {"geometry": None, "spectrum": None}
     if mesh:
         progress("P7 mesh")
-        res = ah.p7_mesh()
+        res = cached(cache, "p7_mesh", ah.p7_mesh)
         tor, kle = res["torus"], res["klein"]
         geometry = (tor["geometry"]["difference_spread"] < 1e-9
                     and kle["geometry"]["sum_spread"] < 1e-9)
@@ -180,9 +194,11 @@ def main(argv=None):
         "experiments/closure_ledger/runs/20261118_alice_handle_ports"))
     parser.add_argument("--sizes", type=int, nargs="+", default=list(SIZES))
     parser.add_argument("--no-mesh", action="store_true")
+    parser.add_argument("--cache", type=Path, default=None,
+                        help="directory for finished stages, to resume a stopped run")
     args = parser.parse_args(argv)
     rep = run_probe(lambda s: print(s, flush=True), tuple(args.sizes),
-                    mesh=not args.no_mesh)
+                    mesh=not args.no_mesh, cache=args.cache)
     args.out.mkdir(parents=True, exist_ok=True)
     (args.out / "probe.json").write_text(json.dumps(rep, indent=1) + "\n")
     (args.out / "probe.md").write_text(markdown(rep))
