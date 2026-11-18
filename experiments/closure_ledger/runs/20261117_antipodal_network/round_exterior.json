@@ -1,0 +1,428 @@
+[
+  {
+    "subdivisions": 8,
+    "radius": 0.3120449961609955,
+    "switch": {
+      "bracket": [
+        5.75,
+        6.0
+      ],
+      "endpoint_mismatches": [
+        -6.702778366940084,
+        -4.498151450113863
+      ],
+      "fitted_root": null,
+      "fixed_frequency": 5.8759801142492565,
+      "fixed_shift": 0.5346499805149831,
+      "fixed_dark_power": 2.1439600212472816,
+      "zero_shift_power": 11.936146405693819,
+      "fixed_power_ratio": 0.1796191122642868
+    },
+    "quotient_exterior_volume": 9.619967390449665,
+    "exact_volume": 9.619967516197496,
+    "symmetry_sector_poles": [
+      [
+        1.1175214454351279,
+        3.449595895993267,
+        5.117850797307722,
+        6.503261538681164
+      ],
+      [
+        3.8666583981019227,
+        6.233372961509721,
+        7.524078996081627,
+        9.116478486948957
+      ]
+    ],
+    "responses": [
+      {
+        "omega": 0.2,
+        "tau": 0.2375,
+        "receiver_power": 0.02237078261363802,
+        "tube_power_to_B": 0.002829745480449894,
+        "exterior_power_to_B": 0.01954103713318812,
+        "source_power": 0.022370782613638014,
+        "exterior_cross": -2.6863700655517704,
+        "zero_clock_cross": 3.9406508579346493,
+        "shifted_cross": 3.9396863154255457
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 1.727759137802108,
+        "tube_power_to_B": 0.44750769691003134,
+        "exterior_power_to_B": 1.2802514408920762,
+        "source_power": 1.7277591378021075,
+        "exterior_cross": -13.865688978670175,
+        "zero_clock_cross": 15.321784191048863,
+        "shifted_cross": 15.284750079496577
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0.6829890929525537,
+        "receiver_power": 5.018662787427484,
+        "tube_power_to_B": 4.292319590355645,
+        "exterior_power_to_B": 0.7263431970718391,
+        "source_power": 5.018662787427485,
+        "exterior_cross": -0.9787949381561711,
+        "zero_clock_cross": 4.805386293148383,
+        "shifted_cross": 6.7629761694607256
+      }
+    ]
+  },
+  {
+    "subdivisions": 16,
+    "radius": 0.3120449961609955,
+    "switch": {
+      "bracket": [
+        5.75,
+        6.0
+      ],
+      "endpoint_mismatches": [
+        -5.220773387355035,
+        10.80333618645789
+      ],
+      "fitted_root": 5.926486382524384,
+      "fixed_frequency": 5.8759801142492565,
+      "fixed_shift": 0.5346499805149831,
+      "fixed_dark_power": 0.22571417181099926,
+      "zero_shift_power": 10.789369057039888,
+      "fixed_power_ratio": 0.020920052935229277
+    },
+    "quotient_exterior_volume": 9.619967514336794,
+    "exact_volume": 9.619967516197496,
+    "symmetry_sector_poles": [
+      [
+        1.10876832795908,
+        3.4184637256069443,
+        5.032308352439123,
+        6.357513391959485
+      ],
+      [
+        3.8290881032683806,
+        6.101651527235225,
+        7.362542160101265,
+        8.852003801916727
+      ]
+    ],
+    "responses": [
+      {
+        "omega": 0.2,
+        "tau": 0.2375,
+        "receiver_power": 0.02239231732266751,
+        "tube_power_to_B": 0.00290791431982686,
+        "exterior_power_to_B": 0.019484403002840652,
+        "source_power": 0.022392317322667513,
+        "exterior_cross": -2.6550043003073167,
+        "zero_clock_cross": 3.9092850926901956,
+        "shifted_cross": 3.9083241630216614
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 1.578158795359086,
+        "tube_power_to_B": 0.4155722801631834,
+        "exterior_power_to_B": 1.1625865151959025,
+        "source_power": 1.5781587953590859,
+        "exterior_cross": -14.627922321196216,
+        "zero_clock_cross": 16.084017533574904,
+        "shifted_cross": 16.046801037093946
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0.6829890929525537,
+        "receiver_power": 5.167382002484462,
+        "tube_power_to_B": 4.56647243515372,
+        "exterior_power_to_B": 0.6009095673307429,
+        "source_power": 5.167382002484463,
+        "exterior_cross": -0.7611498570118531,
+        "zero_clock_cross": 5.023031374292701,
+        "shifted_cross": 6.5453310883164075
+      }
+    ]
+  },
+  {
+    "subdivisions": 32,
+    "radius": 0.3120449961609955,
+    "switch": {
+      "bracket": [
+        5.75,
+        6.0
+      ],
+      "endpoint_mismatches": [
+        -4.613630311521987,
+        25.665647648174335
+      ],
+      "fitted_root": 5.88861095780784,
+      "fixed_frequency": 5.8759801142492565,
+      "fixed_shift": 0.5346499805149831,
+      "fixed_dark_power": 0.01666087914682432,
+      "zero_shift_power": 10.615371033485665,
+      "fixed_power_ratio": 0.0015695051161441645
+    },
+    "quotient_exterior_volume": 9.619967516168792,
+    "exact_volume": 9.619967516197496,
+    "symmetry_sector_poles": [
+      [
+        1.106534834807628,
+        3.4098521818510155,
+        5.007742069176644,
+        6.318280648662803
+      ],
+      [
+        3.8196901425864143,
+        6.066925521853101,
+        7.320734747766071,
+        8.77245505360318
+      ]
+    ],
+    "responses": [
+      {
+        "omega": 0.2,
+        "tau": 0.2375,
+        "receiver_power": 0.022397829519502227,
+        "tube_power_to_B": 0.002927906190052897,
+        "exterior_power_to_B": 0.019469923329449326,
+        "source_power": 0.022397829519502224,
+        "exterior_cross": -2.64707151754407,
+        "zero_clock_cross": 3.901352309926949,
+        "shifted_cross": 3.9003923031954524
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 1.542177333709017,
+        "tube_power_to_B": 0.40783816988483595,
+        "exterior_power_to_B": 1.1343391638241813,
+        "source_power": 1.542177333709017,
+        "exterior_cross": -14.843129690321476,
+        "zero_clock_cross": 16.299224902700164,
+        "shifted_cross": 16.261960006776647
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0.6829890929525537,
+        "receiver_power": 5.224693888053767,
+        "tube_power_to_B": 4.649434370989684,
+        "exterior_power_to_B": 0.5752595170640838,
+        "source_power": 5.224693888053768,
+        "exterior_cross": -0.7156580857432608,
+        "zero_clock_cross": 5.068523145561294,
+        "shifted_cross": 6.499839317047815
+      }
+    ]
+  },
+  {
+    "subdivisions": 64,
+    "radius": 0.3120449961609955,
+    "switch": {
+      "bracket": [
+        5.75,
+        6.0
+      ],
+      "endpoint_mismatches": [
+        -4.4372958274243715,
+        32.35242597685029
+      ],
+      "fitted_root": 5.879137825138902,
+      "fixed_frequency": 5.8759801142492565,
+      "fixed_shift": 0.5346499805149831,
+      "fixed_dark_power": 0.0010891206481954943,
+      "zero_shift_power": 10.585563350769387,
+      "fixed_power_ratio": 0.00010288735819774147
+    },
+    "quotient_exterior_volume": 9.61996751619705,
+    "exact_volume": 9.619967516197496,
+    "symmetry_sector_poles": [
+      [
+        1.1059732969978955,
+        3.4076206672808507,
+        5.001287662081658,
+        6.308147389305971
+      ],
+      [
+        3.8173402588794607,
+        6.058127446761332,
+        7.310141703165855,
+        8.751263916074553
+      ]
+    ],
+    "responses": [
+      {
+        "omega": 0.2,
+        "tau": 0.2375,
+        "receiver_power": 0.022399215463685267,
+        "tube_power_to_B": 0.0029329315578000992,
+        "exterior_power_to_B": 0.019466283905885166,
+        "source_power": 0.022399215463685264,
+        "exterior_cross": -2.645083094758789,
+        "zero_clock_cross": 3.899363887141668,
+        "shifted_cross": 3.8984041123412934
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 1.5332656126172857,
+        "tube_power_to_B": 0.4059192713264268,
+        "exterior_power_to_B": 1.127346341290859,
+        "source_power": 1.5332656126172861,
+        "exterior_cross": -14.89870208043007,
+        "zero_clock_cross": 16.354797292808758,
+        "shifted_cross": 16.317520106208683
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0.6829890929525537,
+        "receiver_power": 5.2411799837718025,
+        "tube_power_to_B": 4.671680093122834,
+        "exterior_power_to_B": 0.5694998906489698,
+        "source_power": 5.241179983771803,
+        "exterior_cross": -0.7051190392019748,
+        "zero_clock_cross": 5.07906219210258,
+        "shifted_cross": 6.489300270506529
+      }
+    ]
+  },
+  {
+    "subdivisions": 128,
+    "radius": 0.3120449961609955,
+    "switch": {
+      "bracket": [
+        5.75,
+        6.0
+      ],
+      "endpoint_mismatches": [
+        -4.391453656223057,
+        34.36771076660951
+      ],
+      "fitted_root": 5.876770364675216,
+      "fixed_frequency": 5.8759801142492565,
+      "fixed_shift": 0.5346499805149831,
+      "fixed_dark_power": 6.89986644667242e-05,
+      "zero_shift_power": 10.57906778072461,
+      "fixed_power_ratio": 6.522187578043683e-06
+    },
+    "quotient_exterior_volume": 9.619967516197491,
+    "exact_volume": 9.619967516197496,
+    "symmetry_sector_poles": [
+      [
+        1.1058326866526127,
+        3.407056157035532,
+        4.999647891742366,
+        6.305584963921133
+      ],
+      [
+        3.816752760472105,
+        6.055920532776516,
+        7.3074834015641095,
+        8.745874263385861
+      ]
+    ],
+    "responses": [
+      {
+        "omega": 0.2,
+        "tau": 0.2375,
+        "receiver_power": 0.022399562442759674,
+        "tube_power_to_B": 0.002934189600205901,
+        "exterior_power_to_B": 0.019465372842553768,
+        "source_power": 0.02239956244275967,
+        "exterior_cross": -2.644585670388153,
+        "zero_clock_cross": 3.898866462771032,
+        "shifted_cross": 3.897906746027608
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 1.5310425429873666,
+        "tube_power_to_B": 0.4054403817107819,
+        "exterior_power_to_B": 1.1256021612765845,
+        "source_power": 1.5310425429873664,
+        "exterior_cross": -14.912712070787165,
+        "zero_clock_cross": 16.368807283165854,
+        "shifted_cross": 16.331527011244173
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0.6829890929525537,
+        "receiver_power": 5.24547839572338,
+        "tube_power_to_B": 4.677362574595861,
+        "exterior_power_to_B": 0.5681158211275212,
+        "source_power": 5.2454783957233815,
+        "exterior_cross": -0.7025508109250893,
+        "zero_clock_cross": 5.081630420379465,
+        "shifted_cross": 6.486732042229644
+      }
+    ]
+  },
+  {
+    "subdivisions": 256,
+    "radius": 0.3120449961609955,
+    "switch": {
+      "bracket": [
+        5.75,
+        6.0
+      ],
+      "endpoint_mismatches": [
+        -4.379881298160036,
+        34.8975984430674
+      ],
+      "fitted_root": 5.876178625026066,
+      "fixed_frequency": 5.8759801142492565,
+      "fixed_shift": 0.5346499805149831,
+      "fixed_dark_power": 4.366476597821102e-06,
+      "zero_shift_power": 10.577499040136887,
+      "fixed_power_ratio": 4.128080353637729e-07
+    },
+    "quotient_exterior_volume": 9.619967516197498,
+    "exact_volume": 9.619967516197496,
+    "symmetry_sector_poles": [
+      [
+        1.105797517993588,
+        3.4069145062579476,
+        4.999235918153393,
+        6.304942047629571
+      ],
+      [
+        3.816605883990061,
+        6.055368339958841,
+        7.30681817660833,
+        8.744520931834872
+      ]
+    ],
+    "responses": [
+      {
+        "omega": 0.2,
+        "tau": 0.2375,
+        "receiver_power": 0.02239964921857684,
+        "tube_power_to_B": 0.0029345042172803266,
+        "exterior_power_to_B": 0.019465145001296508,
+        "source_power": 0.022399649218576838,
+        "exterior_cross": -2.6444612943651293,
+        "zero_clock_cross": 3.8987420867480083,
+        "shifted_cross": 3.8977823845234636
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 1.5304870541300974,
+        "tube_power_to_B": 0.4053207059435393,
+        "exterior_power_to_B": 1.1251663481865581,
+        "source_power": 1.5304870541300972,
+        "exterior_cross": -14.916222116992031,
+        "zero_clock_cross": 16.37231732937072,
+        "shifted_cross": 16.335036285285234
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0.6829890929525537,
+        "receiver_power": 5.246566099929784,
+        "tube_power_to_B": 4.678792040410467,
+        "exterior_power_to_B": 0.5677740595193171,
+        "source_power": 5.246566099929784,
+        "exterior_cross": -0.7019136628276215,
+        "zero_clock_cross": 5.082267568476933,
+        "shifted_cross": 6.486094894132176
+      }
+    ]
+  }
+]

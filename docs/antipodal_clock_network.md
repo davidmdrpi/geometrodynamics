@@ -4,11 +4,11 @@
 
 Two external mouths can survive an antipodal quotient if the antipode exchanges **handles**. I constructed such a spatial manifold, propagated a real field through its interior, and accounted separately for the work at both physical rims. A second construction explains why trying to do this with one self-exchanged twisted spherical handle runs into trouble. A periodic clock can remove its fixed points, at the price of closed timelike curves and identifying its exterior rims. These are different physical models.
 
-The most direct quantum-like result is a geometric mode filter. In a specified compact spacetime the seam enforces an exact node at the throat centre for every odd temporal harmonic of a Maxwell channel. A countable resonant family can carry oscillating energy through the lifted throat. Its action remains continuously variable. The numerical network also exhibits coherent cancellation, with an important failure under parameter transfer to another mesh.
+The most direct quantum-like result is a geometric mode filter. In a specified compact spacetime the seam enforces an exact node at the throat centre for every odd temporal harmonic of a Maxwell channel. A countable resonant family can carry oscillating energy through the lifted throat. Its action remains continuously variable. In a separate round-rim network, a clock setting selected on coarse grids suppresses received power on two finer grids. The original polyhedral exterior gives unresolved coupled measurements.
 
 ## What the repository already established
 
-The GitHub owner search returned five repositories: geometrodynamics, EIatHome, SIatHome, text-diagram, and AI. The physics audit concerns geometrodynamics. I surveyed the titles of PRs 320–354, read the capstone and selected research and review records, inspected the latest spherical-wave implementation, and recomputed its cap ledger from the merged source at aa3a988. Prior results below are reported from the repository except for that rerun. This is a targeted audit, not a line-by-line certification of all five repositories.
+This audit surveyed PRs 320–354, examined the capstone and selected research records, and recomputed the spherical cap ledger from the merged source at `aa3a988`. The other historical measurements below come from the cited repository records.
 
 | Research record | What survives scrutiny |
 |---|---|
@@ -22,9 +22,9 @@ The GitHub owner search returned five repositories: geometrodynamics, EIatHome, 
 
 ## Relationship to PR #355
 
-[PR #355](https://github.com/davidmdrpi/geometrodynamics/pull/355) propagates a scalar through the neck of a fixed **two-dimensional surface** joining antipodal mouths. Its angular reflection reverses the transmitted packet’s local axial angular momentum. This extends the record beyond #354, which had no field on its handles. The two-port computation below addresses a different question: can two distinct physical rim spheres survive a **global antipodal quotient of a compact three-dimensional space**? The chosen construction joins quarter-circle sites, exchanges whole tubes, and measures scalar energy. The compact-clock calculation is a separate boundary-value problem. None of these calculations completes the preregistered dynamic experiment in #351.
+[PR #355](https://github.com/davidmdrpi/geometrodynamics/pull/355) propagates a scalar through the neck of a fixed **two-dimensional surface** joining antipodal mouths. At the time of this revision, #355 is a draft with its full-run archive pending. The reduced packet run reproduces a reversal of local axial angular momentum. Independent checks at both registered resolutions also find a counterexample to its separate P4 minimum-splitting prediction. The two-port computation below addresses a different question: can two distinct physical rim spheres survive a **global antipodal quotient of a compact three-dimensional space**? The chosen construction joins quarter-circle sites, exchanges whole tubes, and measures scalar energy. The compact-clock calculation is a separate boundary-value problem. None of these calculations completes the preregistered dynamic experiment in #351.
 
-[Replay instructions and regression tests](../experiments/closure_ledger/antipodal_network/README.md) · [Seven numerical archives](../experiments/closure_ledger/runs/20261117_antipodal_network/)
+[Replay instructions and regression tests](../experiments/closure_ledger/antipodal_network/README.md) · [Numerical archives](../experiments/closure_ledger/runs/20261117_antipodal_network/)
 
 ## Why one self-exchanged spherical handle has a fixed point
 
@@ -68,7 +68,7 @@ Odd temporal harmonics have a node at the waist; even harmonics have zero normal
 $$u=\cos(2t)+\cos(3t)\cos(\sqrt5 x).$$
 Individually they have zero waist flux. Together they give $J(L/2,t)=-2\sqrt5\sin(2t)\cos(3t)$, which reverses under $t\mapsto t+\pi$. The sampled peak magnitude is 4.06003, and the cycle mean is zero. The signed normal is defined on an oriented lift. The physical waist identifies the half-period events and reverses that normal. The exterior rims also form one orbit, so this result cannot certify exchange between independent bodies.
 
-The direct spatial ODE gives monodromy error $5.23\times10^{-13}$ at $n=3$, versus 0.04316 at 3.01. An independent finite-difference solve reduces the frequency error fourfold per refinement. The integrated finite-interval energy residual is $2.03\times10^{-15}$. Scaling the field by 0.37 preserves every seam and gives energy and single-mode action ratio 0.1369. The geometry selects histories while allowing a continuous action on each ray of solutions.
+The direct spatial ODE gives monodromy error $5.23\times10^{-13}$ at $n=3$, versus 0.04316 at 3.01. An independent finite-difference solve reduces the frequency error fourfold per refinement. The integrated finite-interval energy residual is $2.03\times10^{-15}$. The clock control composes the actual generators in quarter-period units, tests conjugation, and solves the affine fixed-point equations on a fundamental strip. Scaling the field by 0.37 gives the expected energy ratio 0.1369 by linearity. The same amplitude freedom gives continuous single-mode action; this scaling check supplies no independent evidence of action selection.
 
 
 
@@ -88,7 +88,7 @@ The linear tetrahedral equations are $M\ddot q+G\dot q+Kq=0$ with $M>0$, $G^T=-G
 
 
 
-## The interference experiment and the test it failed
+## Interference on the polyhedral mesh sequence
 
 Hold a unit harmonic displacement trace uniform on rim A and zero on rim B. Read the integrated reaction at B for this single spatial channel. Eliminate every interior field node in each region. On the unshifted mesh let $E(\omega)$ and $H(\omega)$ be the real off-diagonal dynamic stiffness of the exterior and tube. Using local optical time in the tube, the clock attachment multiplies its cross term by a phase. Up to the Fourier sign convention the total cross reaction is
 $$Z_{BA}(\omega,\tau)=E(\omega)+e^{i\omega\tau}H(\omega).$$
@@ -104,13 +104,13 @@ At a regular frequency where the two reactions agree, turning the clock from zer
 
 **Holding the coarse frequency and clock fixed changes the conclusion.** On the middle mesh the supposed dark response is 24.736. On the finest it is **17.391**, while the zero-clock magnitude at the same frequency is **5.872**. The switch even changes which setting is brighter. Each mesh admits a fitted null, but there is no demonstrated continuum switching frequency or convergence of one particular root. The spatial refinements here subdivide the same polyhedral metric. They do not establish convergence to a smooth Einstein metric.
 
-The separate tube-only refinement, which leaves the exterior fixed, appeared much more stable (4.599770, 4.596930, 4.596225). Full refinement exposes what that restricted test missed. The algebraic phase law and the exact compact-clock parity theorem are independent of this failed frequency prediction.
+The separate tube-only refinement, which leaves the exterior fixed, appeared much more stable (4.599770, 4.596930, 4.596225). Full refinement exposes what that restricted test missed. This mesh sequence leaves the continuum switching frequency and the late packet direction unresolved. Both depend on the exterior response.
 
 ## A pure-metric cross-check
 
 On a separate locally flat vacuum comparator replace the spherical fibre by a flat two-torus. Let both angular maps act as $(y,z)\mapsto(-y,z+\pi)$ with periods $2\pi$. Keep the same shifts of $t,x$. A standing transverse-traceless metric wave can be built from wavevectors $(\pm m\pi/L,0,2)$, projected into the exchange-even combination. The vacuum wave equation again gives $n^2-5m^2=4$. For four modes the transversality, trace, dispersion, and seam defects are below $1.1\times10^{-14}$. The $(3,1)$ wave has nonzero linear tidal curvature.
 
-There is also a nonlinear obstruction. On its ordinary flat torus cover, the pure $(3,1)$ TT seed has spatial mean $\langle |\dot h|^2+|\nabla h|^2\rangle=9$ in the code normalization. The flat compact vacuum integrability condition requires the quadratic charge to vanish for this tangent with no homogeneous expansion. This pure TT direction fails. It provides spin-2 evidence at the level of the linearized equations only. [Brill and Deser, 1973](https://doi.org/10.1007/BF01645610)
+There is also a nonlinear obstruction. On its ordinary flat torus cover, the pure $(3,1)$ TT seed has spatial mean $\langle |\dot h|^2+|\nabla h|^2\rangle=9$ in the code normalization. For a pure TT perturbation on the flat compact vacuum cover with no homogeneous modes, the time-translation Killing constraint requires this positive quadratic integral to vanish. A zero integral forces both the velocity and the spatial gradient to vanish, leaving only a constant perturbation, excluded here. Thus every nonzero seed in this class encounters the obstruction. The value 9 is the chosen mode’s normalization ($n^2$ for this standing pair) and does not distinguish this seed. [Moncrief, J. Math. Phys. **16**, 493 (1975)](https://inspirehep.net/literature/2950476). [Brill and Deser, 1973](https://doi.org/10.1007/BF01645610)
 
 
 
@@ -131,6 +131,45 @@ At $\omega=1$, $\tau=0.2375$ on the finest mesh, the power into B through the tu
 ![Two tests of parameter transfer. Left: the signed free-packet measurement changes sign at the final time. Right: the original dark calibration reverses the brightness ordering on the finest mesh.](images/antipodal_network/refinement.png)
 
 For the free packet at $t=3$, net work out at rim B changes from **+0.14715** to **−0.03363** to **−0.11704**. Halving the finest time step changes the answer by only 0.00012. The full spatial refinement controls the conclusion. Positive energy enters the initially empty tube on every mesh. A preferred direction for the late unforced exchange is unresolved.
+
+## Exterior convergence and a round-rim comparison
+
+With the rims clamped, the reviewer measured the following lowest Dirichlet frequencies on the original polyhedral exterior. I independently reproduced the first three lumped ground frequencies with the published matrices. The fourth level and the consistent-mass columns are the reviewer’s measurements. Consistent mass gives a nested variational sequence. The decrement between the two finest levels is still about 4.3% of the finer frequency. A moving exterior pole makes the coupled measurements sensitive to the mesh, although its drift alone does not establish the cause of any particular change. [Review measurements and method](https://github.com/davidmdrpi/geometrodynamics/pull/356#discussion_r4610261283)
+
+| Cover tetrahedra | Lumped mass | Consistent mass | Second consistent frequency |
+|---:|---:|---:|---:|
+| 3,072 | 1.37398 | 1.45527 | 2.13181 |
+| 24,576 | 1.36410 | 1.38822 | 2.05737 |
+| 196,608 | 1.28812 | 1.29348 | 2.01107 |
+| 1,572,864 | 1.23705 | 1.23833 | 1.99074 |
+
+**A second geometry.** We repeated the uniform-port experiment on the exact round unit three-sphere with four geodesic balls excised at the same centres. Each round rim has the measured polyhedral area $S=1.1844104$, giving angular radius $a=\arcsin\sqrt{S/(4\pi)}$. The tube keeps its length 0.95, and its constant transverse mode supplies its analytic two-port matrix. The exterior metric and rim shape have changed. The collar metric matches the induced rim metric; an Einstein support or smooth extrinsic-curvature match is outside this calculation.
+
+For uniform traces the exterior solution is invariant under rotations of $(x_2,x_3)$ and reflections of $x_0,x_1$ away from resonances in the driven sector. In the chamber $x_0\ge x_1\ge0$ use $x_0=\cos r$, $x_1=\sin r\cos\alpha$. Here $0\le\alpha\le\pi/2$ and $a\le r\le\operatorname{atan2}(1,\cos\alpha)$. Exchanging the two chambers splits the port data into even and odd parts. On their common plane the even sector has a natural Neumann condition and the odd sector a Dirichlet condition. The strictly positive Dirichlet ground state belongs to the even symmetry sector. Higher poles reported in the archive are restricted to the uniform drive’s symmetry sectors.
+
+The solver uses mapped bilinear elements, consistent mass and three-point Gauss quadrature per direction. It integrates the round metric on every grid. The quotient volume agrees with $\pi^2-4\pi(a-\sin a\cos a)$. An independent field-equation test prescribes the exact degree-two spherical harmonic $x_0^2-x_1^2$ on the mouth, solves at $\omega^2=8$, and checks second-order decay of the mass-norm nodal error.
+
+| Subdivisions per chamber direction | Lowest exterior frequency | Observed order | Received power at $\omega=1$ | Through-tube contribution | Observed order of received power |
+|---:|---:|---:|---:|---:|---:|
+| 8 | 1.117521 | — | 1.727759 | 0.447508 | — |
+| 16 | 1.108768 | — | 1.578159 | 0.415572 | — |
+| 32 | 1.106535 | 1.970 | 1.542177 | 0.407838 | 2.056 |
+| 64 | 1.105973 | 1.992 | 1.533266 | 0.405919 | 2.013 |
+| 128 | 1.105833 | 1.998 | 1.531043 | 0.405440 | 2.003 |
+| 256 | 1.105798 | 1.999 | 1.530487 | 0.405321 | 2.001 |
+
+Power uses $U_A=1$, unit damping, and $\tau=0.2375$. The order is $\log_2| (q_{N/4}-q_{N/2})/(q_{N/2}-q_N) |$. These rates concern the round geometry and this drive.
+
+**A clock setting tested on finer grids.** An exploratory scan found a matching of exterior and tube cross reactions on the interval $[5.75,6.00]$. For each fitted grid the archive checks the bracket against the first four computed Dirichlet poles of each exterior symmetry sector and the analytic tube poles. The 32- and 64-subdivision roots were 5.88861096 and 5.87913783. Second-order extrapolation gave $\omega=5.87598011425$ and $\tau=\pi/\omega=0.5346499805$. Those two settings were fixed before evaluating receiver suppression on the 128 and 256 grids. Power ratios compare the same source, load, and frequency with the clock set to zero.
+
+| Subdivisions | Independently fitted root | Received power at fixed clock / zero-clock power |
+|---:|---:|---:|
+| 32 | 5.88861096 | $1.570\times10^{-3}$ |
+| 64 | 5.87913783 | $1.029\times10^{-4}$ |
+| 128 | 5.87677036 | $6.522\times10^{-6}$ |
+| 256 | 5.87617863 | $4.128\times10^{-7}$ |
+
+At 256 subdivisions the receiver absorbs $4.37\times10^{-6}$ at the fixed clock setting versus 10.5775 at zero shift. The fitted roots show observed order 2.000 on the final three grids. This demonstrates strong suppression on the finer round grids without retuning the drive. An exact continuum zero at the extrapolated frequency has not been established. The earlier polyhedral calibration at 4.59977 remains distinct. The original localized packet is outside this symmetry reduction, so its continuum transfer direction remains open. [Round-exterior archive](../experiments/closure_ledger/runs/20261117_antipodal_network/round_exterior.json)
 
 ## What would move the physics forward
 

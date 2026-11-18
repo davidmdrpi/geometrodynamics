@@ -28,6 +28,41 @@ def field(t, x, amplitude=1):
     return [amplitude*v for v in (u, ut, ux)]
 
 
+def clock_control(quarters):
+    """Compose deck words in units L=1, T=4. The angular slot acts on Ω as a whole."""
+    from fractions import Fraction
+
+    identity = np.eye(4, dtype=int)
+    p = np.diag([-1, 1, -1, 1])
+    d = np.diag([1, 1, -1, 1])
+    d[:2, 3] = [1, quarters]
+
+    def word(j, k):
+        # C and D commute; use integer translations for their signed powers.
+        value = identity.copy()
+        value[:2, 3] = [k, 4*j + quarters*k]
+        value[2, 2] = -1 if k % 2 else 1
+        return value
+
+    # Conjugation must preserve both deck generators; P is its own inverse.
+    words = [word(j, k) for j in range(-2, 3) for k in (-1, 0, 1)]
+    descends = all(any(np.array_equal(p @ g @ p, w) for w in words)
+                   for g in (word(1, 0), d))
+    # On the fundamental strip |x| <= 1/2, a fixed point of P C^j D^k
+    # requires |k| <= 1. For these four offsets the listed j exhaust time matches.
+    fixed = None
+    if descends:
+        fixed = False
+        for w in words:
+            action = p @ w
+            x = Fraction(int(action[0, 3]), 1 - int(action[0, 0]))
+            point = np.array([x, 0, 1, 1], dtype=object)
+            if abs(x) <= Fraction(1, 2) and np.array_equal(action @ point, point):
+                fixed = True
+                break
+    return dict(tau_over_T=str(Fraction(quarters, 4)), descends=descends, fixed_orbit=fixed)
+
+
 def verify():
     t = np.arange(2048)*T/2048
     u, ut, ux = field(t, L/2)
@@ -76,16 +111,7 @@ def verify():
         return -ft*fx
     balance = abs(energy(end)-energy(0)-end/2*(w @ (flux(left)-flux(right))))
     rows = modes(20000)
-    # In units T=L=1: P fixes an orbit only if P=C^j D^k on a point.
-    # The S2 antipode forces odd k; x reflection fixes x=-k/2. Check exact
-    # clock congruences, including offsets that fail the normalizer condition.
-    from fractions import Fraction
-    clocks=[]
-    for num in range(4):
-        tau=Fraction(num,4)
-        descends=(2*tau).denominator==1
-        fixed=tau.denominator % 2 == 1 if descends else None
-        clocks.append(dict(tau_over_T=str(tau),descends=descends,fixed_orbit=fixed))
+    clocks = [clock_control(num) for num in range(4)]
     assert [(r['descends'],r['fixed_orbit']) for r in clocks]==[(True,True),(False,None),(True,False),(False,None)]
     answer = dict(clock_controls=clocks,modes_n_m=rows, omega3_grid_errors=refinement,
                   seam_residual=seam, antipodal_residual=parity_error,
