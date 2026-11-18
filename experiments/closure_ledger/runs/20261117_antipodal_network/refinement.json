@@ -1,0 +1,59 @@
+[
+  {
+    "coarse_clock_cross_reaction": 2.220446049250313e-14,
+    "coarse_zero_clock_cross_reaction": 10.9267942783151,
+    "level": 0,
+    "cover_tetrahedra": 3072,
+    "quotient_nodes": 272,
+    "omega": 4.599769873349991,
+    "offset": 0.6829890929525537,
+    "channel_cross_reactions": [
+      5.463397139157538,
+      5.463397139157561
+    ],
+    "bright": 10.9267942783151,
+    "dark": 2.220446049250313e-14,
+    "root_bracket": [
+      4.575,
+      4.6
+    ]
+  },
+  {
+    "coarse_clock_cross_reaction": 24.736410585917234,
+    "coarse_zero_clock_cross_reaction": 36.105772091312666,
+    "level": 1,
+    "cover_tetrahedra": 24576,
+    "quotient_nodes": 2080,
+    "omega": 4.8670188772815095,
+    "offset": 0.6454860218961265,
+    "channel_cross_reactions": [
+      5.696402082363967,
+      5.6964020823636705
+    ],
+    "bright": 11.392804164727638,
+    "dark": 2.9665159217984183e-13,
+    "root_bracket": [
+      4.85,
+      4.9
+    ]
+  },
+  {
+    "coarse_clock_cross_reaction": 17.391412824487485,
+    "coarse_zero_clock_cross_reaction": 5.871906019769796,
+    "level": 2,
+    "cover_tetrahedra": 196608,
+    "quotient_nodes": 16448,
+    "omega": 5.0989517567621725,
+    "offset": 0.6161251966001537,
+    "channel_cross_reactions": [
+      6.06916703948763,
+      6.06916703948707
+    ],
+    "bright": 12.138334078974701,
+    "dark": 5.60440582830779e-13,
+    "root_bracket": [
+      5.098,
+      5.1
+    ]
+  }
+]
