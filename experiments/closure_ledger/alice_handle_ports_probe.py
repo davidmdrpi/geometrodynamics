@@ -34,28 +34,44 @@ def jsonable(x):
     return x
 
 
-def measure(n, progress):
+def measure_angle(n, a, progress):
+    out = {"P1": [], "P2": [], "P3": [], "P4": []}
+    progress(f"N={n} a={a} m=0")
+    r = ah.p1_m0(a, n)
+    out["P1"].append({k: v for k, v in r.items()})
+    loop = ah.Loop(a, n)
+    for m in MS:
+        progress(f"N={n} a={a} m={m}")
+        sec = {name: ah.Sector(loop, m, g) for name, g in (
+            ("c0", ah.TORUS), ("c1", ah.Gluing("torus", 1.0)),
+            ("cpi", ah.Gluing("torus", np.pi / m)), ("klein", ah.KLEIN))}
+        for name in ("c0", "c1"):
+            out["P2"].append(dict(a=a, m=m, twist=name, **ah.p2_torus(sec[name])))
+        out["P3"].append(dict(a=a, m=m, **ah.p3_union(
+            sec["klein"], sec["c0"], sec["cpi"])))
+        out["P4"].append(dict(a=a, m=m, expected_split=ah.expected_split(a, m),
+                              pairs=ah.p4_p5(sec["klein"])))
+        del sec
+    return out
+
+
+def measure_packet(n, m, progress):
+    progress(f"N={n} packet m={m}")
+    return ah.p6_packet(0.5, n, m)
+
+
+def measure(n, progress, cache=None):
+    """All of P1-P6 at ``n`` nodes.  With ``cache``, each opening angle and
+    each packet is its own stage, so a run stopped partway keeps what it
+    finished and the stages can be computed in separate processes."""
     out = {"P1": [], "P2": [], "P3": [], "P4": [], "P6": []}
     for a in ANGLES:
-        progress(f"N={n} a={a} m=0")
-        r = ah.p1_m0(a, n)
-        out["P1"].append({k: v for k, v in r.items()})
-        loop = ah.Loop(a, n)
-        for m in MS:
-            progress(f"N={n} a={a} m={m}")
-            sec = {name: ah.Sector(loop, m, g) for name, g in (
-                ("c0", ah.TORUS), ("c1", ah.Gluing("torus", 1.0)),
-                ("cpi", ah.Gluing("torus", np.pi / m)), ("klein", ah.KLEIN))}
-            for name in ("c0", "c1"):
-                out["P2"].append(dict(a=a, m=m, twist=name, **ah.p2_torus(sec[name])))
-            out["P3"].append(dict(a=a, m=m, **ah.p3_union(
-                sec["klein"], sec["c0"], sec["cpi"])))
-            out["P4"].append(dict(a=a, m=m, expected_split=ah.expected_split(a, m),
-                                  pairs=ah.p4_p5(sec["klein"])))
-            del sec
+        part = cached(cache, f"measure_{n}_a{a}", lambda: measure_angle(n, a, progress))
+        for key, rows in part.items():
+            out[key].extend(rows)
     for m in (1, 2):
-        progress(f"N={n} packet m={m}")
-        out["P6"].append(ah.p6_packet(0.5, n, m))
+        out["P6"].append(cached(cache, f"measure_{n}_packet{m}",
+                                lambda: measure_packet(n, m, progress)))
     return out
 
 
@@ -173,7 +189,7 @@ def run_probe(progress=lambda s: None, sizes=SIZES, mesh=True, cache=None):
     started = time.time()
     per_size = {}
     for n in sizes:
-        meas = cached(cache, f"measure_{n}", lambda: measure(n, progress))
+        meas = cached(cache, f"measure_{n}", lambda: measure(n, progress, cache))
         per_size[n] = dict(measured=meas, gates=gates(meas), worst=worst(meas))
     p7 = {"geometry": None, "spectrum": None}
     if mesh:
