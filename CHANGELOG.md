@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Alice handle ports (PR #355, freeze `36ba9c2`): a real scalar on the unit
+  sphere with one antipodal handle, glued torus-type or Klein-type, by a
+  separable finite-element solver with #338's mesh as a cross-check.
+  Verdict `COUNTEREXAMPLE`: the frozen split threshold `1e-6` fails at
+  `a = 0.3`, `m = 3`, where the converged split is `1.01e-8` at both
+  `N = 2000` and `4000`. The P5 identity also misses `1e-8` over runs of
+  `ω̄t ~ 1e8`, and the miss does not shrink with `N`. Through the handle,
+  `m = 0` cannot tell the gluings apart; torus gluing conserves `L`; the
+  Klein spectrum is the union of two torus spectra; a packet arrives with
+  its angular momentum reversed (to `3e-8`), and the reversal time is
+  `π/(2Δ)` in all 36 pair runs. The mesh agrees to 0.18%. Classical, 2D,
+  not GR. See `docs/alice_handle_ports.md`.
+
 - Four-cell throat comparison (PR #353; original freeze `533f925`,
   review amendment `31cfc67`): the angular action selects circulation;
   at fixed shift, normal reversal blocks net face transfer. The two
