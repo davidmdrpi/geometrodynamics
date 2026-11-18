@@ -1,4 +1,5 @@
 """Alice handle ports: the separable solver, its ledgers, and the archive."""
+import importlib.util
 import json
 from pathlib import Path
 
@@ -7,6 +8,8 @@ import pytest
 
 from geometrodynamics.bulk import alice_handle_ports as ah
 
+PROBE = (Path(__file__).resolve().parents[1] / "experiments" / "closure_ledger"
+         / "alice_handle_ports_probe.py")
 ARCHIVE = (Path(__file__).resolve().parents[1] / "experiments" / "closure_ledger"
            / "runs" / "20261118_alice_handle_ports" / "probe.json")
 
@@ -110,6 +113,69 @@ def test_certified_first_sign_change_on_a_beat():
     f = ah.TrigSum(np.array([delta, 2 * mean]), np.array([mean, -delta / 2]))
     t = ah.first_sign_change(f, 2 * np.pi / delta, cut=mean, fine=0.5 / mean)
     assert t == pytest.approx(np.pi / (2 * delta), rel=delta / mean)
+
+
+def test_sign_search_finds_a_shallow_crossing_between_samples():
+    """Review of #355: f = 1 − 1e-7 − cos(t − 0.005) dips below zero only on a
+    9e-4-wide window starting at t = 0.0045527864; sampling alone missed it."""
+    f = ah.TrigSum(np.array([0.0, 1.0]), np.array([1 - 1e-7, -np.exp(-0.005j)]))
+    t = ah.first_sign_change(f, 1.0, cut=2.0, fine=0.1)
+    assert t == pytest.approx(0.005 - np.arccos(1 - 1e-7), abs=1e-12)
+    # a function that keeps its sign is certified to, not merely sampled
+    g = ah.TrigSum(np.array([0.0, 1.0]), np.array([1 + 1e-9, -1.0]))
+    assert ah.first_sign_change(g, 20.0, cut=2.0, fine=0.1) is None
+
+
+def _probe():
+    spec = importlib.util.spec_from_file_location("ahp_probe", PROBE)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _size(fail=(), worst=None):
+    keys = ("P1", "P2 degeneracy", "P2 conservation", "P3", "P4 split", "P4 timing",
+            "P5 identity", "P5 non-vacuous", "P6 sign", "P6 tolerance")
+    w = dict.fromkeys(keys, 1.0)
+    w.update(worst or {})
+    return {"gates": {k: k not in fail for k in keys}, "worst": w}
+
+
+GOOD_P7 = {"geometry": True, "spectrum": True}
+
+
+def test_verdict_needs_both_registered_resolutions():
+    pr = _probe()
+    one = {2000: _size(fail=("P4 split",))}
+    assert pr.verdict(one, GOOD_P7)[0] == "NO_VERDICT"
+    both = {2000: _size(fail=("P4 split",)), 4000: _size(fail=("P4 split",))}
+    assert pr.verdict(both, GOOD_P7)[:2] == ("COUNTEREXAMPLE", ["P4 split"])
+    once = {2000: _size(fail=("P4 split",), worst={"P4 split": 1e-7}),
+            4000: _size(worst={"P4 split": 2e-6})}
+    assert pr.verdict(once, GOOD_P7)[0] == "UNRESOLVED_NUMERICALLY"
+    assert pr.verdict(both, {"geometry": None, "spectrum": None})[0] == "NO_VERDICT"
+    assert pr.verdict(both, {"geometry": False, "spectrum": True})[0] == "INCOMPLETE"
+
+
+def test_unresolved_needs_the_miss_to_shrink():
+    pr = _probe()
+    worse = {2000: _size(fail=("P5 identity",), worst={"P5 identity": 4e-8}),
+             4000: _size(fail=("P5 identity",), worst={"P5 identity": 4e-5})}
+    v, why, notes = pr.verdict(worse, GOOD_P7)
+    assert v == "NO_VERDICT" and why == ["P5 identity"] and notes
+    better = {2000: _size(fail=("P5 identity",), worst={"P5 identity": 4e-8}),
+              4000: _size(fail=("P5 identity",), worst={"P5 identity": 2e-8})}
+    assert pr.verdict(better, GOOD_P7)[0] == "UNRESOLVED_NUMERICALLY"
+    # with the one allowed doubling the comparison is 4000 → 8000
+    redo = {**worse, 8000: _size(worst={"P5 identity": 1e-9})}
+    assert pr.verdict(redo, GOOD_P7)[0] == "UNRESOLVED_NUMERICALLY"
+    assert pr.verdict({**redo, 16000: _size()}, GOOD_P7)[0] == "NO_VERDICT"
+    # a structural failure at both is reported with the other misses noted
+    both = {n: _size(fail=("P4 split", "P5 identity"),
+                     worst={"P5 identity": w}) for n, w in ((2000, 4e-8), (4000, 2e-7))}
+    v, why, notes = pr.verdict(both, GOOD_P7)
+    assert v == "COUNTEREXAMPLE" and why == ["P4 split"]
+    assert notes == ["also missed: P5 identity (not shrinking)"]
 
 
 def test_packet_through_the_handle_arrives_reversed():

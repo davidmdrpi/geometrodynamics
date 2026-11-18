@@ -100,24 +100,59 @@ def worst(meas):
 
 
 STRUCTURAL = ("P1", "P2 degeneracy", "P3", "P4 split", "P6 sign")
+HIGHER_IS_BETTER = ("P4 split", "P5 non-vacuous")
 
 
-def verdict(per_size, p7):
+def shrinks(key, coarse, fine):
+    """Whether the quantity behind gate ``key`` moved toward passing."""
+    return fine > coarse if key in HIGHER_IS_BETTER else fine < coarse
+
+
+def verdict(per_size, p7, registered=SIZES):
+    """The freeze's verdict rules, applied only to the evidence they name.
+
+    Returns (verdict, reasons, notes). ``COUNTEREXAMPLE`` needs a structural
+    statement to fail at both registered resolutions; ``UNRESOLVED_NUMERICALLY``
+    needs every miss to shrink at the finer resolution (with at most one
+    further doubling of N, compared against the resolution before it). A run
+    that lacks the registered resolutions or the mesh check, or that misses a
+    tolerance whose miss does not shrink, gets ``NO_VERDICT``: the freeze
+    names no verdict for it, and none is invented.
+    """
+    sizes = sorted(int(n) for n in per_size)
+    ps = {int(n): v for n, v in per_size.items()}
+    notes = []
+    absent = [n for n in registered if n not in ps]
+    if absent:
+        return "NO_VERDICT", [f"registered resolutions {list(registered)} not all "
+                              f"run (missing {absent})"], notes
+    extra = [n for n in sizes if n not in registered]
+    if extra and (len(extra) > 1 or extra[0] != 2 * max(registered)):
+        return "NO_VERDICT", [f"resolutions {extra} beyond the one allowed "
+                              f"doubling to {2 * max(registered)}"], notes
+    if p7.get("geometry") is None:
+        return "NO_VERDICT", ["P7 mesh check not run"], notes
     if not p7["geometry"]:
-        return "INCOMPLETE", ["P7 geometry"]
-    sizes = list(per_size)
-    failed_both = [k for k in per_size[sizes[0]]["gates"]
-                   if all(not per_size[s]["gates"][k] for s in sizes)]
-    structural = [k for k in failed_both if k in STRUCTURAL]
-    if structural:
-        return "COUNTEREXAMPLE", structural
-    missed = [k for k in per_size[sizes[0]]["gates"]
-              if not all(per_size[s]["gates"][k] for s in sizes)]
+        return "INCOMPLETE", ["P7 geometry"], notes
+    keys = list(ps[registered[0]]["gates"])
+    structural = [k for k in keys if k in STRUCTURAL
+                  and all(not ps[n]["gates"][k] for n in registered)]
+    missed = [k for k in keys if not all(ps[n]["gates"][k] for n in sizes)]
+    last, before = sizes[-1], sizes[-2]
+    not_shrinking = [k for k in missed
+                     if not shrinks(k, ps[before]["worst"][k], ps[last]["worst"][k])]
     if not p7["spectrum"]:
         missed.append("P7 spectrum")
+    if structural:
+        notes = [f"also missed: {k}" + (" (not shrinking)" if k in not_shrinking else "")
+                 for k in missed if k not in structural]
+        return "COUNTEREXAMPLE", structural, notes
     if not missed:
-        return "CONFIRMED", []
-    return "UNRESOLVED_NUMERICALLY", missed
+        return "CONFIRMED", [], notes
+    if not_shrinking:
+        return "NO_VERDICT", missed, [f"{k}: miss does not shrink from N = {before} "
+                                      f"to N = {last}" for k in not_shrinking]
+    return "UNRESOLVED_NUMERICALLY", missed, notes
 
 
 def cached(cache, name, compute):
@@ -151,8 +186,8 @@ def run_probe(progress=lambda s: None, sizes=SIZES, mesh=True, cache=None):
                        and r["runs"][1]["max_relative"] < r["runs"][0]["max_relative"]
                        and r["largest_m"] < 8 for r in (tor, kle))
         p7 = dict(geometry=geometry, spectrum=spectrum, detail=res)
-    v, why = verdict(per_size, p7)
-    return jsonable(dict(prereg=PREREG, scope=SCOPE, verdict=v, reasons=why,
+    v, why, notes = verdict(per_size, p7)
+    return jsonable(dict(prereg=PREREG, scope=SCOPE, verdict=v, reasons=why, notes=notes,
                          sizes=list(sizes), per_size=per_size, P7=p7,
                          seconds=time.time() - started))
 
@@ -160,7 +195,9 @@ def run_probe(progress=lambda s: None, sizes=SIZES, mesh=True, cache=None):
 def markdown(rep):
     lines = [f"# Alice handle ports: probe against freeze `{rep['prereg']}`", "",
              rep["scope"], "", f"**Verdict: {rep['verdict']}**"
-             + (f" ({', '.join(rep['reasons'])})" if rep["reasons"] else ""), "",
+             + (f" ({', '.join(rep['reasons'])})" if rep["reasons"] else ""), ""]
+    lines += [f"* {x}" for x in rep.get("notes", [])] + ([""] if rep.get("notes") else [])
+    lines += [
              "| statement | " + " | ".join(f"N = {n}" for n in rep["sizes"]) + " |",
              "|---|" + "---|" * len(rep["sizes"])]
     first = rep["per_size"][str(rep["sizes"][0])] if str(rep["sizes"][0]) in rep["per_size"] \

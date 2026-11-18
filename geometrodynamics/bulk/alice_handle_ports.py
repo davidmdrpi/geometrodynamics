@@ -436,48 +436,93 @@ def angular_momentum_series(state: ModeState, t, nodes=None):
     return TrigSum(*state.angular_momentum_terms(nodes))(t)
 
 
-def first_sign_change(f: TrigSum, t_end, cut, fine):
+class UncertifiedSearch(RuntimeError):
+    """The search met an interval it could neither clear nor resolve."""
+
+
+def first_sign_change(f: TrigSum, t_end, cut, fine, width=None):
     """First t in (0, t_end] where f leaves the sign of f(0); None if none.
 
-    f = slow + fast with |fast| ≤ B (frequencies above ``cut``). On [t0, t1],
-    |slow| ≥ |slow(t0)| − (t1 − t0) D with D = Σ |c Ω| over slow terms, so if
-    that exceeds B and slow(t0) has f(0)'s sign, f keeps its sign there. Other
-    intervals are halved until shorter than ``fine``, then sampled every
-    ``fine / 50`` and the crossing bisected. No sign change is missed except
-    one shorter than ``fine / 50``, which the fast frequencies (> cut) bound.
+    Every interval [t0, t1] is either cleared by a bound or split, so no
+    crossing is skipped. Two bounds clear an interval on which f keeps the
+    sign s0 of f(0):
+
+    * slow/fast: f = slow + fast with |fast| ≤ B (frequencies above ``cut``)
+      and |slow'| ≤ D_slow = Σ|cΩ| over the slow terms. If slow(t0) has sign
+      s0 and |slow(t0)| − (t1 − t0) D_slow > B, f cannot vanish there.
+    * Lipschitz: |f'| ≤ D = Σ|cΩ| over all terms. If f(t0) and f(t1) both have
+      sign s0 and |f(t0)| + |f(t1)| > (t1 − t0) D, f cannot vanish there.
+    * curvature: |f''| ≤ D2 = Σ|cΩ²|, so from either end s0 f(t0 ± τ) ≥
+      s0 f(t0) ± s0 f'(t0) τ − D2 τ²/2, a concave bound; if it is positive at
+      both ends of the interval, f cannot vanish there. This one clears every
+      interval lying wholly to one side of a simple root, however shallow.
+
+    Intervals longer than ``fine`` that the first bound does not clear are
+    halved; shorter ones are sampled at 51 points and each sub-interval is
+    tested with the Lipschitz bound, uncleared ones pushed back in order.
+    An interval whose end has the other sign is bisected to the crossing;
+    being the leftmost uncleared interval, that crossing is the first. An
+    interval narrower than ``width`` (default 1e-12 (1 + t1)) that is neither
+    cleared nor shows the other sign (f touches zero without a visible sign
+    change) raises :class:`UncertifiedSearch` instead of being passed over.
     """
     s0 = np.sign(f(0.0)[0])
     slow, bound = f.split(cut)
-    D = float(np.sum(np.abs(slow.coef * slow.Omega)))
+    D_slow = float(np.sum(np.abs(slow.coef * slow.Omega)))
+    D = float(np.sum(np.abs(f.coef * f.Omega)))
+    D2 = float(np.sum(np.abs(f.coef) * f.Omega ** 2))
+    df = TrigSum(f.Omega, 1j * f.Omega * f.coef)
     top = float(np.max(np.abs(slow.Omega))) if len(slow.Omega) else 0.0
     coarse = 0.01 / top if top > 0 else t_end
     stack = []
     edges = np.arange(0.0, t_end, coarse)
     for t0 in edges[::-1]:
         stack.append((t0, min(t0 + coarse, t_end)))
+
+    def crossing(left, right):
+        for _ in range(200):
+            mid = 0.5 * (left + right)
+            if mid in (left, right):
+                break
+            if np.sign(f(mid)[0]) == s0:
+                left = mid
+            else:
+                right = mid
+        return 0.5 * (left + right)
+
     while stack:
         t0, t1 = stack.pop()
         sv = slow(t0)[0]
-        if np.sign(sv) == s0 and abs(sv) - (t1 - t0) * D > bound:
+        if np.sign(sv) == s0 and abs(sv) - (t1 - t0) * D_slow > bound:
             continue
         if t1 - t0 > fine:
             mid = 0.5 * (t0 + t1)
             stack.append((mid, t1))
             stack.append((t0, mid))
             continue
+        tiny = width if width is not None else 1e-12 * (1.0 + abs(t1))
+        if t1 - t0 <= tiny:
+            v1 = f(t1)[0]
+            if np.sign(v1) != s0:
+                return crossing(t0, t1)
+            raise UncertifiedSearch(f"f touches zero near t = {t0!r} without a "
+                                    "certified sign change")
         grid = np.linspace(t0, t1, 51)
-        vals = f(grid)
-        bad = np.flatnonzero(np.sign(vals) != s0)
-        if bad.size:
-            k = bad[0]
-            left, right = grid[max(k - 1, 0)], grid[k]
-            for _ in range(80):
-                mid = 0.5 * (left + right)
-                if np.sign(f(mid)[0]) == s0:
-                    left = mid
-                else:
-                    right = mid
-            return 0.5 * (left + right)
+        vals, der = s0 * f(grid), s0 * df(grid)
+        h = np.diff(grid)
+        signed = vals > 0
+        lip = vals[:-1] + vals[1:] > h * D
+        left = vals[:-1] + der[:-1] * h - 0.5 * D2 * h ** 2 > 0
+        right = vals[1:] - der[1:] * h - 0.5 * D2 * h ** 2 > 0
+        clear = signed[:-1] & signed[1:] & (lip | left | right)
+        open_ = np.flatnonzero(~clear)
+        if not open_.size:
+            continue
+        k = open_[0]
+        if not signed[k + 1] and signed[k]:
+            return crossing(grid[k], grid[k + 1])
+        for q in open_[::-1]:
+            stack.append((grid[q], grid[q + 1]))
     return None
 
 
