@@ -1,0 +1,90 @@
+{
+  "clock_controls": [
+    {
+      "tau_over_T": "0",
+      "descends": true,
+      "fixed_orbit": true
+    },
+    {
+      "tau_over_T": "1/4",
+      "descends": false,
+      "fixed_orbit": null
+    },
+    {
+      "tau_over_T": "1/2",
+      "descends": true,
+      "fixed_orbit": false
+    },
+    {
+      "tau_over_T": "3/4",
+      "descends": false,
+      "fixed_orbit": null
+    }
+  ],
+  "modes_n_m": [
+    [
+      2,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      7,
+      3
+    ],
+    [
+      18,
+      8
+    ],
+    [
+      47,
+      21
+    ],
+    [
+      123,
+      55
+    ],
+    [
+      322,
+      144
+    ],
+    [
+      843,
+      377
+    ],
+    [
+      2207,
+      987
+    ],
+    [
+      5778,
+      2584
+    ],
+    [
+      15127,
+      6765
+    ],
+    [
+      39603,
+      17711
+    ]
+  ],
+  "omega3_grid_errors": [
+    0.0006691850187028336,
+    0.00016732257318796684,
+    4.183228785503701e-05,
+    1.0458177058136897e-05
+  ],
+  "seam_residual": 7.993605777301127e-15,
+  "antipodal_residual": 0.0,
+  "peak_abs_flux": 4.060029064648288,
+  "mean_flux": 0.0,
+  "flux_half_period_residual": 1.6653345369377348e-14,
+  "interval_energy_balance": 2.0261570199409107e-15,
+  "energy_ratio_at_0p37": 0.13690000000000002,
+  "monodromy_at_3": 5.230181324416403e-13,
+  "monodromy_at_3p01": 0.04316241303844055,
+  "omega_after_one_percent_longer": 2.983534857687204
+}

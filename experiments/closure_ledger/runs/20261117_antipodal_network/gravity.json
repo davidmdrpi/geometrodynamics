@@ -1,0 +1,23 @@
+{
+  "flat_cover_quadratic_TT_mean": 9.0,
+  "max_TT_dispersion_and_seam_defect": 1.0677104233764797e-14,
+  "example_linear_tidal_curvature_frobenius": 5.522680508593631,
+  "tested_modes": [
+    [
+      2,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      7,
+      3
+    ],
+    [
+      18,
+      8
+    ]
+  ]
+}
