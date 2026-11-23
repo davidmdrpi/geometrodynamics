@@ -1,0 +1,1565 @@
+{
+  "series": [
+    {
+      "c": 8.0,
+      "dt": 0.02,
+      "n": 1024,
+      "offset": 0.0,
+      "rows": [
+        {
+          "theta": 0.0,
+          "born": 1.0,
+          "nr358": 0.9997231715268103,
+          "nr_same_pair": 0.9997907664501591,
+          "right_work_over_initial_energy": 0.007763461391105576,
+          "right_energy_budget_residual": 2.5403800939835856e-06,
+          "transported": {
+            "norm": 0.9997869795111289,
+            "number": 0.9997905899008731,
+            "energy": 0.9997916954409558
+          },
+          "counts2048": {
+            "norm": 2048,
+            "number": 2048,
+            "energy": 2048
+          },
+          "final_fraction": {
+            "norm": 0.9997887260622039,
+            "number": 0.9997905977805318,
+            "energy": 0.9997920827278299
+          }
+        },
+        {
+          "theta": 0.19634954084936207,
+          "born": 0.9619397662556434,
+          "nr358": 0.961684010095252,
+          "nr_same_pair": 0.9617179558340868,
+          "right_work_over_initial_energy": 0.007272600755420423,
+          "right_energy_budget_residual": 2.4904513616354714e-06,
+          "transported": {
+            "norm": 0.9619265311722576,
+            "number": 0.961717110663586,
+            "energy": 0.9619139740848065
+          },
+          "counts2048": {
+            "norm": 1970,
+            "number": 1970,
+            "energy": 1970
+          },
+          "final_fraction": {
+            "norm": 0.9617160708777781,
+            "number": 0.961717800013285,
+            "energy": 0.9617191718410119
+          }
+        },
+        {
+          "theta": 0.39269908169872414,
+          "born": 0.8535533905932737,
+          "nr358": 0.8533576433026647,
+          "nr_same_pair": 0.8533651317415638,
+          "right_work_over_initial_energy": 0.00571456793889077,
+          "right_energy_budget_residual": 2.636589697772598e-06,
+          "transported": {
+            "norm": 0.8538324376500487,
+            "number": 0.8533634033618552,
+            "energy": 0.8542771478461411
+          },
+          "counts2048": {
+            "norm": 1749,
+            "number": 1748,
+            "energy": 1750
+          },
+          "final_fraction": {
+            "norm": 0.8533636891339461,
+            "number": 0.853365012487713,
+            "energy": 0.8533660623842555
+          }
+        },
+        {
+          "theta": 0.5890486225480862,
+          "born": 0.6913417161825449,
+          "nr358": 0.6912357785122594,
+          "nr_same_pair": 0.6912331446303577,
+          "right_work_over_initial_energy": 0.004359584201142275,
+          "right_energy_budget_residual": 2.2973139476425646e-06,
+          "transported": {
+            "norm": 0.691611145164127,
+            "number": 0.6912316689744901,
+            "energy": 0.6922407370906096
+          },
+          "counts2048": {
+            "norm": 1416,
+            "number": 1416,
+            "energy": 1418
+          },
+          "final_fraction": {
+            "norm": 0.6912323639240193,
+            "number": 0.6912330800928753,
+            "energy": 0.6912336482729232
+          }
+        },
+        {
+          "theta": 0.7853981633974483,
+          "born": 0.5000000000000001,
+          "nr358": 0.5000000000000121,
+          "nr_same_pair": 0.5000000000000124,
+          "right_work_over_initial_energy": 0.003882341632172885,
+          "right_energy_budget_residual": 1.2730806369293923e-06,
+          "transported": {
+            "norm": 0.4999999999999423,
+            "number": 0.4999999999999429,
+            "energy": 0.49999999999994266
+          },
+          "counts2048": {
+            "norm": 1024,
+            "number": 1024,
+            "energy": 1024
+          },
+          "final_fraction": {
+            "norm": 0.4999999999999791,
+            "number": 0.4999999999999787,
+            "energy": 0.49999999999997863
+          }
+        },
+        {
+          "theta": 0.9817477042468103,
+          "born": 0.3086582838174552,
+          "nr358": 0.30876422148776284,
+          "nr_same_pair": 0.3087668553696651,
+          "right_work_over_initial_energy": 0.0034050990632031562,
+          "right_energy_budget_residual": 2.4884730315087623e-07,
+          "transported": {
+            "norm": 0.30838885483577877,
+            "number": 0.3087683310254171,
+            "energy": 0.307759262909297
+          },
+          "counts2048": {
+            "norm": 632,
+            "number": 632,
+            "energy": 630
+          },
+          "final_fraction": {
+            "norm": 0.3087676360759464,
+            "number": 0.3087669199070895,
+            "energy": 0.30876635172704203
+          }
+        },
+        {
+          "theta": 1.1780972450961724,
+          "born": 0.1464466094067263,
+          "nr358": 0.14664235669735273,
+          "nr_same_pair": 0.1466348682584536,
+          "right_work_over_initial_energy": 0.0020501153254542364,
+          "right_energy_budget_residual": -9.042849396942781e-08,
+          "transported": {
+            "norm": 0.1461675623498995,
+            "number": 0.14663659663809445,
+            "energy": 0.1457228521538078
+          },
+          "counts2048": {
+            "norm": 299,
+            "number": 300,
+            "energy": 298
+          },
+          "final_fraction": {
+            "norm": 0.14663631086603796,
+            "number": 0.1466349875122707,
+            "energy": 0.14663393761572818
+          }
+        },
+        {
+          "theta": 1.3744467859455345,
+          "born": 0.038060233744356645,
+          "nr358": 0.03831598990475752,
+          "nr_same_pair": 0.03828204416592263,
+          "right_work_over_initial_energy": 0.0004920825089245795,
+          "right_energy_budget_residual": 5.57097948949439e-08,
+          "transported": {
+            "norm": 0.038073468827730474,
+            "number": 0.03828288933640321,
+            "energy": 0.03808602591518146
+          },
+          "counts2048": {
+            "norm": 78,
+            "number": 78,
+            "energy": 78
+          },
+          "final_fraction": {
+            "norm": 0.038283929122221526,
+            "number": 0.03828219998671465,
+            "energy": 0.03828082815898771
+          }
+        },
+        {
+          "theta": 1.5707963267948966,
+          "born": 3.749399456654644e-33,
+          "nr358": 0.0002768284731896112,
+          "nr_same_pair": 0.00020923354984085692,
+          "right_work_over_initial_energy": 1.2218732393737604e-06,
+          "right_energy_budget_residual": 5.781041289396964e-09,
+          "transported": {
+            "norm": 0.00021302048887073007,
+            "number": 0.00020941009912760626,
+            "energy": 0.00020830455904371494
+          },
+          "counts2048": {
+            "norm": 0,
+            "number": 0,
+            "energy": 0
+          },
+          "final_fraction": {
+            "norm": 0.00021127393779606988,
+            "number": 0.00020940221946819812,
+            "energy": 0.00020791727216988644
+          }
+        }
+      ],
+      "comparison": {
+        "max_shift_from_same_pair": 0.0010075924603680786,
+        "max_energy_error_from_born": 0.0008990209081581879,
+        "max_count_error_from_born": 0.0010410963174551924,
+        "max_number_error_from_final_mass": 1.6091258577821677e-06,
+        "max_relative_right_work_residual": 2.636589697772598e-06
+      },
+      "field_round_trip": 4.870537793403393e-14
+    },
+    {
+      "c": 12.0,
+      "dt": 0.02,
+      "n": 1024,
+      "offset": 0.0,
+      "rows": [
+        {
+          "theta": 0.0,
+          "born": 1.0,
+          "nr358": 0.9997231715268103,
+          "nr_same_pair": 0.9997907664501591,
+          "right_work_over_initial_energy": 0.003461537546316619,
+          "right_energy_budget_residual": 1.1143463129347391e-06,
+          "transported": {
+            "norm": 0.9997890872073709,
+            "number": 0.9997906979855583,
+            "energy": 0.9997912063667965
+          },
+          "counts2048": {
+            "norm": 2048,
+            "number": 2048,
+            "energy": 2048
+          },
+          "final_fraction": {
+            "norm": 0.9997898577712883,
+            "number": 0.999790691202266,
+            "energy": 0.9997913560558706
+          }
+        },
+        {
+          "theta": 0.19634954084936207,
+          "born": 0.9619397662556434,
+          "nr358": 0.961684010095252,
+          "nr_same_pair": 0.9617179558340868,
+          "right_work_over_initial_energy": 0.0032404879729698017,
+          "right_energy_budget_residual": 1.8200793255322145e-07,
+          "transported": {
+            "norm": 0.9618110365043048,
+            "number": 0.9617180811185676,
+            "energy": 0.9618084778908744
+          },
+          "counts2048": {
+            "norm": 1970,
+            "number": 1970,
+            "energy": 1970
+          },
+          "final_fraction": {
+            "norm": 0.9617171163760948,
+            "number": 0.9617178863183852,
+            "energy": 0.9617185005251047
+          }
+        },
+        {
+          "theta": 0.39269908169872414,
+          "born": 0.8535533905932737,
+          "nr358": 0.8533576433026647,
+          "nr_same_pair": 0.8533651317415638,
+          "right_work_over_initial_energy": 0.0025437392604313706,
+          "right_energy_budget_residual": -4.625021169709841e-08,
+          "transported": {
+            "norm": 0.8535738582672976,
+            "number": 0.8533649676098123,
+            "energy": 0.853777252316111
+          },
+          "counts2048": {
+            "norm": 1748,
+            "number": 1748,
+            "energy": 1749
+          },
+          "final_fraction": {
+            "norm": 0.8533644892818409,
+            "number": 0.8533650785393204,
+            "energy": 0.8533655486081918
+          }
+        },
+        {
+          "theta": 0.5890486225480862,
+          "born": 0.6913417161825449,
+          "nr358": 0.6912357785122594,
+          "nr_same_pair": 0.6912331446303577,
+          "right_work_over_initial_energy": 0.001942873790395264,
+          "right_energy_budget_residual": 2.9212483326129977e-07,
+          "transported": {
+            "norm": 0.6914020329875988,
+            "number": 0.6912328110655839,
+            "energy": 0.6916841008534484
+          },
+          "counts2048": {
+            "norm": 1416,
+            "number": 1416,
+            "energy": 1417
+          },
+          "final_fraction": {
+            "norm": 0.6912327969457982,
+            "number": 0.691233115838498,
+            "energy": 0.6912333702290431
+          }
+        },
+        {
+          "theta": 0.7853981633974483,
+          "born": 0.5000000000000001,
+          "nr358": 0.5000000000000121,
+          "nr_same_pair": 0.5000000000000124,
+          "right_work_over_initial_energy": 0.0017310436076399952,
+          "right_energy_budget_residual": 5.687846473318711e-07,
+          "transported": {
+            "norm": 0.49999999999994255,
+            "number": 0.4999999999999424,
+            "energy": 0.4999999999999421
+          },
+          "counts2048": {
+            "norm": 1024,
+            "number": 1024,
+            "energy": 1024
+          },
+          "final_fraction": {
+            "norm": 0.4999999999999786,
+            "number": 0.4999999999999788,
+            "energy": 0.49999999999997874
+          }
+        },
+        {
+          "theta": 0.9817477042468103,
+          "born": 0.3086582838174552,
+          "nr358": 0.30876422148776284,
+          "nr_same_pair": 0.3087668553696651,
+          "right_work_over_initial_energy": 0.0015192134248845732,
+          "right_energy_budget_residual": 8.454444379799639e-07,
+          "transported": {
+            "norm": 0.3085979670123074,
+            "number": 0.30876718893432253,
+            "energy": 0.30831589914645735
+          },
+          "counts2048": {
+            "norm": 632,
+            "number": 632,
+            "energy": 631
+          },
+          "final_fraction": {
+            "norm": 0.3087672030541666,
+            "number": 0.3087668841614672,
+            "energy": 0.3087666297709223
+          }
+        },
+        {
+          "theta": 1.1780972450961724,
+          "born": 0.1464466094067263,
+          "nr358": 0.14664235669735273,
+          "nr_same_pair": 0.1466348682584536,
+          "right_work_over_initial_energy": 0.0009183479548482763,
+          "right_energy_budget_residual": 1.183819435532754e-06,
+          "transported": {
+            "norm": 0.14642614173265137,
+            "number": 0.14663503239013642,
+            "energy": 0.14622274768383706
+          },
+          "counts2048": {
+            "norm": 300,
+            "number": 300,
+            "energy": 299
+          },
+          "final_fraction": {
+            "norm": 0.14663551071814274,
+            "number": 0.1466349214606634,
+            "energy": 0.14663445139179207
+          }
+        },
+        {
+          "theta": 1.3744467859455345,
+          "born": 0.038060233744356645,
+          "nr358": 0.03831598990475752,
+          "nr_same_pair": 0.03828204416592263,
+          "right_work_over_initial_energy": 0.00022159924230984697,
+          "right_energy_budget_residual": 9.555612439254736e-07,
+          "transported": {
+            "norm": 0.03818896349568316,
+            "number": 0.0382819188814201,
+            "energy": 0.038191522109112766
+          },
+          "counts2048": {
+            "norm": 78,
+            "number": 78,
+            "energy": 78
+          },
+          "final_fraction": {
+            "norm": 0.038282883623904716,
+            "number": 0.03828211368161439,
+            "energy": 0.03828149947489482
+          }
+        },
+        {
+          "theta": 1.5707963267948966,
+          "born": 3.749399456654644e-33,
+          "nr358": 0.0002768284731896112,
+          "nr_same_pair": 0.00020923354984085692,
+          "right_work_over_initial_energy": 5.49668963002452e-07,
+          "right_energy_budget_residual": 2.322284304972512e-08,
+          "transported": {
+            "norm": 0.00021091279262885917,
+            "number": 0.0002093020144410651,
+            "energy": 0.00020879363320187912
+          },
+          "counts2048": {
+            "norm": 0,
+            "number": 0,
+            "energy": 0
+          },
+          "final_fraction": {
+            "norm": 0.00021014222871169473,
+            "number": 0.000209308797733833,
+            "energy": 0.00020864394412947187
+          }
+        }
+      ],
+      "comparison": {
+        "max_shift_from_same_pair": 0.00045095622320773243,
+        "max_energy_error_from_born": 0.00034238467099784176,
+        "max_count_error_from_born": 0.0005528150674551924,
+        "max_number_error_from_final_mass": 3.0477291412811525e-07,
+        "max_relative_right_work_residual": 1.183819435532754e-06
+      },
+      "field_round_trip": 9.762777587978381e-14
+    },
+    {
+      "c": 16.0,
+      "dt": 0.02,
+      "n": 1024,
+      "offset": 0.0,
+      "rows": [
+        {
+          "theta": 0.0,
+          "born": 1.0,
+          "nr358": 0.9997231715268103,
+          "nr_same_pair": 0.9997907664501591,
+          "right_work_over_initial_energy": 0.0019493197807206842,
+          "right_energy_budget_residual": 6.401218559236847e-07,
+          "transported": {
+            "norm": 0.99978982386124,
+            "number": 0.9997907218945639,
+            "energy": 0.9997910036961043
+          },
+          "counts2048": {
+            "norm": 2048,
+            "number": 2048,
+            "energy": 2048
+          },
+          "final_fraction": {
+            "norm": 0.9997902545290928,
+            "number": 0.9997907240826497,
+            "energy": 0.9997910990356206
+          }
+        },
+        {
+          "theta": 0.19634954084936207,
+          "born": 0.9619397662556434,
+          "nr358": 0.961684010095252,
+          "nr_same_pair": 0.9617179558340868,
+          "right_work_over_initial_energy": 0.0018243813200554142,
+          "right_energy_budget_residual": 6.696248599003015e-07,
+          "transported": {
+            "norm": 0.9617703008780096,
+            "number": 0.9617177143836122,
+            "energy": 0.9617688243171326
+          },
+          "counts2048": {
+            "norm": 1970,
+            "number": 1970,
+            "energy": 1970
+          },
+          "final_fraction": {
+            "norm": 0.9617174829098821,
+            "number": 0.9617179166940235,
+            "energy": 0.9617182630840148
+          }
+        },
+        {
+          "theta": 0.39269908169872414,
+          "born": 0.8535533905932737,
+          "nr358": 0.8533576433026647,
+          "nr_same_pair": 0.8533651317415638,
+          "right_work_over_initial_energy": 0.0014316166669703203,
+          "right_energy_budget_residual": 9.492334577251102e-07,
+          "transported": {
+            "norm": 0.8534821007616761,
+            "number": 0.8533644312499362,
+            "energy": 0.8535970955487248
+          },
+          "counts2048": {
+            "norm": 1748,
+            "number": 1748,
+            "energy": 1748
+          },
+          "final_fraction": {
+            "norm": 0.8533647697999768,
+            "number": 0.8533651017866114,
+            "energy": 0.8533653668881594
+          }
+        },
+        {
+          "theta": 0.5890486225480862,
+          "born": 0.6913417161825449,
+          "nr358": 0.6912357785122594,
+          "nr_same_pair": 0.6912331446303577,
+          "right_work_over_initial_energy": 0.0010939138834789501,
+          "right_energy_budget_residual": 9.124054004039812e-07,
+          "transported": {
+            "norm": 0.6913275647112699,
+            "number": 0.6912324523636036,
+            "energy": 0.6914865384770202
+          },
+          "counts2048": {
+            "norm": 1416,
+            "number": 1416,
+            "energy": 1416
+          },
+          "final_fraction": {
+            "norm": 0.6912329487558118,
+            "number": 0.6912331284194022,
+            "energy": 0.6912332718863097
+          }
+        },
+        {
+          "theta": 0.7853981633974483,
+          "born": 0.5000000000000001,
+          "nr358": 0.5000000000000121,
+          "nr_same_pair": 0.5000000000000124,
+          "right_work_over_initial_energy": 0.0009748154566872335,
+          "right_energy_budget_residual": 3.20531757784183e-07,
+          "transported": {
+            "norm": 0.4999999999999463,
+            "number": 0.49999999999994593,
+            "energy": 0.49999999999994604
+          },
+          "counts2048": {
+            "norm": 1024,
+            "number": 1024,
+            "energy": 1024
+          },
+          "final_fraction": {
+            "norm": 0.4999999999999794,
+            "number": 0.49999999999998,
+            "energy": 0.49999999999998007
+          }
+        },
+        {
+          "theta": 0.9817477042468103,
+          "born": 0.3086582838174552,
+          "nr358": 0.30876422148776284,
+          "nr_same_pair": 0.3087668553696651,
+          "right_work_over_initial_energy": 0.0008557170298954337,
+          "right_energy_budget_residual": -2.7134190306668586e-07,
+          "transported": {
+            "norm": 0.3086724352886388,
+            "number": 0.30876754763630454,
+            "energy": 0.30851346152288806
+          },
+          "counts2048": {
+            "norm": 632,
+            "number": 632,
+            "energy": 632
+          },
+          "final_fraction": {
+            "norm": 0.3087670512441547,
+            "number": 0.30876687158056526,
+            "energy": 0.30876672811365763
+          }
+        },
+        {
+          "theta": 1.1780972450961724,
+          "born": 0.1464466094067263,
+          "nr358": 0.14664235669735273,
+          "nr_same_pair": 0.1466348682584536,
+          "right_work_over_initial_energy": 0.0005180142464039528,
+          "right_energy_budget_residual": -3.081700063955437e-07,
+          "transported": {
+            "norm": 0.14651789923827332,
+            "number": 0.1466355687500125,
+            "energy": 0.14640290445122423
+          },
+          "counts2048": {
+            "norm": 300,
+            "number": 300,
+            "energy": 300
+          },
+          "final_fraction": {
+            "norm": 0.14663523020000788,
+            "number": 0.14663489821337353,
+            "energy": 0.14663463311182542
+          }
+        },
+        {
+          "theta": 1.3744467859455345,
+          "born": 0.038060233744356645,
+          "nr358": 0.03831598990475752,
+          "nr_same_pair": 0.03828204416592263,
+          "right_work_over_initial_energy": 0.00012524959331886303,
+          "right_energy_budget_residual": -2.8561456288971523e-08,
+          "transported": {
+            "norm": 0.03822969912197975,
+            "number": 0.038282285616376206,
+            "energy": 0.038231175682856125
+          },
+          "counts2048": {
+            "norm": 78,
+            "number": 78,
+            "energy": 78
+          },
+          "final_fraction": {
+            "norm": 0.03828251709011764,
+            "number": 0.03828208330597627,
+            "energy": 0.038281736915985076
+          }
+        },
+        {
+          "theta": 1.5707963267948966,
+          "born": 3.749399456654644e-33,
+          "nr358": 0.0002768284731896112,
+          "nr_same_pair": 0.00020923354984085692,
+          "right_work_over_initial_energy": 3.1113265358375255e-07,
+          "right_energy_budget_residual": 9.415279410208983e-10,
+          "transported": {
+            "norm": 0.00021017613875995452,
+            "number": 0.000209278105435717,
+            "energy": 0.0002089963038946388
+          },
+          "counts2048": {
+            "norm": 0,
+            "number": 0,
+            "energy": 0
+          },
+          "final_fraction": {
+            "norm": 0.0002097454709072112,
+            "number": 0.0002092759173501345,
+            "energy": 0.00020890096437938975
+          }
+        }
+      ],
+      "comparison": {
+        "max_shift_from_same_pair": 0.00025339384677702803,
+        "max_energy_error_from_born": 0.00020899630389570323,
+        "max_count_error_from_born": 6.453381745519238e-05,
+        "max_number_error_from_final_mass": 6.760557985652227e-07,
+        "max_relative_right_work_residual": 9.492334577251102e-07
+      },
+      "field_round_trip": 5.2467683219392066e-14
+    },
+    {
+      "c": 24.0,
+      "dt": 0.02,
+      "n": 1024,
+      "offset": 0.0,
+      "rows": [
+        {
+          "theta": 0.0,
+          "born": 1.0,
+          "nr358": 0.9997231715268103,
+          "nr_same_pair": 0.9997907664501591,
+          "right_work_over_initial_energy": 0.0008670670665472556,
+          "right_energy_budget_residual": 2.8346084521751723e-07,
+          "transported": {
+            "norm": 0.9997903492479318,
+            "number": 0.9997907482239901,
+            "energy": 0.9997908737586803
+          },
+          "counts2048": {
+            "norm": 2048,
+            "number": 2048,
+            "energy": 2048
+          },
+          "final_fraction": {
+            "norm": 0.9997905387625288,
+            "number": 0.9997907475906794,
+            "energy": 0.9997909145465553
+          }
+        },
+        {
+          "theta": 0.19634954084936207,
+          "born": 0.9619397662556434,
+          "nr358": 0.961684010095252,
+          "nr_same_pair": 0.9617179558340868,
+          "right_work_over_initial_energy": 0.0008113498017975217,
+          "right_energy_budget_residual": 2.2236288668656764e-07,
+          "transported": {
+            "norm": 0.9617413102354281,
+            "number": 0.9617179322952573,
+            "energy": 0.9617408023888204
+          },
+          "counts2048": {
+            "norm": 1970,
+            "number": 1970,
+            "energy": 1970
+          },
+          "final_fraction": {
+            "norm": 0.9617177454911259,
+            "number": 0.9617179384112703,
+            "energy": 0.9617180926488653
+          }
+        },
+        {
+          "theta": 0.39269908169872414,
+          "born": 0.8535533905932737,
+          "nr358": 0.8533576433026647,
+          "nr_same_pair": 0.8533651317415638,
+          "right_work_over_initial_energy": 0.000636518613579682,
+          "right_energy_budget_residual": 4.528744489254505e-07,
+          "transported": {
+            "norm": 0.8534171163495816,
+            "number": 0.8533648019302159,
+            "energy": 0.8534685517256893
+          },
+          "counts2048": {
+            "norm": 1748,
+            "number": 1748,
+            "energy": 1748
+          },
+          "final_fraction": {
+            "norm": 0.8533649707604434,
+            "number": 0.8533651184074026,
+            "energy": 0.8533652364495697
+          }
+        },
+        {
+          "theta": 0.5890486225480862,
+          "born": 0.6913417161825449,
+          "nr358": 0.6912357785122594,
+          "nr_same_pair": 0.6912331446303577,
+          "right_work_over_initial_energy": 0.00048651823038308736,
+          "right_energy_budget_residual": 5.199798653534453e-07,
+          "transported": {
+            "norm": 0.6912750135752451,
+            "number": 0.6912327310223603,
+            "energy": 0.6913458017491846
+          },
+          "counts2048": {
+            "norm": 1416,
+            "number": 1416,
+            "energy": 1416
+          },
+          "final_fraction": {
+            "norm": 0.6912330575110306,
+            "number": 0.691233137414195,
+            "energy": 0.6912332012959218
+          }
+        },
+        {
+          "theta": 0.7853981633974483,
+          "born": 0.5000000000000001,
+          "nr358": 0.5000000000000121,
+          "nr_same_pair": 0.5000000000000124,
+          "right_work_over_initial_energy": 0.00043360291231735296,
+          "right_energy_budget_residual": 1.4264738273856376e-07,
+          "transported": {
+            "norm": 0.49999999999995876,
+            "number": 0.4999999999999586,
+            "energy": 0.4999999999999581
+          },
+          "counts2048": {
+            "norm": 1024,
+            "number": 1024,
+            "energy": 1024
+          },
+          "final_fraction": {
+            "norm": 0.49999999999998035,
+            "number": 0.49999999999998,
+            "energy": 0.49999999999998007
+          }
+        },
+        {
+          "theta": 0.9817477042468103,
+          "born": 0.3086582838174552,
+          "nr358": 0.30876422148776284,
+          "nr_same_pair": 0.3087668553696651,
+          "right_work_over_initial_energy": 0.0003806875942515815,
+          "right_energy_budget_residual": -2.346850902677151e-07,
+          "transported": {
+            "norm": 0.30872498642466,
+            "number": 0.3087672689775447,
+            "energy": 0.3086541982507198
+          },
+          "counts2048": {
+            "norm": 632,
+            "number": 632,
+            "energy": 632
+          },
+          "final_fraction": {
+            "norm": 0.3087669424889375,
+            "number": 0.30876686258577246,
+            "energy": 0.30876679870404566
+          }
+        },
+        {
+          "theta": 1.1780972450961724,
+          "born": 0.1464466094067263,
+          "nr358": 0.14664235669735273,
+          "nr_same_pair": 0.1466348682584536,
+          "right_work_over_initial_energy": 0.00023068721105493897,
+          "right_energy_budget_residual": -1.675797215756245e-07,
+          "transported": {
+            "norm": 0.14658288365036645,
+            "number": 0.1466351980697321,
+            "energy": 0.1465314482742576
+          },
+          "counts2048": {
+            "norm": 300,
+            "number": 300,
+            "energy": 300
+          },
+          "final_fraction": {
+            "norm": 0.14663502923954186,
+            "number": 0.14663488159258237,
+            "energy": 0.14663476355041535
+          }
+        },
+        {
+          "theta": 1.3744467859455345,
+          "born": 0.038060233744356645,
+          "nr358": 0.03831598990475752,
+          "nr_same_pair": 0.03828204416592263,
+          "right_work_over_initial_energy": 5.5856022837103866e-05,
+          "right_energy_budget_residual": 6.29317912345321e-08,
+          "transported": {
+            "norm": 0.03825868976456119,
+            "number": 0.03828206770473182,
+            "energy": 0.03825919761116775
+          },
+          "counts2048": {
+            "norm": 78,
+            "number": 78,
+            "energy": 78
+          },
+          "final_fraction": {
+            "norm": 0.03828225450887412,
+            "number": 0.03828206158872964,
+            "energy": 0.03828190735113467
+          }
+        },
+        {
+          "theta": 1.5707963267948966,
+          "born": 3.749399456654644e-33,
+          "nr358": 0.0002768284731896112,
+          "nr_same_pair": 0.00020923354984085692,
+          "right_work_over_initial_energy": 1.3875808736078432e-07,
+          "right_energy_budget_residual": 1.8338121385439304e-09,
+          "transported": {
+            "norm": 0.0002096507520679138,
+            "number": 0.00020925177600983843,
+            "energy": 0.00020912624131912914
+          },
+          "counts2048": {
+            "norm": 0,
+            "number": 0,
+            "energy": 0
+          },
+          "final_fraction": {
+            "norm": 0.0002094612374712773,
+            "number": 0.00020925240932062305,
+            "energy": 0.00020908545344456518
+          }
+        }
+      ],
+      "comparison": {
+        "max_shift_from_same_pair": 0.00011265711894525854,
+        "max_energy_error_from_born": 0.0002091262413197459,
+        "max_count_error_from_born": 6.453381745519238e-05,
+        "max_number_error_from_final_mass": 4.063918347396722e-07,
+        "max_relative_right_work_residual": 5.199798653534453e-07
+      },
+      "field_round_trip": 1.3888385060401225e-13
+    }
+  ],
+  "refinement": {
+    "c": 8.0,
+    "dt": 0.01,
+    "n": 2048,
+    "offset": 0.0,
+    "rows": [
+      {
+        "theta": 0.0,
+        "born": 1.0,
+        "nr358": 0.9997231715268103,
+        "nr_same_pair": 0.9997907664501591,
+        "right_work_over_initial_energy": 0.007765370411471688,
+        "right_energy_budget_residual": 6.372183313846506e-07,
+        "transported": {
+          "norm": 0.9997869779294986,
+          "number": 0.999790595303914,
+          "energy": 0.9997916896630478
+        },
+        "counts2048": {
+          "norm": 2048,
+          "number": 2048,
+          "energy": 2048
+        },
+        "final_fraction": {
+          "norm": 0.999788726141263,
+          "number": 0.9997905978608007,
+          "energy": 0.9997920828075155
+        }
+      },
+      {
+        "theta": 0.19634954084936207,
+        "born": 0.9619397662556434,
+        "nr358": 0.961684010095252,
+        "nr_same_pair": 0.9617179558340868,
+        "right_work_over_initial_energy": 0.007274381382282087,
+        "right_energy_budget_residual": 7.242183004329834e-07,
+        "transported": {
+          "norm": 0.9619265189803097,
+          "number": 0.9617175931424756,
+          "energy": 0.961913959765569
+        },
+        "counts2048": {
+          "norm": 1970,
+          "number": 1970,
+          "energy": 1970
+        },
+        "final_fraction": {
+          "norm": 0.9617160709508054,
+          "number": 0.9617178000874299,
+          "energy": 0.9617191719146182
+        }
+      },
+      {
+        "theta": 0.39269908169872414,
+        "born": 0.8535533905932737,
+        "nr358": 0.8533576433026647,
+        "nr_same_pair": 0.8533651317415638,
+        "right_work_over_initial_energy": 0.005715976194515582,
+        "right_energy_budget_residual": 8.060545690183261e-07,
+        "transported": {
+          "norm": 0.85383278851475,
+          "number": 0.8533645620788914,
+          "energy": 0.8542775701827559
+        },
+        "counts2048": {
+          "norm": 1749,
+          "number": 1748,
+          "energy": 1750
+        },
+        "final_fraction": {
+          "norm": 0.8533636891898111,
+          "number": 0.8533650125444338,
+          "energy": 0.8533660624405641
+        }
+      },
+      {
+        "theta": 0.5890486225480862,
+        "born": 0.6913417161825449,
+        "nr358": 0.6912357785122594,
+        "nr_same_pair": 0.6912331446303577,
+        "right_work_over_initial_energy": 0.004360671656449607,
+        "right_energy_budget_residual": 6.725050873053574e-07,
+        "transported": {
+          "norm": 0.6916116121752902,
+          "number": 0.6912326958518177,
+          "energy": 0.6922412744751594
+        },
+        "counts2048": {
+          "norm": 1416,
+          "number": 1416,
+          "energy": 1418
+        },
+        "final_fraction": {
+          "norm": 0.691232363954215,
+          "number": 0.691233080123535,
+          "energy": 0.6912336483033596
+        }
+      },
+      {
+        "theta": 0.7853981633974483,
+        "born": 0.5000000000000001,
+        "nr358": 0.5000000000000121,
+        "nr_same_pair": 0.5000000000000124,
+        "right_work_over_initial_energy": 0.0038832964586233416,
+        "right_energy_budget_residual": 3.182545074574042e-07,
+        "transported": {
+          "norm": 0.49999999999981587,
+          "number": 0.4999999999998175,
+          "energy": 0.4999999999998171
+        },
+        "counts2048": {
+          "norm": 1024,
+          "number": 1024,
+          "energy": 1024
+        },
+        "final_fraction": {
+          "norm": 0.4999999999999152,
+          "number": 0.499999999999916,
+          "energy": 0.4999999999999161
+        }
+      },
+      {
+        "theta": 0.9817477042468103,
+        "born": 0.3086582838174552,
+        "nr358": 0.30876422148776284,
+        "nr_same_pair": 0.3087668553696651,
+        "right_work_over_initial_energy": 0.0034059212607959475,
+        "right_energy_budget_residual": -3.599613614659555e-08,
+        "transported": {
+          "norm": 0.308388387824403,
+          "number": 0.3087673041478784,
+          "energy": 0.30775872552453754
+        },
+        "counts2048": {
+          "norm": 632,
+          "number": 632,
+          "energy": 630
+        },
+        "final_fraction": {
+          "norm": 0.30876763604564184,
+          "number": 0.30876691987632315,
+          "energy": 0.30876635169649874
+        }
+      },
+      {
+        "theta": 1.1780972450961724,
+        "born": 0.1464466094067263,
+        "nr358": 0.14664235669735273,
+        "nr_same_pair": 0.1466348682584536,
+        "right_work_over_initial_energy": 0.0020506167227284902,
+        "right_energy_budget_residual": -1.6954574617405067e-07,
+        "transported": {
+          "norm": 0.14616721148506695,
+          "number": 0.14663543792092712,
+          "energy": 0.14572242981706549
+        },
+        "counts2048": {
+          "norm": 299,
+          "number": 300,
+          "energy": 298
+        },
+        "final_fraction": {
+          "norm": 0.146636310810109,
+          "number": 0.14663498745548714,
+          "energy": 0.14663393755935689
+        }
+      },
+      {
+        "theta": 1.3744467859455345,
+        "born": 0.038060233744356645,
+        "nr358": 0.03831598990475752,
+        "nr_same_pair": 0.03828204416592263,
+        "right_work_over_initial_energy": 0.0004922115349618231,
+        "right_energy_budget_residual": -8.770961090439703e-08,
+        "transported": {
+          "norm": 0.038073481019633315,
+          "number": 0.03828240685746962,
+          "energy": 0.03808604023437767
+        },
+        "counts2048": {
+          "norm": 78,
+          "number": 78,
+          "energy": 78
+        },
+        "final_fraction": {
+          "norm": 0.03828392904917543,
+          "number": 0.03828219991255119,
+          "energy": 0.03828082808536297
+        }
+      },
+      {
+        "theta": 1.5707963267948966,
+        "born": 3.749399456654644e-33,
+        "nr358": 0.0002768284731896112,
+        "nr_same_pair": 0.00020923354984085692,
+        "right_work_over_initial_energy": 1.22250577229716e-06,
+        "right_energy_budget_residual": -7.097049745529375e-10,
+        "transported": {
+          "norm": 0.00021302207049978013,
+          "number": 0.00020940469608664286,
+          "energy": 0.00020831033695241914
+        },
+        "counts2048": {
+          "norm": 0,
+          "number": 0,
+          "energy": 0
+        },
+        "final_fraction": {
+          "norm": 0.0002112738587367951,
+          "number": 0.0002094021391992041,
+          "energy": 0.00020791719248405445
+        }
+      }
+    ],
+    "comparison": {
+      "max_shift_from_same_pair": 0.0010081298451275478,
+      "max_energy_error_from_born": 0.0008995582929176571,
+      "max_count_error_from_born": 0.0010410963174551924,
+      "max_number_error_from_final_mass": 4.504655423120951e-07,
+      "max_relative_right_work_residual": 8.060545690183261e-07
+    },
+    "field_round_trip": 3.2706634322001436e-13
+  },
+  "high_c_refinement": {
+    "c": 24.0,
+    "dt": 0.01,
+    "n": 2048,
+    "offset": 0.0,
+    "rows": [
+      {
+        "theta": 0.0,
+        "born": 1.0,
+        "nr358": 0.9997231715268103,
+        "nr_same_pair": 0.9997907664501591,
+        "right_work_over_initial_energy": 0.0008672809883370852,
+        "right_energy_budget_residual": 7.332557085286868e-08,
+        "transported": {
+          "norm": 0.9997903466834485,
+          "number": 0.9997907454136643,
+          "energy": 0.999790869999888
+        },
+        "counts2048": {
+          "norm": 2048,
+          "number": 2048,
+          "energy": 2048
+        },
+        "final_fraction": {
+          "norm": 0.9997905387902231,
+          "number": 0.9997907476184611,
+          "energy": 0.999790914574316
+        }
+      },
+      {
+        "theta": 0.19634954084936207,
+        "born": 0.9619397662556434,
+        "nr358": 0.961684010095252,
+        "nr_same_pair": 0.9617179558340868,
+        "right_work_over_initial_energy": 0.0008115483470677687,
+        "right_energy_budget_residual": 2.222906324975339e-07,
+        "transported": {
+          "norm": 0.9617411502044574,
+          "number": 0.9617177740821755,
+          "energy": 0.9617406039414133
+        },
+        "counts2048": {
+          "norm": 1970,
+          "number": 1970,
+          "energy": 1970
+        },
+        "final_fraction": {
+          "norm": 0.9617177455167014,
+          "number": 0.9617179384369263,
+          "energy": 0.9617180926745017
+        }
+      },
+      {
+        "theta": 0.39269908169872414,
+        "born": 0.8535533905932737,
+        "nr358": 0.8533576433026647,
+        "nr_same_pair": 0.8533651317415638,
+        "right_work_over_initial_energy": 0.0006366750774394886,
+        "right_energy_budget_residual": 4.007014215845992e-07,
+        "transported": {
+          "norm": 0.853417043974687,
+          "number": 0.8533647570192487,
+          "energy": 0.8534684474544487
+        },
+        "counts2048": {
+          "norm": 1748,
+          "number": 1748,
+          "energy": 1748
+        },
+        "final_fraction": {
+          "norm": 0.8533649707799925,
+          "number": 0.8533651184270136,
+          "energy": 0.8533652364691656
+        }
+      },
+      {
+        "theta": 0.5890486225480862,
+        "born": 0.6913417161825449,
+        "nr358": 0.6912357785122594,
+        "nr_same_pair": 0.6912331446303577,
+        "right_work_over_initial_energy": 0.0004866397988547706,
+        "right_energy_budget_residual": 3.439649451850909e-07,
+        "transported": {
+          "norm": 0.6912750753414807,
+          "number": 0.691232825114122,
+          "energy": 0.6913458562062218
+        },
+        "counts2048": {
+          "norm": 1416,
+          "number": 1416,
+          "energy": 1416
+        },
+        "final_fraction": {
+          "norm": 0.6912330575215733,
+          "number": 0.6912331374247711,
+          "energy": 0.69123320130649
+        }
+      },
+      {
+        "theta": 0.7853981633974483,
+        "born": 0.5000000000000001,
+        "nr358": 0.5000000000000121,
+        "nr_same_pair": 0.5000000000000124,
+        "right_work_over_initial_energy": 0.0004337098995155155,
+        "right_energy_budget_residual": 3.566029588245113e-08,
+        "transported": {
+          "norm": 0.49999999999981765,
+          "number": 0.4999999999998179,
+          "energy": 0.499999999999816
+        },
+        "counts2048": {
+          "norm": 1024,
+          "number": 1024,
+          "energy": 1024
+        },
+        "final_fraction": {
+          "norm": 0.49999999999991723,
+          "number": 0.49999999999991696,
+          "energy": 0.499999999999917
+        }
+      },
+      {
+        "theta": 0.9817477042468103,
+        "born": 0.3086582838174552,
+        "nr358": 0.30876422148776284,
+        "nr_same_pair": 0.3087668553696651,
+        "right_work_over_initial_energy": 0.000380780000176136,
+        "right_energy_budget_residual": -2.726444182245463e-07,
+        "transported": {
+          "norm": 0.3087249246582156,
+          "number": 0.3087671748855744,
+          "energy": 0.30865414379347306
+        },
+        "counts2048": {
+          "norm": 632,
+          "number": 632,
+          "energy": 632
+        },
+        "final_fraction": {
+          "norm": 0.3087669424782868,
+          "number": 0.3087668625750886,
+          "energy": 0.3087667986933698
+        }
+      },
+      {
+        "theta": 1.1780972450961724,
+        "born": 0.1464466094067263,
+        "nr358": 0.14664235669735273,
+        "nr_same_pair": 0.1466348682584536,
+        "right_work_over_initial_energy": 0.00023074472159125418,
+        "right_energy_budget_residual": -3.2938102209726766e-07,
+        "transported": {
+          "norm": 0.14658295602513127,
+          "number": 0.14663524298056935,
+          "energy": 0.14653155254536826
+        },
+        "counts2048": {
+          "norm": 300,
+          "number": 300,
+          "energy": 300
+        },
+        "final_fraction": {
+          "norm": 0.14663502921992957,
+          "number": 0.14663488157290835,
+          "energy": 0.14663476353075627
+        }
+      },
+      {
+        "theta": 1.3744467859455345,
+        "born": 0.038060233744356645,
+        "nr358": 0.03831598990475752,
+        "nr_same_pair": 0.03828204416592263,
+        "right_work_over_initial_energy": 5.587145196295807e-05,
+        "right_energy_budget_residual": -1.509703673227e-07,
+        "transported": {
+          "norm": 0.03825884979548694,
+          "number": 0.03828222591776885,
+          "energy": 0.038259396058529925
+        },
+        "counts2048": {
+          "norm": 78,
+          "number": 78,
+          "energy": 78
+        },
+        "final_fraction": {
+          "norm": 0.038282254483280015,
+          "number": 0.038282061563054894,
+          "energy": 0.03828190732547945
+        }
+      },
+      {
+        "theta": 1.5707963267948966,
+        "born": 3.749399456654644e-33,
+        "nr358": 0.0002768284731896112,
+        "nr_same_pair": 0.00020923354984085692,
+        "right_work_over_initial_energy": 1.3881069364770374e-07,
+        "right_energy_budget_residual": -2.005367666942659e-09,
+        "transported": {
+          "norm": 0.000209653316549763,
+          "number": 0.00020925458633389927,
+          "energy": 0.00020913000010788305
+        },
+        "counts2048": {
+          "norm": 0,
+          "number": 0,
+          "energy": 0
+        },
+        "final_fraction": {
+          "norm": 0.00020946120977673356,
+          "number": 0.0002092523815387667,
+          "energy": 0.0002090854256838428
+        }
+      }
+    ],
+    "comparison": {
+      "max_shift_from_same_pair": 0.0001127115761920261,
+      "max_energy_error_from_born": 0.00020913000011202332,
+      "max_count_error_from_born": 6.453381745519238e-05,
+      "max_number_error_from_final_mass": 3.6140776482618264e-07,
+      "max_relative_right_work_residual": 4.007014215845992e-07
+    },
+    "field_round_trip": 2.277922400741841e-13
+  },
+  "generator_control": {
+    "c": 8.0,
+    "dt": 0.02,
+    "n": 1024,
+    "offset": 0.1,
+    "rows": [
+      {
+        "theta": 0.0,
+        "born": 1.0,
+        "nr358": 0.9997231715268103,
+        "nr_same_pair": 0.9997907664501591,
+        "right_work_over_initial_energy": 0.007751355762975417,
+        "right_energy_budget_residual": 2.5364309846661356e-06,
+        "transported": {
+          "norm": 0.999786979511129,
+          "number": 0.9997905899008731,
+          "energy": 0.9997916939045829
+        },
+        "counts2048": {
+          "norm": 2048,
+          "number": 2048,
+          "energy": 2048
+        },
+        "final_fraction": {
+          "norm": 0.9997887260622039,
+          "number": 0.9997905977805316,
+          "energy": 0.9997920805682702
+        }
+      },
+      {
+        "theta": 0.19634954084936207,
+        "born": 0.9619397662556434,
+        "nr358": 0.961684010095252,
+        "nr_same_pair": 0.9617179558340868,
+        "right_work_over_initial_energy": 0.0072634497122273135,
+        "right_energy_budget_residual": 2.487816418331977e-06,
+        "transported": {
+          "norm": 0.9619265311722575,
+          "number": 0.9617171106635861,
+          "energy": 0.9620265892407631
+        },
+        "counts2048": {
+          "norm": 1970,
+          "number": 1970,
+          "energy": 1970
+        },
+        "final_fraction": {
+          "norm": 0.9617160708777779,
+          "number": 0.9617178000132849,
+          "energy": 0.9618325160125357
+        }
+      },
+      {
+        "theta": 0.39269908169872414,
+        "born": 0.8535533905932737,
+        "nr358": 0.8533576433026647,
+        "nr_same_pair": 0.8533651317415638,
+        "right_work_over_initial_energy": 0.005711576145766012,
+        "right_energy_budget_residual": 2.636224318856313e-06,
+        "transported": {
+          "norm": 0.8538324376500487,
+          "number": 0.853363403361855,
+          "energy": 0.8546627574010753
+        },
+        "counts2048": {
+          "norm": 1749,
+          "number": 1748,
+          "energy": 1750
+        },
+        "final_fraction": {
+          "norm": 0.8533636891339456,
+          "number": 0.8533650124877128,
+          "energy": 0.8537529885630811
+        }
+      },
+      {
+        "theta": 0.5890486225480862,
+        "born": 0.6913417161825449,
+        "nr358": 0.6912357785122594,
+        "nr_same_pair": 0.6912331446303577,
+        "right_work_over_initial_energy": 0.004358747986622076,
+        "right_energy_budget_residual": 2.3016529608086873e-06,
+        "transported": {
+          "norm": 0.6916111451641266,
+          "number": 0.6912316689744897,
+          "energy": 0.6929042324203731
+        },
+        "counts2048": {
+          "norm": 1416,
+          "number": 1416,
+          "energy": 1419
+        },
+        "final_fraction": {
+          "norm": 0.6912323639240182,
+          "number": 0.6912330800928752,
+          "energy": 0.6918943890428123
+        }
+      },
+      {
+        "theta": 0.7853981633974483,
+        "born": 0.5000000000000001,
+        "nr358": 0.5000000000000121,
+        "nr_same_pair": 0.5000000000000124,
+        "right_work_over_initial_energy": 0.0038823416359091605,
+        "right_energy_budget_residual": 1.2669268665351054e-06,
+        "transported": {
+          "norm": 0.4999999999999419,
+          "number": 0.4999999999999423,
+          "energy": 0.5007805478124343
+        },
+        "counts2048": {
+          "norm": 1024,
+          "number": 1024,
+          "energy": 1026
+        },
+        "final_fraction": {
+          "norm": 0.4999999999999778,
+          "number": 0.49999999999997835,
+          "energy": 0.5007745257432772
+        }
+      },
+      {
+        "theta": 0.9817477042468103,
+        "born": 0.3086582838174552,
+        "nr358": 0.30876422148776284,
+        "nr_same_pair": 0.3087668553696651,
+        "right_work_over_initial_energy": 0.0034088983016924384,
+        "right_energy_budget_residual": 2.546522955516902e-07,
+        "transported": {
+          "norm": 0.3083888548357782,
+          "number": 0.30876833102541634,
+          "energy": 0.30842355793361886
+        },
+        "counts2048": {
+          "norm": 632,
+          "number": 632,
+          "energy": 632
+        },
+        "final_fraction": {
+          "norm": 0.3087676360759453,
+          "number": 0.3087669199070894,
+          "energy": 0.30942787654254733
+        }
+      },
+      {
+        "theta": 1.1780972450961724,
+        "born": 0.1464466094067263,
+        "nr358": 0.14664235669735273,
+        "nr_same_pair": 0.1466348682584536,
+        "right_work_over_initial_energy": 0.0020557022047554547,
+        "right_energy_budget_residual": -8.798992042705322e-08,
+        "transported": {
+          "norm": 0.14616756234989917,
+          "number": 0.14663659663809378,
+          "energy": 0.14610931209956976
+        },
+        "counts2048": {
+          "norm": 299,
+          "number": 300,
+          "energy": 299
+        },
+        "final_fraction": {
+          "norm": 0.14663631086603726,
+          "number": 0.14663498751227055,
+          "energy": 0.14702171261802688
+        }
+      },
+      {
+        "theta": 1.3744467859455345,
+        "born": 0.038060233744356645,
+        "nr358": 0.03831598990475752,
+        "nr_same_pair": 0.03828204416592263,
+        "right_work_over_initial_energy": 0.0004941273948449115,
+        "right_energy_budget_residual": 5.658263875188178e-08,
+        "transported": {
+          "norm": 0.03807346882772981,
+          "number": 0.03828288933640277,
+          "energy": 0.03819896310796074
+        },
+        "counts2048": {
+          "norm": 78,
+          "number": 78,
+          "energy": 78
+        },
+        "final_fraction": {
+          "norm": 0.03828392912222132,
+          "number": 0.03828219998671462,
+          "energy": 0.038394497333701774
+        }
+      },
+      {
+        "theta": 1.5707963267948966,
+        "born": 3.749399456654644e-33,
+        "nr358": 0.0002768284731896112,
+        "nr_same_pair": 0.00020923354984085692,
+        "right_work_over_initial_energy": 1.22373605717255e-06,
+        "right_energy_budget_residual": 5.802203258964963e-09,
+        "transported": {
+          "norm": 0.00021302048887073007,
+          "number": 0.00020941009912760626,
+          "energy": 0.0002083030180067379
+        },
+        "counts2048": {
+          "norm": 0,
+          "number": 0,
+          "energy": 0
+        },
+        "final_fraction": {
+          "norm": 0.00021127393779606283,
+          "number": 0.0002094022194682099,
+          "energy": 0.000207915105906288
+        }
+      }
+    ],
+    "comparison": {
+      "max_shift_from_same_pair": 0.0016710877900154575,
+      "max_energy_error_from_born": 0.0015625162378282154,
+      "max_count_error_from_born": 0.0015293775674550814,
+      "max_number_error_from_final_mass": 1.6091258577821677e-06,
+      "max_relative_right_work_residual": 2.636224318856313e-06
+    },
+    "field_round_trip": 6.233167298601322e-14
+  }
+}

@@ -11,7 +11,7 @@ SIGMA, FORCE, TAU, END = 2., 0.5, 2., 20.
 THETAS = np.arange(9)*np.pi/16
 
 
-def split_weights(theta, eps, axis=np.pi/2, enabled=True):
+def winding_weights(theta, eps, axis=np.pi/2, enabled=True):
     field = (WINDING+np.exp(2j*theta)*WINDING.conj())/np.sqrt(2)
     if enabled:
         # Same link geometry as #241, with an independently selectable orientation.
@@ -20,7 +20,11 @@ def split_weights(theta, eps, axis=np.pi/2, enabled=True):
         omega, vectors = np.linalg.eigh(diff.T @ (diff/radius[:, None]**2))
         duration = np.pi/(4*eps*(2-np.sqrt(2)))
         field = vectors @ (np.exp(-1j*duration*omega)*(vectors.T @ field))
-    weights = abs(np.fft.fft(field)/np.sqrt(SITES))**2
+    return abs(np.fft.fft(field)/np.sqrt(SITES))**2
+
+
+def split_weights(theta, eps, axis=np.pi/2, enabled=True):
+    weights = winding_weights(theta, eps, axis, enabled)
     # The exact quadrupole preserves odd winding. For k=±1,±3 the
     # k-odd connection force sin(kπ/4)/sin(π/4) is exactly ±1.
     if np.sum(weights[::2]) > 1e-18:
