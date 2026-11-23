@@ -1,6 +1,6 @@
 # Does the timelike bulk stress current guide a mixed winding?
 
-The fiber-averaged energy density stays positive at the balanced midpoint where the signed winding density vanishes. The energy flux divided by that density approaches the positive norm-current velocity in a nonrelativistic regime. At finite carrier energy they differ, both on the [#358 field](pointer_priors_and_transport.md) and in an independently evolved five-dimensional scalar. A small difference between the channel potentials can produce a finite energy velocity at a point with exactly zero norm current.
+The fiber-averaged energy density stays positive at the balanced midpoint where the signed winding density vanishes. The energy flux divided by that density approaches the positive norm-current velocity in a nonrelativistic regime. At finite carrier energy they differ, both on the [#358 field](pointer_priors_and_transport.md) and in an independently evolved five-dimensional scalar. The same complex scalar supplies an exactly conserved phase current with spatial flux equal to #209’s numerator. Its velocity stays zero in the symmetric split-potential control where the laboratory energy velocity acquires a relativistic correction. The [branch-frequency experiment](energy_branch_frequencies.md) compares all three flows through readout.
 
 ## Specifying the comparison
 
@@ -33,7 +33,7 @@ $$
  E=W^2/c^2,\qquad S=pA_0,\qquad v_N=0,\qquad v_E=c^2pA_0/W^2 .
 $$
 
-At c=8, p=1 and $A_0=0.1$, the channel-energy gap is 0.2 compared to the common rest energy 64. The energy density is 65 and $v_E=1/650$. Both velocities vanish when the offset is zero in this symmetric control. A spatially constant offset can be removed by a rotating fiber coordinate, which also changes the time generator; the energy flow is relative to the specified laboratory generator. The driven test below already gives unequal velocities with zero constant offset.
+At c=8, p=1 and $A_0=0.1$, the channel-energy gap is 0.2 compared to the common rest energy 64. The energy density is 65 and $v_E=1/650$. The number velocity is exactly zero at either offset. The energy velocity scales as $pA_0/c^2$ at fixed $p,A_0$. Both velocities vanish when the offset is zero in this symmetric control. A spatially constant offset can be removed by a rotating fiber coordinate, which also changes the time generator; the energy flow is relative to the specified laboratory generator. The driven test below already gives unequal velocities with zero constant offset.
 
 ## Test on the archived superposition and on a KG solution
 
@@ -55,7 +55,9 @@ During the prescribed drive $\partial_t$ is not Killing. On shell, the coordinat
 
 ## Scope and replay
 
-A timelike generator and positive-energy scalar supply a regular midpoint denominator for these populated states. The mixed-channel guidance postulate of #209 remains an additional input at finite c. This calculation tests a particular 5D lift and an exact local counterexample; it does not model the localized core, its gravitational backreaction, or a closed compact solution of the Einstein equations.
+For the complex scalar, global phase symmetry gives $j^A=\operatorname{Im}(\Psi^*\nabla^A\Psi)$. After fiber integration its time component is $n=-\sum_k\operatorname{Im}(\Psi_k^*b_k)/c^2$ and its spatial component is $J$. The KG equation implies $\partial_t n+\partial_x J=0$ throughout the drive. The common rest carrier gives $n/\rho\to1$, so $J/n$ recovers #209 directly. At $t=1$, the full KG runs give rms differences from $J/\rho$ of 0.000906, 0.000404 and 0.000227 for $c=8,12,16$. The sampled packet support has positive $n$; local positivity is state-dependent.
+
+This current requires an internal phase degree of freedom. For a single real 5D scalar the local phase current vanishes and its equal-time signed fiber coefficients obey $u_{-k}=u_k^*$. A positive-frequency complex description of real data would require specifying the frequency decomposition. The calculation supplies candidate field currents. Associating a localized geometric core with either flow still requires a dynamical argument. The metric and analyzer are prescribed.
 
 From the repository root:
 

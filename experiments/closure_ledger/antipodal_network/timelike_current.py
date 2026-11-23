@@ -27,6 +27,11 @@ def currents(u, pi, dxu, c, a):
     return norm, norm_flux, energy, flux
 
 
+def number_density(u, pi, c):
+    """Time component of the complex scalar Noether current, integrated over chi."""
+    return -np.sum(np.imag(u.conj()*pi), axis=0)/c**2
+
+
 def direct_fiber_contraction(u, pi, dxu, c, a):
     """Average T^A_t over chi using the 5x5 metric, before taking the ratio."""
     radius = 1/c
@@ -53,6 +58,8 @@ def exact_control(c=8., p=1., offset=0.1):
     dxu = 1j*K*p*u
     rho,j,e,s = currents(u,pi,dxu,c,offset)
     return dict(c=c, momentum=p, channel_potential_gap=2*offset,
+                number_density=float(number_density(u,pi,c)[0]),
+                number_velocity=float((j/number_density(u,pi,c))[0]),
                 norm_velocity=float((j/rho)[0]), energy_velocity=float((s/e)[0]),
                 analytic=c*c*p*offset/intrinsic**2, energy_density=float(e[0]))
 
@@ -111,13 +118,17 @@ def run(c, dt, n, weight, offset=0.):
             # Avoid numerical vacuum in all reported velocity errors.
             mask = rho > 1e-6*rho.max()
             v, ve = j[mask]/rho[mask], s[mask]/e[mask]
+            number = number_density(u,pi,c)
+            if np.any(number[mask] <= 0):
+                raise ValueError("number density changes sign on the measured packet")
             d, speed, width, dilation = packet(t)
             dens = np.array([weight,1-weight])[:,None]*np.exp(-(x[mask]-K*d)**2/(2*width**2))
             reference = (dens*(K*speed+dilation*(x[mask]-K*d))).sum(axis=0)/dens.sum(axis=0)
             def rms(error):
                 return float(np.sqrt(np.average(error**2,weights=rho[mask])))
             ed, fl = direct_fiber_contraction(u[:,one],pi[:,one],dxu[:,one],c,a[one])
-            snapshots.append(dict(t=t, rms_energy_minus_norm=rms(ve-v),
+            snapshots.append(dict(t=t, rms_number_minus_norm=rms(j[mask]/number[mask]-v),
+                minimum_number_over_norm=float(min(number[mask]/rho[mask])), rms_energy_minus_norm=rms(ve-v),
                 rms_energy_minus_358=rms(ve-reference), rms_norm_minus_358=rms(v-reference),
                 midpoint_energy=float(e[mid]), midpoint_energy_v=float(s[mid]/e[mid]),
                 midpoint_norm_v=float(j[mid]/rho[mid]), x_sample=float(x[one]),

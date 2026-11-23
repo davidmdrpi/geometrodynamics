@@ -33,3 +33,16 @@ class TimelikeCurrentTests(unittest.TestCase):
         self.assertLess(result["free_energy_relative_drift"],1e-9)
         self.assertLess(result["drive_budget_relative"],5e-6)
         self.assertTrue(all(s["midpoint_energy"]>0 for s in result["snapshots"]))
+
+    def test_number_current_control_and_transport(self):
+        from experiments.closure_ledger.antipodal_network import branch_current_shift
+
+        control = current.exact_control()
+        self.assertEqual(control["number_velocity"], 0.)
+        self.assertGreater(control["number_density"], 1.)
+        run = branch_current_shift.run(8., .02, 1024)
+        result = run["comparison"]
+        self.assertLess(result["max_number_error_from_final_mass"], 5e-6)
+        self.assertLess(result["max_relative_right_work_residual"], 5e-6)
+        self.assertGreater(result["max_shift_from_same_pair"], 0.0009)
+        self.assertAlmostEqual(run["rows"][4]["transported"]["energy"], .5, places=8)
