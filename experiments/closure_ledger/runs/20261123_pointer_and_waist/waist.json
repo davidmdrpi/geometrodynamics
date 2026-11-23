@@ -1,0 +1,22 @@
+{
+  "symbolic": {
+    "time_coefficient": "(-12*Y + p**2)/(12*Z)",
+    "radial_coefficient": "-p**2/(12*Z)",
+    "radial_speed_squared": "-p**2/(-12*Y + p**2)"
+  },
+  "random_contraction_error": 2.4868995751603507e-14,
+  "jet": {
+    "X": 0.6666666666666667,
+    "Y": -0.5,
+    "Z": 1.0,
+    "phi_prime": 1.0,
+    "f": 0.0,
+    "f_phi": 1.0,
+    "N_log_prime": 0.2708333333333333,
+    "phi_second": -4.270833333333337,
+    "f_phi_phi": 4.3750000000000036,
+    "metric_residual": 2.220446049250313e-16,
+    "scalar_residual": 0.0,
+    "radial_speed_squared": -0.1428571428571426
+  }
+}
