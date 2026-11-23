@@ -2,7 +2,7 @@
 
 With the elliptic mixer followed by a winding Stern–Gerlach, a localized position transported from spatial equilibrium gives the expected cosine-squared curve. A thermal mechanical latch and a phase-prepared latch give different curves. Both models retain a field in both channels. They assign the single-trial record to different physical variables.
 
-The [protocol](pointer_and_waist_protocol.md) was published at [a50f290](https://github.com/davidmdrpi/geometrodynamics/commit/a50f2901d26a634a0f6b5b8d728277bada14952d). The separate classical-support result and its assumptions are in the [asymmetric waist analysis](dilatonic_waist_characteristics.md).
+The [protocol](pointer_and_waist_protocol.md) is a design note at [a50f290](https://github.com/davidmdrpi/geometrodynamics/commit/a50f2901d26a634a0f6b5b8d728277bada14952d). The separate classical-support result and its assumptions are in the [asymmetric waist analysis](dilatonic_waist_characteristics.md).
 
 ## 1. Natural preparations for the fixed latch
 
@@ -15,7 +15,7 @@ Use the action, damping, gain, time and classification of [#357](elliptic_pointe
 | Boltzmann, twice reference rms | 0.6301 | 0.7490 | 0.2510 |
 | Uniform phase, cosine displacement, released at rest | 0.6665 | 1.0000 | 0.1050 |
 | Uniform phase of freely moving harmonic oscillator | 0.6265 | 0.7813 | 0.2188 |
-| Haar sphere axial projection, released at rest, width $w_*$ | 0.7500 | 1.0000 | 0.0000 |
+| Matched uniform from #357 (Haar sphere interpretation), width $w_*$ | 0.7500 | 1.0000 | 0.0000 |
 
 These are 4,096 equal-weight launches per input. The 1,024-launch check gives the same decisions. All launches in these runs latched. Sobol points approximate the Gaussian joint measure; midpoint angles integrate uniform phase. The table measures a deterministic model with specified preparations, rather than statistical error in an observed experiment.
 
@@ -32,7 +32,7 @@ The eight-site elliptic metric hopping from [#241](sigma_z_readout_capstone.md) 
 
 After switching off the mixer, the wave enters the co-moving force window from [#209](measurement_sector.md). Its odd-winding force is proportional to $\sin(k\pi/4)$. The quadrupole keeps the odd windings, so +1,+3 have the same spatial envelope and −1,−3 share its mirror. For each initial position we integrate the positive norm-current velocity $J/\rho$ with $\rho=\sum_k|\psi_k|^2$, $J=\sum_k\operatorname{Im}(\psi_k^*\partial_x\psi_k)$. The Gaussian envelopes are the exact accelerating and spreading solutions of this linear-force window. We keep the finite wrong-side mass at read time. This combines a spatially uniform mixer with a subsequent prescribed analyzer. It does not model a two-mouth apparatus, backreaction or an irreversible spatial amplifier.
 
-For 2,048 deterministic position quantiles drawn from spatial equilibrium, the largest difference between the fraction arriving on the right and $\cos^2\theta$ was **0.0004883** at ε=0.02. The maximum error of the continuous right-side mass was **0.0002768**; at ε=0.01 it fell to **0.0002254**. The single-branch wrong-side Gaussian tail at the chosen read time was 0.0002092. Quantile counting can round away this finite error. At ε=0.02 the largest leakage to |k|=3 was 0.000173. The integrated trajectories preserved the cumulative norm probability to within $1.7\times10^{-10}$.
+Equivariance fixes the right-side probability once the field and the initial measure are given. The useful comparisons are the changed ensemble and the signed-current test. For 2,048 deterministic position quantiles drawn from spatial equilibrium, the largest difference between the fraction arriving on the right and $\cos^2\theta$ was **0.0004883** at ε=0.02. The maximum error of the continuous right-side mass was **0.0002768**; at ε=0.01 it fell to **0.0002254**. The single-branch wrong-side Gaussian tail at the chosen read time was 0.0002092. Quantile counting can round away this finite error. At ε=0.02 the largest leakage to |k|=3 was 0.000173. The integrated trajectories preserved the cumulative norm probability to within $1.7\times10^{-10}$.
 
 | Preparation and controls | Right fraction at θ=π/8 | At θ=π/4 |
 |---|---:|---:|

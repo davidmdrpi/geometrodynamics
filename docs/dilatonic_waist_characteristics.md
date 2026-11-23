@@ -1,6 +1,6 @@
 # A radial tensor obstruction at an asymmetric five-dimensional waist
 
-For the action and static spherical waist below, a regular asymmetric lapse can satisfy the radial constraint. On any such background satisfying the temporal constraint as well, the physical radial shear has **negative squared characteristic speed**. This excludes a causal, strongly hyperbolic evolution of this waist in the static clock, independently of the smooth coupling function. It is a local obstruction, before a global extension or a search for long-time instabilities. [Protocol](pointer_and_waist_protocol.md) · [Covariant contraction check](../experiments/closure_ledger/antipodal_network/dilatonic_waist.py)
+For the action and static spherical waist below, a regular asymmetric lapse can satisfy the radial constraint. On any such background satisfying the temporal constraint as well, the physical radial shear has **negative squared characteristic speed**. This excludes a causal, strongly hyperbolic evolution of this waist for every time covector in the time–radius plane, independently of the smooth coupling function. It is a local obstruction, before a global extension or a search for long-time instabilities. [Protocol](pointer_and_waist_protocol.md) · [Covariant contraction check](../experiments/closure_ledger/antipodal_network/dilatonic_waist.py)
 
 ## Action and necessary background equations
 
@@ -44,7 +44,7 @@ $$
  \boxed{\frac{\omega^2}{k^2}=-\frac{p^2}{p^2+12r''/r}<0 .}
 $$
 
-For real nonzero k the characteristic frequencies are imaginary, with growth rate proportional to |k| in the frozen-coefficient equations. Lower-order terms and gauge choices cannot remove this physical mode. A single such polarization suffices to reject the requested static-time hyperbolicity. The calculation does not classify all characteristic cones of less symmetric backgrounds.
+For real nonzero k the characteristic frequencies are imaginary, with growth rate proportional to |k| in the frozen-coefficient equations. Lower-order terms and gauge choices cannot remove this physical mode. The quadratic form restricted to the time–radius covector plane is negative definite. Its inertia is invariant under any invertible change of coordinates in that plane. Any proposed time covector there has another linearly independent radial-plane covector giving complex characteristic roots. At the example jet, the additional coefficient for propagation along angular direction 2, transverse to h₃₄, is −1/2; the angular sign generally depends on the background. The calculation does not classify all characteristic cones of less symmetric backgrounds.
 
 ## Checks and scope
 
@@ -53,3 +53,5 @@ The probe evaluates the full five-index-range Ricci, Lanczos and derivative-coup
 An example satisfying **all** metric and scalar equations at one point has $r=N=1$, $p=f_\phi=1$, $f=0$, $N'/N=13/48$, $X=2/3$, $Y=-1/2$, $\phi''=-205/48$, and $f_{\phi\phi}=35/8$. A smooth local Taylor polynomial realizes those derivatives of f. The largest background residual was $2.3\times10^{-16}$ and the directly calculated shear speed squared was −1/7. The local data alone do not assert existence of a globally regular solution.
 
 This obstruction uses five spacetime dimensions, spherical symmetry, stationarity, the canonical kinetic sign and the specified action. Time-dependent waists, a potential or extra matter require new equations. Four-dimensional dilatonic wormhole backgrounds and their radial stability analyses concern another problem. Strong hyperbolicity results at weak coupling likewise require their own hypotheses. [Kanti, Kleihaus and Kunz](https://doi.org/10.1103/PhysRevLett.107.271101) · [Cuyubamba, Konoplya and Zhidenko](https://doi.org/10.1103/PhysRevD.98.044040) · [Kovács and Reall](https://doi.org/10.1103/PhysRevD.101.124003)
+
+[Classical waist closure record across four actions](classical_waist_status.md)

@@ -38,6 +38,20 @@ class PointerAndWaistTests(unittest.TestCase):
             self.assertAlmostEqual(tensor[3,4], (wave**2-omega**2)/2)
             self.assertAlmostEqual(scalar, 0.)
 
+    def test_transverse_angular_shears(self):
+        jet = waist.audit()["jet"]
+        rr = waist.curvature(jet["X"], jet["Y"], jet["Z"])
+        hh = np.diag([-13/48, 5/48, 0, 0, 0])
+        for freq, radial, angular in [(1., 0., 0.), (0., 0., 1.), (.2, -.4, .7)]:
+            out, scalar = waist.shear_symbol(rr,hh,0.,1.,freq,radial,angular)
+            self.assertAlmostEqual(2*out[3,4], -7/12*freq**2-radial**2/12-angular**2/2)
+            self.assertAlmostEqual(scalar,0.)
+        for alpha in (-.1, -.25, -.5):
+            out, _ = waist.shear_symbol(rr,np.zeros((5,5)),alpha,0.,.7,0.,.3,(1,3))
+            expected = np.zeros((5,5))
+            expected[1,3] = expected[3,1] = (-(1+4*alpha)*.7**2+.3**2)/2
+            np.testing.assert_allclose(out,expected,atol=1e-12)
+
     def test_on_shell_jet_and_independent_tensor_contractions(self):
         result = waist.audit()
         self.assertLess(result["random_contraction_error"],1e-10)

@@ -56,13 +56,16 @@ def field_equations(riem, hessian, f, p):
             - np.outer(grad, grad)/2 + METRIC*p**2/4), gb
 
 
-def shear_symbol(riem, hessian, f, p, freq, wave):
-    """Complex-step directional derivative for h34=1, delta phi=0, xi=(freq,wave,0,0,0)."""
+def shear_symbol(riem, hessian, f, p, freq, wave, angular=0., polarization=(3, 4)):
+    """Complex-step principal variation of the full equations for a transverse shear."""
     variation = np.zeros_like(riem)
-    xi = [freq, wave]
-    for i in (0, 1):
-        for j in (0, 1):
-            put_plane(variation, i, 3, j, 4, xi[i]*xi[j]/2)
+    xi = [freq, wave, angular, 0., 0.]
+    a, b = polarization
+    if a == b or xi[a] or xi[b]:
+        raise ValueError("choose distinct transverse polarization indices")
+    for i in np.flatnonzero(xi):
+        for j in np.flatnonzero(xi):
+            put_plane(variation, i, a, j, b, xi[i]*xi[j]/2)
     step = 1e-20
     metric, gb = field_equations(riem+1j*step*variation, hessian, f, p)
     return metric.imag/step, gb.imag/step
