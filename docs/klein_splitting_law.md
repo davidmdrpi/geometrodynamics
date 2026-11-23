@@ -111,6 +111,37 @@ Wronskian solver. That law is the `a → 0` limit of `H`: there `κ_rim → m`,
 * this test measures the finite-aperture form at `a = 0.2–0.5`, with #355's
   finite-element solver.
 
+Two comparisons, made after this test was scored:
+
+* **The solvers agree.** On the three cells both PRs computed, (0.4, 2),
+  (0.6, 2) and (0.6, 4), this test's finite-element relative split at
+  N = 4000 matches #360's continuum Wronskian to 1.6e-5, 3.5e-6 and 2.9e-5.
+  This independently checks both solvers.
+* **`H` is not uniformly better than the leading law.** Measured/predicted
+  at N = 4000:
+
+  | a | m | measured/H | measured/leading law |
+  |---|---|---|---|
+  | 0.2 | 1 | 1.021 | 1.002 |
+  | 0.2 | 2 | 1.010 | 1.003 |
+  | 0.4 | 1 | 1.100 | 1.019 |
+  | 0.4 | 2 | 1.047 | 1.029 |
+  | 0.4 | 3 | 1.031 | 1.039 |
+  | 0.5 | 4 | 1.039 | 1.080 |
+  | 0.6 | 1 | 1.333 | 1.029 |
+  | 0.6 | 2 | 1.136 | 1.061 |
+  | 0.6 | 3 | 1.086 | 1.081 |
+  | 0.6 | 4 | 1.062 | 1.101 |
+  | 0.6 | 5 | 1.049 | 1.121 |
+
+  The errors have different structure. The leading law's error grows with
+  `m` at fixed `a`. The error of `H` falls as `1/m`, the size of the WKB
+  step through the neck at finite `ω`. So `H` is more accurate only for
+  `m ≳ 3`, and the "finite-aperture" corrections it adds are not
+  improvements at small `m`. A formula with the neck solved exactly at the
+  mode's frequency, as #360's solver does numerically, should remove both
+  errors. That is not tested here.
+
 ## Scope
 
 As frozen. A classical scalar on a fixed 2D surface, not a GR solution. The
