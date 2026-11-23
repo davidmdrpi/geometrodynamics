@@ -25,3 +25,13 @@ class SolitonDiscriminatorTests(unittest.TestCase):
         self.assertGreater(result["predictor_separation"], .0005)
         self.assertGreater(min(result["core_energy_error"], result["core_number_error"]), .1)
         self.assertLess(result["max_secondary"], .01)
+
+    def test_centroid_and_component_tail(self):
+        rows = soliton.run(c=None, n=512, dt=.002, stride=10, measure_components=True)
+        final = rows[-1]
+        self.assertAlmostEqual(final["charge_centroid"], 2*soliton.PLUS_WEIGHT-1, places=8)
+        center_plus, center_minus = final["component_centroids"]
+        self.assertAlmostEqual(soliton.PLUS_WEIGHT*center_plus
+                               +(1-soliton.PLUS_WEIGHT)*center_minus, final["charge_centroid"])
+        self.assertGreater(final["outside_three"][1]-rows[0]["outside_three"][1], .1)
+        self.assertLess(final["outside_three"][0], .01)

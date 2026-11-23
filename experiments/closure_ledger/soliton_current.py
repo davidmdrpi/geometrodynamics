@@ -42,7 +42,7 @@ def core_location(x, density):
 
 
 def run(c=8., n=1024, dt=.001, stride=10, force=1., offset=0.,
-        weight=PLUS_WEIGHT, boost=0.):
+        weight=PLUS_WEIGHT, boost=0., measure_components=False):
     """c=None runs the matched nonlinear Schrödinger limit."""
     x = np.linspace(-HALF_BOX, HALF_BOX, n, endpoint=False)
     h = x[1]-x[0]
@@ -155,6 +155,9 @@ def run(c=8., n=1024, dt=.001, stride=10, force=1., offset=0.,
                                 energy_speed_at_peak=local_energy_speed,
                                 number_speed_at_peak=local_number_speed, number_median=median,
                                 total_charge=total_charge, total_energy=total_energy, work=work))
+            if measure_components:
+                component_charge = abs(u)**2 if c is None else number
+                history[-1].update(component_locations(x, component_charge, spectral_peak))
         if step < nstep:
             k1 = rhs(t, state)
             k2 = rhs(t+dt/2, state+dt*k1/2)
@@ -162,6 +165,24 @@ def run(c=8., n=1024, dt=.001, stride=10, force=1., offset=0.,
             k4 = rhs(t+dt, state+dt*k3)
             state += dt*(k1+2*k2+2*k3+k4)/6
     return history
+
+
+def component_locations(x, charge, peak):
+    """Charge moments and fractions outside the reviewer's three-length window."""
+    h = x[1]-x[0]
+    totals = h*charge.sum(axis=1)
+    if np.any(totals <= 0):
+        raise ValueError("both winding components must be populated")
+    nodes = np.append(x, HALF_BOX)
+    values = np.concatenate((charge, charge[:, :1]), axis=1)
+    primitive = CubicSpline(nodes, values, axis=1, bc_type="periodic").antiderivative()
+    if peak-3 < -HALF_BOX or peak+3 > HALF_BOX:
+        raise ValueError("window crosses the periodic seam")
+    inside = primitive(peak+3)-primitive(peak-3)
+    moments = h*(charge @ x)
+    return dict(charge_centroid=moments.sum()/totals.sum(),
+                component_centroids=(moments/totals).tolist(),
+                outside_three=(1-inside/totals).tolist())
 
 
 def summarize(rows):
