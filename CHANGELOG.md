@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- Klein splitting law (freeze `56055ab`): a closed-form tunnelling law for
+  the lowest Klein doublet on #355's handle,
+  `H = 4 κ_rim sin^{2m}(a) e^{−W_neck} / (ω N_m)`, derived with Herring's
+  formula in the conformal coordinate and nothing fitted. Verdict
+  `CONFIRMED` on six held-out cells (`a = 0.2, 0.4, 0.5`, `m = 1–4`): the
+  measured splitting, spanning 1.5e-2 to 4e-7, exceeds `H` by
+  `m(r − 1) = 0.02–0.15`, within the frozen `0.25/m`, with the error ordered
+  in `a` as predicted and N = 2000/4000 agreeing to 7e-4. `a = 0.6` is
+  diagnostic and exceeds the bound for `m ≤ 3`. Explains, without
+  changing, #355's P4 counterexample. See `docs/klein_splitting_law.md`.
+
 - Alice handle ports (PR #355, freeze `36ba9c2`): a real scalar on the unit
   sphere with one antipodal handle, glued torus-type or Klein-type, by a
   separable finite-element solver with #338's mesh as a cross-check.
