@@ -25,3 +25,10 @@ The receiver uses the supplied run’s calibration. Each time-domain step balanc
 | interference, refinement | Tube-only versus full-domain refinement of a calibrated dark port, including the unresolved exterior response |
 | round_exterior | Round geodesic rims, consistent-mass Dirichlet poles, full uniform-port power, and a fixed-clock fine-grid test |
 | receiver | Passive absorbed power, its split between the tube and the exterior, and the independently calculable product-tube response |
+
+To reproduce the clamped polyhedral exterior table, run the following from the repository root. Each command returns the two lowest frequencies with lumped and consistent tetrahedral P1 mass. The cover retains both antipodal parities. The quotient retains the even scalar sector. For a quick check append `0 1` to either command.
+
+```bash
+python -m experiments.closure_ledger.antipodal_network.refinement --spectrum cover
+python -m experiments.closure_ledger.antipodal_network.refinement --spectrum quotient
+```

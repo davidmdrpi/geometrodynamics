@@ -4,7 +4,9 @@
 
 Two external mouths can survive an antipodal quotient if the antipode exchanges **handles**. I constructed such a spatial manifold, propagated a real field through its interior, and accounted separately for the work at both physical rims. A second construction explains why trying to do this with one self-exchanged twisted spherical handle runs into trouble. A periodic clock can remove its fixed points, at the price of closed timelike curves and identifying its exterior rims. These are different physical models.
 
-The most direct quantum-like result is a geometric mode filter. In a specified compact spacetime the seam enforces an exact node at the throat centre for every odd temporal harmonic of a Maxwell channel. A countable resonant family can carry oscillating energy through the lifted throat. Its action remains continuously variable. In a separate round-rim network, a clock setting selected on coarse grids suppresses received power on two finer grids. The original polyhedral exterior gives unresolved coupled measurements.
+The compact clock selects discrete mode labels. Its seam enforces an exact node at the throat centre for every odd temporal harmonic of the axial Maxwell channel. A countable family of resonances carries oscillating energy through the lifted throat. Each mode’s amplitude and action vary continuously.
+
+The separate round-rim network exhibits classical two-path interference. The exterior and tube have real cross reactions at the drive frequency. A half-cycle clock shift reverses the sign of the tube contribution, so their sum vanishes where the two cross reactions match. A clock setting selected on coarse grids suppresses received power on both finer grids. The corresponding continuum response on the original polyhedral exterior remains unresolved.
 
 ## What the repository already established
 
@@ -110,7 +112,7 @@ The separate tube-only refinement, which leaves the exterior fixed, appeared muc
 
 On a separate locally flat vacuum comparator replace the spherical fibre by a flat two-torus. Let both angular maps act as $(y,z)\mapsto(-y,z+\pi)$ with periods $2\pi$. Keep the same shifts of $t,x$. A standing transverse-traceless metric wave can be built from wavevectors $(\pm m\pi/L,0,2)$, projected into the exchange-even combination. The vacuum wave equation again gives $n^2-5m^2=4$. For four modes the transversality, trace, dispersion, and seam defects are below $1.1\times10^{-14}$. The $(3,1)$ wave has nonzero linear tidal curvature.
 
-There is also a nonlinear obstruction. On its ordinary flat torus cover, the pure $(3,1)$ TT seed has spatial mean $\langle |\dot h|^2+|\nabla h|^2\rangle=9$ in the code normalization. For a pure TT perturbation on the flat compact vacuum cover with no homogeneous modes, the time-translation Killing constraint requires this positive quadratic integral to vanish. A zero integral forces both the velocity and the spatial gradient to vanish, leaving only a constant perturbation, excluded here. Thus every nonzero seed in this class encounters the obstruction. The value 9 is the chosen mode’s normalization ($n^2$ for this standing pair) and does not distinguish this seed. [Moncrief, J. Math. Phys. **16**, 493 (1975)](https://inspirehep.net/literature/2950476). [Brill and Deser, 1973](https://doi.org/10.1007/BF01645610)
+There is also a nonlinear obstruction. On its ordinary flat torus cover, the pure $(3,1)$ TT seed has spatial mean $\langle |\dot h|^2+|\nabla h|^2\rangle=9$ in the code normalization. For a pure TT perturbation on the flat compact vacuum cover with no homogeneous modes, the time-translation Killing constraint requires this positive quadratic integral to vanish. A zero integral forces both the velocity and the spatial gradient to vanish, leaving only a constant perturbation, excluded here. Thus every nonzero seed in this class encounters the obstruction. The value 9 is the chosen mode’s normalization ($n^2$ for this standing pair) and does not distinguish this seed. [Moncrief, J. Math. Phys. **16**, 493 (1975)](https://doi.org/10.1063/1.522572). [Brill and Deser, 1973](https://doi.org/10.1007/BF01645610)
 
 
 
@@ -134,14 +136,16 @@ For the free packet at $t=3$, net work out at rim B changes from **+0.14715** to
 
 ## Exterior convergence and a round-rim comparison
 
-With the rims clamped, the reviewer measured the following lowest Dirichlet frequencies on the original polyhedral exterior. I independently reproduced the first three lumped ground frequencies with the published matrices. The fourth level and the consistent-mass columns are the reviewer’s measurements. Consistent mass gives a nested variational sequence. The decrement between the two finest levels is still about 4.3% of the finer frequency. A moving exterior pole makes the coupled measurements sensitive to the mesh, although its drift alone does not establish the cause of any particular change. [Review measurements and method](https://github.com/davidmdrpi/geometrodynamics/pull/356#discussion_r4610261283)
+With both rims clamped, the full cover and its antipodal quotient share the ground frequency on every mesh tested. Their second frequencies differ. A scalar on the quotient can excite only modes that descend under the antipode. The two second-frequency columns distinguish the spectrum of the cover from the spectrum available to that receiver. [Original review measurements](https://github.com/davidmdrpi/geometrodynamics/pull/356#discussion_r4610261283) · [Spectral replay instructions](../experiments/closure_ledger/antipodal_network/README.md)
 
-| Cover tetrahedra | Lumped mass | Consistent mass | Second consistent frequency |
-|---:|---:|---:|---:|
-| 3,072 | 1.37398 | 1.45527 | 2.13181 |
-| 24,576 | 1.36410 | 1.38822 | 2.05737 |
-| 196,608 | 1.28812 | 1.29348 | 2.01107 |
-| 1,572,864 | 1.23705 | 1.23833 | 1.99074 |
+| Cover tetrahedra | Ground, lumped mass | Ground, consistent mass | Second on cover, consistent mass | Second on quotient, consistent mass |
+|---:|---:|---:|---:|---:|
+| 3,072 | 1.37398 | 1.45527 | 2.13181 | 3.41541 |
+| 24,576 | 1.36410 | 1.38822 | 2.05737 | 3.27652 |
+| 196,608 | 1.28812 | 1.29348 | 2.01107 | 3.14030 |
+| 1,572,864 | 1.23705 | 1.23833 | 1.99074 | 3.10016 |
+
+The consistent-mass ground frequency on the finest mesh is still 4.3% below the previous value, relative to the finer frequency. This drift affects the interpretation of the fixed-frequency receiver test. Its contribution to the change in received power has yet to be isolated.
 
 **A second geometry.** We repeated the uniform-port experiment on the exact round unit three-sphere with four geodesic balls excised at the same centres. Each round rim has the measured polyhedral area $S=1.1844104$, giving angular radius $a=\arcsin\sqrt{S/(4\pi)}$. The tube keeps its length 0.95, and its constant transverse mode supplies its analytic two-port matrix. The exterior metric and rim shape have changed. The collar metric matches the induced rim metric; an Einstein support or smooth extrinsic-curvature match is outside this calculation.
 
@@ -169,7 +173,11 @@ Power uses $U_A=1$, unit damping, and $\tau=0.2375$. The order is $\log_2| (q_{N
 | 128 | 5.87677036 | $6.522\times10^{-6}$ |
 | 256 | 5.87617863 | $4.128\times10^{-7}$ |
 
-At 256 subdivisions the receiver absorbs $4.37\times10^{-6}$ at the fixed clock setting versus 10.5775 at zero shift. The fitted roots show observed order 2.000 on the final three grids. This demonstrates strong suppression on the finer round grids without retuning the drive. An exact continuum zero at the extrapolated frequency has not been established. The earlier polyhedral calibration at 4.59977 remains distinct. The original localized packet is outside this symmetry reduction, so its continuum transfer direction remains open. [Round-exterior archive](../experiments/closure_ledger/runs/20261117_antipodal_network/round_exterior.json)
+At 256 subdivisions the receiver absorbs $4.37\times10^{-6}$ at the fixed clock setting versus 10.5775 at zero shift. The fitted roots show observed order 2.000 on the final three grids.
+
+Second-order Richardson extrapolation from the 128/256 roots gives 5.87598138, within $1.3\times10^{-6}$ of the setting chosen on the coarse grids. An independent P1 calculation on the projected disc gave 5.87600. Together these estimates support a continuum interference zero near $\omega=5.87598$ for the round uniform-port problem, with numerical uncertainty of order a few $10^{-5}$ based on the spread between formulations. The fixed-frequency power ratios above are finite-grid measurements. [Independent disc calculation](https://github.com/davidmdrpi/geometrodynamics/pull/356#pullrequestreview-6014630997)
+
+The earlier polyhedral calibration at 4.59977 remains distinct. The original localized packet is outside this symmetry reduction, so its continuum transfer direction remains open. [Round-exterior archive](../experiments/closure_ledger/runs/20261117_antipodal_network/round_exterior.json)
 
 ## What would move the physics forward
 

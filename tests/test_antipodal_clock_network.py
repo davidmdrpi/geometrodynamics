@@ -60,6 +60,14 @@ class AntipodalClockNetworkTests(unittest.TestCase):
         self.assertLess(result["max_tube_port_balance_error"], 1e-10)
         self.assertGreater(result["max_cumulative_out_at_ports"][1], 0.1)
 
+    def test_clamped_exterior_distinguishes_cover_and_quotient(self):
+        cover = refinement.exterior_spectrum(0)
+        quotient = refinement.exterior_spectrum(0, quotient=True)
+        for mass in ("lumped", "consistent"):
+            self.assertAlmostEqual(cover[mass][0], quotient[mass][0], places=10)
+        np.testing.assert_allclose(cover["consistent"], [1.45527, 2.13181], atol=5e-6)
+        self.assertAlmostEqual(quotient["consistent"][1], 3.41541, places=5)
+
     def test_exact_static_tube_and_passive_receiver(self):
         (tube, exterior), _, _ = refinement.domain(0, full_ports=True)
         np.testing.assert_allclose(
