@@ -32,3 +32,5 @@ To reproduce the clamped polyhedral exterior table, run the following from the r
 python -m experiments.closure_ledger.antipodal_network.refinement --spectrum cover
 python -m experiments.closure_ledger.antipodal_network.refinement --spectrum quotient
 ```
+
+The follow-up [elliptic-mouth pointer experiment](../../../docs/elliptic_pointer.md) evolves single-detector records with the projected winding pair and the full eight-site mouth. Its frozen protocol, outcome counts and reproduction commands are linked in the report.
