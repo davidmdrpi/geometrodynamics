@@ -23,7 +23,7 @@ resolutions.
     [0.048, 0.182].
 * **G3, resolution.** The worst `|Δ₂₀₀₀/Δ₄₀₀₀ − 1|` is 7.2e-4, against 1e-3.
 
-| a | m | predicted Δ = H | measured Δ, N=4000 | r | m(r − 1), N=2000 | m(r − 1), N=4000 | Δ₂₀₀₀/Δ₄₀₀₀ − 1 |
+| a | m | predicted Δ = H | measured Δ, N=4000 | r | m(r − 1), N=2000 | m(r − 1), N=4000 | \|Δ₂₀₀₀/Δ₄₀₀₀ − 1\| |
 |---|---|---|---|---|---|---|---|
 | 0.2 | 1 | 8.4421e-4 | 8.6200e-4 | 1.0211 | 0.021 | 0.021 | 6.6e-5 |
 | 0.2 | 2 | 4.9980e-7 | 5.0487e-7 | 1.0101 | 0.019 | 0.020 | 7.2e-4 |
@@ -98,7 +98,9 @@ This is why the freeze gated `n = 0` only.
 
   The lowest pair is unaffected.
 * **Resolution.** The measured `Δ` agrees between N = 2000 and 4000 to
-  between 1e-6 and 7e-4. Over the same range `r − 1` is 0.01–0.10.
+  between 1e-6 and 7e-4. The resolution column is the absolute relative
+  difference, as the gate uses it. All eleven signed values are negative,
+  for example −7.23e-4 at (0.2, 2). Over the same range `r − 1` is 0.01–0.10.
 
 ## Relation to PR #360
 
@@ -140,7 +142,15 @@ Two comparisons, made after this test was scored:
   `m ≳ 3`, and the "finite-aperture" corrections it adds are not
   improvements at small `m`. A formula with the neck solved exactly at the
   mode's frequency, as #360's solver does numerically, should remove both
-  errors. That is not tested here.
+  errors.
+
+  The review of PR #362 made that substitution, post hoc and on these same
+  cells. It kept the band state, frequency and normalisation of `H`, and
+  integrated the neck equation directly in place of the WKB step. The worst
+  measured-to-predicted discrepancy fell from 10.03% to 0.234% on the six
+  gated cells, and from 33.3% to 1.02% at `a = 0.6`. That isolates the neck
+  approximation as the dominant error. Because it was computed on known
+  cells, it is a candidate for the next held-out prediction, not a result.
 
 ## Scope
 

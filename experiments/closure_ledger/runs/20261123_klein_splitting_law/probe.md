@@ -4,7 +4,7 @@
 
 Reproduction of #355's six in-sample splittings: worst relative difference 5.07e-08 (gate 1e-6).
 
-| a | m | predicted Δ | measured Δ (N=4000) | r = Δ/H | m(r−1) N=2000 | m(r−1) N=4000 | Δ₂₀₀₀/Δ₄₀₀₀ − 1 |
+| a | m | predicted Δ | measured Δ (N=4000) | r = Δ/H | m(r−1) N=2000 | m(r−1) N=4000 | \|Δ₂₀₀₀/Δ₄₀₀₀ − 1\| |
 |---|---|---|---|---|---|---|---|
 | 0.2 | 1 | 8.4421e-04 | 8.6200e-04 | 1.0211 | 0.021 | 0.021 | 6.6e-05 |
 | 0.2 | 2 | 4.9980e-07 | 5.0487e-07 | 1.0101 | 0.019 | 0.020 | 7.2e-04 |

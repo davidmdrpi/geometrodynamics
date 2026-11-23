@@ -1,6 +1,7 @@
 """Klein splitting law: frozen predictions, small-aperture limit, and the archive."""
 import importlib.util
 import json
+import sys
 from math import gamma, pi, sqrt, tan
 from pathlib import Path
 
@@ -43,16 +44,39 @@ def test_small_aperture_limit_is_the_leading_law(m):
 
 
 def test_archive_verdict_follows_from_the_frozen_gates():
+    """Recompute every gate from the measured splittings and the frozen formula,
+    not from the derived fields the probe stored alongside them."""
     rep = json.loads(ARCHIVE.read_text())
     assert rep["freeze"] == "56055ab"
-    assert rep["reproduction"]["passed"] and rep["reproduction"]["worst_relative"] < 1e-6
+    assert sorted((g["a"], g["m"]) for g in rep["gated"]) == sorted(FROZEN)
+    for cell in rep["reproduction"]["cells"]:
+        assert abs(cell["delta"] / cell["archive_delta"] - 1) < 1e-6
     for n in ("2000", "4000"):
-        values = {(g["a"], g["m"]): g["sizes"][n]["m_r_minus_1"] for g in rep["gated"]}
+        values = {}
+        for g in rep["gated"]:
+            delta = g["sizes"][n]["delta"]
+            m_r_minus_1 = g["m"] * (delta / PRED.prediction(g["a"], g["m"])["predicted_delta"] - 1)
+            # the stored derived field must agree with the recomputation
+            assert m_r_minus_1 == pytest.approx(g["sizes"][n]["m_r_minus_1"], rel=1e-9, abs=1e-12)
+            values[(g["a"], g["m"])] = m_r_minus_1
         assert all(0 < v <= 0.25 for v in values.values())
         c02 = sum(v for (a, _), v in values.items() if a == 0.2) / 2
         c04 = sum(v for (a, _), v in values.items() if a == 0.4) / 3
         assert c02 < c04
         assert all(0.048 <= v <= 0.182 for (a, _), v in values.items() if a == 0.4)
-    assert all(g["resolution"] <= 1e-3 for g in rep["gated"])
+    for g in rep["gated"]:
+        resolution = abs(g["sizes"]["2000"]["delta"] / g["sizes"]["4000"]["delta"] - 1)
+        assert resolution == pytest.approx(g["resolution"], rel=1e-9)
+        assert resolution <= 1e-3
     assert rep["verdict"] == "CONFIRMED" and rep["reasons"] == []
-    assert sorted((g["a"], g["m"]) for g in rep["gated"]) == sorted(FROZEN)
+
+
+def test_archive_test_rejects_a_corrupted_splitting(tmp_path, monkeypatch):
+    # Doubling one measured splitting, as the review did, must break the test.
+    rep = json.loads(ARCHIVE.read_text())
+    rep["gated"][1]["sizes"]["2000"]["delta"] *= 2
+    corrupted = tmp_path / "probe.json"
+    corrupted.write_text(json.dumps(rep))
+    monkeypatch.setattr(sys.modules[__name__], "ARCHIVE", corrupted)
+    with pytest.raises(AssertionError):
+        test_archive_verdict_follows_from_the_frozen_gates()

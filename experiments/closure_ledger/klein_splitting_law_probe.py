@@ -146,7 +146,7 @@ def markdown(rep):
              f"{rep['reproduction']['worst_relative']:.2e} (gate 1e-6).", ""]
     if "gated" not in rep:
         return "\n".join(lines)
-    lines += ["| a | m | predicted Δ | measured Δ (N=4000) | r = Δ/H | m(r−1) N=2000 | m(r−1) N=4000 | Δ₂₀₀₀/Δ₄₀₀₀ − 1 |",
+    lines += ["| a | m | predicted Δ | measured Δ (N=4000) | r = Δ/H | m(r−1) N=2000 | m(r−1) N=4000 | \\|Δ₂₀₀₀/Δ₄₀₀₀ − 1\\| |",
               "|---|---|---|---|---|---|---|---|"]
     for g in rep["gated"] + rep["diagnostic"]:
         s2, s4 = g["sizes"]["2000"], g["sizes"]["4000"]
