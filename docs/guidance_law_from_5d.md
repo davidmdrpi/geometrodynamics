@@ -183,6 +183,8 @@ discharged.
    longitudinal (density) transport. A single 3D+fiber demonstration
    combining both is a computational, not conceptual, gap.
 
+**Mixed windings.** For a coherent mixture the fiber-integrated signed density and flux contain winding weights. The single-mode cancellation does not extend to their ratio. The balanced Stern–Gerlach midpoint in [the mixed-winding control](pointer_priors_and_transport.md) has zero signed density and finite signed flux. Guidance by the positive norm current in that experiment is a separate operational assumption.
+
 ## References
 
 - The repo's chain: #42–#44 (winding = charge); #83 (KK mass operator);

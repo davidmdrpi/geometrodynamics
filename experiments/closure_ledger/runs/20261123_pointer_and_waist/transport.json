@@ -1,0 +1,605 @@
+{
+  "random_mixer_axis_positive_force_weights": [
+    0.4999999999999996,
+    0.4999999999999993,
+    0.499999999999999,
+    0.4999999999999987,
+    0.4999999999999987,
+    0.49999999999999883,
+    0.4999999999999992,
+    0.49999999999999967,
+    0.4999999999999999
+  ],
+  "count": 2048,
+  "centroid_separation_in_widths": 7.056422850727971,
+  "single_branch_wrong_side": 0.00020918892293232135,
+  "balanced_signed_current_at_center": {
+    "time": 2.0,
+    "signed_density_over_norm_density": 0.0,
+    "signed_current_over_norm_density": 0.9705882352941176
+  },
+  "primary": [
+    {
+      "theta": 0.0,
+      "target": 1.0,
+      "positive_force_weight": 0.9999323321390088,
+      "leakage": 0.00017268655111227378,
+      "equilibrium": {
+        "right_fraction": 0.99951171875,
+        "right_mass": 0.9997231715268105,
+        "max_rank_error": 2.6811775022395068e-11
+      },
+      "narrow": {
+        "right_fraction": 1.0,
+        "right_mass": 0.9997231715268105,
+        "max_rank_error": 1.755373624234835e-12
+      }
+    },
+    {
+      "theta": 0.19634954084936207,
+      "target": 0.9619397662556434,
+      "positive_force_weight": 0.9618772493038695,
+      "leakage": 0.00011096292793286612,
+      "equilibrium": {
+        "right_fraction": 0.9619140625,
+        "right_mass": 0.9616840100952518,
+        "max_rank_error": 8.16496870115202e-11
+      },
+      "narrow": {
+        "right_fraction": 0.99853515625,
+        "right_mass": 0.9616840100952518,
+        "max_rank_error": 1.539595118060788e-10
+      }
+    },
+    {
+      "theta": 0.39269908169872414,
+      "target": 0.8535533905932737,
+      "positive_force_weight": 0.8535055421899074,
+      "leakage": 5.863616685648276e-05,
+      "equilibrium": {
+        "right_fraction": 0.853515625,
+        "right_mass": 0.8533576433026648,
+        "max_rank_error": 1.6276346936905384e-10
+      },
+      "narrow": {
+        "right_fraction": 0.9599609375,
+        "right_mass": 0.8533576433026648,
+        "max_rank_error": 3.211886312470824e-11
+      }
+    },
+    {
+      "theta": 0.5890486225480862,
+      "target": 0.6913417161825449,
+      "positive_force_weight": 0.691315820813251,
+      "leakage": 2.3672542913736903e-05,
+      "equilibrium": {
+        "right_fraction": 0.69140625,
+        "right_mass": 0.6912357785122594,
+        "max_rank_error": 3.2109870318208777e-12
+      },
+      "narrow": {
+        "right_fraction": 0.79736328125,
+        "right_mass": 0.6912357785122594,
+        "max_rank_error": 1.5472068071176182e-12
+      }
+    },
+    {
+      "theta": 0.7853981633974483,
+      "target": 0.5000000000000001,
+      "positive_force_weight": 0.5000000000000121,
+      "leakage": 1.1394950903870266e-05,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.5000000000000121,
+        "max_rank_error": 6.405986852087153e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.5000000000000121,
+        "max_rank_error": 1.701463969716599e-11
+      }
+    },
+    {
+      "theta": 0.9817477042468103,
+      "target": 0.3086582838174552,
+      "positive_force_weight": 0.30868417918677116,
+      "leakage": 2.3672542913735727e-05,
+      "equilibrium": {
+        "right_fraction": 0.30859375,
+        "right_mass": 0.30876422148776284,
+        "max_rank_error": 3.2107094760647215e-12
+      },
+      "narrow": {
+        "right_fraction": 0.20263671875,
+        "right_mass": 0.30876422148776284,
+        "max_rank_error": 1.5472068071176182e-12
+      }
+    },
+    {
+      "theta": 1.1780972450961724,
+      "target": 0.1464466094067263,
+      "positive_force_weight": 0.1464944578101101,
+      "leakage": 5.863616685647963e-05,
+      "equilibrium": {
+        "right_fraction": 0.146484375,
+        "right_mass": 0.14664235669735273,
+        "max_rank_error": 1.627635803913563e-10
+      },
+      "narrow": {
+        "right_fraction": 0.0400390625,
+        "right_mass": 0.14664235669735273,
+        "max_rank_error": 3.211886312470824e-11
+      }
+    },
+    {
+      "theta": 1.3744467859455345,
+      "target": 0.038060233744356645,
+      "positive_force_weight": 0.038122750696139886,
+      "leakage": 0.00011096292793286397,
+      "equilibrium": {
+        "right_fraction": 0.0380859375,
+        "right_mass": 0.03831598990475752,
+        "max_rank_error": 8.164990905612513e-11
+      },
+      "narrow": {
+        "right_fraction": 0.00146484375,
+        "right_mass": 0.03831598990475752,
+        "max_rank_error": 1.5395890118341526e-10
+      }
+    },
+    {
+      "theta": 1.5707963267948966,
+      "target": 3.749399456654644e-33,
+      "positive_force_weight": 6.76678609912056e-05,
+      "leakage": 0.00017268655111227105,
+      "equilibrium": {
+        "right_fraction": 0.00048828125,
+        "right_mass": 0.0002768284731896112,
+        "max_rank_error": 2.6811775022395068e-11
+      },
+      "narrow": {
+        "right_fraction": 0.0,
+        "right_mass": 0.0002768284731896112,
+        "max_rank_error": 1.7552626019323725e-12
+      }
+    }
+  ],
+  "halved_ellipticity": [
+    {
+      "theta": 0.0,
+      "target": 1.0,
+      "positive_force_weight": 0.9999837457754155,
+      "leakage": 7.123763360233407e-05,
+      "equilibrium": {
+        "right_fraction": 1.0,
+        "right_mass": 0.9997745636528907,
+        "max_rank_error": 2.688738121037204e-11
+      },
+      "narrow": {
+        "right_fraction": 1.0,
+        "right_mass": 0.9997745636528907,
+        "max_rank_error": 1.7873480473440395e-12
+      }
+    },
+    {
+      "theta": 0.19634954084936207,
+      "target": 0.9619397662556434,
+      "positive_force_weight": 0.961924749310218,
+      "leakage": 5.9207112986701596e-05,
+      "equilibrium": {
+        "right_fraction": 0.9619140625,
+        "right_mass": 0.9617314902286501,
+        "max_rank_error": 8.222955649728192e-11
+      },
+      "narrow": {
+        "right_fraction": 0.99853515625,
+        "right_mass": 0.9617314902286501,
+        "max_rank_error": 1.5481649295878697e-10
+      }
+    },
+    {
+      "theta": 0.39269908169872414,
+      "target": 0.8535533905932737,
+      "positive_force_weight": 0.8535418971208195,
+      "leakage": 4.900813007786051e-05,
+      "equilibrium": {
+        "right_fraction": 0.853515625,
+        "right_mass": 0.8533939830234791,
+        "max_rank_error": 1.6213896891770219e-10
+      },
+      "narrow": {
+        "right_fraction": 0.9599609375,
+        "right_mass": 0.8533939830234791,
+        "max_rank_error": 3.220090860622804e-11
+      }
+    },
+    {
+      "theta": 0.5890486225480862,
+      "target": 0.6913417161825449,
+      "positive_force_weight": 0.691335495960054,
+      "leakage": 4.2193387569667976e-05,
+      "equilibrium": {
+        "right_fraction": 0.69140625,
+        "right_mass": 0.6912554454274167,
+        "max_rank_error": 3.170130824514672e-12
+      },
+      "narrow": {
+        "right_fraction": 0.79736328125,
+        "right_mass": 0.6912554454274167,
+        "max_rank_error": 1.5629719740672954e-12
+      }
+    },
+    {
+      "theta": 0.7853981633974483,
+      "target": 0.5000000000000001,
+      "positive_force_weight": 0.499999999999961,
+      "leakage": 3.980036823320294e-05,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.499999999999961,
+        "max_rank_error": 6.405986852087153e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.499999999999961,
+        "max_rank_error": 1.70148339861953e-11
+      }
+    },
+    {
+      "theta": 0.9817477042468103,
+      "target": 0.3086582838174552,
+      "positive_force_weight": 0.3086645040398735,
+      "leakage": 4.2193387569667326e-05,
+      "equilibrium": {
+        "right_fraction": 0.30859375,
+        "right_mass": 0.30874455457251077,
+        "max_rank_error": 3.1700198022122095e-12
+      },
+      "narrow": {
+        "right_fraction": 0.20263671875,
+        "right_mass": 0.30874455457251077,
+        "max_rank_error": 1.5630274852185266e-12
+      }
+    },
+    {
+      "theta": 1.1780972450961724,
+      "target": 0.1464466094067263,
+      "positive_force_weight": 0.1464581028791257,
+      "leakage": 4.900813007786085e-05,
+      "equilibrium": {
+        "right_fraction": 0.146484375,
+        "right_mass": 0.14660601697646602,
+        "max_rank_error": 1.6213896891770219e-10
+      },
+      "narrow": {
+        "right_fraction": 0.0400390625,
+        "right_mass": 0.14660601697646602,
+        "max_rank_error": 3.220096411737927e-11
+      }
+    },
+    {
+      "theta": 1.3744467859455345,
+      "target": 0.038060233744356645,
+      "positive_force_weight": 0.038075250689752906,
+      "leakage": 5.9207112986704266e-05,
+      "equilibrium": {
+        "right_fraction": 0.0380859375,
+        "right_mass": 0.03826850977132089,
+        "max_rank_error": 8.222961200843315e-11
+      },
+      "narrow": {
+        "right_fraction": 0.00146484375,
+        "right_mass": 0.03826850977132089,
+        "max_rank_error": 1.5481560478036727e-10
+      }
+    },
+    {
+      "theta": 1.5707963267948966,
+      "target": 3.749399456654644e-33,
+      "positive_force_weight": 1.6254224585502885e-05,
+      "leakage": 7.123763360233573e-05,
+      "equilibrium": {
+        "right_fraction": 0.0,
+        "right_mass": 0.00022543634711035595,
+        "max_rank_error": 2.688688161001096e-11
+      },
+      "narrow": {
+        "right_fraction": 0.0,
+        "right_mass": 0.00022543634711035595,
+        "max_rank_error": 1.787014980436652e-12
+      }
+    }
+  ],
+  "mixer_off": [
+    {
+      "theta": 0.0,
+      "target": 1.0,
+      "positive_force_weight": 0.4999999999999998,
+      "leakage": 2.9833175923138426e-34,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 6.404876629062528e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 1.7014722963892837e-11
+      }
+    },
+    {
+      "theta": 0.19634954084936207,
+      "target": 0.9619397662556434,
+      "positive_force_weight": 0.4999999999999999,
+      "leakage": 5.217019075102037e-33,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 6.403766406037903e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 1.701494500849776e-11
+      }
+    },
+    {
+      "theta": 0.39269908169872414,
+      "target": 0.8535533905932737,
+      "positive_force_weight": 0.4999999999999999,
+      "leakage": 1.1181732494283634e-32,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 6.403766406037903e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 1.701494500849776e-11
+      }
+    },
+    {
+      "theta": 0.5890486225480862,
+      "target": 0.6913417161825449,
+      "positive_force_weight": 0.4999999999999998,
+      "leakage": 2.4464979702136724e-32,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 6.404876629062528e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 1.7014722963892837e-11
+      }
+    },
+    {
+      "theta": 0.7853981633974483,
+      "target": 0.5000000000000001,
+      "positive_force_weight": 0.4999999999999998,
+      "leakage": 1.4901417447819733e-32,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 6.404876629062528e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 1.7014722963892837e-11
+      }
+    },
+    {
+      "theta": 0.9817477042468103,
+      "target": 0.3086582838174552,
+      "positive_force_weight": 0.4999999999999999,
+      "leakage": 6.295150757277525e-33,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 6.403766406037903e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 1.701494500849776e-11
+      }
+    },
+    {
+      "theta": 1.1780972450961724,
+      "target": 0.1464466094067263,
+      "positive_force_weight": 0.4999999999999998,
+      "leakage": 8.991452679419655e-33,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 6.404876629062528e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 1.7014722963892837e-11
+      }
+    },
+    {
+      "theta": 1.3744467859455345,
+      "target": 0.038060233744356645,
+      "positive_force_weight": 0.4999999999999999,
+      "leakage": 4.754406801767736e-33,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 6.403766406037903e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999999,
+        "max_rank_error": 1.701494500849776e-11
+      }
+    },
+    {
+      "theta": 1.5707963267948966,
+      "target": 3.749399456654644e-33,
+      "positive_force_weight": 0.4999999999999998,
+      "leakage": 7.778302717356786e-33,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 6.404876629062528e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.4999999999999998,
+        "max_rank_error": 1.7014722963892837e-11
+      }
+    }
+  ],
+  "wrong_axis": [
+    {
+      "theta": 0.0,
+      "target": 1.0,
+      "positive_force_weight": 0.5000000000000033,
+      "leakage": 0.0003339781513206746,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.5000000000000033,
+        "max_rank_error": 6.405986852087153e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.5000000000000033,
+        "max_rank_error": 1.7014750719468452e-11
+      }
+    },
+    {
+      "theta": 0.19634954084936207,
+      "target": 0.9619397662556434,
+      "positive_force_weight": 0.6913158208132432,
+      "leakage": 0.0003217005593108015,
+      "equilibrium": {
+        "right_fraction": 0.69140625,
+        "right_mass": 0.6912357785122515,
+        "max_rank_error": 3.2107649872159527e-12
+      },
+      "narrow": {
+        "right_fraction": 0.79736328125,
+        "right_mass": 0.6912357785122515,
+        "max_rank_error": 1.5472068071176182e-12
+      }
+    },
+    {
+      "theta": 0.39269908169872414,
+      "target": 0.8535533905932737,
+      "positive_force_weight": 0.8535055421899012,
+      "leakage": 0.000286736935368062,
+      "equilibrium": {
+        "right_fraction": 0.853515625,
+        "right_mass": 0.8533576433026586,
+        "max_rank_error": 1.6276335834675137e-10
+      },
+      "narrow": {
+        "right_fraction": 0.9599609375,
+        "right_mass": 0.8533576433026586,
+        "max_rank_error": 3.2118974147010704e-11
+      }
+    },
+    {
+      "theta": 0.5890486225480862,
+      "target": 0.6913417161825449,
+      "positive_force_weight": 0.961877249303866,
+      "leakage": 0.00023441017429168102,
+      "equilibrium": {
+        "right_fraction": 0.9619140625,
+        "right_mass": 0.9616840100952483,
+        "max_rank_error": 8.165002007842759e-11
+      },
+      "narrow": {
+        "right_fraction": 0.99853515625,
+        "right_mass": 0.9616840100952483,
+        "max_rank_error": 1.5395906771686896e-10
+      }
+    },
+    {
+      "theta": 0.7853981633974483,
+      "target": 0.5000000000000001,
+      "positive_force_weight": 0.999932332139009,
+      "leakage": 0.00017268655111226836,
+      "equilibrium": {
+        "right_fraction": 0.99951171875,
+        "right_mass": 0.9997231715268107,
+        "max_rank_error": 2.6811997066999993e-11
+      },
+      "narrow": {
+        "right_fraction": 1.0,
+        "right_mass": 0.9997231715268107,
+        "max_rank_error": 1.7554291353860663e-12
+      }
+    },
+    {
+      "theta": 0.9817477042468103,
+      "target": 0.3086582838174552,
+      "positive_force_weight": 0.9618772493038639,
+      "leakage": 0.00011096292793286157,
+      "equilibrium": {
+        "right_fraction": 0.9619140625,
+        "right_mass": 0.9616840100952462,
+        "max_rank_error": 8.165024212303251e-11
+      },
+      "narrow": {
+        "right_fraction": 0.99853515625,
+        "right_mass": 0.9616840100952462,
+        "max_rank_error": 1.5395928976147388e-10
+      }
+    },
+    {
+      "theta": 1.1780972450961724,
+      "target": 0.1464466094067263,
+      "positive_force_weight": 0.8535055421898964,
+      "leakage": 5.863616685648155e-05,
+      "equilibrium": {
+        "right_fraction": 0.853515625,
+        "right_mass": 0.8533576433026538,
+        "max_rank_error": 1.6276335834675137e-10
+      },
+      "narrow": {
+        "right_fraction": 0.9599609375,
+        "right_mass": 0.8533576433026538,
+        "max_rank_error": 3.2118974147010704e-11
+      }
+    },
+    {
+      "theta": 1.3744467859455345,
+      "target": 0.038060233744356645,
+      "positive_force_weight": 0.6913158208132376,
+      "leakage": 2.3672542913734938e-05,
+      "equilibrium": {
+        "right_fraction": 0.69140625,
+        "right_mass": 0.6912357785122459,
+        "max_rank_error": 3.2109870318208777e-12
+      },
+      "narrow": {
+        "right_fraction": 0.79736328125,
+        "right_mass": 0.6912357785122459,
+        "max_rank_error": 1.5472068071176182e-12
+      }
+    },
+    {
+      "theta": 1.5707963267948966,
+      "target": 3.749399456654644e-33,
+      "positive_force_weight": 0.49999999999999656,
+      "leakage": 1.1394950903869744e-05,
+      "equilibrium": {
+        "right_fraction": 0.5,
+        "right_mass": 0.49999999999999656,
+        "max_rank_error": 6.404599073306372e-13
+      },
+      "narrow": {
+        "right_fraction": 0.5,
+        "right_mass": 0.49999999999999656,
+        "max_rank_error": 1.70148339861953e-11
+      }
+    }
+  ]
+}

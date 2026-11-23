@@ -1,0 +1,383 @@
+{
+  "balanced_examples": [
+    {
+      "q0": -0.06,
+      "q_switch": 0.03159723596009415,
+      "q_final": 0.9999998985359099,
+      "record": 1,
+      "switch_work": 0.2490018638729941,
+      "radiated": 0.25080186387083947
+    },
+    {
+      "q0": 0.0,
+      "q_switch": 0.0,
+      "q_final": 0.0,
+      "record": 0,
+      "switch_work": 0.25,
+      "radiated": 0.0
+    },
+    {
+      "q0": 0.06,
+      "q_switch": -0.03159723596009414,
+      "q_final": -0.9999998985359099,
+      "record": -1,
+      "switch_work": 0.2490018638729941,
+      "radiated": 0.2508018638708394
+    }
+  ],
+  "inputs": [
+    -1.0,
+    -0.75,
+    -0.5,
+    -0.25,
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    1.0
+  ],
+  "gain": 0.05857864376269049,
+  "write_time": 3.20637457540466,
+  "decay": 0.526620599330303,
+  "matched_width": 0.1698136464139051,
+  "balanced_center": {
+    "q_final": 0.0,
+    "record": 0
+  },
+  "equal_winding_controls": [
+    {
+      "relative_phase": 0.0,
+      "channel_difference": 0.9999999999999996
+    },
+    {
+      "relative_phase": 1.5707963267948966,
+      "channel_difference": 0.0
+    },
+    {
+      "relative_phase": 3.141592653589793,
+      "channel_difference": -0.9999999999999996
+    }
+  ],
+  "primary": [
+    {
+      "count": 256,
+      "width": 0.12,
+      "density": "uniform",
+      "write_time_factor": 1,
+      "positive": [
+        0,
+        0,
+        37,
+        83,
+        128,
+        173,
+        219,
+        256,
+        256
+      ],
+      "negative": [
+        256,
+        256,
+        219,
+        173,
+        128,
+        83,
+        37,
+        0,
+        0
+      ],
+      "no_record": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_born_error": 0.125,
+      "max_energy_residual": 6.58964549593577e-12,
+      "max_norm_error": 1.1102230246251565e-15,
+      "max_population_drift": 8.881784197001252e-16,
+      "max_switch_position_error": 6.370737271055305e-13,
+      "max_switch_speed": 9.308873116786742e-14,
+      "max_abs_switch_position": 0.15237498276329223,
+      "basin_disagreements": 0,
+      "continuum_positive": [
+        0.0,
+        0.0,
+        0.14622156997103103,
+        0.3231107849855155,
+        0.5,
+        0.6768892150144845,
+        0.853778430028969,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "count": 512,
+      "width": 0.12,
+      "density": "uniform",
+      "write_time_factor": 1,
+      "positive": [
+        0,
+        0,
+        75,
+        165,
+        256,
+        347,
+        437,
+        512,
+        512
+      ],
+      "negative": [
+        512,
+        512,
+        437,
+        347,
+        256,
+        165,
+        75,
+        0,
+        0
+      ],
+      "no_record": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_born_error": 0.125,
+      "max_energy_residual": 6.6079086646908536e-12,
+      "max_norm_error": 1.3322676295501878e-15,
+      "max_population_drift": 8.881784197001252e-16,
+      "max_switch_position_error": 6.379896611008462e-13,
+      "max_switch_speed": 9.316852844776236e-14,
+      "max_abs_switch_position": 0.1524984094662612,
+      "basin_disagreements": 0,
+      "continuum_positive": [
+        0.0,
+        0.0,
+        0.14622156997103103,
+        0.3231107849855155,
+        0.5,
+        0.6768892150144845,
+        0.853778430028969,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "matched_uniform": {
+    "count": 512,
+    "width": 0.1698136464139051,
+    "density": "uniform",
+    "write_time_factor": 1,
+    "positive": [
+      0,
+      64,
+      128,
+      192,
+      256,
+      320,
+      384,
+      448,
+      512
+    ],
+    "negative": [
+      512,
+      448,
+      384,
+      320,
+      256,
+      192,
+      128,
+      64,
+      0
+    ],
+    "no_record": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "max_born_error": 0.0,
+    "max_energy_residual": 8.297834641624036e-12,
+    "max_norm_error": 1.1102230246251565e-15,
+    "max_population_drift": 8.881784197001252e-16,
+    "max_switch_position_error": 7.212008767965017e-13,
+    "max_switch_speed": 1.0653348862799117e-13,
+    "max_abs_switch_position": 0.17868006567783218,
+    "basin_disagreements": 0,
+    "continuum_positive": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875,
+      1.0
+    ]
+  },
+  "matched_circle": {
+    "count": 512,
+    "width": 0.1698136464139051,
+    "density": "circle_projection",
+    "write_time_factor": 1,
+    "positive": [
+      0,
+      118,
+      171,
+      215,
+      256,
+      297,
+      341,
+      394,
+      512
+    ],
+    "negative": [
+      512,
+      394,
+      341,
+      297,
+      256,
+      215,
+      171,
+      118,
+      0
+    ],
+    "no_record": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "max_born_error": 0.10546875,
+    "max_energy_residual": 6.372347094441011e-12,
+    "max_norm_error": 1.3322676295501878e-15,
+    "max_population_drift": 9.992007221626409e-16,
+    "max_switch_position_error": 5.394296120897479e-13,
+    "max_switch_speed": 8.130475459555697e-14,
+    "max_abs_switch_position": 0.17885430763624385,
+    "basin_disagreements": 0,
+    "continuum_positive": [
+      0.0,
+      0.23005345616261585,
+      0.3333333333333333,
+      0.41956937674483374,
+      0.5,
+      0.5804306232551663,
+      0.6666666666666667,
+      0.7699465438373841,
+      1.0
+    ]
+  },
+  "timing_controls": [
+    {
+      "count": 256,
+      "width": 0.12,
+      "density": "uniform",
+      "write_time_factor": 0.9,
+      "positive": [
+        0,
+        8,
+        48,
+        88,
+        128,
+        168,
+        208,
+        248,
+        256
+      ],
+      "negative": [
+        256,
+        248,
+        208,
+        168,
+        128,
+        88,
+        48,
+        8,
+        0
+      ],
+      "no_record": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_born_error": 0.09375,
+      "max_energy_residual": 9.630352071354764e-12,
+      "max_norm_error": 1.1102230246251565e-15,
+      "max_population_drift": 8.881784197001252e-16
+    },
+    {
+      "count": 256,
+      "width": 0.12,
+      "density": "uniform",
+      "write_time_factor": 1.1,
+      "positive": [
+        0,
+        0,
+        13,
+        71,
+        128,
+        185,
+        243,
+        256,
+        256
+      ],
+      "negative": [
+        256,
+        256,
+        243,
+        185,
+        128,
+        71,
+        13,
+        0,
+        0
+      ],
+      "no_record": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "max_born_error": 0.19921875,
+      "max_energy_residual": 6.142114594709369e-12,
+      "max_norm_error": 1.1102230246251565e-15,
+      "max_population_drift": 8.881784197001252e-16
+    }
+  ]
+}
