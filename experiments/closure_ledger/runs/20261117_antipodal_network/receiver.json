@@ -1,0 +1,182 @@
+[
+  {
+    "low_frequency_control": {
+      "omega": 0.2,
+      "tau": 0.2375,
+      "receiver_power": 0.021607915256930357,
+      "tube_power_to_B": 0.001388275639811666,
+      "exterior_power_to_B": 0.020219639617118684,
+      "source_power": 0.021607915256930336
+    },
+    "level": 0,
+    "nodes": 272,
+    "cover_tetrahedra": 3072,
+    "rim_area": 1.1844104221984004,
+    "static_tube_offdiag": -1.246747812840424,
+    "exact_static": -1.2467478128404215,
+    "tube_offdiag": -1.4529456325911616,
+    "exact_tube_offdiag": -1.4560952123786874,
+    "runs": [
+      {
+        "omega": 1.0,
+        "tau": 0,
+        "receiver_power": 31.195096044064694,
+        "tube_power_to_B": 5.71484268496718,
+        "exterior_power_to_B": 25.48025335909751,
+        "source_power": 31.195096044064694
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 30.93303253495746,
+        "tube_power_to_B": 5.484364362531494,
+        "exterior_power_to_B": 25.44866817242596,
+        "source_power": 30.933032534957455
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.7125,
+        "receiver_power": 28.92397447206956,
+        "tube_power_to_B": 4.302961113071691,
+        "exterior_power_to_B": 24.621013358997864,
+        "source_power": 28.92397447206956
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0,
+        "receiver_power": 44.57708581369377,
+        "tube_power_to_B": 22.28854290684684,
+        "exterior_power_to_B": 22.28854290684694,
+        "source_power": 44.57708581369375
+      },
+      {
+        "omega": 4.599769873349991,
+        "tau": 0.6829890929525537,
+        "receiver_power": 2.3107708164611806e-28,
+        "tube_power_to_B": -5.152278612034104e-14,
+        "exterior_power_to_B": 5.1522786120341275e-14,
+        "source_power": 1.9563750449481093e-28
+      }
+    ]
+  },
+  {
+    "low_frequency_control": {
+      "omega": 0.2,
+      "tau": 0.2375,
+      "receiver_power": 0.021701308195631687,
+      "tube_power_to_B": 0.0018168210574419767,
+      "exterior_power_to_B": 0.019884487138189702,
+      "source_power": 0.02170130819563165
+    },
+    "level": 1,
+    "nodes": 2080,
+    "cover_tetrahedra": 24576,
+    "rim_area": 1.1844104221984004,
+    "static_tube_offdiag": -1.2467478128403948,
+    "exact_static": -1.2467478128404215,
+    "tube_offdiag": -1.4550864450406684,
+    "exact_tube_offdiag": -1.4560952123786874,
+    "runs": [
+      {
+        "omega": 1.0,
+        "tau": 0,
+        "receiver_power": 30.707376115119192,
+        "tube_power_to_B": 5.542398391372342,
+        "exterior_power_to_B": 25.16497772374685,
+        "source_power": 30.70737611511925
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 30.452378311893707,
+        "tube_power_to_B": 5.672847444088496,
+        "exterior_power_to_B": 24.77953086780521,
+        "source_power": 30.452378311893757
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.7125,
+        "receiver_power": 28.497488085726282,
+        "tube_power_to_B": 5.154184807689334,
+        "exterior_power_to_B": 23.343303278036945,
+        "source_power": 28.497488085726324
+      },
+      {
+        "omega": 4.8670188772815095,
+        "tau": 0,
+        "receiver_power": 1.6869951475587392,
+        "tube_power_to_B": 0.8434975737793938,
+        "exterior_power_to_B": 0.8434975737793453,
+        "source_power": 1.6869951475587426
+      },
+      {
+        "omega": 4.8670188772815095,
+        "tau": 0.6454860218961265,
+        "receiver_power": 1.3960716327577236e-27,
+        "tube_power_to_B": 2.3948813718361776e-14,
+        "exterior_power_to_B": -2.3948813718360372e-14,
+        "source_power": 1.2590220047327348e-27
+      }
+    ]
+  },
+  {
+    "low_frequency_control": {
+      "omega": 0.2,
+      "tau": 0.2375,
+      "receiver_power": 0.021863745144220067,
+      "tube_power_to_B": 0.0025617634850674943,
+      "exterior_power_to_B": 0.01930198165915259,
+      "source_power": 0.021863745144219928
+    },
+    "level": 2,
+    "nodes": 16448,
+    "cover_tetrahedra": 196608,
+    "rim_area": 1.1844104221984004,
+    "static_tube_offdiag": -1.2467478128402552,
+    "exact_static": -1.2467478128404215,
+    "tube_offdiag": -1.4558396369203184,
+    "exact_tube_offdiag": -1.4560952123786874,
+    "runs": [
+      {
+        "omega": 1.0,
+        "tau": 0,
+        "receiver_power": 14.242674228294018,
+        "tube_power_to_B": 2.434945214238843,
+        "exterior_power_to_B": 11.807729014055178,
+        "source_power": 14.242674228294
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.2375,
+        "receiver_power": 14.129343184647436,
+        "tube_power_to_B": 2.9687556305714766,
+        "exterior_power_to_B": 11.160587554075958,
+        "source_power": 14.129343184647418
+      },
+      {
+        "omega": 1.0,
+        "tau": 0.7125,
+        "receiver_power": 13.260513152609285,
+        "tube_power_to_B": 3.584552522743759,
+        "exterior_power_to_B": 9.675960629865529,
+        "source_power": 13.260513152609274
+      },
+      {
+        "omega": 5.0989517567621725,
+        "tau": 0,
+        "receiver_power": 12.54758691843516,
+        "tube_power_to_B": 6.273793459217869,
+        "exterior_power_to_B": 6.2737934592172895,
+        "source_power": 12.54758691843514
+      },
+      {
+        "omega": 5.0989517567621725,
+        "tau": 0.6161251966001537,
+        "receiver_power": 2.674961526961518e-26,
+        "tube_power_to_B": 2.8574565004523516e-13,
+        "exterior_power_to_B": -2.857456500452084e-13,
+        "source_power": 2.6606700611294286e-26
+      }
+    ]
+  }
+]

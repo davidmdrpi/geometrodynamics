@@ -1,0 +1,38 @@
+[
+  {
+    "tube_layers": 8,
+    "omega": 4.599769873349991,
+    "half_wave_offset": 0.6829890929525537,
+    "tube_length": 0.95,
+    "nearest_regional_dirichlet_pole_gap": 0.07434335037950479,
+    "tube_cross_reaction": 5.4633971391575376,
+    "exterior_cross_reaction": 5.463397139157562,
+    "bright": 10.9267942783151,
+    "dark": 2.4877994465310162e-14,
+    "detuned_clock": 0.8573063982807945
+  },
+  {
+    "tube_layers": 16,
+    "omega": 4.596930264024749,
+    "half_wave_offset": 0.6834109880186078,
+    "tube_length": 0.95,
+    "nearest_regional_dirichlet_pole_gap": 0.07150374105426316,
+    "tube_cross_reaction": 5.70454469295691,
+    "exterior_cross_reaction": 5.704544692956938,
+    "bright": 11.409089385913848,
+    "dark": 2.843029398770802e-14,
+    "detuned_clock": 0.895146836296956
+  },
+  {
+    "tube_layers": 32,
+    "omega": 4.596225060791349,
+    "half_wave_offset": 0.6835158444240529,
+    "tube_length": 0.95,
+    "nearest_regional_dirichlet_pole_gap": 0.07079853782086332,
+    "tube_cross_reaction": 5.766201218370798,
+    "exterior_cross_reaction": 5.766201218371003,
+    "bright": 11.532402436741801,
+    "dark": 2.0517043017885333e-13,
+    "detuned_clock": 0.9048218667563565
+  }
+]

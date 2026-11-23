@@ -1,0 +1,338 @@
+[
+  {
+    "launch": "tube",
+    "tube_layers": 8,
+    "cover_tetrahedra": 3072,
+    "quotient_vertices": 272,
+    "tube_clock_offset": 0.2375,
+    "step": 0.004,
+    "final_time": 1.2,
+    "zero_shift_even_frequencies": [
+      1.8863203890376848e-07,
+      2.1585773364111187,
+      2.3860802554661773,
+      2.5959656821610047,
+      2.684110027094527,
+      2.7273902086803354
+    ],
+    "zero_shift_odd_frequencies": [
+      1.5099951146812014,
+      1.7587305213679099,
+      1.7587305213679099,
+      1.9060354756590787,
+      2.577758514506643,
+      2.6756325998277095
+    ],
+    "initial_tube_energy": 1.0,
+    "max_exterior_energy": 0.5079809894622912,
+    "net_out_at_ports": [
+      0.004154749991457248,
+      0.48620350075974955
+    ],
+    "max_cumulative_out_at_ports": [
+      0.004154749991457248,
+      0.5067919590016575
+    ],
+    "min_cumulative_out_at_ports": [
+      -8.400444891461199e-05,
+      0.0
+    ],
+    "max_tube_energy": 0.9999997981093646,
+    "max_total_energy_error": 6.661338147750939e-16,
+    "max_tube_port_balance_error": 7.073741549110113e-16
+  },
+  {
+    "launch": "tube",
+    "tube_layers": 16,
+    "cover_tetrahedra": 5376,
+    "quotient_vertices": 480,
+    "tube_clock_offset": 0.2375,
+    "step": 0.004,
+    "final_time": 1.2,
+    "zero_shift_even_frequencies": [
+      0.0,
+      2.15796481132154,
+      2.3857676636011145,
+      2.5959117906921487,
+      2.683687415126364,
+      2.726859393479654
+    ],
+    "zero_shift_odd_frequencies": [
+      1.509385481407428,
+      1.7581424198434648,
+      1.7581424198434648,
+      1.9066653611056028,
+      2.5778417735536543,
+      2.675461089255897
+    ],
+    "initial_tube_energy": 1.0,
+    "max_exterior_energy": 0.5066539951361784,
+    "net_out_at_ports": [
+      0.003917477792598182,
+      0.4736965645855707
+    ],
+    "max_cumulative_out_at_ports": [
+      0.003917477792598182,
+      0.5070019820877317
+    ],
+    "min_cumulative_out_at_ports": [
+      -0.00035410902351639567,
+      -6.376840137023374e-22
+    ],
+    "max_tube_energy": 0.9999999962208845,
+    "max_total_energy_error": 4.440892098500626e-16,
+    "max_tube_port_balance_error": 6.661338147750939e-16
+  },
+  {
+    "launch": "tube",
+    "tube_layers": 16,
+    "cover_tetrahedra": 5376,
+    "quotient_vertices": 480,
+    "tube_clock_offset": 0.2375,
+    "step": 0.002,
+    "final_time": 1.2,
+    "zero_shift_even_frequencies": [
+      0.0,
+      2.15796481132154,
+      2.3857676636011145,
+      2.5959117906921487,
+      2.683687415126364,
+      2.726859393479654
+    ],
+    "zero_shift_odd_frequencies": [
+      1.509385481407428,
+      1.7581424198434648,
+      1.7581424198434648,
+      1.9066653611056028,
+      2.5778417735536543,
+      2.675461089255897
+    ],
+    "initial_tube_energy": 1.0,
+    "max_exterior_energy": 0.5065678010982615,
+    "net_out_at_ports": [
+      0.003925639109356699,
+      0.4736362335485281
+    ],
+    "max_cumulative_out_at_ports": [
+      0.003925639109356699,
+      0.506913426862523
+    ],
+    "min_cumulative_out_at_ports": [
+      -0.00035547810910384765,
+      -1.8453573741169123e-21
+    ],
+    "max_tube_energy": 0.9999999989599259,
+    "max_total_energy_error": 6.661338147750939e-16,
+    "max_tube_port_balance_error": 6.795493951497194e-16
+  },
+  {
+    "launch": "tube",
+    "tube_layers": 32,
+    "cover_tetrahedra": 9984,
+    "quotient_vertices": 896,
+    "tube_clock_offset": 0.2375,
+    "step": 0.002,
+    "final_time": 1.2,
+    "zero_shift_even_frequencies": [
+      0.0,
+      2.1578057213361523,
+      2.385685724336513,
+      2.595894517475569,
+      2.6835764179392796,
+      2.726722314862894
+    ],
+    "zero_shift_odd_frequencies": [
+      1.50923050732701,
+      1.7579915846295187,
+      1.7579915846295187,
+      1.9068193751291382,
+      2.5778535437396854,
+      2.675416270145925
+    ],
+    "initial_tube_energy": 1.0000000000000009,
+    "max_exterior_energy": 0.5033233952139975,
+    "net_out_at_ports": [
+      0.0038348722260869144,
+      0.474047862702555
+    ],
+    "max_cumulative_out_at_ports": [
+      0.0038348722260869144,
+      0.503633108226712
+    ],
+    "min_cumulative_out_at_ports": [
+      -0.00047102121733324126,
+      -3.468737444940072e-18
+    ],
+    "max_tube_energy": 0.9999999999833591,
+    "max_total_energy_error": 1.3322676295501878e-15,
+    "max_tube_port_balance_error": 1.9782388556829364e-15
+  },
+  {
+    "launch": "tube",
+    "tube_layers": 16,
+    "cover_tetrahedra": 5376,
+    "quotient_vertices": 480,
+    "tube_clock_offset": 0.0,
+    "step": 0.004,
+    "final_time": 1.2,
+    "zero_shift_even_frequencies": [
+      0.0,
+      2.1579648113215932,
+      2.3857676636010794,
+      2.59591179069214,
+      2.683687415126403,
+      2.726859393479697
+    ],
+    "zero_shift_odd_frequencies": [
+      1.509385481407398,
+      1.758142419843452,
+      1.758142419843452,
+      1.9066653611055897,
+      2.577841773553617,
+      2.675461089255865
+    ],
+    "initial_tube_energy": 0.9999999999999999,
+    "max_exterior_energy": 0.41933577216621953,
+    "net_out_at_ports": [
+      -0.0012900091484787152,
+      0.35636564680998695
+    ],
+    "max_cumulative_out_at_ports": [
+      3.4372401189671486e-05,
+      0.4193501154661969
+    ],
+    "min_cumulative_out_at_ports": [
+      -0.0012900091484787152,
+      -2.3507761493820248e-24
+    ],
+    "max_tube_energy": 0.9999999893742745,
+    "max_total_energy_error": 4.440892098500626e-16,
+    "max_tube_port_balance_error": 6.661338147750939e-16
+  },
+  {
+    "launch": "exterior",
+    "tube_layers": 16,
+    "cover_tetrahedra": 5376,
+    "quotient_vertices": 480,
+    "tube_clock_offset": 0.2375,
+    "step": 0.004,
+    "final_time": 1.2,
+    "zero_shift_even_frequencies": [
+      0.0,
+      2.15796481132154,
+      2.3857676636011145,
+      2.5959117906921487,
+      2.683687415126364,
+      2.726859393479654
+    ],
+    "zero_shift_odd_frequencies": [
+      1.509385481407428,
+      1.7581424198434648,
+      1.7581424198434648,
+      1.9066653611056028,
+      2.5778417735536543,
+      2.675461089255897
+    ],
+    "initial_tube_energy": 0.0,
+    "max_exterior_energy": 0.999999999858319,
+    "net_out_at_ports": [
+      -0.17015983760650277,
+      -0.014647552809008558
+    ],
+    "max_cumulative_out_at_ports": [
+      0.0,
+      0.0
+    ],
+    "min_cumulative_out_at_ports": [
+      -0.17015983760650277,
+      -0.014647552809008558
+    ],
+    "max_tube_energy": 0.1848073904155111,
+    "max_total_energy_error": 8.881784197001252e-16,
+    "max_tube_port_balance_error": 2.498001805406602e-16
+  },
+  {
+    "launch": "exterior",
+    "tube_layers": 16,
+    "cover_tetrahedra": 5376,
+    "quotient_vertices": 480,
+    "tube_clock_offset": 0.2375,
+    "step": 0.004,
+    "final_time": 2.0,
+    "zero_shift_even_frequencies": [
+      0.0,
+      2.15796481132154,
+      2.3857676636011145,
+      2.5959117906921487,
+      2.683687415126364,
+      2.726859393479654
+    ],
+    "zero_shift_odd_frequencies": [
+      1.509385481407428,
+      1.7581424198434648,
+      1.7581424198434648,
+      1.9066653611056028,
+      2.5778417735536543,
+      2.675461089255897
+    ],
+    "initial_tube_energy": 0.0,
+    "max_exterior_energy": 0.999999999858319,
+    "net_out_at_ports": [
+      -0.21858053167455133,
+      0.06175235941418596
+    ],
+    "max_cumulative_out_at_ports": [
+      0.0,
+      0.06175235941418596
+    ],
+    "min_cumulative_out_at_ports": [
+      -0.22014659069037726,
+      -0.031107149394297064
+    ],
+    "max_tube_energy": 0.2377653056148504,
+    "max_total_energy_error": 1.1102230246251565e-15,
+    "max_tube_port_balance_error": 4.996003610813204e-16
+  },
+  {
+    "launch": "exterior",
+    "tube_layers": 16,
+    "cover_tetrahedra": 5376,
+    "quotient_vertices": 480,
+    "tube_clock_offset": 0.2375,
+    "step": 0.004,
+    "final_time": 3.0,
+    "zero_shift_even_frequencies": [
+      0.0,
+      2.15796481132154,
+      2.3857676636011145,
+      2.5959117906921487,
+      2.683687415126364,
+      2.726859393479654
+    ],
+    "zero_shift_odd_frequencies": [
+      1.509385481407428,
+      1.7581424198434648,
+      1.7581424198434648,
+      1.9066653611056028,
+      2.5778417735536543,
+      2.675461089255897
+    ],
+    "initial_tube_energy": 0.0,
+    "max_exterior_energy": 0.999999999858319,
+    "net_out_at_ports": [
+      -0.2449685608854793,
+      0.1511706456001066
+    ],
+    "max_cumulative_out_at_ports": [
+      0.0,
+      0.1511706456001066
+    ],
+    "min_cumulative_out_at_ports": [
+      -0.24604447017588196,
+      -0.031107149394297064
+    ],
+    "max_tube_energy": 0.2377653056148504,
+    "max_total_energy_error": 1.5543122344752192e-15,
+    "max_tube_port_balance_error": 5.967448757360216e-16
+  }
+]
