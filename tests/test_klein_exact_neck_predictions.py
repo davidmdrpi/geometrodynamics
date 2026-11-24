@@ -100,3 +100,53 @@ def test_in_sample_record():
     # the review of #362 reported 0.234% and 1.02%
     assert worst["362"] == pytest.approx(2.332e-3, rel=1e-3)
     assert worst["0.6"] == pytest.approx(1.017e-2, rel=1e-3)
+
+
+ARCHIVE = LEDGER / "runs" / "20261124_klein_exact_neck" / "probe.json"
+needs_archive = pytest.mark.skipif(not ARCHIVE.exists(), reason="held-out run not yet archived")
+
+
+def _verdict_from_measurements(rep):
+    """The frozen gates and verdict rules, recomputed from the measured splittings alone."""
+    fails = {}
+    for n in ("2000", "4000"):
+        g1 = g2 = False
+        for g in rep["gated"]:
+            p = E.prediction(g["a"], g["m"])
+            delta = g["sizes"][n]["delta"]
+            r, r_h = delta / p["predicted_delta"] - 1, delta / p["herring_delta"] - 1
+            assert r == pytest.approx(g["sizes"][n]["r_minus_1"], rel=1e-9, abs=1e-12)
+            g1 |= not abs(r) <= 0.2 * g["a"] ** 4 + 1e-3
+            g2 |= not abs(r) <= 0.2 * abs(r_h)
+        fails[n] = dict(G1=g1, G2=g2)
+    g3 = any(not abs(g["sizes"]["2000"]["delta"] / g["sizes"]["4000"]["delta"] - 1) <= 1e-3
+             for g in rep["gated"])
+    both = [k for k in ("G1", "G2") if fails["2000"][k] and fails["4000"][k]]
+    if both:
+        return "COUNTEREXAMPLE"
+    if not any(fails["2000"].values()) and not any(fails["4000"].values()) and not g3:
+        return "CONFIRMED"
+    if g3:
+        return "UNRESOLVED_NUMERICALLY"
+    return "UNRESOLVED_NUMERICALLY" if not any(fails["4000"].values()) else "NO_VERDICT"
+
+
+@needs_archive
+def test_archive_verdict_follows_from_the_frozen_gates():
+    rep = json.loads(ARCHIVE.read_text())
+    assert rep["freeze"] == "834ac70"
+    assert sorted((g["a"], g["m"]) for g in rep["gated"]) == sorted(FROZEN)
+    measured = _measured()
+    assert len(rep["reproduction"]["cells"]) == 2 * len(E.IN_SAMPLE)
+    for cell in rep["reproduction"]["cells"]:
+        assert cell["archive_delta"] == measured[(cell["a"], cell["m"])][str(cell["N"])]
+        assert abs(cell["delta"] / cell["archive_delta"] - 1) < 1e-6
+    assert rep["verdict"] == _verdict_from_measurements(rep)
+
+
+@needs_archive
+def test_archive_test_rejects_a_corrupted_splitting():
+    rep = json.loads(ARCHIVE.read_text())
+    rep["gated"][3]["sizes"]["4000"]["delta"] *= 1.05
+    with pytest.raises(AssertionError):
+        assert rep["verdict"] == _verdict_from_measurements(rep)
