@@ -1,0 +1,40 @@
+name: Closed-history Lean proof
+on:
+  pull_request:
+    paths:
+      - 'formal/closed_history/**'
+      - '.github/workflows/closed-history-lean.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'formal/closed_history/**'
+      - '.github/workflows/closed-history-lean.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: leanprover-community/mathlib4
+          ref: c44e0c8ee63ca166450922a373c7409c5d26b00b
+          path: mathlib
+          persist-credentials: false
+      - name: Install elan
+        run: |
+          curl --fail --silent --show-error --location https://github.com/leanprover/elan/releases/download/v4.1.2/elan-x86_64-unknown-linux-gnu.tar.gz | tar -xz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Check proof and list its axiom dependencies
+        working-directory: mathlib
+        run: |
+          lake exe cache get Mathlib/MeasureTheory/Measure/Lebesgue/VolumeOfBalls.lean Mathlib/Tactic.lean
+          lake env lean --version
+          lake env lean -DwarningAsError=true ../formal/closed_history/ClosedHistory.lean | tee proof.log
+          if grep -Fq sorryAx proof.log; then exit 1; fi
+        shell: bash
