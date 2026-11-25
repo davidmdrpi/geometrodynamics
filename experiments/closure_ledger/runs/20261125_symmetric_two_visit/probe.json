@@ -1,0 +1,769 @@
+{
+  "segments": 8,
+  "lam": 2,
+  "seeds": [
+    365,
+    367,
+    368
+  ],
+  "direct": [
+    {
+      "kappa": -0.3,
+      "floating": false,
+      "certificate": {
+        "trial_displacement": -0.075,
+        "trial_gain": 0.011165719871039884,
+        "minimum_defect_bound": 0.03721906623679962
+      },
+      "fits": [
+        {
+          "action": 5.22363509316485,
+          "u": 0.4999999999999999,
+          "v": 0.42609558387275864,
+          "real_overlap": 0.0741081983480536,
+          "fiber_overlap": 1.0450118543432341e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 2.443860066101925e-08
+        },
+        {
+          "action": 5.223635093164857,
+          "u": 0.4999999999999999,
+          "v": 0.42609558920919366,
+          "real_overlap": 0.07410819296718872,
+          "fiber_overlap": 3.0504015985276684e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 7.485552021077709e-08
+        },
+        {
+          "action": 5.223635093164851,
+          "u": 0.4999999999999999,
+          "v": 0.4260955979309715,
+          "real_overlap": 0.0741081841727927,
+          "fiber_overlap": 2.226836218654626e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 9.110063095599925e-08
+        }
+      ]
+    },
+    {
+      "kappa": -0.3,
+      "floating": true,
+      "certificate": {
+        "trial_displacement": -0.075,
+        "trial_gain": 0.011228912181822703,
+        "minimum_defect_bound": 0.03742970727274235
+      },
+      "fits": [
+        {
+          "action": 5.223573199953369,
+          "u": 0.46263972174687273,
+          "v": 0.4626396323139377,
+          "real_overlap": 0.07472064593919114,
+          "fiber_overlap": -4.074341041162998e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 5.655309033411166e-08
+        },
+        {
+          "action": 5.223573199953368,
+          "u": 0.46263974068934405,
+          "v": 0.46263961010925736,
+          "real_overlap": 0.07472064920139963,
+          "fiber_overlap": -4.514293776797625e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 8.657953921349475e-08
+        },
+        {
+          "action": 5.223573199953367,
+          "u": 0.4626397152319126,
+          "v": 0.46263965758209985,
+          "real_overlap": 0.07472062718598746,
+          "fiber_overlap": 1.2825637146408407e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.0489430771969073e-07
+        }
+      ]
+    },
+    {
+      "kappa": -0.1,
+      "floating": false,
+      "certificate": {
+        "trial_displacement": -0.025,
+        "trial_gain": 0.0012489584635339166,
+        "minimum_defect_bound": 0.012489584635339166
+      },
+      "fits": [
+        {
+          "action": 5.033553240133717,
+          "u": 0.4999999999999999,
+          "v": 0.4750415341989189,
+          "real_overlap": 0.024966247914052418,
+          "fiber_overlap": -2.742028130056697e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 3.7425409985134244e-07
+        },
+        {
+          "action": 5.033553240133692,
+          "u": 0.4999999999999999,
+          "v": 0.47504154293627565,
+          "real_overlap": 0.02496623916852889,
+          "fiber_overlap": -2.2713801499907097e-10,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.6650562228863462e-08
+        },
+        {
+          "action": 5.033553240133697,
+          "u": 0.4999999999999999,
+          "v": 0.4750415434421942,
+          "real_overlap": 0.024966238662136497,
+          "fiber_overlap": -3.5849008407522537e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.0658272894068033e-07
+        }
+      ]
+    },
+    {
+      "kappa": -0.1,
+      "floating": true,
+      "certificate": {
+        "trial_displacement": -0.025,
+        "trial_gain": 0.0012497395914712332,
+        "minimum_defect_bound": 0.012497395914712332
+      },
+      "fits": [
+        {
+          "action": 5.033552460831224,
+          "u": 0.4875052614645994,
+          "v": 0.48750514959621666,
+          "real_overlap": 0.0249895889391837,
+          "fiber_overlap": -6.435602263888806e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 2.6494522134724627e-08
+        },
+        {
+          "action": 5.033552460831233,
+          "u": 0.48750517837215296,
+          "v": 0.48750522108747896,
+          "real_overlap": 0.02498960054036014,
+          "fiber_overlap": -1.9953676189858574e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 2.250880970734402e-07
+        },
+        {
+          "action": 5.033552460831216,
+          "u": 0.487505516087312,
+          "v": 0.4875048899777078,
+          "real_overlap": 0.024989593934984657,
+          "fiber_overlap": 1.251117251892831e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 7.870195718309533e-08
+        }
+      ]
+    },
+    {
+      "kappa": 0.0,
+      "floating": false,
+      "certificate": {
+        "trial_displacement": 0.0,
+        "trial_gain": 0.0,
+        "minimum_defect_bound": 0.0
+      },
+      "fits": [
+        {
+          "action": 4.934802200544679,
+          "u": 0.4999999999999999,
+          "v": 0.4999999999934769,
+          "real_overlap": -4.545102660676457e-11,
+          "fiber_overlap": 1.1432489755756179e-11,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 8.637766417568566e-09
+        },
+        {
+          "action": 4.934802200544685,
+          "u": 0.4999999999999999,
+          "v": 0.5000000101493175,
+          "real_overlap": -7.899568205031868e-09,
+          "fiber_overlap": -8.723285130637259e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 2.509240871841664e-07
+        },
+        {
+          "action": 4.93480220054468,
+          "u": 0.4999999999999999,
+          "v": 0.5000000012005505,
+          "real_overlap": -1.4796391844374287e-09,
+          "fiber_overlap": 4.692304545869685e-10,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 2.043886389896936e-08
+        }
+      ]
+    },
+    {
+      "kappa": 0.0,
+      "floating": true,
+      "certificate": {
+        "trial_displacement": 0.0,
+        "trial_gain": 0.0,
+        "minimum_defect_bound": 0.0
+      },
+      "fits": [
+        {
+          "action": 4.9348022005446825,
+          "u": 0.869921104739681,
+          "v": 0.13007889486270408,
+          "real_overlap": 1.605421991597259e-09,
+          "fiber_overlap": 3.3305025280885874e-10,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 8.529087593150541e-08
+        },
+        {
+          "action": 4.934802200544679,
+          "u": 0.4940568836440343,
+          "v": 0.5059431177995746,
+          "real_overlap": -2.262394195056148e-09,
+          "fiber_overlap": 2.371163615698006e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 2.5742601948971416e-08
+        },
+        {
+          "action": 4.934802200544678,
+          "u": 0.4071017320460573,
+          "v": 0.5928982605668872,
+          "real_overlap": 4.9316072821289925e-09,
+          "fiber_overlap": 8.45321160811462e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 8.653101177441354e-08
+        }
+      ]
+    },
+    {
+      "kappa": 0.1,
+      "floating": false,
+      "certificate": {
+        "trial_displacement": 0.025,
+        "trial_gain": 0.0012489584635339166,
+        "minimum_defect_bound": 0.012489584635339166
+      },
+      "fits": [
+        {
+          "action": 4.833553240133709,
+          "u": 0.4999999999999999,
+          "v": 0.5249584533300672,
+          "real_overlap": -0.024966235431392612,
+          "fiber_overlap": -1.707618869802739e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 6.6126273235444e-08
+        },
+        {
+          "action": 4.833553240133693,
+          "u": 0.4999999999999999,
+          "v": 0.5249584556932412,
+          "real_overlap": -0.024966237796758176,
+          "fiber_overlap": -1.5620340803379866e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.1206738979710217e-07
+        },
+        {
+          "action": 4.833553240133692,
+          "u": 0.4999999999999999,
+          "v": 0.5249584542602239,
+          "real_overlap": -0.024966236362401847,
+          "fiber_overlap": 1.0566014128072878e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.3643163388402942e-08
+        }
+      ]
+    },
+    {
+      "kappa": 0.1,
+      "floating": true,
+      "certificate": {
+        "trial_displacement": 0.025,
+        "trial_gain": 0.0012497395914712332,
+        "minimum_defect_bound": 0.012497395914712332
+      },
+      "fits": [
+        {
+          "action": 4.83355246083123,
+          "u": 0.5124952870048607,
+          "v": 0.5124942854079779,
+          "real_overlap": -0.024989572412832724,
+          "fiber_overlap": 3.381603441530469e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.418530981613579e-07
+        },
+        {
+          "action": 4.833552460831224,
+          "u": 0.5124945544534668,
+          "v": 0.512495035663284,
+          "real_overlap": -0.024989590116718165,
+          "fiber_overlap": -4.407711700188326e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 2.173972482698079e-08
+        },
+        {
+          "action": 4.833552460831232,
+          "u": 0.512495329180169,
+          "v": 0.5124942842590379,
+          "real_overlap": -0.024989613439217274,
+          "fiber_overlap": 1.4248697157299367e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.1281032134902868e-07
+        }
+      ]
+    },
+    {
+      "kappa": 0.3,
+      "floating": false,
+      "certificate": {
+        "trial_displacement": 0.075,
+        "trial_gain": 0.011165719871039884,
+        "minimum_defect_bound": 0.03721906623679962
+      },
+      "fits": [
+        {
+          "action": 4.6236350931648555,
+          "u": 0.4999999999999999,
+          "v": 0.5739044065570759,
+          "real_overlap": -0.07410818869821031,
+          "fiber_overlap": 5.972190315342257e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.7972865817966934e-08
+        },
+        {
+          "action": 4.623635093164854,
+          "u": 0.4999999999999999,
+          "v": 0.5739044096613728,
+          "real_overlap": -0.0741081918283517,
+          "fiber_overlap": 5.818257254717289e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 8.355895980296439e-08
+        },
+        {
+          "action": 4.6236350931648476,
+          "u": 0.4999999999999999,
+          "v": 0.5739044385521351,
+          "real_overlap": -0.07410822095964632,
+          "fiber_overlap": -2.4239301721793928e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 7.493785831740517e-08
+        }
+      ]
+    },
+    {
+      "kappa": 0.3,
+      "floating": true,
+      "certificate": {
+        "trial_displacement": 0.075,
+        "trial_gain": 0.011228912181822703,
+        "minimum_defect_bound": 0.03742970727274235
+      },
+      "fits": [
+        {
+          "action": 4.6235731999533725,
+          "u": 0.53736033477501,
+          "v": 0.5373602988527816,
+          "real_overlap": -0.0747206336277919,
+          "fiber_overlap": 3.779351887333824e-09,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 3.3081711665972894e-08
+        },
+        {
+          "action": 4.623573199953364,
+          "u": 0.5373603027709635,
+          "v": 0.5373603309155252,
+          "real_overlap": -0.07472063368648732,
+          "fiber_overlap": -1.41187318568374e-08,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.0686196343596027e-07
+        },
+        {
+          "action": 4.623573199953362,
+          "u": 0.5373602600638485,
+          "v": 0.5373603688127625,
+          "real_overlap": -0.07472062887661211,
+          "fiber_overlap": 9.479693326748696e-10,
+          "pointer": null,
+          "paired_readout": null,
+          "gradient_max": 1.361596679277275e-07
+        }
+      ]
+    }
+  ],
+  "pointer": [
+    {
+      "chi": 0.0,
+      "prediction": {
+        "overlap": 0.0,
+        "pointer_abs": 0.0,
+        "action": 4.934802200544679,
+        "invariant_mean_defect": 0.0,
+        "balanced_doubles": 0.0,
+        "balanced_misses": 0.0
+      },
+      "fits": [
+        {
+          "action": 4.934802200544681,
+          "u": 0.8699460407718507,
+          "v": 0.13005396000454814,
+          "real_overlap": -2.6468405093975105e-09,
+          "fiber_overlap": -7.312467103845275e-10,
+          "pointer": -7.560381070242122e-11,
+          "paired_readout": null,
+          "gradient_max": 3.0498383578579353e-08
+        },
+        {
+          "action": 4.934802200544674,
+          "u": 0.49403545486360895,
+          "v": 0.505964545481343,
+          "real_overlap": -2.42712444507773e-10,
+          "fiber_overlap": -3.7714063131663596e-10,
+          "pointer": 2.376840465930845e-10,
+          "paired_readout": null,
+          "gradient_max": 5.345926989604126e-09
+        },
+        {
+          "action": 4.934802200544678,
+          "u": 0.40704510696909957,
+          "v": 0.5929548963328792,
+          "real_overlap": -4.209409508715852e-10,
+          "fiber_overlap": -8.686212589943511e-09,
+          "pointer": -1.7853611069112546e-10,
+          "paired_readout": null,
+          "gradient_max": 3.520631915233508e-08
+        }
+      ]
+    },
+    {
+      "chi": 2.0,
+      "prediction": {
+        "overlap": 0.0,
+        "pointer_abs": 0.0,
+        "action": 4.934802200544679,
+        "invariant_mean_defect": 0.0,
+        "balanced_doubles": 0.0,
+        "balanced_misses": 0.0
+      },
+      "fits": [
+        {
+          "action": 4.9348022005446746,
+          "u": 0.8700531170220167,
+          "v": 0.1299468827390324,
+          "real_overlap": 1.0829681012233902e-09,
+          "fiber_overlap": 2.0419988074868444e-10,
+          "pointer": 7.726442409889579e-10,
+          "paired_readout": null,
+          "gradient_max": 1.9107576195479205e-08
+        },
+        {
+          "action": 4.93480220054468,
+          "u": 0.4939291773925057,
+          "v": 0.5060708067470322,
+          "real_overlap": 1.917942307371522e-08,
+          "fiber_overlap": -7.911672099893361e-09,
+          "pointer": 2.3480967789956866e-08,
+          "paired_readout": null,
+          "gradient_max": 1.631927210749131e-07
+        },
+        {
+          "action": 4.9348022005446825,
+          "u": 0.40472329068311635,
+          "v": 0.5952767085219262,
+          "real_overlap": 2.831999534668025e-09,
+          "fiber_overlap": -7.547538469687041e-09,
+          "pointer": 8.704216709064938e-10,
+          "paired_readout": null,
+          "gradient_max": 4.792293417570917e-08
+        }
+      ]
+    },
+    {
+      "chi": 3.9,
+      "prediction": {
+        "overlap": 0.0,
+        "pointer_abs": 0.0,
+        "action": 4.934802200544679,
+        "invariant_mean_defect": 0.0,
+        "balanced_doubles": 0.0,
+        "balanced_misses": 0.0
+      },
+      "fits": [
+        {
+          "action": 4.93480220054468,
+          "u": 0.870148883546117,
+          "v": 0.1298511150527249,
+          "real_overlap": -4.827559228953851e-10,
+          "fiber_overlap": 2.1673565889998648e-09,
+          "pointer": -1.5208206344948774e-09,
+          "paired_readout": null,
+          "gradient_max": 9.91481027770734e-09
+        },
+        {
+          "action": 4.9348022005446825,
+          "u": 0.4938367762812133,
+          "v": 0.5061632360249416,
+          "real_overlap": -1.3513185547526664e-08,
+          "fiber_overlap": 1.830391317740361e-09,
+          "pointer": -3.3698922989321537e-08,
+          "paired_readout": null,
+          "gradient_max": 3.2482660887637825e-07
+        },
+        {
+          "action": 4.934802200544669,
+          "u": 0.40530595197013664,
+          "v": 0.594694077340825,
+          "real_overlap": -3.3408267065005384e-08,
+          "fiber_overlap": 1.1845921731382849e-08,
+          "pointer": -3.206380659324144e-08,
+          "paired_readout": null,
+          "gradient_max": 1.144047202797049e-07
+        }
+      ]
+    },
+    {
+      "chi": 4.0,
+      "prediction": {
+        "overlap": 0.0,
+        "pointer_abs": 0.0,
+        "action": 4.934802200544679,
+        "invariant_mean_defect": 0.0,
+        "balanced_doubles": 0.0,
+        "balanced_misses": 0.0
+      },
+      "fits": [
+        {
+          "action": 4.9348022005447,
+          "u": 0.8701413031835601,
+          "v": 0.12989521407878263,
+          "real_overlap": -0.0004106333232913148,
+          "fiber_overlap": 7.443543087399596e-09,
+          "pointer": -0.0008212547423882489,
+          "paired_readout": null,
+          "gradient_max": 5.597237102949708e-08
+        },
+        {
+          "action": 4.93480220054468,
+          "u": 0.4936861562309221,
+          "v": 0.5060567691112092,
+          "real_overlap": 0.0002700230758766179,
+          "fiber_overlap": -4.734985210580435e-09,
+          "pointer": 0.0005400677357850324,
+          "paired_readout": null,
+          "gradient_max": 4.572597401406197e-08
+        },
+        {
+          "action": 4.934802200544692,
+          "u": 0.40552099572142497,
+          "v": 0.5947917636190723,
+          "real_overlap": -0.0003269429226219781,
+          "fiber_overlap": -1.8512984324149278e-08,
+          "pointer": -0.0006539058900709727,
+          "paired_readout": null,
+          "gradient_max": 9.19775396721592e-08
+        }
+      ]
+    },
+    {
+      "chi": 4.1,
+      "prediction": {
+        "overlap": 0.19080229888840428,
+        "pointer_abs": 0.38634520932775884,
+        "action": 4.9338830670594005,
+        "invariant_mean_defect": 0.09540114944420214,
+        "balanced_doubles": 0.06110893965844502,
+        "balanced_misses": 0.06110893965844502
+      },
+      "fits": [
+        {
+          "action": 4.933883067059402,
+          "u": 0.8717665948936039,
+          "v": 0.14526771087849485,
+          "real_overlap": -0.19080229401889526,
+          "fiber_overlap": 5.046048705341208e-09,
+          "pointer": -0.38634520276109874,
+          "paired_readout": null,
+          "gradient_max": 1.6127492237004344e-07
+        },
+        {
+          "action": 4.933883067059396,
+          "u": 0.4033945964796897,
+          "v": 0.41495193935555547,
+          "real_overlap": 0.1908022972205707,
+          "fiber_overlap": 8.045657713641639e-09,
+          "pointer": 0.38634519836934583,
+          "paired_readout": null,
+          "gradient_max": 5.346957014282457e-08
+        },
+        {
+          "action": 4.933883067059397,
+          "u": 0.4988184540776032,
+          "v": 0.6837592810154982,
+          "real_overlap": -0.19080232619953813,
+          "fiber_overlap": 1.7821388422862428e-08,
+          "pointer": -0.38634526128766983,
+          "paired_readout": null,
+          "gradient_max": 1.552003951616405e-07
+        }
+      ]
+    },
+    {
+      "chi": 6.0,
+      "prediction": {
+        "overlap": 0.6800939551457776,
+        "pointer_abs": 1.665883167258425,
+        "action": 4.6659000869836795,
+        "invariant_mean_defect": 0.3400469775728888,
+        "balanced_doubles": 0.23806103036829424,
+        "balanced_misses": 0.23806103036829424
+      },
+      "fits": [
+        {
+          "action": 4.665900086983678,
+          "u": 0.7975341443513477,
+          "v": 0.25789472110917666,
+          "real_overlap": -0.6800939552738091,
+          "fiber_overlap": 7.63398193174665e-09,
+          "pointer": -1.6658831743145492,
+          "paired_readout": null,
+          "gradient_max": 7.154721871446757e-08
+        },
+        {
+          "action": 4.665900086983675,
+          "u": 0.16875694882755907,
+          "v": 0.18378295476441903,
+          "real_overlap": 0.6800939549268995,
+          "fiber_overlap": -6.176526637486424e-09,
+          "pointer": 1.6658831775858216,
+          "paired_readout": null,
+          "gradient_max": 1.3963428991719743e-07
+        },
+        {
+          "action": 4.665900086983692,
+          "u": 0.7583695883484203,
+          "v": 0.8951919294733335,
+          "real_overlap": -0.6800939563957196,
+          "fiber_overlap": 2.1158163227636712e-09,
+          "pointer": -1.6658831744131566,
+          "paired_readout": null,
+          "gradient_max": 2.6567377512970214e-07
+        }
+      ]
+    },
+    {
+      "chi": 10.0,
+      "prediction": {
+        "overlap": 0.8736589226959045,
+        "pointer_abs": 2.762752093848032,
+        "action": 3.376948725790767,
+        "invariant_mean_defect": 0.43682946134795225,
+        "balanced_doubles": 0.33825919298590684,
+        "balanced_misses": 0.33825919298590684
+      },
+      "fits": [
+        {
+          "action": 3.376948725790765,
+          "u": 0.7340316860726825,
+          "v": 0.3698503224986616,
+          "real_overlap": -0.873658923187565,
+          "fiber_overlap": 5.339889935711576e-12,
+          "pointer": -2.7627520898252356,
+          "paired_readout": null,
+          "gradient_max": 9.803041615672917e-09
+        },
+        {
+          "action": 3.3769487257907698,
+          "u": 0.06203594311294903,
+          "v": 0.08126595490509837,
+          "real_overlap": 0.873658923456204,
+          "fiber_overlap": 1.871196001836667e-09,
+          "pointer": 2.7627520984449285,
+          "paired_readout": null,
+          "gradient_max": 3.979288833019945e-08
+        },
+        {
+          "action": 3.3769487257907675,
+          "u": 0.8758635965507969,
+          "v": 0.9686300728416064,
+          "real_overlap": -0.8736589202446077,
+          "fiber_overlap": 1.663648592320724e-10,
+          "pointer": -2.7627520885351826,
+          "paired_readout": null,
+          "gradient_max": 7.537063726224913e-08
+        }
+      ]
+    }
+  ],
+  "ready_pair_followup": {
+    "action_improvement": 0.007314683662428045,
+    "minimum_defect_bound": 0.02969977290501702,
+    "fits": [
+      {
+        "action": 5.052457221529721,
+        "u": 0.47065185592706954,
+        "v": 0.4706518498244274,
+        "real_overlap": 0.058696294248502805,
+        "fiber_overlap": 5.351933727178856e-09,
+        "pointer": null,
+        "paired_readout": [
+          0.2353259327397917,
+          0.23532591883011117
+        ],
+        "gradient_max": 1.2660920552255482e-08
+      },
+      {
+        "action": 5.052457221529722,
+        "u": 0.4706518061868488,
+        "v": 0.47065190586574607,
+        "real_overlap": 0.05869628794740535,
+        "fiber_overlap": 3.11993246475016e-09,
+        "pointer": null,
+        "paired_readout": [
+          0.23532587063808133,
+          0.23532595119845337
+        ],
+        "gradient_max": 6.491068615943618e-08
+      },
+      {
+        "action": 5.052457221529723,
+        "u": 0.47065184822722456,
+        "v": 0.47065185573022805,
+        "real_overlap": 0.05869629604254482,
+        "fiber_overlap": -1.7107631733015822e-08,
+        "pointer": null,
+        "paired_readout": [
+          0.23532591992650276,
+          0.23532592814066572
+        ],
+        "gradient_max": 1.1849796927091772e-07
+      }
+    ]
+  }
+}
