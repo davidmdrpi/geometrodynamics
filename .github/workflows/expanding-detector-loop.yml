@@ -25,8 +25,33 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+          from experiments.closure_ledger.antipodal_network.expanding_detector_loop import strong_rate_followup
           r = json.loads(Path('result.json').read_text())
+          archive = Path('experiments/closure_ledger/runs/20261125_expanding_loop')
+          reference = json.loads((archive/'probe.json').read_text())
+          def replay(actual, expected):
+              import numpy as np
+              if isinstance(expected, dict):
+                  assert expected.keys() == actual.keys()
+                  for key in expected:
+                      replay(actual[key], expected[key])
+              elif isinstance(expected, list):
+                  assert len(expected) == len(actual)
+                  for item, target in zip(actual, expected):
+                      replay(item, target)
+              elif isinstance(expected, float):
+                  np.testing.assert_allclose(actual, expected, atol=1e-11, rtol=1e-11)
+              else:
+                  assert actual == expected
+          replay(r, reference)
+          followup = strong_rate_followup()
+          for row in followup:
+              print('FOLLOWUP', json.dumps(row))
+          if (archive/'strong_rate.json').exists():
+              replay(followup, json.loads((archive/'strong_rate.json').read_text()))
           for row in r.pop('rows'):
               print('MEASUREMENT', json.dumps(row))
           print('SUMMARY', json.dumps(r))
           PY
+      - name: Verify propagation and archive
+        run: python -m unittest discover -s tests -p test_expanding_detector_loop.py

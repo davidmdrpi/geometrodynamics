@@ -65,7 +65,7 @@ def evolve(pair, rate, mode="redshift", limit=.025, count=512):
     start = base.mechanical(q.T, v.T, .25)+packet_sum
     loss, escape = np.zeros(count), np.zeros(count)
     low, high = np.full_like(q, np.inf), np.full_like(q, -np.inf)
-    trace = np.empty((slots+1, 2))
+    trace = np.empty((2*slots+1, 2))
     trace[0] = q[:, 0]
     residual = 0.
     for j, dt in enumerate(delta):
@@ -83,7 +83,7 @@ def evolve(pair, rate, mode="redshift", limit=.025, count=512):
             stored[:] = gain[j]*outgoing[::-1]
         packet_sum += base.GAMMA*step*(np.sum(stored*stored, axis=0)-incoming_norm)
         loss += packet_sum*(mid_unit[j]-wave_unit[j+1])
-        if j+1 <= slots:
+        if j+1 <= 2*slots:
             trace[j+1] = q[:, 0]
         if j+1 == slots:
             first = ring.basin_pair(q)
@@ -123,9 +123,9 @@ def probe():
         rows.append(row)
         if rate == 1. and limit == .025 and key in ("0", "4", "bright"):
             if mode == "redshift":
-                pre_open[key] = trace
+                pre_open[key] = trace[:row["slots"]+1]
             elif mode == "open":
-                controls.append(float(np.max(np.abs(trace-pre_open[key]))))
+                controls.append(float(np.max(np.abs(trace[:row["slots"]+1]-pre_open[key]))))
         return row
     for rate in RATES:
         keys = list(pairs) if rate in (0.,1.) else ["0","4","bright"]
@@ -162,6 +162,24 @@ def probe():
                     born_window=bool(error<=.01), max_born_error=float(error))
     return dict(rows=rows, pre_echo_differences=controls, static_archive_match=True,
                 refinement_flags=flags, coarse_gates=gates(coarse), fine_gates=gates(refined))
+
+
+def strong_rate_followup():
+    """Post-primary checks of the surviving high-rate cell and its controls."""
+    rows = []
+    for mode, limit in (("redshift",.025),("redshift",.0125),("timing",.025),
+                        ("timing",.0125),("open",.025)):
+        for key in [str(i) for i in range(9)] + ["bright"]:
+            if mode != "redshift" and key not in ("0","4","bright"):
+                continue
+            if key == "bright":
+                pair = [.875,.875]
+            else:
+                weight = base.split_weights(base.THETAS[int(key)], .02)[0]
+                pair = [weight,1-weight]
+            row, _ = evolve(pair,3.,mode,limit)
+            rows.append(dict(row,input=key))
+    return rows
 
 
 if __name__ == "__main__":
