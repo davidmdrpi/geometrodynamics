@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Exact-neck Klein splitting law (freeze `834ac70`): Herring's law with the
+  neck equation solved exactly, `E = 4 sin^{2m}(a) |D(0)D′(0)| / (ω N_m)`,
+  where `D` is the neck solution vanishing at the far rim; nothing fitted.
+  All 17 measured cells were in-sample. Verdict `CONFIRMED` on 14 held-out
+  cells (`a = 0.25–0.55`, `m = 1–5`), after reproducing the 17 to 5.1e-8:
+  the splitting, spanning 5.5e-2 to 5.8e-8, is predicted to at most 0.73%,
+  within the frozen `0.2 a⁴ + 1e-3` (worst use 0.38). It removes at least
+  93% of `H`'s discrepancy, against the frozen 80%, and N = 2000/4000 agree
+  to 3e-4. At the diagnostic `a = 0.65–0.7`, the worst error is 1.7%. The
+  residual of about `0.11 a⁴` is measured, not derived. See
+  `docs/klein_exact_neck.md`.
+
 - Klein splitting law (freeze `56055ab`): a closed-form tunnelling law for
   the lowest Klein doublet on #355's handle,
   `H = 4 κ_rim sin^{2m}(a) e^{−W_neck} / (ω N_m)`, derived with Herring's
