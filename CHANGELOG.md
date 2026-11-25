@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Alice-handle exchange under detector depletion (freeze `0fb3b6e`): in the
+  circulating basis the lowest Klein doublet swaps its ±m channels over
+  `π/Δ`, so a port reading the +m intensity at two visits sees u and 1 − u.
+  A counter-rotating dashpot on the band, which absorbs only the channel it
+  reads, keeps `|u + v − 1|` between 5e-5 and 2e-2 at depletions of up to
+  90%. A static control breaks it by 0.500. Verdict `COUNTEREXAMPLE`
+  through G2: the frozen claim that the defect vanishes as Δτ → 0 fails at
+  the frozen window, where a floor of 2.8e-4 remains at (0.3, 2), η = 0.5.
+  Post hoc, the floor falls about 400-fold as the window lengthens from 4
+  to 32, pointing to non-adiabatic switching. That is a candidate for a new
+  pre-registration, not a result. See `docs/alice_exchange.md`.
+
 - Exact-neck Klein splitting law (freeze `834ac70`): Herring's law with the
   neck equation solved exactly, `E = 4 sin^{2m}(a) |D(0)D′(0)| / (ω N_m)`,
   where `D` is the neck solution vanishing at the far rim; nothing fitted.
