@@ -1,5 +1,7 @@
 # The guidance law from the 5D bulk: the throat rides its own conserved charge (PR #199)
 
+> **Scope after the mixed-winding tests.** #199 compared a quantized vortex with the ring-averaged ambient flow in a single nonrelativistic condensate. Its stress identity is single-winding. A winding integer protects the defect's index while the enclosing loop stays nonzero. The zero's velocity also depends on the evolving field derivatives. The mixed-winding, spatially resolved measurement therefore requires a separate dynamical test of the chosen defect against the total measurement current. See [the force sweep and explicit winding-zero example](soliton_current_discriminator.md#does-a-winding-integer-fix-a-velocity).
+
 > **Framing.** QFT on the *fixed classical* throat geometry — geometry →
 > fields, **not** quantum gravity. This document discharges condition (1)
 > of PR #198: it derives the guidance law v = ∇S — there an input
