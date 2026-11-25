@@ -1,0 +1,32 @@
+name: Expanding detector loop
+on:
+  pull_request:
+    paths:
+      - 'experiments/closure_ledger/antipodal_network/expanding_detector_loop.py'
+      - 'tests/test_expanding_detector_loop.py'
+      - '.github/workflows/expanding-detector-loop.yml'
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -e ".[dev]"
+      - name: Run registered sweep
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          python -m experiments.closure_ledger.antipodal_network.expanding_detector_loop > result.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r = json.loads(Path('result.json').read_text())
+          for row in r.pop('rows'):
+              print('MEASUREMENT', json.dumps(row))
+          print('SUMMARY', json.dumps(r))
+          PY
