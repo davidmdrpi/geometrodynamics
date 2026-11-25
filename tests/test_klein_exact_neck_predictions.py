@@ -106,18 +106,42 @@ ARCHIVE = LEDGER / "runs" / "20261124_klein_exact_neck" / "probe.json"
 needs_archive = pytest.mark.skipif(not ARCHIVE.exists(), reason="held-out run not yet archived")
 
 
+def _module(name):
+    spec = importlib.util.spec_from_file_location(name, LEDGER / f"{name}.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _recomputed(g, n):
+    """r - 1, r_H - 1 and |r - 1|/|r_H - 1| of one gated cell, from its measured splitting."""
+    p = E.prediction(g["a"], g["m"])
+    delta = g["sizes"][n]["delta"]
+    r, r_h = delta / p["predicted_delta"] - 1, delta / p["herring_delta"] - 1
+    return r, r_h, abs(r) / abs(r_h)
+
+
+def _check_stored_fields(rep):
+    """Every derived field the probe stored must agree with its recomputation."""
+    for g in rep["gated"]:
+        for n in ("2000", "4000"):
+            r, r_h, fraction = _recomputed(g, n)
+            assert r == pytest.approx(g["sizes"][n]["r_minus_1"], rel=1e-9, abs=1e-12)
+            assert r_h == pytest.approx(g["sizes"][n]["r_h_minus_1"], rel=1e-9, abs=1e-12)
+            assert fraction == pytest.approx(g["sizes"][n]["neck_fraction"], rel=1e-9, abs=1e-12)
+        resolution = abs(g["sizes"]["2000"]["delta"] / g["sizes"]["4000"]["delta"] - 1)
+        assert resolution == pytest.approx(g["resolution"], rel=1e-9, abs=1e-15)
+
+
 def _verdict_from_measurements(rep):
     """The frozen gates and verdict rules, recomputed from the measured splittings alone."""
     fails = {}
     for n in ("2000", "4000"):
         g1 = g2 = False
         for g in rep["gated"]:
-            p = E.prediction(g["a"], g["m"])
-            delta = g["sizes"][n]["delta"]
-            r, r_h = delta / p["predicted_delta"] - 1, delta / p["herring_delta"] - 1
-            assert r == pytest.approx(g["sizes"][n]["r_minus_1"], rel=1e-9, abs=1e-12)
+            r, _, fraction = _recomputed(g, n)
             g1 |= not abs(r) <= 0.2 * g["a"] ** 4 + 1e-3
-            g2 |= not abs(r) <= 0.2 * abs(r_h)
+            g2 |= not fraction <= 0.2
         fails[n] = dict(G1=g1, G2=g2)
     g3 = any(not abs(g["sizes"]["2000"]["delta"] / g["sizes"]["4000"]["delta"] - 1) <= 1e-3
              for g in rep["gated"])
@@ -131,6 +155,18 @@ def _verdict_from_measurements(rep):
     return "UNRESOLVED_NUMERICALLY" if not any(fails["4000"].values()) else "NO_VERDICT"
 
 
+def _corrupt_consistently(rep, cell, factor, sizes):
+    """Scale one measured splitting and rewrite its stored fields to match, as the probe would."""
+    g = next(x for x in rep["gated"] if (x["a"], x["m"]) == cell)
+    for n in sizes:
+        g["sizes"][n]["delta"] *= factor
+        r, r_h, fraction = _recomputed(g, n)
+        g["sizes"][n].update(r_minus_1=r, r_h_minus_1=r_h, neck_fraction=fraction)
+    signed = g["sizes"]["2000"]["delta"] / g["sizes"]["4000"]["delta"] - 1
+    g.update(resolution=abs(signed), resolution_signed=signed)
+    return rep
+
+
 @needs_archive
 def test_archive_verdict_follows_from_the_frozen_gates():
     rep = json.loads(ARCHIVE.read_text())
@@ -141,12 +177,59 @@ def test_archive_verdict_follows_from_the_frozen_gates():
     for cell in rep["reproduction"]["cells"]:
         assert cell["archive_delta"] == measured[(cell["a"], cell["m"])][str(cell["N"])]
         assert abs(cell["delta"] / cell["archive_delta"] - 1) < 1e-6
+    _check_stored_fields(rep)
     assert rep["verdict"] == _verdict_from_measurements(rep)
 
 
 @needs_archive
-def test_archive_test_rejects_a_corrupted_splitting():
+def test_archive_test_rejects_an_inconsistent_splitting():
+    # A splitting changed without its derived fields fails the consistency check.
     rep = json.loads(ARCHIVE.read_text())
     rep["gated"][3]["sizes"]["4000"]["delta"] *= 1.05
     with pytest.raises(AssertionError):
-        assert rep["verdict"] == _verdict_from_measurements(rep)
+        _check_stored_fields(rep)
+
+
+@needs_archive
+@pytest.mark.parametrize("sizes, expected", [(("2000", "4000"), "COUNTEREXAMPLE"),
+                                             (("4000",), "UNRESOLVED_NUMERICALLY")])
+def test_gates_catch_a_consistent_corruption(sizes, expected):
+    # A 5% error at (0.35, 2), with every stored field rewritten to match, passes the
+    # consistency check; the recomputed gates must then change the verdict. At both
+    # sizes G1 and G2 fail twice; at N = 4000 only, G3 fails first.
+    rep = _corrupt_consistently(json.loads(ARCHIVE.read_text()), (0.35, 2), 1.05, sizes)
+    _check_stored_fields(rep)
+    assert _verdict_from_measurements(rep) == expected
+    assert _module("klein_exact_neck_probe").verdict(rep["gated"])[1] == expected
+
+
+CONTINUUM = LEDGER / "runs" / "20261124_klein_exact_neck" / "continuum_check.json"
+
+
+@pytest.mark.skipif(not CONTINUUM.exists(), reason="continuum cross-check not archived")
+def test_continuum_cross_check():
+    """#360's continuum solver agrees with the finite-element splittings, and the frozen
+    gates also pass on its values. Recomputed from the archived continuum splittings."""
+    archive = {(g["a"], g["m"]): g for g in json.loads(ARCHIVE.read_text())["gated"]}
+    check = json.loads(CONTINUUM.read_text())
+    gated = [x for x in check["cells"] if x["gated"]]
+    assert sorted((x["a"], x["m"]) for x in gated) == sorted(FROZEN)
+    for x in gated:
+        p = E.prediction(x["a"], x["m"])
+        fem = archive[(x["a"], x["m"])]["sizes"]["4000"]["delta"]
+        assert -2e-4 < fem / x["continuum_delta"] - 1 < 0
+        r = x["continuum_delta"] / p["predicted_delta"] - 1
+        r_h = x["continuum_delta"] / p["herring_delta"] - 1
+        assert 0 < r <= 0.2 * x["a"] ** 4 + 1e-3
+        assert abs(r) <= 0.2 * abs(r_h)
+        if x["m"] >= 2:
+            kink = abs(p["neck_log_derivative"] / p["band_log_derivative"] - 1)
+            assert 0.9 < r / kink < 1.1
+
+
+@pytest.mark.skipif(not CONTINUUM.exists(), reason="continuum cross-check not archived")
+@pytest.mark.parametrize("cell", [(0.25, 2), (0.55, 5)])
+def test_continuum_values_reproduce(cell):
+    cc = _module("klein_exact_neck_continuum_check")
+    row = next(x for x in json.loads(CONTINUUM.read_text())["cells"] if (x["a"], x["m"]) == cell)
+    assert cc.continuum_delta(*cell)[0] == pytest.approx(row["continuum_delta"], rel=1e-9)

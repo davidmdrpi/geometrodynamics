@@ -11,7 +11,9 @@
   within the frozen `0.2 a⁴ + 1e-3` (worst use 0.38). It removes at least
   93% of `H`'s discrepancy, against the frozen 80%, and N = 2000/4000 agree
   to 3e-4. At the diagnostic `a = 0.65–0.7`, the worst error is 1.7%. The
-  residual of about `0.11 a⁴` is measured, not derived. See
+  residual of about `0.11 a⁴` is measured, not derived. On review, #360's
+  continuum solver re-measured every cell: it agrees with the finite
+  element to 1e-4, and the gates also pass on its values. See
   `docs/klein_exact_neck.md`.
 
 - Klein splitting law (freeze `56055ab`): a closed-form tunnelling law for

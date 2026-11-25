@@ -85,15 +85,23 @@ using the band state `P_{m+n}^m`.
   at (0.7, 1, n = 2), where the predicted `Δ/ω` is 0.11, 0.23 and 0.32.
   There Herring's leading order does not apply.
 * #362's WKB form reached 2.8 on excited pairs and could not be evaluated
-  past `ω = m/sin a`. The exact neck has neither problem.
+  past `ω = m/sin a`. The exact neck needs no turning-point treatment and is
+  defined at every cell. Its excited-pair error comes instead from large
+  splittings, as above.
 
 **The rim kink.** The pre-registration noted, without using it, that
 in-sample `r − 1` is close in size to the slope mismatch at the rim,
-`|D′(−L)/(−m cos a) − 1|`. On the held-out cells with `m ≥ 2` and `r − 1`
-well above the resolution, the ratio of the two is 0.92–1.04. At `m = 1` it
-is looser, from 1.2 to 2.1. At `m = 1` and `a ≥ 0.65`, `r − 1` changes sign
-but the kink does not. This was looked at after the fact. It points to the
-next correction, a `C¹` single-well state, but it is not a result.
+`|D′(−L)/(−m cos a) − 1|`. The ratios below use the continuum splittings
+(see Checks), which are free of the finite-element bias.
+* On all ten gated cells with `m ≥ 2`, `(r − 1)/kink` is 0.925–1.055.
+* With the finite-element splittings two of those cells read low: 0.64 at
+  (0.25, 2) and 0.86 at (0.35, 3). There `r − 1` is only a few times the
+  finite-element error of about 1e-4. The continuum gives 1.02 and 1.03.
+* At `m = 1` the ratio is looser, from 1.2 to 2.1.
+* At `m = 1` and `a ≥ 0.65`, `r − 1` changes sign but the kink does not.
+
+This was looked at after the fact. It points to the next correction, a `C¹`
+single-well state, but it is not a result.
 
 ## Checks
 
@@ -105,6 +113,21 @@ next correction, a `C¹` single-well state, but it is not a result.
   * the most mixed mode is at rank 3972–3990 of 4000, with `ω` near 1300.
 * **Resolution.** All 24 signed `Δ₂₀₀₀/Δ₄₀₀₀ − 1` are negative, from −6.5e-7
   to −3.0e-4.
+* **An independent solver, not a gate.** All 24 gated and diagnostic cells
+  were re-measured with #360's continuum Wronskian/shooting solver,
+  `experiments/closure_ledger/alice_ground_split.py`, which shares no code
+  with #355's finite-element solver. The script is
+  `experiments/closure_ledger/klein_exact_neck_continuum_check.py`, and its
+  archive is `continuum_check.json` and `continuum_check.md` in the run
+  directory. It was added after the verdict, on review.
+  * The two solvers' splittings agree to between 2e-7 and 1.0e-4, worst at
+    (0.25, 2).
+  * The finite-element value is below the continuum one at every cell. Its
+    error at N = 4000 is about a third of `|Δ₂₀₀₀/Δ₄₀₀₀ − 1|`, as expected
+    for second-order convergence.
+  * Scored on the continuum splittings, the frozen gates still pass. The
+    worst cell uses 0.384 of its G1 bound, the worst G2 ratio is 0.068, and
+    `r − 1` is positive at every gated cell, from +0.00027 to +0.00726.
 
 ## Procedure notes
 
