@@ -1,0 +1,2662 @@
+{
+  "short_loop_followup": [
+    {
+      "n": 128,
+      "amplitude": 0.0012665147955292222,
+      "length": 1.0,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            0.5
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.0012665147955292222,
+            "theta_plus": -0.003877086108762925,
+            "theta_minus": -0.003877086108762925,
+            "angular_curvature": 1.0412344898581085
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.0012665147955292222,
+              "theta_plus": -0.003877086108762925,
+              "theta_minus": -0.003877086108762925,
+              "angular_curvature": 1.0412344898581085
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.0012665147955292222,
+              "theta_plus": 0.003877086108762925,
+              "theta_minus": 0.003877086108762925,
+              "angular_curvature": 1.0412344898581085
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 9.382839241333206e-17,
+          "max_momentum": 8.272502334316757e-07,
+          "max_gradient_defect": 4.736951571734001e-15
+        },
+        {
+          "t": 2.4165368873194044,
+          "light_positions": [
+            0.9928702688139319,
+            -0.5340353067720186
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.0999999999995772,
+            "velocity": -7.021064249141879,
+            "theta_plus": -210.63192747514688,
+            "theta_minus": -210.63192747514688,
+            "angular_curvature": 5029.53431910035
+          },
+          "centers": [
+            {
+              "radius": 0.0999999999995772,
+              "velocity": -7.021064249141879,
+              "theta_plus": -210.63192747514688,
+              "theta_minus": -210.63192747514688,
+              "angular_curvature": 5029.53431910035
+            },
+            {
+              "radius": 0.27406087930662454,
+              "velocity": -2.3938063486019097,
+              "theta_plus": -26.20373642518683,
+              "theta_minus": -26.20373642518683,
+              "angular_curvature": 89.60678583636904
+            }
+          ],
+          "min_a": 15.700695103792565,
+          "max_hamiltonian": 3.6478180597244925e-08,
+          "max_momentum": 0.0001535048825509712,
+          "max_gradient_defect": 2.6803236267852228e-06
+        }
+      ],
+      "center_comparison_time": 2.7423795648151086,
+      "center_signal_arrivals": [
+        0.6061606974770506,
+        0.49869334133138843
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 256,
+      "amplitude": 0.0012665147955292222,
+      "length": 1.0,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            0.5
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.0012665147955292222,
+            "theta_plus": -0.003877086108762925,
+            "theta_minus": -0.003877086108762925,
+            "angular_curvature": 1.0412344898581085
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.0012665147955292222,
+              "theta_plus": -0.003877086108762925,
+              "theta_minus": -0.003877086108762925,
+              "angular_curvature": 1.0412344898581085
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.0012665147955292222,
+              "theta_plus": 0.003877086108762925,
+              "theta_minus": 0.003877086108762925,
+              "angular_curvature": 1.0412344898581085
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.225497993108419e-16,
+          "max_momentum": 5.232831104661942e-08,
+          "max_gradient_defect": 9.473903143468002e-15
+        },
+        {
+          "t": 2.41653610761738,
+          "light_positions": [
+            0.9928869530420179,
+            -0.5340786501961329
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.09999999999906593,
+            "velocity": -7.021060354539027,
+            "theta_plus": -210.63181063813823,
+            "theta_minus": -210.63181063813823,
+            "angular_curvature": 5029.528850301927
+          },
+          "centers": [
+            {
+              "radius": 0.09999999999906593,
+              "velocity": -7.021060354539027,
+              "theta_plus": -210.63181063813823,
+              "theta_minus": -210.63181063813823,
+              "angular_curvature": 5029.528850301927
+            },
+            {
+              "radius": 0.2740617720673611,
+              "velocity": -2.393800601661429,
+              "theta_plus": -26.203588157560276,
+              "theta_minus": -26.203588157560276,
+              "angular_curvature": 89.6058357281536
+            }
+          ],
+          "min_a": 15.677716234573465,
+          "max_hamiltonian": 3.6471901835586034e-08,
+          "max_momentum": 9.810331157153488e-06,
+          "max_gradient_defect": 1.7092749471977337e-07
+        }
+      ],
+      "center_comparison_time": 2.7423795648151086,
+      "center_signal_arrivals": [
+        0.6061625684801204,
+        0.49869283550572124
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 512,
+      "amplitude": 0.0012665147955292222,
+      "length": 1.0,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            0.5
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.0012665147955292222,
+            "theta_plus": -0.003877086108762925,
+            "theta_minus": -0.003877086108762925,
+            "angular_curvature": 1.0412344898581085
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.0012665147955292222,
+              "theta_plus": -0.003877086108762925,
+              "theta_minus": -0.003877086108762925,
+              "angular_curvature": 1.0412344898581085
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.0012665147955292222,
+              "theta_plus": 0.003877086108762925,
+              "theta_minus": 0.003877086108762925,
+              "angular_curvature": 1.0412344898581085
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.225497993108419e-16,
+          "max_momentum": 3.2825422088310083e-09,
+          "max_gradient_defect": 1.8947806286936004e-14
+        },
+        {
+          "t": 2.4165360598905687,
+          "light_positions": [
+            0.9928910890565948,
+            -0.5340896961054001
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.09999999999988206,
+            "velocity": -7.021059978614606,
+            "theta_plus": -210.63179935868664,
+            "theta_minus": -210.63179935868664,
+            "angular_curvature": 5029.5283223422375
+          },
+          "centers": [
+            {
+              "radius": 0.09999999999988206,
+              "velocity": -7.021059978614606,
+              "theta_plus": -210.63179935868664,
+              "theta_minus": -210.63179935868664,
+              "angular_curvature": 5029.5283223422375
+            },
+            {
+              "radius": 0.2740618159523307,
+              "velocity": -2.393800358425955,
+              "theta_plus": -26.20358129907076,
+              "theta_minus": -26.20358129907076,
+              "angular_curvature": 89.60579152720581
+            }
+          ],
+          "min_a": 15.58695485301943,
+          "max_hamiltonian": 3.632373757679056e-08,
+          "max_momentum": 6.131629235303339e-07,
+          "max_gradient_defect": 1.0517984437401207e-08
+        }
+      ],
+      "center_comparison_time": 2.7423795648151086,
+      "center_signal_arrivals": [
+        0.606162962563108,
+        0.49869287570898113
+      ],
+      "stop": "radius_cutoff"
+    }
+  ],
+  "vacuum": [
+    {
+      "eps": 0.05,
+      "tilt": 0.25,
+      "maximum_tilt_speed": 0.1484108472397207,
+      "mass_parameter": 0.49875,
+      "max_mass_defect": 1.6653345369377348e-16,
+      "max_hamiltonian": 1.0035811515152204e-07,
+      "max_momentum": 7.847222735104791e-09,
+      "max_longitudinal_pair_error": 4.9404924595819466e-15,
+      "max_radius_pair_error": 2.220446049250313e-16,
+      "max_velocity_pair_error": 4.336808689942018e-17,
+      "centers": [
+        {
+          "x": 0.0,
+          "initial_radius": 0.9730582264077579,
+          "normal_velocity": -0.013115401295589942,
+          "theta_plus": -0.040435610962382317,
+          "theta_minus": -0.040435610962382317,
+          "proper_time_to_future_pinch": 2.3579893203486817
+        },
+        {
+          "x": 3.141592653589793,
+          "initial_radius": 0.9730582264077579,
+          "normal_velocity": 0.013115401295589942,
+          "theta_plus": 0.04043561096238229,
+          "theta_minus": 0.04043561096238234,
+          "proper_time_to_future_pinch": 2.8579893203486817
+        }
+      ],
+      "near_pinch": [
+        {
+          "radius": 0.3,
+          "kretschmann": 272988.3950617285,
+          "proper_time_left": 0.06677965116523987
+        },
+        {
+          "radius": 0.2,
+          "kretschmann": 6996147.695312496,
+          "proper_time_left": 0.02890317853541946
+        },
+        {
+          "radius": 0.1,
+          "kretschmann": 1791011259.999999,
+          "proper_time_left": 0.007115650874048196
+        }
+      ]
+    },
+    {
+      "eps": 0.1,
+      "tilt": 0.25,
+      "maximum_tilt_speed": 0.14839815690299787,
+      "mass_parameter": 0.495,
+      "max_mass_defect": 2.220446049250313e-16,
+      "max_hamiltonian": 2.6311203438211805e-07,
+      "max_momentum": 2.535166966112501e-08,
+      "max_longitudinal_pair_error": 4.773959005888173e-15,
+      "max_radius_pair_error": 2.220446049250313e-16,
+      "max_velocity_pair_error": 3.8163916471489756e-17,
+      "centers": [
+        {
+          "x": 0.0,
+          "initial_radius": 0.9453489429621335,
+          "normal_velocity": -0.026999658101535373,
+          "theta_plus": -0.08568156225023735,
+          "theta_minus": -0.08568156225023735,
+          "proper_time_to_future_pinch": 1.8665281720984614
+        },
+        {
+          "x": 3.141592653589793,
+          "initial_radius": 0.9453489429621335,
+          "normal_velocity": 0.026999658101535373,
+          "theta_plus": 0.08568156225023729,
+          "theta_minus": 0.08568156225023742,
+          "proper_time_to_future_pinch": 2.3665281720984614
+        }
+      ],
+      "near_pinch": [
+        {
+          "radius": 0.3,
+          "kretschmann": 268898.888888889,
+          "proper_time_left": 0.06705774661677255
+        },
+        {
+          "radius": 0.2,
+          "kretschmann": 6891338.124999996,
+          "proper_time_left": 0.029017078260699325
+        },
+        {
+          "radius": 0.1,
+          "kretschmann": 1764180009.999999,
+          "proper_time_left": 0.0071428277035758825
+        }
+      ]
+    },
+    {
+      "eps": 0.2,
+      "tilt": 0.25,
+      "maximum_tilt_speed": 0.1484230600671704,
+      "mass_parameter": 0.48,
+      "max_mass_defect": 1.6653345369377348e-16,
+      "max_hamiltonian": 9.150175288574758e-07,
+      "max_momentum": 1.649416211425836e-07,
+      "max_longitudinal_pair_error": 4.773959005888173e-15,
+      "max_radius_pair_error": 2.220446049250313e-16,
+      "max_velocity_pair_error": 6.938893903907228e-17,
+      "centers": [
+        {
+          "x": 0.0,
+          "initial_radius": 0.8873382939551555,
+          "normal_velocity": -0.05752957675895238,
+          "theta_plus": -0.1945016139307738,
+          "theta_minus": -0.1945016139307738,
+          "proper_time_to_future_pinch": 1.3709939789535075
+        },
+        {
+          "x": 3.141592653589793,
+          "initial_radius": 0.8873382939551555,
+          "normal_velocity": 0.05752957675895238,
+          "theta_plus": 0.19450161393077367,
+          "theta_minus": 0.19450161393077395,
+          "proper_time_to_future_pinch": 1.8709939789535075
+        }
+      ],
+      "near_pinch": [
+        {
+          "radius": 0.3,
+          "kretschmann": 252849.50617283958,
+          "proper_time_left": 0.06820603073946963
+        },
+        {
+          "radius": 0.2,
+          "kretschmann": 6480009.999999996,
+          "proper_time_left": 0.02948653347590513
+        },
+        {
+          "radius": 0.1,
+          "kretschmann": 1658880009.999999,
+          "proper_time_left": 0.007254734701557242
+        }
+      ]
+    }
+  ],
+  "conformal": [
+    {
+      "n": 128,
+      "amplitude": 0.05,
+      "cut": 0.2,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": {
+        "t": 0.4198786540253355,
+        "r": 0.991753769656773
+      },
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.05,
+              "theta_plus": -0.15306122448979362,
+              "theta_minus": -0.15306122448979823,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.05,
+              "theta_plus": 0.15306122448979823,
+              "theta_minus": 0.15306122448979362,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "null_constraint": 6.41912648326518e-06,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": -0.049999999999999246,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 0.7894167662754327,
+          "min_r": 0.5045248790373275,
+          "peak_lapse": 50.00000000001762,
+          "centers": [
+            {
+              "r": 0.9116356151329138,
+              "normal_velocity": -0.14201331867929715,
+              "theta_plus": -0.46733579619501026,
+              "theta_minus": -0.4673357961950612,
+              "angular_curvature": 1.2275213010205204
+            },
+            {
+              "r": 0.9535236508663688,
+              "normal_velocity": -0.07085258955510787,
+              "theta_plus": -0.22291819240371852,
+              "theta_minus": -0.2229181924037149,
+              "angular_curvature": 1.10538051237061
+            }
+          ],
+          "null_constraint": 0.004245579154837034,
+          "ray": {
+            "r": 0.9380216170139648,
+            "affine_velocity": -0.09308910295761653,
+            "affine_rate": 1.0824007000633116
+          },
+          "center_proper_times": [
+            0.7909210293551423,
+            1.640420860786351
+          ],
+          "ray_affine": 0.6624543300229025
+        }
+      ]
+    },
+    {
+      "n": 256,
+      "amplitude": 0.05,
+      "cut": 0.2,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": {
+        "t": 0.4198772438450869,
+        "r": 0.9917537029184761
+      },
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.05,
+              "theta_plus": -0.15306122448979131,
+              "theta_minus": -0.15306122448980053,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.05,
+              "theta_plus": 0.15306122448980053,
+              "theta_minus": 0.15306122448979131,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "null_constraint": 4.1014063450019256e-07,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": -0.0499999999999985,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 0.789420455463912,
+          "min_r": 0.5045297123387379,
+          "peak_lapse": 50.00000000013136,
+          "centers": [
+            {
+              "r": 0.91163547180644,
+              "normal_velocity": -0.14201424388395034,
+              "theta_plus": -0.4673389143224307,
+              "theta_minus": -0.467338914322458,
+              "angular_curvature": 1.2275220031956766
+            },
+            {
+              "r": 0.953520710735808,
+              "normal_velocity": -0.07085685968357149,
+              "theta_plus": -0.22293231458672225,
+              "theta_minus": -0.2229323145867313,
+              "angular_curvature": 1.1053879946937002
+            }
+          ],
+          "null_constraint": 0.00035186806553491525,
+          "ray": {
+            "r": 0.9380259061948822,
+            "affine_velocity": -0.09309021173152915,
+            "affine_rate": 1.0822427559295196
+          },
+          "center_proper_times": [
+            0.7909211083676199,
+            1.640465259261843
+          ],
+          "ray_affine": 0.6623512462860965
+        }
+      ]
+    },
+    {
+      "n": 512,
+      "amplitude": 0.05,
+      "cut": 0.2,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": {
+        "t": 0.41987715582618246,
+        "r": 0.9917536987324448
+      },
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.05,
+              "theta_plus": -0.15306122448978668,
+              "theta_minus": -0.15306122448980516,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.05,
+              "theta_plus": 0.15306122448980516,
+              "theta_minus": 0.15306122448978668,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "null_constraint": 2.5685657640772883e-08,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": -0.049999999999996984,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 0.1,
+          "min_r": 0.9745792573288863,
+          "peak_lapse": 1.145599064508192,
+          "centers": [
+            {
+              "r": 0.9745792573288863,
+              "normal_velocity": -0.05767355073128031,
+              "theta_plus": -0.17753369045434517,
+              "theta_minus": -0.17753369045432224,
+              "angular_curvature": 1.0563500138654438
+            },
+            {
+              "r": 0.9845559411517313,
+              "normal_velocity": 0.040602272692862075,
+              "theta_plus": 0.12371751871824378,
+              "theta_minus": 0.12371751871822101,
+              "angular_curvature": 1.033319368567616
+            }
+          ],
+          "null_constraint": 3.739783973026618e-08,
+          "ray": {
+            "r": 0.9747283873163446,
+            "affine_velocity": -0.05376369485597482,
+            "affine_rate": 1.0029127849994988
+          },
+          "center_proper_times": [
+            0.1005052838713382,
+            0.10016793202157248
+          ],
+          "ray_affine": 0.100477160303049
+        },
+        {
+          "t": 0.2,
+          "min_r": 0.9683326355833028,
+          "peak_lapse": 1.3316715499707632,
+          "centers": [
+            {
+              "r": 0.9683326355833028,
+              "normal_velocity": -0.06498394704697588,
+              "theta_plus": -0.20132734762522034,
+              "theta_minus": -0.2013273476252249,
+              "angular_curvature": 1.0709790817511227
+            },
+            {
+              "r": 0.9881447193774981,
+              "normal_velocity": 0.02886564777158726,
+              "theta_plus": 0.08763589139989351,
+              "theta_minus": 0.08763589139992811,
+              "angular_curvature": 1.0249923082317152
+            }
+          ],
+          "null_constraint": 4.184173611671261e-08,
+          "ray": {
+            "r": 0.969475963152614,
+            "affine_velocity": -0.05412476306208525,
+            "affine_rate": 0.9265962900448542
+          },
+          "center_proper_times": [
+            0.20239205490853282,
+            0.20308533888221478
+          ],
+          "ray_affine": 0.19772791381734334
+        },
+        {
+          "t": 0.30000000000000004,
+          "min_r": 0.9612523279672158,
+          "peak_lapse": 1.5705159859769138,
+          "centers": [
+            {
+              "r": 0.9612523279672158,
+              "normal_velocity": -0.07312819263864374,
+              "theta_plus": -0.22822787683632836,
+              "theta_minus": -0.22822787683631918,
+              "angular_curvature": 1.088031561687946
+            },
+            {
+              "r": 0.9906059263776109,
+              "normal_velocity": 0.015578011281104654,
+              "theta_plus": 0.04717722012246912,
+              "theta_minus": 0.047177220122418595,
+              "angular_curvature": 1.0193035474412953
+            }
+          ],
+          "null_constraint": 6.328708391364088e-08,
+          "ray": {
+            "r": 0.9647968692314642,
+            "affine_velocity": -0.054447753459147895,
+            "affine_rate": 0.7986234770373601
+          },
+          "center_proper_times": [
+            0.3050764121702533,
+            0.31410733815076985
+          ],
+          "ray_affine": 0.28401155673890455
+        },
+        {
+          "t": 0.4,
+          "min_r": 0.9533100882376419,
+          "peak_lapse": 1.8964918984144559,
+          "centers": [
+            {
+              "r": 0.9533100882376419,
+              "normal_velocity": -0.0827615022245101,
+              "theta_plus": -0.26044464412688717,
+              "theta_minus": -0.2604446441266905,
+              "angular_curvature": 1.107888785761855
+            },
+            {
+              "r": 0.9917194315873237,
+              "normal_velocity": 0.002454009518538603,
+              "theta_plus": 0.0074234993498747785,
+              "theta_minus": 0.007423499349812517,
+              "angular_curvature": 1.016775258279707
+            }
+          ],
+          "null_constraint": 1.0441440029062641e-07,
+          "ray": {
+            "r": 0.9606702919889683,
+            "affine_velocity": -0.05662301289712049,
+            "affine_rate": 0.7057551403965698
+          },
+          "center_proper_times": [
+            0.407167722056386,
+            0.4414287362046186
+          ],
+          "ray_affine": 0.35870315305021794
+        },
+        {
+          "t": 0.5,
+          "min_r": 0.9444537705265231,
+          "peak_lapse": 2.3991350281777954,
+          "centers": [
+            {
+              "r": 0.9444537705265231,
+              "normal_velocity": -0.09418370508335779,
+              "theta_plus": -0.2991688148934364,
+              "theta_minus": -0.29916881489347014,
+              "angular_curvature": 1.1310297900465762
+            },
+            {
+              "r": 0.9911316353438173,
+              "normal_velocity": -0.009224770126428864,
+              "theta_plus": -0.02792193225639174,
+              "theta_minus": -0.027921932256492154,
+              "angular_curvature": 1.0180621201935844
+            }
+          ],
+          "null_constraint": 1.3918224895276948e-07,
+          "ray": {
+            "r": 0.9565852692431205,
+            "affine_velocity": -0.06287852501264206,
+            "affine_rate": 0.6826292486111469
+          },
+          "center_proper_times": [
+            0.5074739695255717,
+            0.5978772648211073
+          ],
+          "ray_affine": 0.42751990734136563
+        },
+        {
+          "t": 0.6,
+          "min_r": 0.9345528084439871,
+          "peak_lapse": 3.3384859027823532,
+          "centers": [
+            {
+              "r": 0.9345528084439871,
+              "normal_velocity": -0.10773168589764298,
+              "theta_plus": -0.345828566104266,
+              "theta_minus": -0.3458285661043305,
+              "angular_curvature": 1.1582538502411888
+            },
+            {
+              "r": 0.9880349844343077,
+              "normal_velocity": -0.019913908571540986,
+              "theta_plus": -0.060465192686280415,
+              "theta_minus": -0.06046519268631375,
+              "angular_curvature": 1.0247726982292755
+            }
+          ],
+          "null_constraint": 1.7288977697103517e-07,
+          "ray": {
+            "r": 0.9518422334324551,
+            "affine_velocity": -0.07278662006944464,
+            "affine_rate": 0.7311651507583294
+          },
+          "center_proper_times": [
+            0.6057572825442287,
+            0.8062995912338909
+          ],
+          "ray_affine": 0.49760600852911696
+        },
+        {
+          "t": 0.7000000000000001,
+          "min_r": 0.9191823789448104,
+          "peak_lapse": 5.907351236849499,
+          "centers": [
+            {
+              "r": 0.9233059618883515,
+              "normal_velocity": -0.12408075262425274,
+              "theta_plus": -0.403162411202641,
+              "theta_minus": -0.40316241120280705,
+              "angular_curvature": 1.1910889146009203
+            },
+            {
+              "r": 0.979651484382314,
+              "normal_velocity": -0.03393182329104422,
+              "theta_plus": -0.10390988172421287,
+              "theta_minus": -0.10390988172424728,
+              "angular_curvature": 1.043173494319028
+            }
+          ],
+          "null_constraint": 3.256401619856236e-07,
+          "ray": {
+            "r": 0.9456552235884158,
+            "affine_velocity": -0.083901969216158,
+            "affine_rate": 0.860959035173261
+          },
+          "center_proper_times": [
+            0.7030223173171921,
+            1.1190990167825356
+          ],
+          "ray_affine": 0.5764262923369146
+        },
+        {
+          "t": 0.7894206974730064,
+          "min_r": 0.5045300753811306,
+          "peak_lapse": 50.00000000096247,
+          "centers": [
+            {
+              "r": 0.9116354612679612,
+              "normal_velocity": -0.14201430438508802,
+              "theta_plus": -0.467339118821532,
+              "theta_minus": -0.4673391188211684,
+              "angular_curvature": 1.2275220522527024
+            },
+            {
+              "r": 0.9535205194823518,
+              "normal_velocity": -0.0708571373161432,
+              "theta_plus": -0.22293323279904426,
+              "theta_minus": -0.22293323279905441,
+              "angular_curvature": 1.1053884813962431
+            }
+          ],
+          "null_constraint": 2.8953088179321143e-05,
+          "ray": {
+            "r": 0.9380282259858672,
+            "affine_velocity": -0.09309046341339271,
+            "affine_rate": 1.0821555652225556
+          },
+          "center_proper_times": [
+            0.7909211235523854,
+            1.640468137532803
+          ],
+          "ray_affine": 0.6623226474717648
+        }
+      ]
+    },
+    {
+      "n": 256,
+      "amplitude": 0.0,
+      "cut": 0.2,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": null,
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.0,
+              "theta_plus": 4.6157709662962605e-15,
+              "theta_minus": -4.6157709662962605e-15,
+              "angular_curvature": 1.0412328196584757
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.0,
+              "theta_plus": 4.6157709662962605e-15,
+              "theta_minus": -4.6157709662962605e-15,
+              "angular_curvature": 1.0412328196584757
+            }
+          ],
+          "null_constraint": 1.0581276816720758e-13,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": 1.5078185156567784e-15,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 1.0216193852043534,
+          "min_r": 0.2794212785851927,
+          "peak_lapse": 50.000000000297135,
+          "centers": [
+            {
+              "r": 0.2794212785851927,
+              "normal_velocity": -2.340070149225095,
+              "theta_plus": -25.124108239791386,
+              "theta_minus": -25.124108239791386,
+              "angular_curvature": 82.94363812905071
+            },
+            {
+              "r": 0.2794212785851927,
+              "normal_velocity": -2.340070149225095,
+              "theta_plus": -25.124108239791386,
+              "theta_minus": -25.124108239791386,
+              "angular_curvature": 82.94363812905071
+            }
+          ],
+          "null_constraint": 3.5521606351037964e-07,
+          "ray": {
+            "r": 0.2794212785851927,
+            "affine_velocity": -0.04680140298422377,
+            "affine_rate": 2500.0000000297136
+          },
+          "center_proper_times": [
+            2.3902428774092783,
+            2.3902428774092783
+          ],
+          "ray_affine": 15.466647043109054
+        }
+      ]
+    },
+    {
+      "n": 256,
+      "amplitude": 0.025,
+      "cut": 0.2,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": {
+        "t": 0.26297936745011424,
+        "r": 0.9834877504809322
+      },
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.025,
+              "theta_plus": -0.07653061224489334,
+              "theta_minus": -0.07653061224490258,
+              "angular_curvature": 1.0418835901707624
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.025,
+              "theta_plus": 0.07653061224490258,
+              "theta_minus": 0.07653061224489334,
+              "angular_curvature": 1.0418835901707624
+            }
+          ],
+          "null_constraint": 1.0918773330672687e-07,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": -0.024999999999998492,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 0.8988219519736221,
+          "min_r": 0.38438514531672396,
+          "peak_lapse": 50.00000000112632,
+          "centers": [
+            {
+              "r": 0.8961542766075346,
+              "normal_velocity": -0.16287545586787375,
+              "theta_plus": -0.5452480452956746,
+              "theta_minus": -0.5452480452956828,
+              "angular_curvature": 1.2782194207080158
+            },
+            {
+              "r": 0.803080623290794,
+              "normal_velocity": -0.31534444820893814,
+              "theta_plus": -1.1780054420317574,
+              "theta_minus": -1.1780054420317656,
+              "angular_curvature": 1.7047240044074037
+            }
+          ],
+          "null_constraint": 0.00012260933074184033,
+          "ray": {
+            "r": 0.9157203713822519,
+            "affine_velocity": -0.06845675334793462,
+            "affine_rate": 4.008544402718842
+          },
+          "center_proper_times": [
+            1.0787470580654939,
+            2.043173726854346
+          ],
+          "ray_affine": 1.2592255457414843
+        }
+      ]
+    },
+    {
+      "n": 256,
+      "amplitude": 0.1,
+      "cut": 0.2,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": null,
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.1,
+              "theta_plus": -0.30612244897958724,
+              "theta_minus": -0.30612244897959645,
+              "angular_curvature": 1.0516451478550606
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.1,
+              "theta_plus": 0.30612244897959645,
+              "theta_minus": 0.30612244897958724,
+              "angular_curvature": 1.0516451478550606
+            }
+          ],
+          "null_constraint": 1.3190835787398068e-06,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": -0.09999999999999849,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 0.6178874678361079,
+          "min_r": 0.7275066391156925,
+          "peak_lapse": 50.00000000030568,
+          "centers": [
+            {
+              "r": 0.9071304843443516,
+              "normal_velocity": -0.18199229694034227,
+              "theta_plus": -0.6018724982168758,
+              "theta_minus": -0.601872498216892,
+              "angular_curvature": 1.2554856361295088
+            },
+            {
+              "r": 1.0253412810982,
+              "normal_velocity": 0.029352412719051393,
+              "theta_plus": 0.08588090597781979,
+              "theta_minus": 0.08588090597778539,
+              "angular_curvature": 0.9520003890891856
+            }
+          ],
+          "null_constraint": 0.0007320232726972527,
+          "ray": {
+            "r": 0.9405430238912169,
+            "affine_velocity": -0.1414070548165604,
+            "affine_rate": 0.2677861258060869
+          },
+          "center_proper_times": [
+            0.5542718761788485,
+            1.0591793747956013
+          ],
+          "ray_affine": 0.3662951527363833
+        }
+      ]
+    },
+    {
+      "n": 512,
+      "amplitude": 0.05,
+      "cut": 0.3,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": {
+        "t": 0.41987715582618246,
+        "r": 0.9917536987324448
+      },
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.05,
+              "theta_plus": -0.15306122448978668,
+              "theta_minus": -0.15306122448980516,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.05,
+              "theta_plus": 0.15306122448980516,
+              "theta_minus": 0.15306122448978668,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "null_constraint": 2.5685657640772883e-08,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": -0.049999999999996984,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 0.7894206974730064,
+          "min_r": 0.5045300753811306,
+          "peak_lapse": 50.00000000096247,
+          "centers": [
+            {
+              "r": 0.9116354612679612,
+              "normal_velocity": -0.14201430438508802,
+              "theta_plus": -0.467339118821532,
+              "theta_minus": -0.4673391188211684,
+              "angular_curvature": 1.2275220522527024
+            },
+            {
+              "r": 0.9535205194823518,
+              "normal_velocity": -0.0708571373161432,
+              "theta_plus": -0.22293323279904426,
+              "theta_minus": -0.22293323279905441,
+              "angular_curvature": 1.1053884813962431
+            }
+          ],
+          "null_constraint": 2.8953088179321143e-05,
+          "ray": {
+            "r": 0.9380282259858672,
+            "affine_velocity": -0.09309046341339271,
+            "affine_rate": 1.0821555652225556
+          },
+          "center_proper_times": [
+            0.7909211235523854,
+            1.640468137532803
+          ],
+          "ray_affine": 0.6623226474717648
+        }
+      ]
+    },
+    {
+      "n": 512,
+      "amplitude": 0.05,
+      "cut": 0.1,
+      "stop": "lapse_cutoff",
+      "antipode_maximum": {
+        "t": 0.41987715582618246,
+        "r": 0.9917536987324448
+      },
+      "frames": [
+        {
+          "t": 0.0,
+          "min_r": 0.98,
+          "peak_lapse": 1.0,
+          "centers": [
+            {
+              "r": 0.98,
+              "normal_velocity": -0.05,
+              "theta_plus": -0.15306122448978668,
+              "theta_minus": -0.15306122448980516,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "r": 0.98,
+              "normal_velocity": 0.05,
+              "theta_plus": 0.15306122448980516,
+              "theta_minus": 0.15306122448978668,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "null_constraint": 2.5685657640772883e-08,
+          "ray": {
+            "r": 0.98,
+            "affine_velocity": -0.049999999999996984,
+            "affine_rate": 1.0
+          },
+          "center_proper_times": [
+            0.0,
+            0.0
+          ],
+          "ray_affine": 0.0
+        },
+        {
+          "t": 0.7894206974730064,
+          "min_r": 0.5045300753811306,
+          "peak_lapse": 50.00000000096247,
+          "centers": [
+            {
+              "r": 0.9116354612679612,
+              "normal_velocity": -0.14201430438508802,
+              "theta_plus": -0.467339118821532,
+              "theta_minus": -0.4673391188211684,
+              "angular_curvature": 1.2275220522527024
+            },
+            {
+              "r": 0.9535205194823518,
+              "normal_velocity": -0.0708571373161432,
+              "theta_plus": -0.22293323279904426,
+              "theta_minus": -0.22293323279905441,
+              "angular_curvature": 1.1053884813962431
+            }
+          ],
+          "null_constraint": 2.8953088179321143e-05,
+          "ray": {
+            "r": 0.9380282259858672,
+            "affine_velocity": -0.09309046341339271,
+            "affine_rate": 1.0821555652225556
+          },
+          "center_proper_times": [
+            0.7909211235523854,
+            1.640468137532803
+          ],
+          "ray_affine": 0.6623226474717648
+        }
+      ]
+    }
+  ],
+  "gaussian": [
+    {
+      "n": 128,
+      "amplitude": 0.05,
+      "length": 6.283185307179586,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.05,
+            "theta_plus": -0.15306122448979595,
+            "theta_minus": -0.15306122448979595,
+            "angular_curvature": 1.0438359017076217
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.05,
+              "theta_plus": -0.15306122448979595,
+              "theta_minus": -0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.05,
+              "theta_plus": 0.15306122448979595,
+              "theta_minus": 0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.0296352158742863e-16,
+          "max_momentum": 4.723086068509569e-06,
+          "max_gradient_defect": 7.539092578283892e-16
+        },
+        {
+          "t": 1.9733456901845263,
+          "light_positions": [
+            1.4175674707864327,
+            2.4168491136297066
+          ],
+          "min_x": 0.39269908169872414,
+          "minimum": {
+            "radius": 0.09999999999857029,
+            "velocity": -7.092049516036235,
+            "theta_plus": -212.7198211288162,
+            "theta_minus": -212.8031498394417,
+            "angular_curvature": 5129.716441057826
+          },
+          "centers": [
+            {
+              "radius": 0.1752256532105782,
+              "velocity": -3.9794199630045983,
+              "theta_plus": -68.13077691693314,
+              "theta_minus": -68.13077691693314,
+              "angular_curvature": 548.3248776301845
+            },
+            {
+              "radius": 0.9231212658748168,
+              "velocity": -0.11576038009387636,
+              "theta_plus": -0.3762031632458605,
+              "theta_minus": -0.3762031632458605,
+              "angular_curvature": 1.1892237877499203
+            }
+          ],
+          "min_a": 7.878001978195011,
+          "max_hamiltonian": 6.432064094325979e-06,
+          "max_momentum": 0.0043849095977329215,
+          "max_gradient_defect": 5.5288023909597084e-05
+        }
+      ],
+      "center_comparison_time": 2.058608723592716,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 256,
+      "amplitude": 0.05,
+      "length": 6.283185307179586,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.05,
+            "theta_plus": -0.15306122448979595,
+            "theta_minus": -0.15306122448979595,
+            "angular_curvature": 1.0438359017076217
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.05,
+              "theta_plus": -0.15306122448979595,
+              "theta_minus": -0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.05,
+              "theta_plus": 0.15306122448979595,
+              "theta_minus": 0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.4174914064655515e-16,
+          "max_momentum": 3.005731256282567e-07,
+          "max_gradient_defect": 1.5078185156567784e-15
+        },
+        {
+          "t": 1.973326337160266,
+          "light_positions": [
+            1.4176958453558959,
+            2.4170807879889353
+          ],
+          "min_x": 5.915029918087033,
+          "minimum": {
+            "radius": 0.0999999999989641,
+            "velocity": -7.093011926716949,
+            "theta_plus": -212.77185910640088,
+            "theta_minus": -212.80885650102465,
+            "angular_curvature": 5131.081781338772
+          },
+          "centers": [
+            {
+              "radius": 0.17523842204423185,
+              "velocity": -3.979046393673944,
+              "theta_plus": -68.1194172018325,
+              "theta_minus": -68.1194172018325,
+              "angular_curvature": 548.1481577788321
+            },
+            {
+              "radius": 0.9231376206161236,
+              "velocity": -0.11573513996091579,
+              "theta_plus": -0.376114473214746,
+              "theta_minus": -0.376114473214746,
+              "angular_curvature": 1.1891747939427788
+            }
+          ],
+          "min_a": 7.8447688284419765,
+          "max_hamiltonian": 4.0388721997493786e-07,
+          "max_momentum": 0.00034133592262246585,
+          "max_gradient_defect": 3.5422707765769834e-06
+        }
+      ],
+      "center_comparison_time": 2.058608723592716,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 512,
+      "amplitude": 0.05,
+      "length": 6.283185307179586,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.05,
+            "theta_plus": -0.15306122448979595,
+            "theta_minus": -0.15306122448979595,
+            "angular_curvature": 1.0438359017076217
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.05,
+              "theta_plus": -0.15306122448979595,
+              "theta_minus": -0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.05,
+              "theta_plus": 0.15306122448979595,
+              "theta_minus": 0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.4174914064655515e-16,
+          "max_momentum": 1.8828906766428027e-08,
+          "max_gradient_defect": 3.0156370313135567e-15
+        },
+        {
+          "t": 0.1,
+          "light_positions": [
+            0.09968111073904852,
+            3.0419425174653965
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9746083896820809,
+            "velocity": -0.05763731624880343,
+            "theta_plus": -0.17741684822025236,
+            "theta_minus": -0.17741684822025236,
+            "angular_curvature": 1.0562824645914792
+          },
+          "centers": [
+            {
+              "radius": 0.9746083896820809,
+              "velocity": -0.05763731624880343,
+              "theta_plus": -0.17741684822025236,
+              "theta_minus": -0.17741684822025236,
+              "angular_curvature": 1.0562824645914792
+            },
+            {
+              "radius": 0.9845491212750208,
+              "velocity": 0.040619879765060984,
+              "theta_plus": 0.12377202585623262,
+              "theta_minus": 0.12377202585623256,
+              "angular_curvature": 1.0333351593463531
+            }
+          ],
+          "min_a": 0.8830312749909155,
+          "max_hamiltonian": 2.049876057349121e-08,
+          "max_momentum": 5.867967671382214e-08,
+          "max_gradient_defect": 4.315775598874583e-09
+        },
+        {
+          "t": 0.2,
+          "light_positions": [
+            0.2003661270300325,
+            2.9469578220343235
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9684878695138003,
+            "velocity": -0.06480743468230471,
+            "theta_plus": -0.20074831101861698,
+            "theta_minus": -0.20074831101861698,
+            "angular_curvature": 1.0706113609381642
+          },
+          "centers": [
+            {
+              "radius": 0.9684878695138003,
+              "velocity": -0.06480743468230471,
+              "theta_plus": -0.20074831101861698,
+              "theta_minus": -0.20074831101861698,
+              "angular_curvature": 1.0706113609381642
+            },
+            {
+              "radius": 0.9880550858999158,
+              "velocity": 0.029237149098806516,
+              "theta_plus": 0.08877181904947377,
+              "theta_minus": 0.08877181904947369,
+              "angular_curvature": 1.0252003956197033
+            }
+          ],
+          "min_a": 0.7839906940670981,
+          "max_hamiltonian": 5.3518231741934066e-08,
+          "max_momentum": 7.822387604916977e-08,
+          "max_gradient_defect": 1.0698307101320026e-08
+        },
+        {
+          "t": 0.30000000000000004,
+          "light_positions": [
+            0.3083173613186762,
+            2.8627569589790354
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9616224524810548,
+            "velocity": -0.07269378231243985,
+            "theta_plus": -0.2267847910317132,
+            "theta_minus": -0.2267847910317132,
+            "angular_curvature": 1.087125661473744
+          },
+          "centers": [
+            {
+              "radius": 0.9616224524810548,
+              "velocity": -0.07269378231243985,
+              "theta_plus": -0.2267847910317132,
+              "theta_minus": -0.2267847910317132,
+              "angular_curvature": 1.087125661473744
+            },
+            {
+              "radius": 0.9903746588720913,
+              "velocity": 0.017213318002462043,
+              "theta_plus": 0.052141836975309316,
+              "theta_minus": 0.05214183697530925,
+              "angular_curvature": 1.0198343199782565
+            }
+          ],
+          "min_a": 0.7003504486595978,
+          "max_hamiltonian": 5.222927208299737e-08,
+          "max_momentum": 1.216612830646077e-07,
+          "max_gradient_defect": 1.7996046158472168e-08
+        },
+        {
+          "t": 0.4,
+          "light_positions": [
+            0.43557299946514166,
+            2.7915669358378485
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9539006526828686,
+            "velocity": -0.08202460904122398,
+            "theta_plus": -0.2579658861031108,
+            "theta_minus": -0.2579658861031108,
+            "angular_curvature": 1.1063839618548923
+          },
+          "centers": [
+            {
+              "radius": 0.9539006526828686,
+              "velocity": -0.08202460904122398,
+              "theta_plus": -0.2579658861031108,
+              "theta_minus": -0.2579658861031108,
+              "angular_curvature": 1.1063839618548923
+            },
+            {
+              "radius": 0.9915381029127971,
+              "velocity": 0.00636112901042869,
+              "theta_plus": 0.019246246790945994,
+              "theta_minus": 0.01924624679094594,
+              "angular_curvature": 1.0171822123496266
+            }
+          ],
+          "min_a": 0.630259405374471,
+          "max_hamiltonian": 8.752087130495533e-08,
+          "max_momentum": 1.7137939317505623e-07,
+          "max_gradient_defect": 2.6863619044525944e-08
+        },
+        {
+          "t": 0.5,
+          "light_positions": [
+            0.5959674779449058,
+            2.7321296346341426
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9451542205311247,
+            "velocity": -0.09325584932133185,
+            "theta_plus": -0.29600200886452327,
+            "theta_minus": -0.29600200886452327,
+            "angular_curvature": 1.1291593212136184
+          },
+          "centers": [
+            {
+              "radius": 0.9451542205311247,
+              "velocity": -0.09325584932133185,
+              "theta_plus": -0.29600200886452327,
+              "theta_minus": -0.29600200886452327,
+              "angular_curvature": 1.1291593212136184
+            },
+            {
+              "radius": 0.9917160690602818,
+              "velocity": -0.0024510759802854913,
+              "theta_plus": -0.007414650392651332,
+              "theta_minus": -0.007414650392651373,
+              "angular_curvature": 1.016782138646938
+            }
+          ],
+          "min_a": 0.5728656361301737,
+          "max_hamiltonian": 1.3780004869407247e-07,
+          "max_momentum": 2.6815822187028034e-07,
+          "max_gradient_defect": 3.5162224798490627e-08
+        },
+        {
+          "t": 0.6,
+          "light_positions": [
+            0.7649590423194912,
+            2.6822549194007443
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9351705434994977,
+            "velocity": -0.10686294793950897,
+            "theta_plus": -0.3428132398384286,
+            "theta_minus": -0.3428132398384286,
+            "angular_curvature": 1.1565109963067781
+          },
+          "centers": [
+            {
+              "radius": 0.9351705434994977,
+              "velocity": -0.10686294793950897,
+              "theta_plus": -0.3428132398384286,
+              "theta_minus": -0.3428132398384286,
+              "angular_curvature": 1.1565109963067781
+            },
+            {
+              "radius": 0.9911119090201571,
+              "velocity": -0.009355057964092667,
+              "theta_plus": -0.028316856690809078,
+              "theta_minus": -0.028316856690809092,
+              "angular_curvature": 1.0181051103739092
+            }
+          ],
+          "min_a": 0.5278633748107048,
+          "max_hamiltonian": 1.8399562083200124e-07,
+          "max_momentum": 3.6680223258127755e-07,
+          "max_gradient_defect": 4.1595745087913416e-08
+        },
+        {
+          "t": 0.6057572825442287,
+          "light_positions": [
+            0.7737942216253261,
+            2.6796318372236785
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9345528073749836,
+            "velocity": -0.10773169265326969,
+            "theta_plus": -0.3458285881860596,
+            "theta_minus": -0.3458285881860596,
+            "angular_curvature": 1.1582538545575647
+          },
+          "centers": [
+            {
+              "radius": 0.9345528073749836,
+              "velocity": -0.10773169265326969,
+              "theta_plus": -0.3458285881860596,
+              "theta_minus": -0.3458285881860596,
+              "angular_curvature": 1.1582538545575647
+            },
+            {
+              "radius": 0.9910570389443537,
+              "velocity": -0.009705301602447538,
+              "theta_plus": -0.02937863681222229,
+              "theta_minus": -0.0293786368122223,
+              "angular_curvature": 1.0182246454833501
+            }
+          ],
+          "min_a": 0.5256471630364408,
+          "max_hamiltonian": 1.8537208992694734e-07,
+          "max_momentum": 3.761923273590075e-07,
+          "max_gradient_defect": 4.1933032003324544e-08
+        },
+        {
+          "t": 0.7000000000000001,
+          "light_positions": [
+            0.9001436643734785,
+            2.640008916520545
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9236801252959287,
+            "velocity": -0.12352113858022201,
+            "theta_plus": -0.4011815406572106,
+            "theta_minus": -0.4011815406572106,
+            "angular_curvature": 1.1899617348802176
+          },
+          "centers": [
+            {
+              "radius": 0.9236801252959287,
+              "velocity": -0.12352113858022201,
+              "theta_plus": -0.4011815406572106,
+              "theta_minus": -0.4011815406572106,
+              "angular_curvature": 1.1899617348802176
+            },
+            {
+              "radius": 0.989890499587504,
+              "velocity": -0.014895154119712949,
+              "theta_plus": -0.04514182364388755,
+              "theta_minus": -0.04514182364388755,
+              "angular_curvature": 1.0207562130040524
+            }
+          ],
+          "min_a": 0.49515705825282114,
+          "max_hamiltonian": 2.57111064132288e-07,
+          "max_momentum": 5.114658777534093e-07,
+          "max_gradient_defect": 4.9521240816363665e-08
+        },
+        {
+          "t": 0.8,
+          "light_positions": [
+            1.0032497588741052,
+            2.6039184181279578
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.9103368684598606,
+            "velocity": -0.1440612171856248,
+            "theta_plus": -0.47475134373944194,
+            "theta_minus": -0.47475134373944194,
+            "angular_curvature": 1.2317332666566891
+          },
+          "centers": [
+            {
+              "radius": 0.9103368684598606,
+              "velocity": -0.1440612171856248,
+              "theta_plus": -0.47475134373944194,
+              "theta_minus": -0.47475134373944194,
+              "angular_curvature": 1.2317332666566891
+            },
+            {
+              "radius": 0.9881595352674934,
+              "velocity": -0.019631447865296477,
+              "theta_plus": -0.05960003571685094,
+              "theta_minus": -0.05960003571685093,
+              "angular_curvature": 1.0245029438609312
+            }
+          ],
+          "min_a": 0.47478585151681496,
+          "max_hamiltonian": 3.125985815603789e-07,
+          "max_momentum": 6.336585708944048e-07,
+          "max_gradient_defect": 5.8897305185712234e-08
+        },
+        {
+          "t": 0.8062995912338909,
+          "light_positions": [
+            1.0089272798904279,
+            2.601824209687654
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.909424806214956,
+            "velocity": -0.14550426358555807,
+            "theta_plus": -0.47998777664032394,
+            "theta_minus": -0.47998777664032394,
+            "angular_curvature": 1.234710351493281
+          },
+          "centers": [
+            {
+              "radius": 0.909424806214956,
+              "velocity": -0.14550426358555807,
+              "theta_plus": -0.47998777664032394,
+              "theta_minus": -0.47998777664032394,
+              "angular_curvature": 1.234710351493281
+            },
+            {
+              "radius": 0.9880349747337823,
+              "velocity": -0.019913925164083683,
+              "theta_plus": -0.06046524366037546,
+              "theta_minus": -0.060465243660375444,
+              "angular_curvature": 1.0247727190286555
+            }
+          ],
+          "min_a": 0.47392016799839176,
+          "max_hamiltonian": 3.133280361541337e-07,
+          "max_momentum": 6.389007102022888e-07,
+          "max_gradient_defect": 5.937197973190922e-08
+        },
+        {
+          "t": 0.9,
+          "light_positions": [
+            1.0844838002102617,
+            2.572891468250341
+          ],
+          "min_x": 0.28225246497095796,
+          "minimum": {
+            "radius": 0.8941411456332995,
+            "velocity": -0.17888601233331133,
+            "theta_plus": -0.6000122313248617,
+            "theta_minus": -0.6003755142135265,
+            "angular_curvature": 1.2908257550224107
+          },
+          "centers": [
+            {
+              "radius": 0.8947114099881279,
+              "velocity": -0.16929309482908905,
+              "theta_plus": -0.5676459233866329,
+              "theta_minus": -0.5676459233866329,
+              "angular_curvature": 1.2850083949794011
+            },
+            {
+              "radius": 0.9859758617362905,
+              "velocity": -0.02401442711234869,
+              "theta_plus": -0.0730679970300478,
+              "theta_minus": -0.07306799703004777,
+              "angular_curvature": 1.029242750165571
+            }
+          ],
+          "min_a": 0.4670264491153709,
+          "max_hamiltonian": 3.340737917487728e-07,
+          "max_momentum": 6.972329040033804e-07,
+          "max_gradient_defect": 7.633756551189697e-08
+        },
+        {
+          "t": 1.0,
+          "light_positions": [
+            1.1502536778751087,
+            2.5461075463933214
+          ],
+          "min_x": 0.3190680038802134,
+          "minimum": {
+            "radius": 0.8746831397744862,
+            "velocity": -0.21089887671180427,
+            "theta_plus": -0.7242674229390719,
+            "theta_minus": -0.7224201862414065,
+            "angular_curvature": 1.3652050810719398
+          },
+          "centers": [
+            {
+              "radius": 0.8762961444270743,
+              "velocity": -0.19999544442354592,
+              "theta_plus": -0.6846844381164213,
+              "theta_minus": -0.6846844381164213,
+              "angular_curvature": 1.3543495775942853
+            },
+            {
+              "radius": 0.9833569960090184,
+              "velocity": -0.028384415488551064,
+              "theta_plus": -0.08659443804360982,
+              "theta_minus": -0.08659443804360978,
+              "angular_curvature": 1.0349689853226964
+            }
+          ],
+          "min_a": 0.47254506078759234,
+          "max_hamiltonian": 3.258274423525389e-07,
+          "max_momentum": 6.983457022555647e-07,
+          "max_gradient_defect": 9.763310074989429e-08
+        },
+        {
+          "t": 1.1,
+          "light_positions": [
+            1.2043812878625053,
+            2.522933827806505
+          ],
+          "min_x": 0.3436116964863836,
+          "minimum": {
+            "radius": 0.8517593742247204,
+            "velocity": -0.24854354685041527,
+            "theta_plus": -0.8760581602079692,
+            "theta_minus": -0.8747429770966271,
+            "angular_curvature": 1.4635183938191423
+          },
+          "centers": [
+            {
+              "radius": 0.8544971016385011,
+              "velocity": -0.23717365911649296,
+              "theta_plus": -0.832678046520152,
+              "theta_minus": -0.832678046520152,
+              "angular_curvature": 1.446592092694656
+            },
+            {
+              "radius": 0.9802906365143728,
+              "velocity": -0.03300311844591703,
+              "theta_plus": -0.10100000107090634,
+              "theta_minus": -0.1010000010709063,
+              "angular_curvature": 1.041748946352688
+            }
+          ],
+          "min_a": 0.4925845627582664,
+          "max_hamiltonian": 2.946830243748379e-07,
+          "max_momentum": 6.597307930442984e-07,
+          "max_gradient_defect": 1.1301825611487182e-07
+        },
+        {
+          "t": 1.2000000000000002,
+          "light_positions": [
+            1.2493317364545025,
+            2.5028663863105325
+          ],
+          "min_x": 0.35588354278946877,
+          "minimum": {
+            "radius": 0.8247003601233476,
+            "velocity": -0.2941194329964837,
+            "theta_plus": -1.070956689018877,
+            "theta_minus": -1.0688709178406126,
+            "angular_curvature": 1.5974961639801832
+          },
+          "centers": [
+            {
+              "radius": 0.8285939071680237,
+              "velocity": -0.2824074650678465,
+              "theta_plus": -1.0224820480507566,
+              "theta_minus": -1.0224820480507566,
+              "angular_curvature": 1.572683538688123
+            },
+            {
+              "radius": 0.9767409139429557,
+              "velocity": -0.03808482119777509,
+              "theta_plus": -0.1169751998327758,
+              "theta_minus": -0.11697519983277574,
+              "angular_curvature": 1.0497133192107762
+            }
+          ],
+          "min_a": 0.529235803217412,
+          "max_hamiltonian": 2.570923973333937e-07,
+          "max_momentum": 6.000449273271075e-07,
+          "max_gradient_defect": 1.2332328814396165e-07
+        },
+        {
+          "t": 1.3000000000000003,
+          "light_positions": [
+            1.2868260075608293,
+            2.485493076465552
+          ],
+          "min_x": 5.915029918087033,
+          "minimum": {
+            "radius": 0.7925606116364285,
+            "velocity": -0.3507657373372695,
+            "theta_plus": -1.3277542784725236,
+            "theta_minus": -1.3276822813612852,
+            "angular_curvature": 1.7878411988125738
+          },
+          "centers": [
+            {
+              "radius": 0.7976649698588147,
+              "velocity": -0.33820710887376626,
+              "theta_plus": -1.2719893250431757,
+              "theta_minus": -1.2719893250431757,
+              "angular_curvature": 1.7514342843488184
+            },
+            {
+              "radius": 0.9726518672092699,
+              "velocity": -0.04382051220831173,
+              "theta_plus": -0.13515785149533954,
+              "theta_minus": -0.1351578514953395,
+              "angular_curvature": 1.0590544736346095
+            }
+          ],
+          "min_a": 0.5858940665713442,
+          "max_hamiltonian": 2.1170449842416015e-07,
+          "max_momentum": 5.277910732770943e-07,
+          "max_gradient_defect": 1.2925527503176992e-07
+        },
+        {
+          "t": 1.4000000000000001,
+          "light_positions": [
+            1.3181421787311487,
+            2.4704687671495664
+          ],
+          "min_x": 5.915029918087033,
+          "minimum": {
+            "radius": 0.7540372998355729,
+            "velocity": -0.42275231650138434,
+            "theta_plus": -1.6804433194683155,
+            "theta_minus": -1.6834670594498418,
+            "angular_curvature": 2.0731215384718897
+          },
+          "centers": [
+            {
+              "radius": 0.7604706295270482,
+              "velocity": -0.40854232938553,
+              "theta_plus": -1.6116690646144107,
+              "theta_minus": -1.6116690646144107,
+              "angular_curvature": 2.01776828869478
+            },
+            {
+              "radius": 0.9679488345516658,
+              "velocity": -0.05039580562524336,
+              "theta_plus": -0.1561936039168403,
+              "theta_minus": -0.15619360391684028,
+              "angular_curvature": 1.070032067320987
+            }
+          ],
+          "min_a": 0.6681107951103,
+          "max_hamiltonian": 1.7219308089997765e-07,
+          "max_momentum": 4.57079306339703e-07,
+          "max_gradient_defect": 1.3659330338339215e-07
+        },
+        {
+          "t": 1.5000000000000002,
+          "light_positions": [
+            1.3442706357311955,
+            2.457499534174254
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.7072624872049049,
+            "velocity": -0.5172931999951422,
+            "theta_plus": -2.1926167599479243,
+            "theta_minus": -2.195795259805707,
+            "angular_curvature": 2.5340680943802694
+          },
+          "centers": [
+            {
+              "radius": 0.7152600179145859,
+              "velocity": -0.4999282380707241,
+              "theta_plus": -2.096838459648491,
+              "theta_minus": -2.096838459648491,
+              "angular_curvature": 2.4431896670362887
+            },
+            {
+              "radius": 0.9625382685715186,
+              "velocity": -0.058004914175467194,
+              "theta_plus": -0.1807873496652273,
+              "theta_minus": -0.18078734966522728,
+              "angular_curvature": 1.082985772353553
+            }
+          ],
+          "min_a": 0.7853457573938085,
+          "max_hamiltonian": 1.3457348549899506e-07,
+          "max_momentum": 3.9270508591299213e-07,
+          "max_gradient_defect": 1.428260201913334e-07
+        },
+        {
+          "t": 1.6,
+          "light_positions": [
+            1.3659999287603868,
+            2.4463317023263684
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.6494199412693049,
+            "velocity": -0.6470046874640186,
+            "theta_plus": -2.987639070895971,
+            "theta_minus": -2.9900463651203704,
+            "angular_curvature": 3.3636694189357703
+          },
+          "centers": [
+            {
+              "radius": 0.6594080004574574,
+              "velocity": -0.6239778044818667,
+              "theta_plus": -2.8388090713897403,
+              "theta_minus": -2.8388090713897403,
+              "angular_curvature": 3.195234303576471
+            },
+            {
+              "radius": 0.9563062644431073,
+              "velocity": -0.06686271974600577,
+              "theta_plus": -0.20975305369857355,
+              "theta_minus": -0.20975305369857344,
+              "angular_curvature": 1.0983562825140192
+            }
+          ],
+          "min_a": 0.9550389421076929,
+          "max_hamiltonian": 1.0188534301832155e-07,
+          "max_momentum": 3.431495720126429e-07,
+          "max_gradient_defect": 1.4832229070643743e-07
+        },
+        {
+          "t": 1.7000000000000002,
+          "light_positions": [
+            1.3839680119377786,
+            2.436744729249735
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.5758386826658971,
+            "velocity": -0.8385741620107868,
+            "theta_plus": -4.3676404594094755,
+            "theta_minus": -4.369954154365328,
+            "angular_curvature": 5.136480617305786
+          },
+          "centers": [
+            {
+              "radius": 0.5886191413154024,
+              "velocity": -0.8043737902598219,
+              "theta_plus": -4.0996311560422605,
+              "theta_minus": -4.0996311560422605,
+              "angular_curvature": 4.7536737410532135
+            },
+            {
+              "radius": 0.9491159051791425,
+              "velocity": -0.07721661853510382,
+              "theta_plus": -0.2440690903410668,
+              "theta_minus": -0.24406909034106672,
+              "angular_curvature": 1.1167173107011226
+            }
+          ],
+          "min_a": 1.2138700517780967,
+          "max_hamiltonian": 7.558752808796077e-08,
+          "max_momentum": 3.6116453314756533e-07,
+          "max_gradient_defect": 1.539908009023927e-07
+        },
+        {
+          "t": 1.8000000000000003,
+          "light_positions": [
+            1.3986939031327927,
+            2.4285458669993
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.47743830173906987,
+            "velocity": -1.1630417179994512,
+            "theta_plus": -7.306536690958468,
+            "theta_minus": -7.30948863122121,
+            "angular_curvature": 10.321094624468223
+          },
+          "centers": [
+            {
+              "radius": 0.49477184017867676,
+              "velocity": -1.1014584266098122,
+              "theta_plus": -6.6785839683926405,
+              "theta_minus": -6.6785839683926405,
+              "angular_curvature": 9.040923753494438
+            },
+            {
+              "radius": 0.9408033712221,
+              "velocity": -0.08935963747661275,
+              "theta_plus": -0.2849468025200683,
+              "theta_minus": -0.28494680252006827,
+              "angular_curvature": 1.1388234513242255
+            }
+          ],
+          "min_a": 1.6588681397203808,
+          "max_hamiltonian": 5.384829511500846e-08,
+          "max_momentum": 4.811307491802371e-07,
+          "max_gradient_defect": 1.6214434962052993e-07
+        },
+        {
+          "t": 1.9000000000000001,
+          "light_positions": [
+            1.410597884074733,
+            2.4215664578080585
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.3297392810270968,
+            "velocity": -1.9377367118024011,
+            "theta_plus": -17.627109887219394,
+            "theta_minus": -17.63232367071024,
+            "angular_curvature": 43.73136421628071
+          },
+          "centers": [
+            {
+              "radius": 0.3574087595413978,
+              "velocity": -1.7561118499648931,
+              "theta_plus": -14.740364944201826,
+              "theta_minus": -14.740364944201826,
+              "angular_curvature": 31.970378700021616
+            },
+            {
+              "radius": 0.9311726098562509,
+              "velocity": -0.10364640972690414,
+              "theta_plus": -0.33392222439694985,
+              "theta_minus": -0.33392222439694974,
+              "angular_curvature": 1.1656822281718344
+            }
+          ],
+          "min_a": 2.7078613732376295,
+          "max_hamiltonian": 3.613424496298526e-08,
+          "max_momentum": 8.876670840054695e-07,
+          "max_gradient_defect": 1.812629029235291e-07
+        },
+        {
+          "t": 1.9733204248524074,
+          "light_positions": [
+            1.4177284358868674,
+            2.417138027502586
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.09999999999859187,
+            "velocity": -7.092489646134309,
+            "theta_plus": -212.7639466021888,
+            "theta_minus": -212.78543217186206,
+            "angular_curvature": 5130.3409253736745
+          },
+          "centers": [
+            {
+              "radius": 0.17525757152378588,
+              "velocity": -3.9785793676549472,
+              "theta_plus": -68.10397975499123,
+              "theta_minus": -68.10397975499123,
+              "angular_curvature": 547.9073817514135
+            },
+            {
+              "radius": 0.9231391842919091,
+              "velocity": -0.1157327430021687,
+              "theta_plus": -0.37610604653600893,
+              "theta_minus": -0.3761060465360089,
+              "angular_curvature": 1.189170114282413
+            }
+          ],
+          "min_a": 7.842595035593196,
+          "max_hamiltonian": 3.5885103010562345e-08,
+          "max_momentum": 2.2677957920922424e-05,
+          "max_gradient_defect": 2.249554853714364e-07
+        }
+      ],
+      "center_comparison_time": 2.058608723592716,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 512,
+      "amplitude": 0.05,
+      "length": 6.283185307179586,
+      "cut": 0.3,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.05,
+            "theta_plus": -0.15306122448979595,
+            "theta_minus": -0.15306122448979595,
+            "angular_curvature": 1.0438359017076217
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.05,
+              "theta_plus": -0.15306122448979595,
+              "theta_minus": -0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.05,
+              "theta_plus": 0.15306122448979595,
+              "theta_minus": 0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.4174914064655515e-16,
+          "max_momentum": 1.8828906766428027e-08,
+          "max_gradient_defect": 3.0156370313135567e-15
+        },
+        {
+          "t": 1.9145060919414356,
+          "light_positions": [
+            1.412111131016106,
+            2.4206463012733526
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.2999999999993956,
+            "velocity": -2.1738133237934045,
+            "theta_plus": -21.73515964893281,
+            "theta_minus": -21.741106827022872,
+            "angular_curvature": 63.61626975891645
+          },
+          "centers": [
+            {
+              "radius": 0.3306701616932249,
+              "velocity": -1.937620004750012,
+              "theta_plus": -17.57902794883212,
+              "theta_minus": -17.57902794883212,
+              "angular_curvature": 43.48135591182304
+            },
+            {
+              "radius": 0.9296526696947809,
+              "velocity": -0.10592160999793558,
+              "theta_plus": -0.34181026995612646,
+              "theta_minus": -0.34181026995612646,
+              "angular_curvature": 1.1700487200796417
+            }
+          ],
+          "min_a": 3.017953229747118,
+          "max_hamiltonian": 3.3973695213863705e-08,
+          "max_momentum": 1.0376481091996581e-06,
+          "max_gradient_defect": 1.8650191770802627e-07
+        }
+      ],
+      "center_comparison_time": 2.058608723592716,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 512,
+      "amplitude": 0.05,
+      "length": 6.283185307179586,
+      "cut": 0.2,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.05,
+            "theta_plus": -0.15306122448979595,
+            "theta_minus": -0.15306122448979595,
+            "angular_curvature": 1.0438359017076217
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.05,
+              "theta_plus": -0.15306122448979595,
+              "theta_minus": -0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.05,
+              "theta_plus": 0.15306122448979595,
+              "theta_minus": 0.15306122448979595,
+              "angular_curvature": 1.0438359017076217
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.4174914064655515e-16,
+          "max_momentum": 1.8828906766428027e-08,
+          "max_gradient_defect": 3.0156370313135567e-15
+        },
+        {
+          "t": 1.9518385008938264,
+          "light_positions": [
+            1.4157712757584473,
+            2.418378958549404
+          ],
+          "min_x": 0.380427235395639,
+          "minimum": {
+            "radius": 0.19999999999945267,
+            "velocity": -3.4377231255594367,
+            "theta_plus": -51.56087994146987,
+            "theta_minus": -51.570813825595465,
+            "angular_curvature": 320.4485044607393
+          },
+          "centers": [
+            {
+              "radius": 0.24537248005056964,
+              "velocity": -2.7542688883863313,
+              "theta_plus": -33.67454517905221,
+              "theta_minus": -33.67454517905221,
+              "angular_curvature": 142.60640539752058
+            },
+            {
+              "radius": 0.9255854060345156,
+              "velocity": -0.11203653212168672,
+              "theta_plus": -0.3631319100039121,
+              "theta_minus": -0.3631319100039121,
+              "angular_curvature": 1.181910030154323
+            }
+          ],
+          "min_a": 4.574112174195069,
+          "max_hamiltonian": 2.852665298332729e-08,
+          "max_momentum": 2.0151549195516296e-06,
+          "max_gradient_defect": 2.0755802521837952e-07
+        }
+      ],
+      "center_comparison_time": 2.058608723592716,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 256,
+      "amplitude": 0.0,
+      "length": 6.283185307179586,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.0,
+            "theta_plus": 0.0,
+            "theta_minus": -0.0,
+            "angular_curvature": 1.0412328196584757
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.0,
+              "theta_plus": 0.0,
+              "theta_minus": -0.0,
+              "angular_curvature": 1.0412328196584757
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.0,
+              "theta_plus": 0.0,
+              "theta_minus": 0.0,
+              "angular_curvature": 1.0412328196584757
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.914865152954572e-18,
+          "max_momentum": 0.0,
+          "max_gradient_defect": 1.5078185156567784e-15
+        },
+        {
+          "t": 2.440471192511126,
+          "light_positions": [
+            1.0223355356636226,
+            2.119257117926171
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.0999999999997241,
+            "velocity": -7.0211673581728755,
+            "theta_plus": -210.6350207457674,
+            "theta_minus": -210.6350207457674,
+            "angular_curvature": 5029.679107174981
+          },
+          "centers": [
+            {
+              "radius": 0.0999999999997241,
+              "velocity": -7.0211673581728755,
+              "theta_plus": -210.6350207457674,
+              "theta_minus": -210.6350207457674,
+              "angular_curvature": 5029.679107174981
+            },
+            {
+              "radius": 0.0999999999997241,
+              "velocity": -7.0211673581728755,
+              "theta_plus": -210.6350207457674,
+              "theta_minus": -210.6350207457674,
+              "angular_curvature": 5029.679107174981
+            }
+          ],
+          "min_a": 149.90850863307514,
+          "max_hamiltonian": 3.584428068663533e-08,
+          "max_momentum": 2.903896849125511e-17,
+          "max_gradient_defect": 1.0008356321696105e-18
+        }
+      ],
+      "center_comparison_time": 2.7730472786280185,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 256,
+      "amplitude": 0.025,
+      "length": 6.283185307179586,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.025,
+            "theta_plus": -0.07653061224489797,
+            "theta_minus": -0.07653061224489797,
+            "angular_curvature": 1.0418835901707624
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.025,
+              "theta_plus": -0.07653061224489797,
+              "theta_minus": -0.07653061224489797,
+              "angular_curvature": 1.0418835901707624
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.025,
+              "theta_plus": 0.07653061224489797,
+              "theta_minus": 0.07653061224489797,
+              "angular_curvature": 1.0418835901707624
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.2174308411884646e-16,
+          "max_momentum": 1.5836803350304267e-07,
+          "max_gradient_defect": 1.5078185156567784e-15
+        },
+        {
+          "t": 2.1942422401294857,
+          "light_positions": [
+            1.231174070902234,
+            2.296949783095926
+          ],
+          "min_x": 0.2945243112740431,
+          "minimum": {
+            "radius": 0.09999999999874726,
+            "velocity": -7.044780650362881,
+            "theta_plus": -211.3378155247442,
+            "theta_minus": -211.34902350232383,
+            "angular_curvature": 5062.893437810166
+          },
+          "centers": [
+            {
+              "radius": 0.11725465439764117,
+              "velocity": -5.986896185010056,
+              "theta_plus": -153.17676425978604,
+              "theta_minus": -153.17676425978604,
+              "angular_curvature": 2679.7478494464162
+            },
+            {
+              "radius": 0.7481257959044533,
+              "velocity": -0.4186158964357913,
+              "theta_plus": -1.6786584504670177,
+              "theta_minus": -1.6786584504670177,
+              "angular_curvature": 2.0997956646616807
+            }
+          ],
+          "min_a": 13.746176813965073,
+          "max_hamiltonian": 3.542035792830448e-08,
+          "max_momentum": 4.3548426725326946e-05,
+          "max_gradient_defect": 2.629152557960708e-07
+        }
+      ],
+      "center_comparison_time": 2.328783042246408,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "radius_cutoff"
+    },
+    {
+      "n": 256,
+      "amplitude": 0.1,
+      "length": 6.283185307179586,
+      "cut": 0.1,
+      "frames": [
+        {
+          "t": 0.0,
+          "light_positions": [
+            0.0,
+            3.141592653589793
+          ],
+          "min_x": 0.0,
+          "minimum": {
+            "radius": 0.98,
+            "velocity": -0.1,
+            "theta_plus": -0.3061224489795919,
+            "theta_minus": -0.3061224489795919,
+            "angular_curvature": 1.0516451478550606
+          },
+          "centers": [
+            {
+              "radius": 0.98,
+              "velocity": -0.1,
+              "theta_plus": -0.3061224489795919,
+              "theta_minus": -0.3061224489795919,
+              "angular_curvature": 1.0516451478550606
+            },
+            {
+              "radius": 0.98,
+              "velocity": 0.1,
+              "theta_plus": 0.3061224489795919,
+              "theta_minus": 0.3061224489795919,
+              "angular_curvature": 1.0516451478550606
+            }
+          ],
+          "min_a": 1.0,
+          "max_hamiltonian": 1.0523760024837354e-16,
+          "max_momentum": 5.454753789360416e-07,
+          "max_gradient_defect": 1.5078185156567784e-15
+        },
+        {
+          "t": 0.4311491880433949,
+          "light_positions": [
+            0.8398493272978347,
+            2.7959904447220145
+          ],
+          "min_x": 0.07363107781851078,
+          "minimum": {
+            "radius": 0.9276895199655348,
+            "velocity": -0.15320648967646866,
+            "theta_plus": -0.49521636209600534,
+            "theta_minus": -0.49567435971894325,
+            "angular_curvature": 1.1892434270392784
+          },
+          "centers": [
+            {
+              "radius": 0.9277003156605306,
+              "velocity": -0.15293829705618947,
+              "theta_plus": -0.494572313303449,
+              "theta_minus": -0.494572313303449,
+              "angular_curvature": 1.189120352279818
+            },
+            {
+              "radius": 1.00948536162697,
+              "velocity": 0.03515565529799639,
+              "theta_plus": 0.10447597350397429,
+              "theta_minus": 0.10447597350397421,
+              "angular_curvature": 0.98250862257643
+            }
+          ],
+          "min_a": 0.03999999999979862,
+          "max_hamiltonian": 0.00028336320165570935,
+          "max_momentum": 0.00036040938884485704,
+          "max_gradient_defect": 2.6972974036018615e-05
+        }
+      ],
+      "center_comparison_time": 1.7129072724499446,
+      "center_signal_arrivals": [
+        null,
+        null
+      ],
+      "stop": "caustic_guard"
+    }
+  ],
+  "cross_gauge": [
+    {
+      "n": 128,
+      "conformal_t": 0.6,
+      "radius_discrepancies": [
+        2.6041236422802427e-07,
+        2.4698789082844286e-06
+      ]
+    },
+    {
+      "n": 256,
+      "conformal_t": 0.6,
+      "radius_discrepancies": [
+        1.6943774716615678e-08,
+        1.5506562645040134e-07
+      ]
+    },
+    {
+      "n": 512,
+      "conformal_t": 0.6,
+      "radius_discrepancies": [
+        1.0690035523452934e-09,
+        9.700525382960734e-09
+      ]
+    }
+  ]
+}
