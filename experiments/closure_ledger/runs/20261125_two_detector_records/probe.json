@@ -1,0 +1,1400 @@
+{
+  "pulse_energy": 1.542845828599292,
+  "read_time": 24.0,
+  "barrier": 1.0546875,
+  "written_minimum": 1.0,
+  "runs": {
+    "primary": {
+      "mu": 0.25,
+      "ready_energy_parameter": 0.02,
+      "count_per_angle": 512,
+      "seed": 363,
+      "dt": 0.025,
+      "rows": [
+        {
+          "counts": {
+            "neither": 22,
+            "right_only": 490,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            6.510993351624653e-13,
+            1.0000000000000993
+          ],
+          "outgoing_energy_mean": 0.6041572823073972,
+          "mean_position": [
+            0.9570312460191995,
+            3.732301224401468e-09
+          ],
+          "theta": 0.0,
+          "right_incident_fraction": 0.9999323321390088,
+          "right_only_probability": 0.95703125,
+          "target": 1.0
+        },
+        {
+          "counts": {
+            "neither": 153,
+            "right_only": 359,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7697546581988752e-13,
+            1.0000000000001907
+          ],
+          "outgoing_energy_mean": 0.8600169495912858,
+          "mean_position": [
+            0.7011718990583516,
+            -2.4181117261753166e-08
+          ],
+          "theta": 0.19634954084936207,
+          "right_incident_fraction": 0.9618772493038695,
+          "right_only_probability": 0.701171875,
+          "target": 0.9619397662556434
+        },
+        {
+          "counts": {
+            "neither": 508,
+            "right_only": 4,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7064869340659114e-13,
+            1.000000000000012
+          ],
+          "outgoing_energy_mean": 1.5533772294342536,
+          "mean_position": [
+            0.0078124527261807485,
+            4.723629300819653e-08
+          ],
+          "theta": 0.39269908169872414,
+          "right_incident_fraction": 0.8535055421899074,
+          "right_only_probability": 0.0078125,
+          "target": 0.8535533905932737
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            4.684756902767795e-14,
+            2.2605620785548379e-13
+          ],
+          "outgoing_energy_mean": 1.5611900559673448,
+          "mean_position": [
+            5.855843484331994e-09,
+            -5.942734624658568e-09
+          ],
+          "theta": 0.5890486225480862,
+          "right_incident_fraction": 0.691315820813251,
+          "right_only_probability": 0.0,
+          "target": 0.6913417161825449
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            6.259314341497392e-19,
+            6.675437299180138e-15
+          ],
+          "outgoing_energy_mean": 1.5611913540721085,
+          "mean_position": [
+            -6.347371631690856e-11,
+            -6.34737163206014e-11
+          ],
+          "theta": 0.7853981633974483,
+          "right_incident_fraction": 0.5000000000000121,
+          "right_only_probability": 0.0,
+          "target": 0.5000000000000001
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            4.684756902766514e-14,
+            2.2605620785543562e-13
+          ],
+          "outgoing_energy_mean": 1.5611900559673448,
+          "mean_position": [
+            -5.942734624664639e-09,
+            5.8558434843380425e-09
+          ],
+          "theta": 0.9817477042468103,
+          "right_incident_fraction": 0.30868417918677116,
+          "right_only_probability": 0.0,
+          "target": 0.3086582838174552
+        },
+        {
+          "counts": {
+            "neither": 508,
+            "right_only": 0,
+            "left_only": 4,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7064869340660295e-13,
+            1.000000000000012
+          ],
+          "outgoing_energy_mean": 1.5533772294342536,
+          "mean_position": [
+            4.723629300628273e-08,
+            0.00781245272618076
+          ],
+          "theta": 1.1780972450961724,
+          "right_incident_fraction": 0.1464944578101101,
+          "right_only_probability": 0.0,
+          "target": 0.1464466094067263
+        },
+        {
+          "counts": {
+            "neither": 153,
+            "right_only": 0,
+            "left_only": 359,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7697546581988795e-13,
+            1.0000000000001907
+          ],
+          "outgoing_energy_mean": 0.8600169495912856,
+          "mean_position": [
+            -2.418111726204535e-08,
+            0.701171899058351
+          ],
+          "theta": 1.3744467859455345,
+          "right_incident_fraction": 0.038122750696139886,
+          "right_only_probability": 0.0,
+          "target": 0.038060233744356645
+        },
+        {
+          "counts": {
+            "neither": 22,
+            "right_only": 0,
+            "left_only": 490,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            6.510993351624653e-13,
+            1.0000000000000993
+          ],
+          "outgoing_energy_mean": 0.6041572823073972,
+          "mean_position": [
+            3.732301224349423e-09,
+            0.9570312460191994
+          ],
+          "theta": 1.5707963267948966,
+          "right_incident_fraction": 6.76678609912056e-05,
+          "right_only_probability": 0.0,
+          "target": 3.749399456654644e-33
+        }
+      ],
+      "max_budget_residual": 2.053724196526945e-06,
+      "max_born_error": 0.8457408905932737,
+      "max_error_from_mixer": 0.8456930421899074,
+      "all_exclusive": false,
+      "born_window": false
+    },
+    "refined": {
+      "mu": 0.25,
+      "ready_energy_parameter": 0.02,
+      "count_per_angle": 512,
+      "seed": 363,
+      "dt": 0.0125,
+      "rows": [
+        {
+          "counts": {
+            "neither": 22,
+            "right_only": 490,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            6.510708358130922e-13,
+            1.000000000000099
+          ],
+          "outgoing_energy_mean": 0.6041571528921206,
+          "mean_position": [
+            0.9570312460013269,
+            3.7502426193957294e-09
+          ],
+          "theta": 0.0,
+          "right_incident_fraction": 0.9999323321390088,
+          "right_only_probability": 0.95703125,
+          "target": 1.0
+        },
+        {
+          "counts": {
+            "neither": 153,
+            "right_only": 359,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7696713191645644e-13,
+            1.0000000000001874
+          ],
+          "outgoing_energy_mean": 0.8600165475895369,
+          "mean_position": [
+            0.701171899057387,
+            -2.417969715193601e-08
+          ],
+          "theta": 0.19634954084936207,
+          "right_incident_fraction": 0.9618772493038695,
+          "right_only_probability": 0.701171875,
+          "target": 0.9619397662556434
+        },
+        {
+          "counts": {
+            "neither": 508,
+            "right_only": 4,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7064027048538304e-13,
+            1.000000000000013
+          ],
+          "outgoing_energy_mean": 1.5533759838039556,
+          "mean_position": [
+            0.007812452726468116,
+            4.723600576101589e-08
+          ],
+          "theta": 0.39269908169872414,
+          "right_incident_fraction": 0.8535055421899074,
+          "right_only_probability": 0.0078125,
+          "target": 0.8535533905932737
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            4.6844945943157193e-14,
+            2.2604240649397846e-13
+          ],
+          "outgoing_energy_mean": 1.5611885049178116,
+          "mean_position": [
+            5.857425576929814e-09,
+            -5.9443112127288555e-09
+          ],
+          "theta": 0.5890486225480862,
+          "right_incident_fraction": 0.691315820813251,
+          "right_only_probability": 0.0,
+          "target": 0.6913417161825449
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            6.258888346916328e-19,
+            6.6750570848570984e-15
+          ],
+          "outgoing_energy_mean": 1.5611885927704177,
+          "mean_position": [
+            -6.346740381646634e-11,
+            -6.346740382016009e-11
+          ],
+          "theta": 0.7853981633974483,
+          "right_incident_fraction": 0.5000000000000121,
+          "right_only_probability": 0.0,
+          "target": 0.5000000000000001
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            4.6844945943144294e-14,
+            2.2604240649392951e-13
+          ],
+          "outgoing_energy_mean": 1.561188504917811,
+          "mean_position": [
+            -5.944311212734919e-09,
+            5.85742557693585e-09
+          ],
+          "theta": 0.9817477042468103,
+          "right_incident_fraction": 0.30868417918677116,
+          "right_only_probability": 0.0,
+          "target": 0.3086582838174552
+        },
+        {
+          "counts": {
+            "neither": 508,
+            "right_only": 0,
+            "left_only": 4,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7064027048539425e-13,
+            1.0000000000000109
+          ],
+          "outgoing_energy_mean": 1.5533759838039556,
+          "mean_position": [
+            4.723600575912835e-08,
+            0.007812452726468119
+          ],
+          "theta": 1.1780972450961724,
+          "right_incident_fraction": 0.1464944578101101,
+          "right_only_probability": 0.0,
+          "target": 0.1464466094067263
+        },
+        {
+          "counts": {
+            "neither": 153,
+            "right_only": 0,
+            "left_only": 359,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            1.7696713191645608e-13,
+            1.0000000000001874
+          ],
+          "outgoing_energy_mean": 0.860016547589537,
+          "mean_position": [
+            -2.4179697152259084e-08,
+            0.701171899057387
+          ],
+          "theta": 1.3744467859455345,
+          "right_incident_fraction": 0.038122750696139886,
+          "right_only_probability": 0.0,
+          "target": 0.038060233744356645
+        },
+        {
+          "counts": {
+            "neither": 22,
+            "right_only": 0,
+            "left_only": 490,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03890202005958784,
+          "final_energy_range": [
+            6.510708358130902e-13,
+            1.000000000000099
+          ],
+          "outgoing_energy_mean": 0.6041571528921206,
+          "mean_position": [
+            3.750242619386045e-09,
+            0.9570312460013263
+          ],
+          "theta": 1.5707963267948966,
+          "right_incident_fraction": 6.76678609912056e-05,
+          "right_only_probability": 0.0,
+          "target": 3.749399456654644e-33
+        }
+      ],
+      "max_budget_residual": 1.384245158093389e-07,
+      "max_born_error": 0.8457408905932737,
+      "max_error_from_mixer": 0.8456930421899074,
+      "all_exclusive": false,
+      "born_window": false
+    },
+    "uncoupled": {
+      "mu": 0.0,
+      "ready_energy_parameter": 0.02,
+      "count_per_angle": 512,
+      "seed": 363,
+      "dt": 0.025,
+      "rows": [
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 512,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            0.9999999999999989,
+            1.0000000000000013
+          ],
+          "outgoing_energy_mean": 0.5628530182707235,
+          "mean_position": [
+            1.00000000000575,
+            -6.044469243451865e-14
+          ],
+          "theta": 0.0,
+          "right_incident_fraction": 0.9999323321390088,
+          "right_only_probability": 1.0,
+          "target": 1.0
+        },
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 512,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            0.9999999999999989,
+            1.0000000000000013
+          ],
+          "outgoing_energy_mean": 0.5628530316374145,
+          "mean_position": [
+            1.0000000000185791,
+            -1.4848038573738237e-12
+          ],
+          "theta": 0.19634954084936207,
+          "right_incident_fraction": 0.9618772493038695,
+          "right_only_probability": 1.0,
+          "target": 0.9619397662556434
+        },
+        {
+          "counts": {
+            "neither": 385,
+            "right_only": 127,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            2.055283189268775e-19,
+            1.0000000000000013
+          ],
+          "outgoing_energy_mean": 1.314807183335843,
+          "mean_position": [
+            0.24804687503684364,
+            -6.811907646715068e-12
+          ],
+          "theta": 0.39269908169872414,
+          "right_incident_fraction": 0.8535055421899074,
+          "right_only_probability": 0.248046875,
+          "target": 0.8535533905932737
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            7.231048840368595e-20,
+            1.5163246961150548e-19
+          ],
+          "outgoing_energy_mean": 1.5628551588714226,
+          "mean_position": [
+            -3.539205303104964e-11,
+            -2.4544496013647237e-11
+          ],
+          "theta": 0.5890486225480862,
+          "right_incident_fraction": 0.691315820813251,
+          "right_only_probability": 0.0,
+          "target": 0.6913417161825449
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            8.615416368088438e-20,
+            1.0222724005744753e-19
+          ],
+          "outgoing_energy_mean": 1.562855852577238,
+          "mean_position": [
+            -6.328022147244112e-11,
+            -6.328022147243586e-11
+          ],
+          "theta": 0.7853981633974483,
+          "right_incident_fraction": 0.5000000000000121,
+          "right_only_probability": 0.0,
+          "target": 0.5000000000000001
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            7.231048840368713e-20,
+            1.516324696114619e-19
+          ],
+          "outgoing_energy_mean": 1.5628551588714223,
+          "mean_position": [
+            -2.454449601365068e-11,
+            -3.5392053031073546e-11
+          ],
+          "theta": 0.9817477042468103,
+          "right_incident_fraction": 0.30868417918677116,
+          "right_only_probability": 0.0,
+          "target": 0.3086582838174552
+        },
+        {
+          "counts": {
+            "neither": 385,
+            "right_only": 0,
+            "left_only": 127,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            2.055283189268769e-19,
+            1.0000000000000013
+          ],
+          "outgoing_energy_mean": 1.314807183335843,
+          "mean_position": [
+            -6.8119076467162736e-12,
+            0.24804687503684347
+          ],
+          "theta": 1.1780972450961724,
+          "right_incident_fraction": 0.1464944578101101,
+          "right_only_probability": 0.0,
+          "target": 0.1464466094067263
+        },
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 0,
+            "left_only": 512,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            0.9999999999999989,
+            1.0000000000000013
+          ],
+          "outgoing_energy_mean": 0.5628530316374143,
+          "mean_position": [
+            -1.4848038573741355e-12,
+            1.0000000000185794
+          ],
+          "theta": 1.3744467859455345,
+          "right_incident_fraction": 0.038122750696139886,
+          "right_only_probability": 0.0,
+          "target": 0.038060233744356645
+        },
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 0,
+            "left_only": 512,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03912497612614707,
+          "final_energy_range": [
+            0.9999999999999989,
+            1.0000000000000013
+          ],
+          "outgoing_energy_mean": 0.5628530182707235,
+          "mean_position": [
+            -6.044469243451542e-14,
+            1.0000000000057494
+          ],
+          "theta": 1.5707963267948966,
+          "right_incident_fraction": 6.76678609912056e-05,
+          "right_only_probability": 0.0,
+          "target": 3.749399456654644e-33
+        }
+      ],
+      "max_budget_residual": 2.060400393008141e-06,
+      "max_born_error": 0.6913417161825449,
+      "max_error_from_mixer": 0.691315820813251,
+      "all_exclusive": false,
+      "born_window": false
+    },
+    "broader": {
+      "mu": 0.25,
+      "ready_energy_parameter": 0.06,
+      "count_per_angle": 512,
+      "seed": 363,
+      "dt": 0.025,
+      "rows": [
+        {
+          "counts": {
+            "neither": 95,
+            "right_only": 417,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            1.8099622341368875e-13,
+            1.0000000000000588
+          ],
+          "outgoing_energy_mean": 0.7834641350004289,
+          "mean_position": [
+            0.8144531235196683,
+            2.1845715372985516e-09
+          ],
+          "theta": 0.0,
+          "right_incident_fraction": 0.9999323321390088,
+          "right_only_probability": 0.814453125,
+          "target": 1.0
+        },
+        {
+          "counts": {
+            "neither": 181,
+            "right_only": 331,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            1.7076826597836753e-13,
+            1.00000000000065
+          ],
+          "outgoing_energy_mean": 0.951433099741112,
+          "mean_position": [
+            0.6464843816868178,
+            -7.102592192354629e-09
+          ],
+          "theta": 0.19634954084936207,
+          "right_incident_fraction": 0.9618772493038695,
+          "right_only_probability": 0.646484375,
+          "target": 0.9619397662556434
+        },
+        {
+          "counts": {
+            "neither": 423,
+            "right_only": 89,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            1.1937647481701436e-13,
+            1.0000000000000089
+          ],
+          "outgoing_energy_mean": 1.424090011978671,
+          "mean_position": [
+            0.1738281112825839,
+            1.3696749626132437e-08
+          ],
+          "theta": 0.39269908169872414,
+          "right_incident_fraction": 0.8535055421899074,
+          "right_only_probability": 0.173828125,
+          "target": 0.8535533905932737
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            2.7125589017957452e-14,
+            3.380254682142246e-13
+          ],
+          "outgoing_energy_mean": 1.5979186855903107,
+          "mean_position": [
+            -3.7028241089471274e-09,
+            3.6328017697374797e-09
+          ],
+          "theta": 0.5890486225480862,
+          "right_incident_fraction": 0.691315820813251,
+          "right_only_probability": 0.0,
+          "target": 0.6913417161825449
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            1.880973382810744e-18,
+            2.433473490596856e-14
+          ],
+          "outgoing_energy_mean": 1.597919892115507,
+          "mean_position": [
+            -6.404435693423938e-11,
+            -6.404435693737459e-11
+          ],
+          "theta": 0.7853981633974483,
+          "right_incident_fraction": 0.5000000000000121,
+          "right_only_probability": 0.0,
+          "target": 0.5000000000000001
+        },
+        {
+          "counts": {
+            "neither": 512,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            2.7125589017947664e-14,
+            3.380254682142084e-13
+          ],
+          "outgoing_energy_mean": 1.5979186855903103,
+          "mean_position": [
+            3.632801769729292e-09,
+            -3.7028241089389557e-09
+          ],
+          "theta": 0.9817477042468103,
+          "right_incident_fraction": 0.30868417918677116,
+          "right_only_probability": 0.0,
+          "target": 0.3086582838174552
+        },
+        {
+          "counts": {
+            "neither": 423,
+            "right_only": 0,
+            "left_only": 89,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            1.1937647481700262e-13,
+            1.0000000000000089
+          ],
+          "outgoing_energy_mean": 1.424090011978671,
+          "mean_position": [
+            1.3696749642390184e-08,
+            0.17382811128258402
+          ],
+          "theta": 1.1780972450961724,
+          "right_incident_fraction": 0.1464944578101101,
+          "right_only_probability": 0.0,
+          "target": 0.1464466094067263
+        },
+        {
+          "counts": {
+            "neither": 181,
+            "right_only": 0,
+            "left_only": 331,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            1.707682659783687e-13,
+            1.0000000000006504
+          ],
+          "outgoing_energy_mean": 0.9514330997411118,
+          "mean_position": [
+            -7.1025921928847825e-09,
+            0.6464843816868187
+          ],
+          "theta": 1.3744467859455345,
+          "right_incident_fraction": 0.038122750696139886,
+          "right_only_probability": 0.0,
+          "target": 0.038060233744356645
+        },
+        {
+          "counts": {
+            "neither": 95,
+            "right_only": 0,
+            "left_only": 417,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.11668411717752879,
+          "final_energy_range": [
+            1.809962234136888e-13,
+            1.0000000000000588
+          ],
+          "outgoing_energy_mean": 0.7834641350004289,
+          "mean_position": [
+            2.184571537124485e-09,
+            0.8144531235196687
+          ],
+          "theta": 1.5707963267948966,
+          "right_incident_fraction": 6.76678609912056e-05,
+          "right_only_probability": 0.0,
+          "target": 3.749399456654644e-33
+        }
+      ],
+      "max_budget_residual": 2.1696019195722485e-06,
+      "max_born_error": 0.6913417161825449,
+      "max_error_from_mixer": 0.691315820813251,
+      "all_exclusive": false,
+      "born_window": false
+    },
+    "cold": {
+      "mu": 0.25,
+      "ready_energy_parameter": 0.0,
+      "count_per_angle": 1,
+      "seed": 363,
+      "dt": 0.025,
+      "rows": [
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 1,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            1.0000000000000004,
+            1.0000000000000004
+          ],
+          "outgoing_energy_mean": 0.5428459038407911,
+          "mean_position": [
+            0.9999999960665262,
+            3.0428908160276845e-10
+          ],
+          "theta": 0.0,
+          "right_incident_fraction": 0.9999323321390088,
+          "right_only_probability": 1.0,
+          "target": 1.0
+        },
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 1,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            1.000000000000001,
+            1.000000000000001
+          ],
+          "outgoing_energy_mean": 0.5428459818478996,
+          "mean_position": [
+            1.000000002463826,
+            2.4589096148699147e-10
+          ],
+          "theta": 0.19634954084936207,
+          "right_incident_fraction": 0.9618772493038695,
+          "right_only_probability": 1.0,
+          "target": 0.9619397662556434
+        },
+        {
+          "counts": {
+            "neither": 1,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            2.196805361875475e-13,
+            2.196805361875475e-13
+          ],
+          "outgoing_energy_mean": 1.5428472186266913,
+          "mean_position": [
+            -1.0867507149633549e-07,
+            1.087674331017943e-07
+          ],
+          "theta": 0.39269908169872414,
+          "right_incident_fraction": 0.8535055421899074,
+          "right_only_probability": 0.0,
+          "target": 0.8535533905932737
+        },
+        {
+          "counts": {
+            "neither": 1,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            1.0223415746127177e-13,
+            1.0223415746127177e-13
+          ],
+          "outgoing_energy_mean": 1.5428474554097653,
+          "mean_position": [
+            1.015020890940995e-08,
+            -1.024568228521505e-08
+          ],
+          "theta": 0.5890486225480862,
+          "right_incident_fraction": 0.691315820813251,
+          "right_only_probability": 0.0,
+          "target": 0.6913417161825449
+        },
+        {
+          "counts": {
+            "neither": 1,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            9.492300943157335e-20,
+            9.492300943157335e-20
+          ],
+          "outgoing_energy_mean": 1.5428487920226093,
+          "mean_position": [
+            -6.311109852996048e-11,
+            -6.311109853376242e-11
+          ],
+          "theta": 0.7853981633974483,
+          "right_incident_fraction": 0.5000000000000121,
+          "right_only_probability": 0.0,
+          "target": 0.5000000000000001
+        },
+        {
+          "counts": {
+            "neither": 1,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            1.0223415746124619e-13,
+            1.0223415746124619e-13
+          ],
+          "outgoing_energy_mean": 1.5428474554097646,
+          "mean_position": [
+            -1.0245682285219934e-08,
+            1.0150208909414824e-08
+          ],
+          "theta": 0.9817477042468103,
+          "right_incident_fraction": 0.30868417918677116,
+          "right_only_probability": 0.0,
+          "target": 0.3086582838174552
+        },
+        {
+          "counts": {
+            "neither": 1,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            2.1968053618759737e-13,
+            2.1968053618759737e-13
+          ],
+          "outgoing_energy_mean": 1.5428472186266893,
+          "mean_position": [
+            1.0876743310179711e-07,
+            -1.086750714963383e-07
+          ],
+          "theta": 1.1780972450961724,
+          "right_incident_fraction": 0.1464944578101101,
+          "right_only_probability": 0.0,
+          "target": 0.1464466094067263
+        },
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 0,
+            "left_only": 1,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            1.000000000000001,
+            1.000000000000001
+          ],
+          "outgoing_energy_mean": 0.542845981847898,
+          "mean_position": [
+            2.458909614952242e-10,
+            1.000000002463826
+          ],
+          "theta": 1.3744467859455345,
+          "right_incident_fraction": 0.038122750696139886,
+          "right_only_probability": 0.0,
+          "target": 0.038060233744356645
+        },
+        {
+          "counts": {
+            "neither": 0,
+            "right_only": 0,
+            "left_only": 1,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.0,
+          "final_energy_range": [
+            1.0000000000000004,
+            1.0000000000000004
+          ],
+          "outgoing_energy_mean": 0.5428459038407911,
+          "mean_position": [
+            3.042890816027709e-10,
+            0.9999999960665262
+          ],
+          "theta": 1.5707963267948966,
+          "right_incident_fraction": 6.76678609912056e-05,
+          "right_only_probability": 0.0,
+          "target": 3.749399456654644e-33
+        }
+      ],
+      "max_budget_residual": 1.916090187633953e-06,
+      "max_born_error": 0.8535533905932737,
+      "max_error_from_mixer": 0.8535055421899074,
+      "all_exclusive": false,
+      "born_window": false
+    },
+    "second_ensemble": {
+      "mu": 0.25,
+      "ready_energy_parameter": 0.02,
+      "count_per_angle": 1024,
+      "seed": 364,
+      "dt": 0.025,
+      "rows": [
+        {
+          "counts": {
+            "neither": 42,
+            "right_only": 982,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            6.686924363454017e-13,
+            1.000000000000032
+          ],
+          "outgoing_energy_mean": 0.6021970715717607,
+          "mean_position": [
+            0.9589843757436639,
+            -1.594475100018906e-09
+          ],
+          "theta": 0.0,
+          "right_incident_fraction": 0.9999323321390088,
+          "right_only_probability": 0.958984375,
+          "target": 1.0
+        },
+        {
+          "counts": {
+            "neither": 298,
+            "right_only": 726,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            1.7653748421192037e-13,
+            1.0000000000026685
+          ],
+          "outgoing_energy_mean": 0.8521973588097298,
+          "mean_position": [
+            0.7089843883838765,
+            -1.3485162699713668e-08
+          ],
+          "theta": 0.19634954084936207,
+          "right_incident_fraction": 0.9618772493038695,
+          "right_only_probability": 0.708984375,
+          "target": 0.9619397662556434
+        },
+        {
+          "counts": {
+            "neither": 1007,
+            "right_only": 17,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            1.7082918650262733e-13,
+            1.0000000000001699
+          ],
+          "outgoing_energy_mean": 1.5445810753286624,
+          "mean_position": [
+            0.01660151948808135,
+            4.307270335206498e-08
+          ],
+          "theta": 0.39269908169872414,
+          "right_incident_fraction": 0.8535055421899074,
+          "right_only_probability": 0.0166015625,
+          "target": 0.8535533905932737
+        },
+        {
+          "counts": {
+            "neither": 1024,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            4.519049857425274e-14,
+            2.3883338310077445e-13
+          ],
+          "outgoing_energy_mean": 1.5611829717649632,
+          "mean_position": [
+            5.877888819778706e-09,
+            -5.9648370458306476e-09
+          ],
+          "theta": 0.5890486225480862,
+          "right_incident_fraction": 0.691315820813251,
+          "right_only_probability": 0.0,
+          "target": 0.6913417161825449
+        },
+        {
+          "counts": {
+            "neither": 1024,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            1.5552073178489922e-19,
+            7.460656829941096e-15
+          ],
+          "outgoing_energy_mean": 1.5611842703580638,
+          "mean_position": [
+            -6.347143013468824e-11,
+            -6.347143013838446e-11
+          ],
+          "theta": 0.7853981633974483,
+          "right_incident_fraction": 0.5000000000000121,
+          "right_only_probability": 0.0,
+          "target": 0.5000000000000001
+        },
+        {
+          "counts": {
+            "neither": 1024,
+            "right_only": 0,
+            "left_only": 0,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            4.519049857423959e-14,
+            2.388333831007261e-13
+          ],
+          "outgoing_energy_mean": 1.561182971764963,
+          "mean_position": [
+            -5.964837045836687e-09,
+            5.8778888197847556e-09
+          ],
+          "theta": 0.9817477042468103,
+          "right_incident_fraction": 0.30868417918677116,
+          "right_only_probability": 0.0,
+          "target": 0.3086582838174552
+        },
+        {
+          "counts": {
+            "neither": 1007,
+            "right_only": 0,
+            "left_only": 17,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            1.708291865026422e-13,
+            1.0000000000001712
+          ],
+          "outgoing_energy_mean": 1.5445810753286624,
+          "mean_position": [
+            4.30727033521631e-08,
+            0.016601519488081373
+          ],
+          "theta": 1.1780972450961724,
+          "right_incident_fraction": 0.1464944578101101,
+          "right_only_probability": 0.0,
+          "target": 0.1464466094067263
+        },
+        {
+          "counts": {
+            "neither": 298,
+            "right_only": 0,
+            "left_only": 726,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            1.7653748421191293e-13,
+            1.000000000002669
+          ],
+          "outgoing_energy_mean": 0.8521973588097296,
+          "mean_position": [
+            -1.3485162697919156e-08,
+            0.7089843883838767
+          ],
+          "theta": 1.3744467859455345,
+          "right_incident_fraction": 0.038122750696139886,
+          "right_only_probability": 0.0,
+          "target": 0.038060233744356645
+        },
+        {
+          "counts": {
+            "neither": 42,
+            "right_only": 0,
+            "left_only": 982,
+            "both": 0,
+            "uncertified": 0
+          },
+          "initial_energy_max": 0.03809432217166656,
+          "final_energy_range": [
+            6.686924363454002e-13,
+            1.000000000000032
+          ],
+          "outgoing_energy_mean": 0.6021970715717607,
+          "mean_position": [
+            -1.5944750999977345e-09,
+            0.958984375743664
+          ],
+          "theta": 1.5707963267948966,
+          "right_incident_fraction": 6.76678609912056e-05,
+          "right_only_probability": 0.0,
+          "target": 3.749399456654644e-33
+        }
+      ],
+      "max_budget_residual": 2.0592805515697133e-06,
+      "max_born_error": 0.8369518280932737,
+      "max_error_from_mixer": 0.8369039796899074,
+      "all_exclusive": false,
+      "born_window": false
+    }
+  },
+  "controls": {
+    "dark": {
+      "counts": {
+        "neither": 1,
+        "right_only": 0,
+        "left_only": 0,
+        "both": 0,
+        "uncertified": 0
+      },
+      "initial_energy_max": 0.0,
+      "final_energy_range": [
+        0.0,
+        0.0
+      ],
+      "outgoing_energy_mean": 0.0,
+      "mean_position": [
+        0.0,
+        0.0
+      ]
+    },
+    "one_full": {
+      "counts": {
+        "neither": 0,
+        "right_only": 1,
+        "left_only": 0,
+        "both": 0,
+        "uncertified": 0
+      },
+      "initial_energy_max": 0.0,
+      "final_energy_range": [
+        1.0000000000000009,
+        1.0000000000000009
+      ],
+      "outgoing_energy_mean": 0.5428459347910654,
+      "mean_position": [
+        1.0000000000000013,
+        0.0
+      ]
+    },
+    "two_full": {
+      "counts": {
+        "neither": 0,
+        "right_only": 0,
+        "left_only": 0,
+        "both": 1,
+        "uncertified": 0
+      },
+      "initial_energy_max": 0.0,
+      "final_energy_range": [
+        2.0000000000000018,
+        2.0000000000000018
+      ],
+      "outgoing_energy_mean": 1.0856918695821307,
+      "mean_position": [
+        1.0000000000000013,
+        1.0000000000000013
+      ]
+    }
+  },
+  "control_budget_residual": 1.2833454858287706e-07,
+  "checks": {
+    "refined_counts_equal": true,
+    "individual_changes": 0,
+    "budget_pass": true,
+    "calibration_pass": true
+  }
+}
