@@ -4,6 +4,7 @@ on:
     paths:
       - 'experiments/closure_ledger/antipodal_network/expanding_detector_loop.py'
       - 'tests/test_expanding_detector_loop.py'
+      - 'experiments/closure_ledger/runs/20261125_expanding_loop/**'
       - '.github/workflows/expanding-detector-loop.yml'
 permissions:
   contents: read
@@ -47,8 +48,7 @@ jobs:
           followup = strong_rate_followup()
           for row in followup:
               print('FOLLOWUP', json.dumps(row))
-          if (archive/'strong_rate.json').exists():
-              replay(followup, json.loads((archive/'strong_rate.json').read_text()))
+          replay(followup, json.loads((archive/'strong_rate.json').read_text()))
           for row in r.pop('rows'):
               print('MEASUREMENT', json.dumps(row))
           print('SUMMARY', json.dumps(r))
