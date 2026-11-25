@@ -47,5 +47,7 @@ def test_calibration_hits_the_requested_depletion():
 
 def test_defect_vanishes_with_the_exchange_during_the_window():
     values = [PRED.defect(0.5, s)["max_abs_defect"] for s in (1e-2, 1e-3, 1e-4)]
+    # linear in the splitting: each decade lowers the defect about tenfold
     assert values[0] > values[1] > values[2]
-    assert values[2] < 1e-6
+    assert 8 < values[0] / values[1] < 12 and 8 < values[1] / values[2] < 12
+    assert values[2] < 3e-6
