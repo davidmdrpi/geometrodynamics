@@ -1,5 +1,6 @@
 """J-equivariant 5D Einstein-Lambda loop with round three-sphere orbits."""
 import json
+from functools import partial
 
 import numpy as np
 
@@ -72,30 +73,35 @@ def pulse_profile(n,length):
     return f,df
 
 
-def initial(n, amplitude, radius=.98, length=2*np.pi):
+def initial(n, amplitude, radius=.98, length=2*np.pi, charge=0.):
     f,df = pulse_profile(n,length)
     u = -amplitude*f**3
-    p = np.sqrt(6*(1/radius**2-1))
+    p_squared = 6*(1/radius**2-1-charge**2/radius**6)
+    if p_squared <= 0:
+        raise ValueError("packet preparation requires positive scalar kinetic energy")
+    p = np.sqrt(p_squared)
     field = -3*u/(radius*p)
     # Smooth extension of U_x²/U at the zeros of U.
     longitudinal = -u/radius-27*amplitude*f*df**2/(2*p*p*radius)
     return np.array([np.full(n,radius),np.zeros(n),field,u,longitudinal,np.full(n,p)])
 
 
-def sources(y, dx):
+def sources(y, dx, charge=0.):
     r,s,phi,v,h,p = y
     first,second = gradients(y[:3],dx)
     rx,sx,px = first
     a2 = np.exp(2*s)
     wave_r = 2*a2*r-2*(a2+v*v-rx*rx)/r
-    wave_s = 2*a2-1.5*wave_r/r-(p*p-px*px)/2
+    flux_term = a2*charge**2/r**6
+    wave_r += 2*r*flux_term
+    wave_s = 2*a2-1.5*wave_r/r-(p*p-px*px)/2-4*flux_term
     wave_phi = -3*(v*p-rx*px)/r
     acc = second+np.array([wave_r,wave_s,wave_phi])
     return first, second, acc
 
 
-def rhs(y,dx):
-    return np.concatenate((y[3:],sources(y,dx)[2]))
+def rhs(y,dx,charge=0.):
+    return np.concatenate((y[3:],sources(y,dx,charge)[2]))
 
 
 def rk4(y,dx,dt,equations,clock_rate=None):
@@ -120,9 +126,9 @@ def periodic_sample(arr,position,dx):
     return float(arr[j]+(pos-j)*(arr[(j+1)%len(arr)]-arr[j]))
 
 
-def measure(y,dx,t):
+def measure(y,dx,t,charge=0.):
     r,s,_,v,h,p = y
-    first,second,acc = sources(y,dx)
+    first,second,acc = sources(y,dx,charge)
     rx,sx,px = first
     vx = gradients(v,dx)[0]
     errors = []
@@ -145,13 +151,14 @@ def measure(y,dx,t):
                 centers=[point(0),point(len(r)//2)], null_constraint=max(errors), ray=ray)
 
 
-def evolve(n, amplitude, cut=.2):
+def evolve(n, amplitude, cut=.2, charge=0.):
     dx = 2*np.pi/n
-    y = initial(n,amplitude)
+    y = initial(n,amplitude,charge=charge)
+    equations = partial(rhs,charge=charge)
     t = 0.
     clocks = np.zeros(3)
     def frame():
-        return dict(measure(y,dx,t), center_proper_times=clocks[:2].tolist(),ray_affine=float(clocks[2]))
+        return dict(measure(y,dx,t,charge), center_proper_times=clocks[:2].tolist(),ray_affine=float(clocks[2]))
     frames = [frame()]
     # Fixed conformal-coordinate frames for comparing refinement, plus events.
     checkpoints = iter(np.arange(.1,2.51,.1))
@@ -163,7 +170,7 @@ def evolve(n, amplitude, cut=.2):
         def rates(stage,fraction):
             return np.array([np.exp(stage[1,0]),np.exp(stage[1,n//2]),
                              periodic_sample(np.exp(2*stage[1]),t+fraction*dt,dx)])
-        new,elapsed = rk4(y,dx,dt,rhs,rates)
+        new,elapsed = rk4(y,dx,dt,equations,rates)
         if not np.all(np.isfinite(new)):
             raise FloatingPointError("nonfinite before declared stopping surface")
         def reached(z):
@@ -173,22 +180,22 @@ def evolve(n, amplitude, cut=.2):
             lo,hi = 0.,dt
             for _ in range(30):
                 m = (lo+hi)/2
-                if reached(rk4(y,dx,m,rhs)):
+                if reached(rk4(y,dx,m,equations)):
                     hi = m
                 else:
                     lo = m
             dt = hi
-            new,elapsed = rk4(y,dx,dt,rhs,rates)
+            new,elapsed = rk4(y,dx,dt,equations,rates)
         i = n//2
         if turning is None and y[3,i]>0>=new[3,i]:
             lo,hi = 0.,dt
             for _ in range(25):
                 m = (lo+hi)/2
-                if rk4(y,dx,m,rhs)[3,i]>0:
+                if rk4(y,dx,m,equations)[3,i]>0:
                     lo=m
                 else:
                     hi=m
-            turning = dict(t=float(t+hi),r=float(rk4(y,dx,hi,rhs)[0,i]))
+            turning = dict(t=float(t+hi),r=float(rk4(y,dx,hi,equations)[0,i]))
         clocks += elapsed
         y,t = new,t+dt
         if stop or abs(t-target)<1e-12:
@@ -204,18 +211,22 @@ def evolve(n, amplitude, cut=.2):
                 frames=frames)
 
 
-def gaussian_rhs(y,dx):
+def gaussian_rhs(y,dx,charge=0.):
     """Synchronous proper time; evolve radial gradient via momentum constraint."""
     r,a,u,h,w,p,f = y
     px,fx = gradients(y[5:],dx)[0]
     acc = r-(1+u*u-w*w)/r-r*(p*p+f*f)/6
-    return np.array([u,a*h,acc,2-p*p-3*acc/r-h*h,-r*p*f/3,
+    flux = charge**2/r**6
+    acc += r*flux
+    return np.array([u,a*h,acc,2-p*p-3*acc/r-h*h-4*flux,-r*p*f/3,
                      fx/a + 3*w*f/r-(h+3*u/r)*p,px/a-h*f])
 
 
-def gaussian(n, amplitude=.05, cut=.2, compare_at=(), length=2*np.pi):
+def gaussian(n, amplitude=.05, cut=.2, compare_at=(), length=2*np.pi, charge=0.):
     dx = length/n
-    r,s,field,u,h,p = initial(n,amplitude,length=length)
+    r,s,field,u,h,p = initial(n,amplitude,length=length,charge=charge)
+    equations = partial(gaussian_rhs,charge=charge)
+    center_minima = []
     x = np.arange(n)*dx
     f0,df = pulse_profile(n,length)
     f = 9*amplitude*f0**2*df/(r*p)
@@ -233,12 +244,19 @@ def gaussian(n, amplitude=.05, cut=.2, compare_at=(), length=2*np.pi):
         # H_nn: 3[(1+u²−w²)/r² + (hu−w_x/A)/r] = Λ + rho
         geom = 3*(1+u*u-w*w)/r**2
         bend = 3*(h*u-wx)/r
-        rho = (p*p+f*f)/2
+        rho = (p*p+f*f)/2+3*charge**2/r**6
         residual = abs(geom+bend-3-rho)/(1+abs(geom)+abs(bend)+3+rho)
         mom = abs(ux-h*w+r*p*f/3)/(1+abs(ux)+abs(h*w)+abs(r*p*f/3))
         i = int(np.argmin(r))
         def record(j):
-            return dict(radius=float(r[j]),velocity=float(u[j]),theta_plus=float(3*(u[j]+w[j])/r[j]),
+            charged = {}
+            if charge:
+                mass = r[j]**2*(1+u[j]**2-w[j]**2-r[j]**2/2)+charge**2/r[j]**2
+                y_acc = (2*(r[j]**2-1+w[j]**2)+2*charge**2/r[j]**4
+                         -r[j]**2*(p[j]**2+f[j]**2)/3)
+                charged = dict(mass=float(mass), squared_radius_acceleration=float(y_acc),
+                               maxwell_density=float(3*charge**2/r[j]**6))
+            return dict(**charged,radius=float(r[j]),velocity=float(u[j]),theta_plus=float(3*(u[j]+w[j])/r[j]),
                         theta_minus=float(3*(u[j]-w[j])/r[j]),
                         angular_curvature=float((1+u[j]**2-w[j]**2)/r[j]**2))
         return dict(t=float(t), light_positions=light.tolist(), min_x=float(x[i]), minimum=record(i), centers=[record(0),record(n//2)],
@@ -249,7 +267,7 @@ def gaussian(n, amplitude=.05, cut=.2, compare_at=(), length=2*np.pi):
         return min(z[0])<=cut or min(z[1])<=.04
     while True:
         dt=min(dx*min(y[1])/6,.02*np.min(y[0]/(1+abs(y[2]))),.02/(1+max(abs(y[3]))),target-t)
-        new=rk4(y,dx,dt,gaussian_rhs)
+        new=rk4(y,dx,dt,equations)
         if not np.all(np.isfinite(new)):
             raise FloatingPointError("nonfinite synchronous evolution")
         stop=reached(new)
@@ -257,12 +275,23 @@ def gaussian(n, amplitude=.05, cut=.2, compare_at=(), length=2*np.pi):
             lo,hi=0.,dt
             for _ in range(30):
                 m=(lo+hi)/2
-                if reached(rk4(y,dx,m,gaussian_rhs)):
+                if reached(rk4(y,dx,m,equations)):
                     hi=m
                 else:
                     lo=m
             dt=hi
-            new=rk4(y,dx,dt,gaussian_rhs)
+            new=rk4(y,dx,dt,equations)
+        if charge and y[2,0]<0<=new[2,0]:
+            lo,hi=0.,dt
+            for _ in range(25):
+                m=(lo+hi)/2
+                if rk4(y,dx,m,equations)[2,0]<0:
+                    lo=m
+                else:
+                    hi=m
+            hit=rk4(y,dx,hi,equations)
+            center_minima.append(dict(time=float(t+hi),radius=float(hit[0,0]),
+                                      longitudinal_scale=float(hit[1,0])))
         def coordinate_speed(a, pos):
             return np.array([1/periodic_sample(a,pos[0],dx),-1/periodic_sample(a,pos[1],dx)])
         # Trapezoid in proper time for the diagnostic rays; separated from
@@ -282,12 +311,15 @@ def gaussian(n, amplitude=.05, cut=.2, compare_at=(), length=2*np.pi):
             target = next(points)
     # At the reflection center w=0 and (r²)'' <= 2(r²-1).
     # Solve the zero of its homogeneous upper solution using z=exp(sqrt(2)*tau).
-    y0 = r[0]**2
-    linear = np.sqrt(2)*r[0]*u[0]
-    c = 1-y0-linear
-    upper_time = np.log((1+np.sqrt(1-c*(1-y0+linear)))/c)/np.sqrt(2)
+    upper_time = None
+    if not charge:
+        y0 = r[0]**2
+        linear = np.sqrt(2)*r[0]*u[0]
+        c = 1-y0-linear
+        upper_time = np.log((1+np.sqrt(1-c*(1-y0+linear)))/c)/np.sqrt(2)
     return dict(n=n,amplitude=amplitude,length=length,cut=cut,frames=frames,
-                center_comparison_time=float(upper_time),
+                center_comparison_time=None if charge else float(upper_time),
+                **(dict(charge=charge,center_minima=center_minima) if charge else {}),
                 center_signal_arrivals=arrivals,
                 stop="radius_cutoff" if min(y[0])<=cut+1e-9 else
                      ("caustic_guard" if min(y[1])<=.04+1e-9 else "time_limit"))
