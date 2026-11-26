@@ -147,3 +147,47 @@ no free parameter, and this check confirms it to 0.1–0.2%.
   the terms add coherently rather than as magnitudes.
 * A refit with the closed-form intrinsic term and coherent addition is the
   natural refinement. It is not done here.
+
+## Addendum: what can make a detector channel-selective (post hoc, not gated)
+
+**Handle-loop flux cannot do it.** Rounds 14–16 trap electric flux, with its
+conjugate holonomy, around the **handle loop**. On #355's handle that phase
+enters off-diagonally.
+* Both tunnelling paths through the neck map +m to −m, and they carry phases
+  e^{±iΦ}. So `H₊₋ = t(e^{iΦ} + e^{−iΦ})` and `Δ_eff = Δ|cos Φ|`.
+* The ±m channels stay degenerate and the eigenmodes stay standing waves.
+* The reflection φ → −φ remains a symmetry, so a static absorber drains ±m
+  equally.
+* At Φ = π/2 the doublet becomes degenerate and the exchange stops.
+
+**Axial flux breaks the exchange.** Flux threading the azimuthal circles does
+break the reflection. But it splits +m from −m, by δω, and that suppresses the
+exchange to `Δ²/(Δ² + δω²)`.
+
+**A neutral field rules out static selectivity altogether.** On the
+axisymmetric surface the ±m channels are partners under φ → −φ and under time
+reversal, with identical |ψ|² everywhere. Selectivity therefore needs an
+ingredient that breaks both. #370's counter-rotating medium is one.
+
+**Tolerance of a rotating medium** (`exploration/rotation_detuning.py`).
+* Setup: the doublet only, with identical strip profiles, at the k = 13 null of
+  (0.3, 2) and (0.45, 2). The medium rotates at `s·ω̄/m`, so s = 1 is the tuned
+  detector. 14 values of s, from 0.5 to 2, at η = 0.5 and 0.9.
+* The −m channel changes energy by `1 − (1 − η)^{(1 − s)/(1 + s)}`. This matches
+  the measured defect to 3–4 digits:
+  * 3.477e-3 at s = 0.99 and η = 0.5;
+  * 1.150e-2 at s = 0.99 and η = 0.9.
+* For s > 1 the −m channel gains energy, the Zel'dovich effect.
+* **The penalty is linear in the mistuning, not quadratic.** For the −m wave the
+  medium's force is `−γ(1 − s)q̇`, so the power it draws from the field is first
+  order in (1 − s). The (1 − s)² dissipation in the medium's own frame differs
+  from it by the work done by whatever drives the rotation.
+* For small mistuning the defect is about `−ln(1 − η)(1 − s)/2`:
+  * about 0.35|1 − s| at η = 0.5;
+  * about 1.15|1 − s| at η = 0.9.
+* So a defect of 1e-3 at η = 0.5 needs the rotation matched to about 0.3%, and
+  1e-4 needs about 0.03%.
+* An Ohmic rotating medium, such as a frame-dragging throat, is therefore
+  finely tuned. A medium whose own-frame loss rises faster than ω′²
+  (super-Ohmic) would lower the penalty to a higher power of (1 − s). That is
+  untested.
