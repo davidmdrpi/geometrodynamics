@@ -37,8 +37,17 @@ def measure(cache, a, tau, kind, eta, n=2000, keep=150, progress=print):
     if path is not None and path.exists():
         return json.loads(path.read_text())
     progress(key)
-    r = V.point(spectrum(a, n), a, Q.M, n, keep, tau, kind, eta)
-    r.pop("U"), r.pop("V")
+    try:
+        r = V.point(spectrum(a, n), a, Q.M, n, keep, tau, kind, eta)
+        r.pop("U"), r.pop("V")
+    except RuntimeError as err:
+        # The requested depletion is not reachable on the weak-coupling branch
+        # at this window: record the largest depletion that is.
+        geo = V.Sweep(a, Q.M, n, keep, spectrum(a, n), tau, kind)
+        strengths = 0.05 * 8.0 / tau * 1.5 ** np.arange(40)
+        reached = [geo.absorbed_plus(g, geo.mean) for g in strengths]
+        r = dict(a=a, m=Q.M, N=n, K=keep, tau=tau, profile=kind, eta=eta, unreachable=True,
+                 max_eta=float(max(reached)), at_strength=float(strengths[int(np.argmax(reached))]), error=str(err))
     if path is not None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(r))
@@ -58,8 +67,9 @@ def run(cache=None, progress=print):
             for tau in Q.GRID:
                 r = measure(cache, a, tau, "sin2", eta, progress=progress)
                 p = pred[(a, eta, round(tau, 6))]
-                r.update(predicted=p["total"], predicted_switching=p["switching"], predicted_exchange=p["exchange"],
-                         ratio=r["max_abs_defect"] / p["total"])
+                r.update(predicted=p["total"], predicted_switching=p["switching"], predicted_exchange=p["exchange"])
+                if not r.get("unreachable"):
+                    r["ratio"] = r["max_abs_defect"] / p["total"]
                 vcurve.append(r)
         if a == Q.A1:
             scan = [measure(cache, a, float(t), "sin2", 0.5, progress=progress) for t in Q.NULL_SCAN]
@@ -74,7 +84,7 @@ def run(cache=None, progress=print):
     minima = {}
     for a in (Q.A1, Q.A2):
         for eta in Q.ETAS:
-            rows = [r for r in vcurve if r["a"] == a and r["eta"] == eta]
+            rows = [r for r in vcurve if r["a"] == a and r["eta"] == eta and not r.get("unreachable")]
             minima[(a, eta)] = min(rows, key=lambda r: r["max_abs_defect"])
     checks = []
     for a in (Q.A1, Q.A2):
@@ -95,7 +105,9 @@ def run(cache=None, progress=print):
 
 def gates(rep, minima, frozen):
     g = {}
-    vc = rep["vcurve"]
+    unreachable = [(r["a"], r["eta"], r["tau"], r["max_eta"]) for r in rep["vcurve"] + rep["null_scan"] + rep["envelope"]
+                   if r.get("unreachable")]
+    vc = [r for r in rep["vcurve"] if not r.get("unreachable")]
     g["G1"] = dict(passed=all(1 / 3 <= r["ratio"] <= 3 for r in vc),
                    worst=[min(r["ratio"] for r in vc), max(r["ratio"] for r in vc)],
                    misses=[(r["a"], r["eta"], r["tau"], r["ratio"]) for r in vc if not 1 / 3 <= r["ratio"] <= 3])
@@ -134,13 +146,19 @@ def gates(rep, minima, frozen):
     num = rep["numerics"]
     k_ok = all(abs(c["K80"] - c["K150"]) <= max(1e-6, 0.1 * c["K150"]) for c in num)
     n_ok = all(abs(c["N4000"] - c["K150"]) <= max(1e-6, 0.2 * c["N4000"]) for c in num)
-    balance = max(r["balance"] for r in vc + rep["null_scan"] + rep["envelope"])
+    balance = max(r["balance"] for r in vc + rep["null_scan"] + rep["envelope"] if not r.get("unreachable"))
     und = max(rep["undetected"].values())
     g["G6"] = dict(passed=bool(k_ok and n_ok and balance <= 1e-8 and und <= 1e-8),
                    modal=bool(k_ok), size=bool(n_ok), balance=balance, undetected=und)
+    g["unreachable_points"] = unreachable
     failed = [k for k in ("G1", "G2", "G3", "G4", "G5") if not g[k]["passed"]]
     if failed:
         verdict, reasons = "COUNTEREXAMPLE", failed
+    elif unreachable:
+        # A frozen point could not be measured at its depletion: a case the
+        # prereg does not name.
+        verdict, reasons = "NO_VERDICT", ["unreachable depletion at " + ", ".join(
+            f"a={u[0]} eta={u[1]} tau={u[2]:.2f} (max {u[3]:.3f})" for u in unreachable)]
     elif g["G6"]["passed"]:
         verdict, reasons = "CONFIRMED", []
     else:
@@ -157,7 +175,9 @@ def markdown(rep):
     for a in rep["cells"]:
         for eta in (0.5, 0.9):
             rows = sorted([r for r in rep["vcurve"] if r["a"] == a and r["eta"] == eta], key=lambda r: r["tau"])
-            L.append(f"| {a} | {eta} | " + " | ".join(f"{r['max_abs_defect']:.2e} ({r['predicted']:.1e})" for r in rows) + " |")
+            L.append(f"| {a} | {eta} | " + " | ".join(
+                (f"η unreachable (max {r['max_eta']:.3f})" if r.get("unreachable") else f"{r['max_abs_defect']:.2e} ({r['predicted']:.1e})")
+                for r in rows) + " |")
     g = rep["gates"]
     L += ["", "| gate | result |", "|---|---|",
           f"| G1 predictor within ×3 | {'pass' if g['G1']['passed'] else 'FAIL'} (measured/predicted {g['G1']['worst'][0]:.2f}–{g['G1']['worst'][1]:.2f}) |",
