@@ -127,7 +127,7 @@ k = 5, 8, 13 and 20.
 * At η = 0.75 the closed form gives 1.7815, 1.7374, 1.7205 and 1.7146 for
   k = 5, 8, 13 and 20. The measured values agree to within 0.03% at k ≤ 13.
 * The η = 0.25 and 0.75 points never entered any fit. The frozen in-sample
-  coefficients, C = 0.51 and 3.95, are this formula's values at k ≈ 7.
+  coefficients, C = 0.51 and 3.95, are this formula's values at k ≈ 7–8.
 
 **What it changes.** The empirical C(η) of the predictor is replaced by a
 leading-order closed form in the counter-rotating drive, neglecting Δ. It has
