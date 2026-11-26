@@ -49,3 +49,46 @@ def test_boundary_is_aperture_independent_in_sample():
     for tau, eta_max in PRED.BOUNDARY_IN_SAMPLE.items():
         found = [r["eta_max"] for r in rows if r["profile"] == "sin2" and abs(r["tau"] - tau) < 1e-9]
         assert len(found) == 2 and max(abs(np.array(found) - eta_max)) < 2e-3
+
+
+ARCHIVE = RUN / "probe.json"
+needs_archive = pytest.mark.skipif(not ARCHIVE.exists(), reason="held-out run not archived")
+
+
+def _recomputed(rep):
+    pts = rep["points"]
+    outside = any(x["full"]["rate_over_wbar"] > PRED.DOMAIN_RATE for x in pts)
+    n1 = all(0.5 <= x["full"]["defect"] / x["predicted"]["total"] <= 2 for x in pts)
+    n2 = all(abs(x["doublet"]["defect"] / x["full"]["defect"] - 1) <= 0.03 for x in pts)
+    n3 = all(3 <= c["eps_over_split"] <= 5 for c in rep["cell_info"]) and all(
+        0.5 <= (x["doublet"]["defect"] - x["identical"]["defect"]) / x["predicted"]["mismatch"] <= 2
+        for x in pts if x["eta"] == 0.5)
+    n4 = all(0.5 <= (x["identical"]["defect"] - PRED.terms(x["a"], 2, x["tau"], "sin2", x["eta"])["exchange"])
+             * (np.sqrt(6) * x["tau"]) ** 3 / PRED.C[x["eta"]] <= 2
+             for x in pts if x["a"] == 0.45 and x["k"] in (5, 8))
+    n5 = all(abs(b["eta_max"] - PRED.BOUNDARY_IN_SAMPLE[b["tau"]]) <= 0.005 for b in rep["boundary"])
+    failed = [n for n, ok in zip(("N1", "N2", "N3", "N4", "N5"), (n1, n2, n3, n4, n5)) if not ok]
+    if outside:
+        return "NO_VERDICT", failed
+    return ("COUNTEREXAMPLE" if failed else "CONFIRMED"), failed
+
+
+@needs_archive
+def test_archive_verdict_follows_from_stored_values():
+    rep = json.loads(ARCHIVE.read_text())
+    assert rep["freeze"] == "f03b034"
+    assert len(rep["points"]) == len(PRED.CELLS) * len(PRED.ETAS) * len(PRED.NULL_KS)
+    verdict, failed = _recomputed(rep)
+    if rep["verdict"] in ("CONFIRMED", "COUNTEREXAMPLE", "NO_VERDICT"):
+        assert verdict == rep["verdict"]
+    assert rep["gates"]["N6"]["passed"] or rep["verdict"] != "CONFIRMED"
+
+
+@needs_archive
+def test_archive_test_catches_a_corrupted_value():
+    rep = json.loads(ARCHIVE.read_text())
+    for x in rep["points"]:
+        if x["a"] == 0.55 and x["eta"] == 0.5:
+            x["full"]["defect"] *= 3                 # breaks N1 and N2 at the mismatch-dominated cell
+    _, failed = _recomputed(rep)
+    assert "N1" in failed and "N2" in failed

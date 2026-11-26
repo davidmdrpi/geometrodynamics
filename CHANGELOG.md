@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+- Alice-handle exchange, residual at the spectral nulls (freeze `f03b034`):
+  an in-sample truncation refuted the radial-doublet candidate. The doublet
+  alone reproduces the residual, which splits into an intrinsic term,
+  second order in the drain rate and falling as (ω̄τ)⁻³, and a strip-profile
+  mismatch term K·Δ/ω̄, with the mismatch measured at 3.9 Δ/ω̄. Verdict
+  `CONFIRMED` on held-out (0.45, 2) and (0.55, 2): the four-term predictor
+  gives all 16 null values to within 0.85–1.13 (frozen ×2). The doublet
+  alone matches the full field to 1.02%. The mismatch and intrinsic terms
+  match within 0.84–1.10 and 0.99–1.06. The depletion boundary is
+  independent of the aperture to 0.0009, and the frozen validity rule (peak
+  drain rate at most 0.5ω̄) held at every point. See `docs/alice_nulls.md`.
+
 - Alice-handle exchange, V-curve and aperture scaling (freeze `291ab5f`):
   the defect floor of #370 is the detector window's spectral weight at 2ω̄,
   the counter-rotating coupling. A two-part predictor, found in-sample,
