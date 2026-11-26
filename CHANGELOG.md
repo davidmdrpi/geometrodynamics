@@ -2,6 +2,43 @@
 
 ## Unreleased
 
+- Alice-handle exchange, residual at the spectral nulls (freeze `f03b034`):
+  an in-sample truncation refuted the radial-doublet candidate. The doublet
+  alone reproduces the residual, which splits into an intrinsic term,
+  second order in the drain rate and falling as (ω̄τ)⁻³, and a strip-profile
+  mismatch term K·Δ/ω̄, with the mismatch measured at 3.9 Δ/ω̄. Verdict
+  `CONFIRMED` on held-out (0.45, 2) and (0.55, 2): the four-term predictor
+  gives all 16 null values to within 0.85–1.13 (frozen ×2). The doublet
+  alone matches the full field to 1.02%. The mismatch and intrinsic terms
+  match within 0.84–1.10 and 0.99–1.06. The depletion boundary is
+  independent of the aperture to 0.0009, and the frozen validity rule (peak
+  drain rate at most 0.5ω̄) held at every point. See `docs/alice_nulls.md`.
+
+- Alice-handle exchange, V-curve and aperture scaling (freeze `291ab5f`):
+  the defect floor of #370 is the detector window's spectral weight at 2ω̄,
+  the counter-rotating coupling. A two-part predictor, found in-sample,
+  predicts held-out points on (0.5, 2) and (0.35, 2) to within 0.79–1.76.
+  The V minima fall at the predicted grid points, and the smaller aperture
+  lowers the best defect 15× and 12×, to 1.1e-5 at η = 0.5 and 5.1e-5 at
+  η = 0.9. The envelope ranking holds: sin⁴ beats sin², and the C^∞ bump is
+  worse. Verdict `COUNTEREXAMPLE` through G4: the sin² spectral nulls fall
+  where predicted, but a residual of up to 2.8e-4 makes them shallower
+  (depth 0.50 against the frozen 0.4). That residual is unexplained. Two
+  η = 0.9 points at the shortest window cannot reach that depletion. See
+  `docs/alice_vcurve.md`.
+
+- Alice-handle exchange under detector depletion (freeze `0fb3b6e`): in the
+  circulating basis the lowest Klein doublet swaps its ±m channels over
+  `π/Δ`, so a port reading the +m intensity at two visits sees u and 1 − u.
+  A counter-rotating dashpot on the band, which absorbs only the channel it
+  reads, keeps `|u + v − 1|` between 5e-5 and 2e-2 at depletions of up to
+  90%. A static control breaks it by 0.500. Verdict `COUNTEREXAMPLE`
+  through G2: the frozen claim that the defect vanishes as Δτ → 0 fails at
+  the frozen window, where a floor of 2.8e-4 remains at (0.3, 2), η = 0.5.
+  Post hoc, the floor falls about 400-fold as the window lengthens from 4
+  to 32, pointing to non-adiabatic switching. That is a candidate for a new
+  pre-registration, not a result. See `docs/alice_exchange.md`.
+
 - Exact-neck Klein splitting law (freeze `834ac70`): Herring's law with the
   neck equation solved exactly, `E = 4 sin^{2m}(a) |D(0)D′(0)| / (ω N_m)`,
   where `D` is the neck solution vanishing at the far rim; nothing fitted.
