@@ -1,7 +1,7 @@
 # IN-SAMPLE: actual minus perfect-selectivity doublet at a1 = (0.5, 2), exact nulls, eta = 0.5 and 0.9;
 # and full-150 against doublet-only at the same points.
 import importlib.util, json, sys, numpy as np
-s = importlib.util.spec_from_file_location('d', '/tmp/claude-0/-home-user-geometrodynamics/1c9d2eb5-541f-57e7-9180-5d1a6778cfd2/scratchpad/doublet_dissect.py')
+s = importlib.util.spec_from_file_location('d', __import__('pathlib').Path(__file__).with_name('doublet_dissect.py'))
 ns = {}; exec(open(s.origin).read().split("out = []")[0], ns)
 V, doublet_only, variant, defect = ns['V'], ns['doublet_only'], ns['variant'], ns['defect']
 out = []
