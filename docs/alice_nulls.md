@@ -96,3 +96,54 @@ for a future refinement.
     not identified here.
 * No probability law is derived: the measure on doublet states that would give
   Born weights remains an input. Nothing here is claimed to be quantum.
+
+## Addendum (after the verdict): a closed form for the intrinsic term
+
+Proposed in review after the `CONFIRMED` run, then checked with
+`exploration/closed_form_check.py` (archived as `closed_form_check.json`).
+
+**Origin.** The intrinsic term is not a separate second-order process. It is the
+same first-order counter-rotating drive at 2ω̄ that gives the switching term,
+`ȧ₋ = ½γ(t) a₊*(t) e^{2iω̄t}`, acting through a **depleting** +m amplitude.
+
+**The calculation.**
+* Write `g(t) = ½γ(t) e^{−½∫γ}`, with γ the sin² drain and `Γ = −ln(1 − η)`.
+* Integrate the drive by parts at an exact sin² null, where `e^{2iω̄τ} = 1`.
+* The sin² boundary terms no longer cancel, because `a₊(τ) = √(1 − η) ≠ a₊(0)`.
+* Summing the even-derivative series gives the factor `(1 − k⁻²)⁻¹`.
+* At balanced preparation the defect is `C_int/(ω̄τ)³`, with
+
+      C_int(η, k) = (π²/4) (−ln(1 − η)) (1 − √(1 − η)) / (1 − k⁻²)
+
+* At small η this is about `(π²/8)Γ²`, which is why the term looked second order
+  in the drain rate.
+
+**The check.** It has no free parameter. It was evaluated in the doublet-only
+model with identical strip profiles, so there is no mismatch term, and with the
+splitting cut 10⁴-fold, so the exchange part is negligible. It covers
+(0.3, 2), (0.45, 2) and (0.55, 2), η = 0.1, 0.25, 0.5, 0.75 and 0.9, and
+k = 5, 8, 13 and 20.
+* Measured ÷ closed form is **0.9987–1.0215**, and within 0.2% wherever k ≤ 13.
+* At η = 0.75 the closed form gives 1.7815, 1.7374, 1.7205 and 1.7146 for
+  k = 5, 8, 13 and 20. The measured values agree to within 0.03% at k ≤ 13.
+* The η = 0.25 and 0.75 points never entered any fit. The frozen in-sample
+  coefficients, C = 0.51 and 3.95, are this formula's values at k ≈ 7.
+
+**What it changes.** The empirical C(η) of the predictor is replaced by a
+leading-order closed form in the counter-rotating drive, neglecting Δ. It has
+no free parameter, and this check confirms it to 0.1–0.2%.
+
+**The long-window drift.** Measured ÷ predicted falls from about 1.1 to 0.85 as
+τ grows.
+* It is not depletion during the window: the predictor's E_2L already depletes
+  the +m amplitude.
+* After the closed-form intrinsic term is subtracted at (0.5, 2), the exchange
+  part needs a coefficient of 1.10 and 1.01 at k = 20, against the frozen
+  c_x = 1.3 and 1.1.
+* So c_x was inflated. When the two-term V-curve predictor was fitted, it
+  absorbed the then-unmodelled terms, and it overshoots where exchange
+  dominates.
+* At short windows the inferred coefficient rises to as much as 2.1, because
+  the terms add coherently rather than as magnitudes.
+* A refit with the closed-form intrinsic term and coherent addition is the
+  natural refinement. It is not done here.
