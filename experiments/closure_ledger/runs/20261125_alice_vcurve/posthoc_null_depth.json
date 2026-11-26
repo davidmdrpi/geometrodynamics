@@ -1,0 +1,42 @@
+[
+ {
+  "tau_k": 6.41274915080932,
+  "measured_depth": 0.28763355477395897,
+  "predicted_depth": 0.05133583596295944,
+  "measured_min": 0.00027576139368295485,
+  "predicted_min": 4.774100297899353e-05,
+  "predicted_exchange_at_null": 2.0240912793579575e-05,
+  "measured_peak": 0.000958724700599226,
+  "predicted_peak": 0.0009299741999612181
+ },
+ {
+  "tau_k": 7.695298980971185,
+  "measured_depth": 0.3053678912286093,
+  "predicted_depth": 0.045761378067943254,
+  "measured_min": 0.0002166355298919453,
+  "predicted_min": 3.01326882255122e-05,
+  "predicted_exchange_at_null": 2.4383692565185285e-05,
+  "measured_peak": 0.0007094247172495428,
+  "predicted_peak": 0.0006584742308409794
+ },
+ {
+  "tau_k": 8.977848811133049,
+  "measured_depth": 0.397814959836612,
+  "predicted_depth": 0.11206021004525833,
+  "measured_min": 0.00019035425823173824,
+  "predicted_min": 4.536498738170294e-05,
+  "predicted_exchange_at_null": 2.8537115758523187e-05,
+  "measured_peak": 0.0004784994971278086,
+  "predicted_peak": 0.0004048268994264882
+ },
+ {
+  "tau_k": 10.260398641294913,
+  "measured_depth": 0.49564916020142447,
+  "predicted_depth": 0.1928105932293436,
+  "measured_min": 0.00017709879151288843,
+  "predicted_min": 5.265227236774532e-05,
+  "predicted_exchange_at_null": 3.27012082335952e-05,
+  "measured_peak": 0.0003573067518986981,
+  "predicted_peak": 0.00027307769498492593
+ }
+]

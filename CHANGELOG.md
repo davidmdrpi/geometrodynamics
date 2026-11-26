@@ -2,6 +2,19 @@
 
 ## Unreleased
 
+- Alice-handle exchange, V-curve and aperture scaling (freeze `291ab5f`):
+  the defect floor of #370 is the detector window's spectral weight at 2ω̄,
+  the counter-rotating coupling. A two-part predictor, found in-sample,
+  predicts held-out points on (0.5, 2) and (0.35, 2) to within 0.79–1.76.
+  The V minima fall at the predicted grid points, and the smaller aperture
+  lowers the best defect 15× and 12×, to 1.1e-5 at η = 0.5 and 5.1e-5 at
+  η = 0.9. The envelope ranking holds: sin⁴ beats sin², and the C^∞ bump is
+  worse. Verdict `COUNTEREXAMPLE` through G4: the sin² spectral nulls fall
+  where predicted, but a residual of up to 2.8e-4 makes them shallower
+  (depth 0.50 against the frozen 0.4). That residual is unexplained. Two
+  η = 0.9 points at the shortest window cannot reach that depletion. See
+  `docs/alice_vcurve.md`.
+
 - Alice-handle exchange under detector depletion (freeze `0fb3b6e`): in the
   circulating basis the lowest Klein doublet swaps its ±m channels over
   `π/Δ`, so a port reading the +m intensity at two visits sees u and 1 − u.
