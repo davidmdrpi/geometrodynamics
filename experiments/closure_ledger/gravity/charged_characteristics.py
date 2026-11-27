@@ -21,6 +21,46 @@ def null_map(x,focus,width,strength):
             1+strength*(left+right),strength*(dl+dr))
 
 
+def wave_source(z,p,m,charge):
+    r,s,_ = z
+    lapse2 = np.exp(2*s)
+    em = lapse2*charge**2/r**6
+    sr = 2*lapse2*r-2*(lapse2+p[0]*m[0])/r+2*r*em
+    ss = 2*lapse2-1.5*sr/r-p[2]*m[2]/2-4*em
+    return np.array([sr,ss,-1.5*(p[0]*m[2]+m[0]*p[2])/r])
+
+
+def usable(z,p,m,dt,lapse_cap):
+    r,s,_ = z
+    return (np.isfinite(z).all(axis=0)&np.isfinite(p).all(axis=0)&np.isfinite(m).all(axis=0)
+            &(r>.025)&(s<np.log(lapse_cap))&(abs(s)<20)
+            &(dt*np.maximum(abs(p[0]),abs(m[0]))<.08*r)
+            &(dt*np.maximum(np.max(abs(p[1:]),axis=0),np.max(abs(m[1:]),axis=0))<.08))
+
+
+def diamond_step(pos, plus, minus, valid, dt, charge, lapse_cap):
+    """Advance one common null-grid step on diamonds with a valid past."""
+    n = len(valid)
+    j = np.flatnonzero(valid & np.roll(valid,1) & np.roll(valid,-1))
+    left,right = (j-1)%n,(j+1)%n
+    sl = wave_source(pos[:,left],plus[:,left],minus[:,left],charge)
+    sr = wave_source(pos[:,right],plus[:,right],minus[:,right],charge)
+    pp,mm = plus[:,right]+dt*sr, minus[:,left]+dt*sl
+    avg = (pos[:,left]+pos[:,right])/2
+    incident = plus[:,left]+minus[:,right]
+    zp = avg+dt*incident/2
+    ok = usable(zp,pp,mm,dt,lapse_cap)
+    j,left,right,sl,sr,avg,incident = (j[ok],left[ok],right[ok],sl[:,ok],sr[:,ok],
+                                      avg[:,ok],incident[:,ok])
+    source = wave_source(zp[:,ok],pp[:,ok],mm[:,ok],charge)
+    pp = plus[:,right]+dt*(sr+source)/2
+    mm = minus[:,left]+dt*(sl+source)/2
+    zp = avg+dt*(incident+pp+mm)/4
+    ok = usable(zp,pp,mm,dt,lapse_cap)
+    active = j[ok]
+    return active, zp[:,ok], pp[:,ok], mm[:,ok]
+
+
 def propagate(n, charge=.14, lapse_cap=150., remap=False, *, radius=.98,
               amplitude=.05, targets=None, time_limit=3., audit_mass=False, profile_times=()):
     """Second-order characteristic trapezoid. Only evolve fully valid stencils."""
@@ -63,25 +103,10 @@ def propagate(n, charge=.14, lapse_cap=150., remap=False, *, radius=.98,
     frames = []
     clipped = False
 
-    def speed(z,p,m):
-        r,s,_ = z
-        lapse2 = np.exp(2*s)
-        em = lapse2*charge**2/r**6
-        sr = 2*lapse2*r-2*(lapse2+p[0]*m[0])/r+2*r*em
-        ss = 2*lapse2-1.5*sr/r-p[2]*m[2]/2-4*em
-        return np.array([sr,ss,-1.5*(p[0]*m[2]+m[0]*p[2])/r])
-
-    def usable(z,p,m):
-        r,s,_ = z
-        return (np.isfinite(z).all(axis=0)&np.isfinite(p).all(axis=0)&np.isfinite(m).all(axis=0)
-                &(r>.025)&(s<np.log(lapse_cap))&(abs(s)<20)
-                &(dt*np.maximum(abs(p[0]),abs(m[0]))<.08*r)
-                &(dt*np.maximum(np.max(abs(p[1:]),axis=0),np.max(abs(m[1:]),axis=0))<.08))
-
     def constraint():
         if not valid[[0,1,-1]].all():
             return None
-        sr=speed(pos[:,0],plus[:,0],minus[:,0])[0]
+        sr=wave_source(pos[:,0],plus[:,0],minus[:,0],charge)[0]
         errors=[]
         for d,sign in ((plus,1),(minus,-1)):
             terms=(sr,sign*(d[0,1]-d[0,-1])/dt,-2*d[1,0]*d[0,0],pos[0,0]*d[2,0]**2/3)
@@ -141,36 +166,20 @@ def propagate(n, charge=.14, lapse_cap=150., remap=False, *, radius=.98,
     for step in range(1, max_steps+1):
         # Inactive storage retains its last values. Never read an
         # inactive predecessor into a surviving cell.
-        j = np.flatnonzero(valid & np.roll(valid,1) & np.roll(valid,-1))
         old_r = pos[0,0]
         old_s = pos[1,0]
         old_u = plus[0,0]+minus[0,0]
-        left,right = (j-1)%n,(j+1)%n
-        sl = speed(pos[:,left],plus[:,left],minus[:,left])
-        sr = speed(pos[:,right],plus[:,right],minus[:,right])
-        pp,mm = plus[:,right]+dt*sr, minus[:,left]+dt*sl
-        avg = (pos[:,left]+pos[:,right])/2
-        incident = plus[:,left]+minus[:,right]
-        zp = avg+dt*incident/2
-        ok = usable(zp,pp,mm)
-        j,left,right,sl,sr,avg,incident = (j[ok],left[ok],right[ok],sl[:,ok],sr[:,ok],
-                                          avg[:,ok],incident[:,ok])
-        source = speed(zp[:,ok],pp[:,ok],mm[:,ok])
-        pp = plus[:,right]+dt*(sr+source)/2
-        mm = minus[:,left]+dt*(sl+source)/2
-        zp = avg+dt*(incident+pp+mm)/4
-        ok = usable(zp,pp,mm)
-        active = j[ok]
+        active, new_z, new_p, new_m = diamond_step(pos,plus,minus,valid,dt,charge,lapse_cap)
         if len(active)==0 or active[0]!=0:
             break
         if len(active)<n:
             clipped = True
         before=None
-        if next_radius is not None and old_r>next_radius>=zp[0,ok][0]:
+        if next_radius is not None and old_r>next_radius>=new_z[0,0]:
             before=record(step-1)
         valid[:] = False
         valid[active] = True
-        pos[:,active],plus[:,active],minus[:,active] = zp[:,ok],pp[:,ok],mm[:,ok]
+        pos[:,active],plus[:,active],minus[:,active] = new_z,new_p,new_m
         if audit_mass:
             new_slope = mass_slope()
             integrated_mass += (pos[0,0]-old_r)*(slope+new_slope)/2
