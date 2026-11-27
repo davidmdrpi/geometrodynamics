@@ -1,0 +1,8 @@
+kappa 0.1 u 0.20  defect +0.01929  reduced 1D +0.01929  first order +0.01920  max fibre component 6.1e-07
+kappa 0.1 u 0.35  defect +0.01476  reduced 1D +0.01476  first order +0.01365  max fibre component 9.5e-07
+kappa 0.1 u 0.50  defect -0.00000  reduced 1D -0.00000  first order -0.00000  max fibre component 3.4e-08
+kappa 0.1 u 0.80  defect -0.01929  reduced 1D -0.01929  first order -0.01920  max fibre component 1.2e-06
+kappa 0.3 u 0.20  defect +0.05640  reduced 1D +0.05640  first order +0.05760  max fibre component 1.0e-06
+kappa 0.3 u 0.35  defect +0.05181  reduced 1D +0.05181  first order +0.04095  max fibre component 3.2e-08
+kappa 0.3 u 0.50  defect +0.00000  reduced 1D -0.00000  first order -0.00000  max fibre component 4.4e-08
+kappa 0.3 u 0.80  defect -0.05640  reduced 1D -0.05640  first order -0.05760  max fibre component 3.2e-07

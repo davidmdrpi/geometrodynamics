@@ -1,0 +1,18 @@
+lambda_s = 2.0
+  theta 3.142  c numeric 9.8696  c paper 9.8696
+  theta 2.942  c numeric 9.8098  c paper 9.8096
+  theta 2.642  c numeric 9.4960  c paper 9.4946
+  theta 2.142  c numeric 8.3740  c paper 8.3696
+  theta 1.571  c numeric 6.1747  c paper 6.1685
+  theta 0.500  c numeric 0.7500  c paper 0.7500
+  theta 0.000  c numeric 0.0000  c paper 0.0000
+  theta_A + theta_B = pi: totals 0.00:9.870 0.39:10.102 0.79:10.798 1.18:11.882 1.57:12.349 1.96:11.882 2.36:10.798 2.75:10.102 3.14:9.870
+lambda_s = 0.5
+  theta 3.142  c numeric 9.8696  c paper 9.8696
+  theta 2.942  c numeric 9.7498  c paper 9.7496
+  theta 2.642  c numeric 9.1207  c paper 9.1196
+  theta 2.142  c numeric 6.8701  c paper 6.8696
+  theta 1.571  c numeric 3.7011  c paper 3.7011
+  theta 0.500  c numeric 0.3750  c paper 0.3750
+  theta 0.000  c numeric 0.0000  c paper 0.0000
+  theta_A + theta_B = pi: totals 0.00:9.870 0.39:9.639 0.79:8.946 1.18:7.865 1.57:7.402 1.96:7.865 2.36:8.946 2.75:9.639 3.14:9.870
