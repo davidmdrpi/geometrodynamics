@@ -5,6 +5,28 @@ exact argument or a direct numerical check; the checks are archived in
 `experiments/closure_ledger/runs/20261127_two_throat_nogo/`. No solver run on a
 two-throat model was needed.
 
+![Charge without charge on one antipodally closed sheet with two Alice handles](images/alice_circulation/circulation.gif)
+
+*Figure (schematic; no field equation is solved).* The two sheets are one
+surface: the bottom point (x, y) is the top point (−x, −y).
+* **Handles.** Two Alice handles, the columns at (d, 0) and (0, d), each join a
+  pair of antipodal points of that surface, giving four mouths as in #338/#340.
+* **Charge without charge.** Sourceless flux (dashed gold) circulates top
+  sheet → throat 1 → bottom sheet → throat 2. By Gauss's law,
+  ∮E·dA = ±4πq, each mouth shows an apparent charge: red where flux leaves
+  onto a sheet, blue where it enters. Each sheet carries zero net charge.
+* **One worldline, both time orientations.** Balls circulate on one closed
+  worldline. Each handle reverses time orientation at its waist, so a ball's
+  proper-time arrow runs along the circulation on the top sheet (gold) and
+  against it on the bottom (cyan).
+* **The single surface.** Dashed rings and hollow markers on the top sheet show
+  the bottom mouths and balls at their antipodal images on the one surface.
+* **Source.** Drawn by `geometrodynamics/viz/alice_circulation.py`. The throat
+  profile is the finite-mouth neck with a = 0.3, stretched vertically.
+
+This is the setting the note asks about: one closed, antipodally identified
+space with two handles.
+
 ## The question
 
 #367 obtained complementary readings (u + v = 1) for one throat from a
