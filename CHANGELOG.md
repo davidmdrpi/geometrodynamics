@@ -2,18 +2,21 @@
 
 ## Unreleased
 
-- Two-throat obstructions (note, not pre-registered;
-  `docs/two_throat_nogo.md`). On S³_A × S³_B with intensity-only
-  setting loads:
-  - fibre coupling 2λ_c A_A A_B is inert, because every minimizer is
-    horizontal (checked to 1.2e-6), so |S| ≤ 2;
-  - with a fixed preparation, port-symmetric loads still break
-    complementarity, with σ ≈ −2κu(1−u)(2u−1);
-  - shared-holonomy conditions are trivial, lopsided or unstable, because
-    c(θ) is maximal at π (closed form checked to 0.007);
+- Two classical throats and the tensor product (note, not pre-registered;
+  `docs/two_throat_nogo.md`; corrected after review). On S³_A × S³_B with
+  intensity-only setting loads:
+  - fibre coupling 2λ_c A_A A_B is **not** inert. A counter-rotating
+    non-horizontal pair beats every horizontal one at λ_s = 2, λ_c = 1.99
+    (S − loads 9.619 against π²). The claimed factorization is withdrawn, and
+    the coupled Bell behaviour is open;
+  - with a fixed preparation, port-symmetric loads break complementarity, with
+    σ ≈ −2κu(1−u)(2u−1); u = ½ is stable only for κ < 1;
+  - with λ_c = 0, shared-holonomy conditions are trivial, lopsided or
+    unstable, because c(θ) is maximal at π. With λ_c ≠ 0 the costs do not
+    add;
   - Bloch-sphere coupling reaches |S| = 3.34 with flat binary marginals, but
-    only by changing Alice's local intensity statistics with Bob's setting
-    (0.667 against 0.499).
+    Bob's setting changes Alice's local intensity statistics (0.667 against
+    0.499).
 
 - Alice-handle exchange, residual at the spectral nulls (freeze `f03b034`):
   an in-sample truncation refuted the radial-doublet candidate. The doublet

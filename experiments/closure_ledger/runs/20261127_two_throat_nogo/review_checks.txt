@@ -1,0 +1,16 @@
+1. Non-horizontal counterexample: lambda_s = 2, lambda_c = 1.99, kappa = 0.3, x = (1,1)/sqrt2, first port
+   n= 8  midpoint intensities 1.000000 1.000000  S - loads = 9.61895   (int L - loads = 19.53790)
+   n=64  midpoint intensities 1.000000 1.000000  S - loads = 9.61895   (int L - loads = 19.53790)
+   continuum: S = pi^2 + (pi^2/2)(lambda_s - lambda_c) = 9.91895, minus loads 0.3 = 9.61895
+   horizontal floor: best shift 0.00e+00, joint S = 9.86960 (= pi^2 9.86960); in int-L units 19.73921 (= 2 pi^2)
+   local comparison per throat at small midpoint shift rho: horizontal 2 rho^2, uniform vertical tilt (pi^2/2) lambda rho^2, lambda = lambda_s -+ lambda_c by mode; 4/pi^2 = 0.4053
+2. Shared holonomy with the cross term: lambda_s = 2, lambda_c = -1.5, theta_A + theta_B = pi
+   equal pure-fibre rotations through pi/2: int L = 7.40220 = 0.750 pi^2
+   frozen split (pi, 0): int L >= c(pi) = pi^2 = 9.86960
+3. Central preparation u = 1/2 at stronger loads (S units): cost 2 d^2 - (kappa/2) sin^2(2d), curvature 4(1 - kappa)
+   kappa 0.50  shift -0.0000  defect sigma = u + v - 1 = -0.0000 (and +0.0000 at the mirror minimum)
+   kappa 0.99  shift -0.0000  defect sigma = u + v - 1 = -0.0000 (and +0.0000 at the mirror minimum)
+   kappa 1.50  shift -0.3739  defect sigma = u + v - 1 = -0.3400 (and +0.3400 at the mirror minimum)
+   kappa 2.00  shift -0.4739  defect sigma = u + v - 1 = -0.4061 (and +0.4061 at the mirror minimum)
+5. Figure 2: handle exit versus cover antipode of the pulse source
+   source . handle exit (bottom c) = -0.72875;  source . refocus point (bottom -c) = -1.00000

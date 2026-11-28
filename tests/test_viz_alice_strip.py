@@ -1,5 +1,6 @@
 """The four-panel charge-without-charge strip on six Alice handles: geometry of the schematic."""
 import numpy as np
+import pytest
 
 from geometrodynamics.viz import alice_strip as st
 from geometrodynamics.viz.alice_circulation import RIM, flux_through_tube_allowed
@@ -60,3 +61,9 @@ def test_pulse_crosses_the_equator_and_refocuses_at_the_source_image():
 def test_render_smoke(tmp_path):
     st.render(tmp_path / "strip.png", dpi=30)
     assert (tmp_path / "strip.png").stat().st_size > 10_000
+
+
+def test_handle_exit_is_not_the_cover_antipode():
+    exit_dot, antipode_dot = st.source_dots()
+    assert antipode_dot == pytest.approx(-1.0)
+    assert exit_dot == pytest.approx(-0.72875, abs=1e-5)

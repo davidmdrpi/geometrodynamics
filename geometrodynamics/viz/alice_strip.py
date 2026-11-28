@@ -15,9 +15,11 @@ added per panel:
 3. **+ Compact antipodal closure.** The two sheets are hemispheres of one closed
    surface, joined at one equator, and the bottom point (x, y) is the top point
    (−x, −y). Dashed rings show the six bottom mouths where they sit on that one
-   surface. A pulse from a mouth p crosses the equator and refocuses at −p on
-   the cover (``antipodal_focusing``), and −p is p itself. Focusing alone
-   creates nothing (#329).
+   surface. A pulse from a mouth p crosses the equator and refocuses at the
+   cover antipode −p (``antipodal_focusing``), which the identification makes
+   p itself. That is not p's handle exit: a vertical handle joins top c to
+   bottom c, while the cover antipode of top c is bottom −c. The two are
+   labelled separately. Focusing alone creates nothing (#329).
 4. **+ Alice seams.** Every handle is the seam type s_t = s_f = −1. It reverses
    time orientation and the fibre, χ → −χ, so q → −q. That is the only
    time-reversing type that lets trapped flux through its tube
@@ -170,6 +172,13 @@ def _on_sphere(xy, top):
     return np.array([xy[0], xy[1], zs if top else -zs])
 
 
+def source_dots():
+    """Unit-vector dot products of the pulse source with its handle exit and with its cover antipode."""
+    c = COLUMNS[WAVE_SOURCE]
+    p = _on_sphere(c, True) / SHEET_RADIUS
+    return float(p @ _on_sphere(c, False)) / SHEET_RADIUS, float(p @ _on_sphere(-c, False)) / SHEET_RADIUS
+
+
 def wavefront(theta: float, n: int = 361):
     """The geodesic circle at angle θ about the source mouth, as sheet points and a top/bottom mask.
 
@@ -280,8 +289,13 @@ def _draw_closure(ax):
     foc = identify(src)
     zf = float(sheet_height(foc, False)[0])
     ax.scatter([foc[0]], [foc[1]], [zf + 0.03], s=60, marker="*", color=WAVE, depthshade=False)
-    ax.text(foc[0] + 0.5 * perp[0], foc[1] + 0.5 * perp[1], zf + 0.12, "−p ≡ p", color=WAVE, fontsize=8)
+    ax.text(foc[0] + 0.5 * perp[0], foc[1] + 0.5 * perp[1], zf + 0.3, "cover antipode\n−p ≡ p", color=WAVE,
+            fontsize=7.5)
     ax.text(src[0] + 0.2, src[1] + 0.2, mouth_height(WAVE_SOURCE) + 0.35, "p", color=WAVE, fontsize=9)
+    # p's handle exit: the bottom end of p's own throat, a different point from the refocus
+    zb = -mouth_height(WAVE_SOURCE)
+    ax.scatter([src[0]], [src[1]], [zb], s=55, marker="x", color="white", linewidths=1.6, depthshade=False)
+    ax.text(src[0], src[1], zb - 0.42, "p's handle exit", color="white", fontsize=7.5, ha="center")
 
 
 def _draw_alice(ax):
@@ -393,7 +407,7 @@ def render(path_png, dpi: int = 110):
     _draw_closure(axes[2])
     fig.text(0.625, 0.045,
              "(x, y)↓ ~ (−x, −y)↑: dashed rings are the bottom mouths on the one surface\n"
-             "magenta: a pulse from p crosses the equator and refocuses at −p, which is p\n"
+             "magenta: a pulse from p refocuses at the cover antipode −p ≡ p, not at p's handle exit (×)\n"
              "focusing alone creates nothing (#329)",
              color="#bbbbbb", ha="center", fontsize=8.5, linespacing=1.5)
     # 4: Alice
