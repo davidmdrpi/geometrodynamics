@@ -192,3 +192,37 @@ two-time measurement programme in these models.
 Scope: classical variational models on fixed geometry with the stated loads.
 This is not a no-go theorem for all classical dynamics. Couplings that are not
 intensity-only, or other state spaces, are not covered.
+
+## Figure 2: the setting built up in four steps
+
+![Charge without charge built up in four panels on six Alice handles](images/alice_circulation/strip.png)
+
+*Schematic; no field equation is solved.* The same camera and geometry are used
+in every panel. The six throats stand in one row, in three pairs, as in
+Wheeler's multi-throat picture. Each panel adds one layer.
+
+1. **Wheeler.** Sourceless flux runs down one throat of each pair and up the
+   other. By ∮E·dA = ±4πq, each mouth shows an apparent charge.
+2. **+ Kaluza–Klein.** The inset zooms on one waist and shows the Hopf fibre χ.
+   The matter wave is the winding mode Ψ = ψ(x)e^{ikχ}, and the charge is the
+   winding k (`docs/guidance_law_from_5d.md`). Flux through a throat is fibre
+   momentum, not a pasted-on source.
+3. **+ Closure.**
+   * The two sheets are hemispheres of one closed surface, joined at one
+     equator, with bottom (x, y) ≡ top (−x, −y).
+   * Dashed rings are the six bottom mouths on that one surface. The dotted
+     chord pairs one of them with its image.
+   * A pulse from a mouth p crosses the equator and, on the cover, refocuses at
+     −p (`antipodal_focusing`). The identification makes −p the point p
+     itself.
+   * Focusing alone creates nothing (#329).
+4. **+ Alice seams.**
+   * Every handle has s_t = s_f = −1: it reverses time orientation and the
+     fibre, so χ → −χ and q → −q.
+   * E2 of `docs/klein_handle_electric.md` makes this the only time-reversing
+     type that lets the flux through its tube.
+   * Each flux loop is one closed worldline: gold where proper time runs with
+     the circulation, cyan where it runs against it.
+
+Drawn by `geometrodynamics/viz/alice_strip.py`. Its tests are in
+`tests/test_viz_alice_strip.py`.
