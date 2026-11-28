@@ -59,3 +59,19 @@ def test_both_time_orientations_on_one_circuit():
 def test_render_smoke(tmp_path):
     ac.render(path_png=tmp_path / "still.png", frames=4, balls=3, dpi=40)
     assert (tmp_path / "still.png").stat().st_size > 10_000
+
+
+def test_handles_are_the_seam_type_that_admits_threading_flux():
+    for s_t, s_f in ac.seam_signs().values():
+        assert s_t == -1                               # an Alice handle reverses time orientation
+        assert ac.flux_through_tube_allowed(s_t, s_f)  # ... and must conjugate charge to carry the flux
+    assert not ac.flux_through_tube_allowed(-1, +1)
+
+
+def test_orientation_flips_at_the_waists():
+    s = np.linspace(0, 1, 8000, endpoint=False)
+    pts = [ac.worldline(x) for x in s]
+    flips = [pts[i].xyz for i in range(len(pts)) if pts[i].orientation != pts[i - 1].orientation]
+    assert len(flips) == 2
+    for xyz in flips:
+        assert abs(xyz[2]) < 0.01                      # at the narrowest point of a throat

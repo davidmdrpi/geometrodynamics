@@ -17,6 +17,12 @@ sheet and against it on the bottom sheet. One circular worldline carries both
 timelike directions. A ball on the bottom sheet is also shown as a hollow ghost
 at its antipode on the top sheet, because they are the same surface.
 
+Each handle is the time-reversing, charge-conjugating seam type, s_t = s_f = −1.
+That is the only time-reversing type that admits flux through the tube
+(``docs/klein_handle_electric.md``, E2: trapped flux needs s_t·s_f = +1). The
+flip is drawn as a seam at each waist. On a non-orientable space where to cut
+is a choice of chart; that the circuit crosses two such seams is not.
+
 The throat profile is the finite-mouth neck r(s) = sqrt(s² + b²) of
 ``bulk.finite_mouth`` with a = 0.3, stretched vertically for display.
 """
@@ -74,6 +80,16 @@ def mouth_charges():
     and enters mouth 2 (−).
     """
     return {("top", 1): -1, ("top", 2): +1, ("bottom", 1): +1, ("bottom", 2): -1}
+
+
+def seam_signs():
+    """(s_t, s_f) of each Alice handle: time orientation and fibre (charge) reversal."""
+    return {1: (-1, -1), 2: (-1, -1)}
+
+
+def flux_through_tube_allowed(s_t: int, s_f: int) -> bool:
+    """E2 of the Klein-handle electric test: trapped flux threads the tube iff s_t·s_f = +1."""
+    return s_t * s_f == +1
 
 
 # ---- the closed worldline -------------------------------------------------------------------
@@ -164,6 +180,9 @@ def orientation_flips(n: int = 4000) -> int:
 # ---- rendering ------------------------------------------------------------------------------
 
 GOLD, CYAN, RED, BLUE, GREEN = "#f5c542", "#55d6f0", "#f0504a", "#4a7df0", "#3fbf7f"
+SEAM, PAIR = "#f2f2f2", "#d9d9d9"
+VIEW = np.array([np.cos(np.radians(13)) * np.cos(np.radians(45)),
+                 np.cos(np.radians(13)) * np.sin(np.radians(45)), np.sin(np.radians(13))])
 
 
 def _draw_static(ax):
@@ -205,7 +224,7 @@ def _draw_static(ax):
         p = identify(c)
         col = RED if q[("bottom", i)] > 0 else BLUE
         xy = p + RIM * np.column_stack([np.cos(th), np.sin(th)])
-        ax.plot(xy[:, 0], xy[:, 1], sheet_height(xy, True) + 0.02, color=col, lw=1.0, ls=(0, (3, 3)), alpha=0.9)
+        ax.plot(xy[:, 0], xy[:, 1], sheet_height(xy, True) + 0.02, color=col, lw=1.7, ls=(0, (3, 2)), alpha=1.0)
     # sourceless flux: dashed lines on each sheet between its two mouths, and through each throat
     m1, m2 = COLUMNS
     for top in (True, False):
@@ -217,10 +236,52 @@ def _draw_static(ax):
         for phi in np.linspace(0, 2 * np.pi, 6, endpoint=False):
             r = 0.6 * column_radius(z)
             ax.plot(c[0] + r * np.cos(phi), c[1] + r * np.sin(phi), z, color=GOLD, lw=0.7, ls=(0, (4, 3)), alpha=0.75)
-    # the worldline itself
-    s = np.linspace(0, 1, 800)
-    P = np.array([worldline(x).xyz for x in s])
-    ax.plot(P[:, 0], P[:, 1], P[:, 2] + 0.02, color=GOLD, lw=1.6, alpha=0.9)
+    # the worldline itself, gold where proper time runs with the circulation, cyan where reversed
+    s = np.linspace(0, 1, 1601)
+    W = [worldline(x) for x in s]
+    P = np.array([w.xyz for w in W]) + 0.02 * np.r_[0, 0, 1]
+    O = np.array([w.orientation for w in W])
+    for sign, col in ((+1, GOLD), (-1, CYAN)):
+        Q = P.copy()
+        Q[O != sign] = np.nan
+        ax.plot(Q[:, 0], Q[:, 1], Q[:, 2], color=col, lw=1.6, alpha=0.95)
+    # the Alice seams: a band at each waist with a half-twist tick
+    for c in COLUMNS:
+        r = 1.18 * column_radius(0.0)
+        ax.plot(c[0] + r * np.cos(th), c[1] + r * np.sin(th), np.zeros_like(th), color=SEAM, lw=1.3, alpha=0.95)
+        u = np.linspace(-1, 1, 40)
+        ang = np.arctan2(FRONT[1], FRONT[0]) + 0.9 * u
+        ax.plot(c[0] + 1.5 * r * np.cos(ang), c[1] + 1.5 * r * np.sin(ang), 0.12 * np.tanh(2.5 * u),
+                color=SEAM, lw=1.1, alpha=0.95)
+    c2 = COLUMNS[1]
+    ax.text(c2[0] + 0.75, c2[1] + 0.75, -0.05, "Alice seam\nt → −t,  q → −q", color=SEAM, fontsize=7.5)
+    # one antipodal pairing: bottom mouth 1 is the top-sheet point −c1, normals ↓ and ↑
+    c1 = COLUMNS[0]
+    zb = -(HEIGHT / 2 - DEPTH)
+    img = identify(c1)
+    zi = sheet_height(img, True)[0]
+    ax.plot([c1[0], img[0]], [c1[1], img[1]], [zb, zi], color=PAIR, lw=0.9, ls=(0, (1, 3)), alpha=0.7)
+    ax.quiver(c1[0], c1[1], zb, 0, 0, -0.35, color=PAIR, lw=1.2, arrow_length_ratio=0.35)
+    ax.quiver(img[0], img[1], zi, 0, 0, 0.35, color=PAIR, lw=1.2, arrow_length_ratio=0.35)
+    ax.text(img[0] + 0.12, img[1] + 0.12, zi + 0.4, "same point", color=PAIR, fontsize=7.5)
+
+
+def _arrow(ax, base, d, color):
+    """A shaft with a chevron head drawn in the screen plane (3D quiver loses the head on vertical arrows)."""
+    tip = base + d
+    u = d / (np.linalg.norm(d) + 1e-15)
+    right = np.cross(VIEW, [0.0, 0.0, 1.0])
+    right /= np.linalg.norm(right)
+    w = np.cross(VIEW, u)
+    if np.linalg.norm(w) < 1e-6:
+        w = right
+    w /= np.linalg.norm(w)
+    h = 0.42 * np.linalg.norm(d)
+    lines = ax.plot(*np.array([base, tip]).T, color=color, lw=2.0)
+    for sgn in (+1, -1):
+        wing = tip - h * u + sgn * 0.55 * h * w
+        lines += ax.plot(*np.array([tip, wing]).T, color=color, lw=2.0)
+    return lines
 
 
 def render(path_gif=None, path_png=None, frames: int = 54, balls: int = 6, dpi: int = 90):
@@ -240,7 +301,7 @@ def render(path_gif=None, path_png=None, frames: int = 54, balls: int = 6, dpi: 
     fig.text(0.5, 0.075, r"$\oint \mathbf{E}\cdot d\mathbf{A} = \pm 4\pi q$", color="white", ha="center", fontsize=20)
     fig.text(0.5, 0.035, "top ≡ bottom:  (x, y)↓ ~ (−x, −y)↑   ·   two Alice handles, four antipodal mouths",
              color="#cccccc", ha="center", fontsize=9)
-    fig.text(0.5, 0.012, "gold: proper time along the circuit   ·   cyan: reversed after a handle   ·   hollow: antipodal image   ·   schematic",
+    fig.text(0.5, 0.012, "gold: proper time along the circuit · cyan: reversed · white band: Alice seam · dotted: same point · schematic",
              color="#999999", ha="center", fontsize=7.5)
 
     dots = ax.scatter([], [], [], s=60, depthshade=False)
@@ -267,7 +328,7 @@ def render(path_gif=None, path_png=None, frames: int = 54, balls: int = 6, dpi: 
             ghosts._offsets3d = ([], [], [])
         for p, c in zip(pts, cols):
             d = 0.32 * p.orientation * p.tangent
-            arrows.append(ax.quiver(*p.xyz + np.array([0, 0, 0.03]), *d, color=c, lw=1.8, arrow_length_ratio=0.45))
+            arrows += _arrow(ax, p.xyz + np.array([0, 0, 0.03]) + 0.09 * VIEW, d, c)
         return [dots, ghosts, *arrows]
 
     if path_png is not None:

@@ -19,8 +19,16 @@ surface: the bottom point (x, y) is the top point (−x, −y).
   worldline. Each handle reverses time orientation at its waist, so a ball's
   proper-time arrow runs along the circulation on the top sheet (gold) and
   against it on the bottom (cyan).
+* **The Alice seam.** A white band with a half-twist tick marks each flip.
+  Each handle is the seam type with s_t = s_f = −1: it reverses both time and
+  charge. By E2 of `docs/klein_handle_electric.md`, that is the only
+  time-reversing type through whose tube trapped flux can pass. Placing the
+  seam at the waist is a choice of chart. That the circuit crosses two seams
+  is not.
 * **The single surface.** Dashed rings and hollow markers on the top sheet show
-  the bottom mouths and balls at their antipodal images on the one surface.
+  the bottom mouths and balls at their antipodal images on the one surface. One
+  dotted chord pairs the bottom + mouth with its image: the same point, with
+  the sheet normal ↓ below and ↑ above.
 * **Source.** Drawn by `geometrodynamics/viz/alice_circulation.py`. The throat
   profile is the finite-mouth neck with a = 0.3, stretched vertically.
 
